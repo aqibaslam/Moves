@@ -1,46 +1,36 @@
 import type { Metadata, Viewport } from 'next';
-import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
+import { aeonik, caveat, jost, silka } from './fonts';
 import './globals.css';
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-sans-loaded',
-});
-
-const mono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono-loaded',
-});
+import './moves.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Moves',
+    default: 'Moves — The movement behind modern smiles',
     template: '%s · Moves',
   },
-  description: 'Moves.',
+  description:
+    'MOVES is the movement behind modern smiles. Planned in person, signed by a named GDC-registered dentist, at a price we publish.',
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
-  ],
+  themeColor: '#05143B',
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`${jost.variable} ${silka.variable} ${caveat.variable} ${aeonik.variable}`}
+    >
       <body>
         <a href="#main" className="sr-only">
           Skip to content
         </a>
-        <main id="main">{children}</main>
+        {children}
       </body>
     </html>
   );
