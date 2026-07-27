@@ -2,15 +2,48 @@ import { Check } from './icons';
 
 const FEATURES = ['Dual Arch', '4—6 months treatment time', 'Crowding on 6-8 teeth', 'Bite correction'];
 
-function Features() {
+function PlanCard({
+  title,
+  pink = false,
+  btnClass,
+  alt,
+}: {
+  title: string;
+  pink?: boolean;
+  btnClass: string;
+  alt: string;
+}) {
   return (
-    <div className="pcard__feats">
-      {FEATURES.map((f) => (
-        <span className="feat" key={f}>
-          <Check />
-          {f}
-        </span>
-      ))}
+    <div className={`pcard${pink ? ' pcard--pink' : ''}`}>
+      <div className="pcard__head">
+        <div className="pcard__info">
+          <h3 className="pcard__title">{title}</h3>
+          <div className="pcard__pricing">
+            <p className="pcard__from">From</p>
+            <div className="pcard__price">
+              <b>£16.30</b>
+              <span>/per month</span>
+            </div>
+          </div>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="pcard__product" src="/images/pricing-product.png" alt={alt} />
+      </div>
+
+      <hr className="pcard__div" />
+
+      <div className="pcard__feats">
+        {FEATURES.map((f) => (
+          <span className="feat" key={f}>
+            <Check />
+            {f}
+          </span>
+        ))}
+      </div>
+
+      <a className={`btn ${btnClass}`} href="#cta">
+        Book Free Consultation
+      </a>
     </div>
   );
 }
@@ -32,37 +65,8 @@ export function Pricing() {
         </div>
 
         <div className="pricing__cards">
-          <div className="pcard pcard--pink">
-            <h3 className="pcard__title">Clear aligners</h3>
-            <p className="pcard__from">From</p>
-            <div className="pcard__price">
-              <b>£16.30</b>
-              <span>/per month</span>
-            </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="pcard__product" src="/images/pricing-product.png" alt="Clear aligner" />
-            <hr className="pcard__div" />
-            <Features />
-            <a className="btn btn--coral" href="#cta">
-              Book Free Consultation
-            </a>
-          </div>
-
-          <div className="pcard">
-            <h3 className="pcard__title">Composite Bonding</h3>
-            <p className="pcard__from">From</p>
-            <div className="pcard__price">
-              <b>£16.30</b>
-              <span>/per month</span>
-            </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="pcard__product" src="/images/pricing-product.png" alt="Composite bonding" />
-            <hr className="pcard__div" />
-            <Features />
-            <a className="btn btn--navy" href="#cta">
-              Book Free Consultation
-            </a>
-          </div>
+          <PlanCard title="Clear aligners" pink btnClass="btn--coral" alt="Clear aligner" />
+          <PlanCard title="Composite Bonding" btnClass="btn--navy" alt="Composite bonding" />
         </div>
       </div>
     </section>

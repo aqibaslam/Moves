@@ -9,13 +9,23 @@ const WORDS = [
   'FIRST MOVE',
 ];
 
+function Group() {
+  return (
+    <div className="marquee__group" aria-hidden="true">
+      {WORDS.map((w, i) => (
+        <span key={`${w}-${i}`}>{w}</span>
+      ))}
+    </div>
+  );
+}
+
 export function Marquee() {
   return (
-    <div className="marquee" aria-hidden="true">
-      <div className="marquee__row">
-        {WORDS.map((w, i) => (
-          <span key={`${w}-${i}`}>{w}</span>
-        ))}
+    <div className="marquee">
+      {/* two identical groups so the -50% translate loops seamlessly */}
+      <div className="marquee__track">
+        <Group />
+        <Group />
       </div>
     </div>
   );

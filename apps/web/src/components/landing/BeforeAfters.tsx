@@ -1,4 +1,8 @@
-const CARDS = [
+'use client';
+
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+const BASE = [
   {
     before: 'ba-1-before',
     after: 'ba-1-after',
@@ -33,7 +37,70 @@ const CARDS = [
   },
 ];
 
+// The design shows more cards than fit — duplicate the set so the track scrolls.
+const CARDS = [...BASE, ...BASE];
+
+const DOTS = 6;
+
 export function BeforeAfters() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  // drag-to-scroll state (refs so dragging doesn't re-render on every move)
+  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
+
+  const maxScroll = () => {
+    const el = trackRef.current;
+    return el ? el.scrollWidth - el.clientWidth : 0;
+  };
+
+  const syncActive = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const ratio = max > 0 ? el.scrollLeft / max : 0;
+    setActive(Math.round(ratio * (DOTS - 1)));
+  }, []);
+
+  const goToDot = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollTo({ left: (i / (DOTS - 1)) * maxScroll(), behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', syncActive, { passive: true });
+    window.addEventListener('resize', syncActive);
+    syncActive();
+    return () => {
+      el.removeEventListener('scroll', syncActive);
+      window.removeEventListener('resize', syncActive);
+    };
+  }, [syncActive]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    const el = trackRef.current;
+    // Only take over dragging for mouse; touch/pen use native momentum scroll.
+    if (!el || e.pointerType !== 'mouse') return;
+    drag.current = { down: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
+    el.classList.add('dragging');
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const el = trackRef.current;
+    if (!el || !drag.current.down) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 3) drag.current.moved = true;
+    el.scrollLeft = drag.current.startLeft - dx;
+  };
+  const endDrag = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    drag.current.down = false;
+    el.classList.remove('dragging');
+  };
+
   return (
     <section className="card-section ba">
       <div className="ba__head">
@@ -46,19 +113,29 @@ export function BeforeAfters() {
         </p>
       </div>
 
-      <div className="ba__cards">
-        {CARDS.map((c) => (
-          <article className="bacard" key={c.name}>
+      <div
+        className="ba__cards"
+        ref={trackRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerLeave={endDrag}
+        onPointerCancel={endDrag}
+        role="group"
+        aria-label="Before and after case studies"
+      >
+        {CARDS.map((c, i) => (
+          <article className="bacard" key={`${c.name}-${i}`}>
             <div className="bacard__imgs">
               <div className="bacard__img">
                 <span className="ba-chip">Before</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/${c.before}.png`} alt={`${c.name} before`} />
+                <img src={`/images/${c.before}.png`} alt={`${c.name} before`} draggable={false} />
               </div>
               <div className="bacard__img">
                 <span className="ba-chip">After</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/${c.after}.png`} alt={`${c.name} after`} />
+                <img src={`/images/${c.after}.png`} alt={`${c.name} after`} draggable={false} />
               </div>
             </div>
             <h3 className="bacard__name">{c.name}</h3>
@@ -71,13 +148,17 @@ export function BeforeAfters() {
         ))}
       </div>
 
-      <div className="dots" aria-hidden="true">
-        <i className="on" />
-        <i />
-        <i />
-        <i />
-        <i />
-        <i />
+      <div className="dots" role="tablist" aria-label="Slider pages">
+        {Array.from({ length: DOTS }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`dots__btn${i === active ? ' on' : ''}`}
+            aria-label={`Go to slide ${i + 1}`}
+            aria-selected={i === active}
+            onClick={() => goToDot(i)}
+          />
+        ))}
       </div>
     </section>
   );

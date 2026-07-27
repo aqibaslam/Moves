@@ -18,15 +18,26 @@ export function Team() {
       </div>
 
       <div className="team__cards">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <article className="tcard" key={i}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="tcard__photo" src="/images/team-photo.png" alt="Dr. Amir Hussain" />
-            <div className="tcard__info">
-              <div>
-                <h3 className="tcard__name">Dr. Amir Hussain</h3>
-                <p className="tcard__sub">Moves Verified Dentist</p>
-                <p className="tcard__sub">GDC No. 12345</p>
+            <div className="tcard__right">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="tcard__mark"
+                src="/images/team-icon.svg"
+                alt=""
+                aria-hidden="true"
+                width={22}
+                height={20}
+              />
+              <div className="tcard__info">
+                <p className="tcard__name">Dr. Amir Hussain</p>
+                <div className="tcard__sub">
+                  <span>Moves Verified Dentist</span>
+                  <span>GDC No. 12345</span>
+                </div>
               </div>
             </div>
           </article>
