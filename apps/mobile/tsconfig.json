@@ -1,0 +1,15 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    // Mirrors Metro's resolution order so `import { Button } from '@moves/ui'`
+    // type-checks against Button.native.tsx here and Button.tsx on web.
+    // Without this, TypeScript picks the web file and reports phantom errors
+    // about CSS modules that Metro never sees.
+    "moduleSuffixes": [".native", ""],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}

@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Moves",
+    "slug": "moves",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "moves",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "co.convertt.moves"
+    },
+    "android": {
+      "package": "co.convertt.moves",
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
