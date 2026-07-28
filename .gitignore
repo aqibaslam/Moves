@@ -9,6 +9,11 @@ build/
 .turbo/
 *.tsbuildinfo
 
+# payload — local dev database + media uploads (used before Supabase is wired)
+apps/web/moves-cms-dev.db
+apps/web/moves-cms-dev.db-*
+apps/web/public/media/
+
 # env — never commit real credentials
 .env
 .env.local

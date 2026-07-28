@@ -1,3 +1,13 @@
+import { mediaUrl } from '@/lib/media';
+
+export interface MoversData {
+  eyebrow?: string;
+  heading?: { accent?: string; rest?: string };
+  subtext?: string;
+  button?: { label?: string; href?: string };
+  tiers?: { icon?: unknown; title?: string; body?: string }[];
+}
+
 const TIERS = [
   {
     icon: 'icon-target',
@@ -21,32 +31,40 @@ const TIERS = [
   },
 ];
 
-export function Movers() {
+export function Movers({ data }: { data?: MoversData }) {
+  const tiers = data?.tiers?.length
+    ? data.tiers.map((t) => ({
+        icon: mediaUrl(t.icon, ''),
+        title: t.title ?? '',
+        body: t.body ?? '',
+      }))
+    : TIERS.map((t) => ({ icon: `/images/${t.icon}.svg`, title: t.title, body: t.body }));
+
   return (
     <section className="card-section movers">
       <div className="movers__head">
         <div className="movers__head-l">
-          <p className="eyebrow">THE MOVERS</p>
+          <p className="eyebrow">{data?.eyebrow ?? 'THE MOVERS'}</p>
           <h2 className="h-section">
-            <span className="c">You don&rsquo;t buy moves.</span> You join it.
+            <span className="c">{data?.heading?.accent ?? 'You don’t buy moves.'}</span>{' '}
+            {data?.heading?.rest ?? 'You join it.'}
           </h2>
           <p className="lead">
-            Every patient becomes a Mover on scan day: a code of your own, rewards when a friend
-            makes their move, first look at whatever we do next. The best Movers end up making the
-            brand with us.
+            {data?.subtext ??
+              'Every patient becomes a Mover on scan day: a code of your own, rewards when a friend makes their move, first look at whatever we do next. The best Movers end up making the brand with us.'}
           </p>
         </div>
-        <a className="btn btn--navy btn--w250" href="#cta">
-          Book Free Consultation
+        <a className="btn btn--navy btn--w250" href={data?.button?.href ?? '#cta'}>
+          {data?.button?.label ?? 'Book Free Consultation'}
         </a>
       </div>
 
       <div className="movers__tiers">
-        {TIERS.map((t) => (
-          <div className="tier" key={t.title}>
+        {tiers.map((t, i) => (
+          <div className="tier" key={i}>
             <span className="tier__icon">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/images/${t.icon}.svg`} alt="" aria-hidden="true" width={24} height={24} />
+              <img src={t.icon} alt="" aria-hidden="true" width={24} height={24} />
             </span>
             <h3 className="tier__title">{t.title}</h3>
             <p className="tier__body">{t.body}</p>

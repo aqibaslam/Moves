@@ -3,6 +3,12 @@
 import { useState } from 'react';
 import { Plus } from './icons';
 
+export interface FaqsData {
+  eyebrow?: string;
+  heading?: { accent?: string; rest?: string };
+  items?: { question?: string; answer?: string }[];
+}
+
 // Questions are verbatim from Figma; the design ships them collapsed with no
 // answer copy, so these answers are written from the page's own claims.
 // Edit freely — they're content, not layout.
@@ -45,23 +51,28 @@ const FAQS = [
   },
 ];
 
-export function Faqs() {
+export function Faqs({ data }: { data?: FaqsData }) {
   const [open, setOpen] = useState<number | null>(0);
+
+  const items = data?.items?.length
+    ? data.items.map((it) => ({ q: it.question ?? '', a: it.answer ?? '' }))
+    : FAQS;
 
   return (
     <section className="card-section faqs">
       <div className="faqs__head">
-        <p className="eyebrow">FAQS</p>
+        <p className="eyebrow">{data?.eyebrow ?? 'FAQS'}</p>
         <h2 className="faqs__title">
-          Frequently <span className="ink">asked questions</span>
+          {data?.heading?.accent ?? 'Frequently'}{' '}
+          <span className="ink">{data?.heading?.rest ?? 'asked questions'}</span>
         </h2>
       </div>
 
       <div className="faqs__list">
-        {FAQS.map((item, i) => {
+        {items.map((item, i) => {
           const isOpen = open === i;
           return (
-            <div className={`faq${isOpen ? ' faq--open' : ''}`} key={item.q}>
+            <div className={`faq${isOpen ? ' faq--open' : ''}`} key={i}>
               <button
                 type="button"
                 className="faq__q"

@@ -1,3 +1,19 @@
+import { mediaUrl, mediaAlt } from '@/lib/media';
+
+export interface HowItWorksData {
+  eyebrow?: string;
+  heading?: { accent?: string; rest?: string };
+  subtext?: string;
+  button?: { label?: string; href?: string };
+  steps?: {
+    stepLabel?: string;
+    title?: string;
+    body?: string;
+    image?: unknown;
+    imageOverlay?: unknown;
+  }[];
+}
+
 const STEPS = [
   {
     num: 'STEP 01',
@@ -16,39 +32,58 @@ const STEPS = [
   },
 ];
 
-export function HowItWorks() {
+export function HowItWorks({ data }: { data?: HowItWorksData }) {
+  const steps = data?.steps?.length
+    ? data.steps.map((s) => ({
+        num: s.stepLabel ?? '',
+        title: s.title ?? '',
+        body: s.body ?? '',
+        image: mediaUrl(s.image, ''),
+        imageAlt: mediaAlt(s.image, s.title ?? ''),
+        overlay: s.imageOverlay ? mediaUrl(s.imageOverlay, '') : null,
+      }))
+    : STEPS.map((s, i) => ({
+        num: s.num,
+        title: s.title,
+        body: s.body,
+        image: `/images/step${i + 1}${i === 0 ? '-a' : ''}.png`,
+        imageAlt: s.title,
+        overlay: i === 0 ? '/images/step1-b.png' : null,
+      }));
+
   return (
     <section className="card-section how">
       <div className="how__head">
         <div className="how__head-l">
-          <p className="eyebrow">HOW IT WORKS</p>
+          <p className="eyebrow">{data?.eyebrow ?? 'HOW IT WORKS'}</p>
           <h2 className="h-section">
-            <span className="c">You move,</span> in Three moves
+            <span className="c">{data?.heading?.accent ?? 'You move,'}</span>{' '}
+            {data?.heading?.rest ?? 'in Three moves'}
           </h2>
           <p className="lead">
-            No postal impression kits. No anonymous review team. A dentist, a scanner, a signature
-            then motion.
+            {data?.subtext ??
+              'No postal impression kits. No anonymous review team. A dentist, a scanner, a signature then motion.'}
           </p>
         </div>
-        <a className="btn btn--navy btn--w250" href="#cta">
-          Book Free Consultation
+        <a className="btn btn--navy btn--w250" href={data?.button?.href ?? '#cta'}>
+          {data?.button?.label ?? 'Book Free Consultation'}
         </a>
       </div>
 
       <div className="how__steps">
-        {STEPS.map((s, i) => (
-          <div className="step" key={s.num}>
+        {steps.map((s, i) => (
+          <div className="step" key={i}>
             <div className="step__top">
               <span className="step__num">{s.num}</span>
               <h3 className="step__title">{s.title}</h3>
             </div>
-            <div className={`step__media${i === 0 ? ' step__media--stack' : ''}`}>
+            <div className={`step__media${s.overlay ? ' step__media--stack' : ''}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/images/step${i + 1}${i === 0 ? '-a' : ''}.png`} alt={s.title} />
-              {i === 0 && (
+              <img src={s.image} alt={s.imageAlt} />
+              {s.overlay && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src="/images/step1-b.png"
+                  src={s.overlay}
                   alt=""
                   aria-hidden="true"
                   style={{ left: '58%', top: 0, height: '70%' }}

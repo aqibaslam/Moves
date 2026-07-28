@@ -1,3 +1,7 @@
+export interface MarqueeData {
+  words?: { text?: string }[];
+}
+
 const WORDS = [
   'MAKING MOVES',
   'SMILES IN MOTION',
@@ -9,23 +13,25 @@ const WORDS = [
   'FIRST MOVE',
 ];
 
-function Group() {
+function Group({ words }: { words: string[] }) {
   return (
     <div className="marquee__group" aria-hidden="true">
-      {WORDS.map((w, i) => (
+      {words.map((w, i) => (
         <span key={`${w}-${i}`}>{w}</span>
       ))}
     </div>
   );
 }
 
-export function Marquee() {
+export function Marquee({ data }: { data?: MarqueeData }) {
+  const words = data?.words?.length ? data.words.map((w) => w.text ?? '') : WORDS;
+
   return (
     <div className="marquee">
       {/* two identical groups so the -50% translate loops seamlessly */}
       <div className="marquee__track">
-        <Group />
-        <Group />
+        <Group words={words} />
+        <Group words={words} />
       </div>
     </div>
   );

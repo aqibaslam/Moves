@@ -35,10 +35,10 @@ export const caveat = Caveat({
 
 export const aeonik = localFont({
   src: [
-    { path: '../../public/fonts/Aeonik-Regular.ttf', weight: '400', style: 'normal' },
-    { path: '../../public/fonts/Aeonik-Medium.ttf', weight: '500', style: 'normal' },
-    { path: '../../public/fonts/Aeonik-Bold.ttf', weight: '700', style: 'normal' },
-    { path: '../../public/fonts/Aeonik-Black.ttf', weight: '900', style: 'normal' },
+    { path: '../../../public/fonts/Aeonik-Regular.ttf', weight: '400', style: 'normal' },
+    { path: '../../../public/fonts/Aeonik-Medium.ttf', weight: '500', style: 'normal' },
+    { path: '../../../public/fonts/Aeonik-Bold.ttf', weight: '700', style: 'normal' },
+    { path: '../../../public/fonts/Aeonik-Black.ttf', weight: '900', style: 'normal' },
   ],
   display: 'swap',
   variable: '--font-aeonik',

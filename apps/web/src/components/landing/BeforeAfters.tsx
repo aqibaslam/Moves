@@ -1,6 +1,21 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { mediaUrl, mediaAlt } from '@/lib/media';
+
+export interface BeforeAftersData {
+  eyebrow?: string;
+  heading?: { accent?: string; rest?: string };
+  subtext?: string;
+  cards?: {
+    name?: string;
+    quote?: string;
+    signedBy?: string;
+    gdc?: string;
+    beforeImage?: unknown;
+    afterImage?: unknown;
+  }[];
+}
 
 const BASE = [
   {
@@ -42,9 +57,31 @@ const CARDS = [...BASE, ...BASE];
 
 const DOTS = 6;
 
-export function BeforeAfters() {
+export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+
+  const cards = data?.cards?.length
+    ? data.cards.map((c) => ({
+        before: mediaUrl(c.beforeImage, ''),
+        after: mediaUrl(c.afterImage, ''),
+        beforeAlt: mediaAlt(c.beforeImage, `${c.name ?? ''} before`),
+        afterAlt: mediaAlt(c.afterImage, `${c.name ?? ''} after`),
+        name: c.name ?? '',
+        quote: c.quote ?? '',
+        signed: c.signedBy ?? '',
+        gdc: c.gdc ?? 'GDC: 251837',
+      }))
+    : CARDS.map((c) => ({
+        before: `/images/${c.before}.png`,
+        after: `/images/${c.after}.png`,
+        beforeAlt: `${c.name} before`,
+        afterAlt: `${c.name} after`,
+        name: c.name,
+        quote: c.quote,
+        signed: c.signed,
+        gdc: 'GDC: 251837',
+      }));
 
   // drag-to-scroll state (refs so dragging doesn't re-render on every move)
   const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
@@ -104,12 +141,14 @@ export function BeforeAfters() {
   return (
     <section className="card-section ba">
       <div className="ba__head">
-        <p className="eyebrow">BEFORE AND AFTERS</p>
+        <p className="eyebrow">{data?.eyebrow ?? 'BEFORE AND AFTERS'}</p>
         <h2 className="h-section">
-          <span className="c">Real moves.</span> Signed.
+          <span className="c">{data?.heading?.accent ?? 'Real moves.'}</span>{' '}
+          {data?.heading?.rest ?? 'Signed.'}
         </h2>
         <p className="lead">
-          Every case unretouched, originals on file, signed by the dentist responsible.
+          {data?.subtext ??
+            'Every case unretouched, originals on file, signed by the dentist responsible.'}
         </p>
       </div>
 
@@ -124,25 +163,25 @@ export function BeforeAfters() {
         role="group"
         aria-label="Before and after case studies"
       >
-        {CARDS.map((c, i) => (
+        {cards.map((c, i) => (
           <article className="bacard" key={`${c.name}-${i}`}>
             <div className="bacard__imgs">
               <div className="bacard__img">
                 <span className="ba-chip">Before</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/${c.before}.png`} alt={`${c.name} before`} draggable={false} />
+                <img src={c.before} alt={c.beforeAlt} draggable={false} />
               </div>
               <div className="bacard__img">
                 <span className="ba-chip">After</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/${c.after}.png`} alt={`${c.name} after`} draggable={false} />
+                <img src={c.after} alt={c.afterAlt} draggable={false} />
               </div>
             </div>
             <h3 className="bacard__name">{c.name}</h3>
             <p className="bacard__quote">{c.quote}</p>
             <div className="bacard__foot">
               <span className="bacard__signed">{c.signed}</span>
-              <span className="gdc-pill">GDC: 251837</span>
+              <span className="gdc-pill">{c.gdc}</span>
             </div>
           </article>
         ))}

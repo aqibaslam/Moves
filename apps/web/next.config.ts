@@ -1,5 +1,10 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { withPayload } from '@payloadcms/next/withPayload';
 import type { NextConfig } from 'next';
+
+// ESM: __dirname isn't available (package is "type": "module").
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -7,7 +12,7 @@ const nextConfig: NextConfig = {
   // Without this Next walks up and finds C:\Users\DELL\package-lock.json,
   // guessing the wrong workspace root.
   turbopack: {
-    root: path.join(__dirname, '../..'),
+    root: path.join(dirname, '../..'),
   },
 
   // Workspace packages ship raw TS — Next must compile them.
@@ -19,7 +24,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '*.supabase.co',
-        pathname: '/storage/v1/object/public/**',
+        pathname: '/storage/v1/**',
       },
     ],
   },
@@ -28,4 +33,4 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
 };
 
-export default nextConfig;
+export default withPayload(nextConfig, { devBundleServerPackages: false });

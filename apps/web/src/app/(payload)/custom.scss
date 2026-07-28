@@ -1,0 +1,78 @@
+/* ============================================================
+   Moves CMS — branded admin theme.
+   Payload exposes its palette via CSS variables; we retint the
+   accent to the Moves coral/navy and warm up the surfaces so the
+   dashboard feels like part of the product, not stock Payload.
+   ============================================================ */
+
+:root {
+  /* brand */
+  --moves-navy: #04143a;
+  --moves-coral: #fc5257;
+  --moves-pink: #fde3e4;
+  --moves-page: #f2f6fe;
+
+  /* retint Payload's accent scale to coral */
+  --theme-success-500: #10b981;
+
+  --color-base-0: #ffffff;
+  --color-base-50: #f7f9fd;
+  --color-base-100: #eef2fb;
+}
+
+html[data-theme='light'] {
+  --theme-bg: var(--moves-page);
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #f7f9fd;
+
+  /* primary action buttons / links → coral */
+  --theme-success-500: #10b981;
+  --color-success-500: #10b981;
+
+  --theme-text: var(--moves-navy);
+}
+
+html[data-theme='dark'] {
+  --theme-bg: #071024;
+  --theme-elevation-0: #0b1a3a;
+}
+
+/* Accent used by primary buttons, active nav, focus rings */
+.btn--style-primary,
+.btn--icon-style-with-border.btn--style-primary {
+  --bg-color: var(--moves-navy);
+  --hover-bg: var(--moves-coral);
+}
+
+/* Nav: brand the active group + logo area */
+.nav {
+  .nav__link--active,
+  .nav-group__toggle:hover {
+    color: var(--moves-coral);
+  }
+}
+
+/* Login screen: soft brand wash */
+.login {
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(252, 82, 87, 0.1), transparent 60%),
+    var(--moves-page);
+}
+
+.login__brand,
+.graphic-logo {
+  color: var(--moves-navy);
+}
+
+/* Section-group headings in the sidebar */
+.nav-group__label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  color: var(--moves-coral);
+}
+
+/* Friendlier document headers */
+.doc-header__title {
+  font-weight: 600;
+}

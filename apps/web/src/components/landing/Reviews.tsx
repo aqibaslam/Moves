@@ -1,13 +1,27 @@
 import { StarChip, TrustpilotStar } from './icons';
 
-const REVIEW = {
+export interface ReviewsData {
+  ratingCount?: string;
+  heading?: { accent?: string; rest?: string };
+  viewMoreLabel?: string;
+  reviews?: { author?: string; timeAgo?: string; title?: string; body?: string }[];
+}
+
+interface Review {
+  meta: string;
+  ago: string;
+  title: string;
+  body: string;
+}
+
+const REVIEW: Review = {
   meta: 'Pauline,',
   ago: '5 hours ago',
   title: 'Moves is genius',
   body: 'With Capable, I’ve expanded my network and found genuine connections. The seamless interface makes socializing so much easier.',
 };
 
-function ReviewCard() {
+function ReviewCard({ review }: { review: Review }) {
   return (
     <article className="rcard">
       <div className="rcard__top">
@@ -19,20 +33,32 @@ function ReviewCard() {
         <span className="rcard__verified">Verified</span>
       </div>
       <p className="rcard__meta">
-        {REVIEW.meta} <span className="reg">{REVIEW.ago}</span>
+        {review.meta} <span className="reg">{review.ago}</span>
       </p>
-      <h3 className="rcard__title">{REVIEW.title}</h3>
-      <p className="rcard__body">{REVIEW.body}</p>
+      <h3 className="rcard__title">{review.title}</h3>
+      <p className="rcard__body">{review.body}</p>
     </article>
   );
 }
 
-export function Reviews() {
+export function Reviews({ data }: { data?: ReviewsData }) {
+  const reviews: Review[] = data?.reviews?.length
+    ? data.reviews.map((r) => ({
+        meta: r.author ? `${r.author},` : '',
+        ago: r.timeAgo ?? '',
+        title: r.title ?? '',
+        body: r.body ?? '',
+      }))
+    : Array.from({ length: 12 }).map(() => REVIEW);
+
+  const columns: Review[][] = [[], [], []];
+  reviews.forEach((r, i) => columns[i % 3].push(r));
+
   return (
     <section className="card-section reviews">
       <div className="reviews__head">
         <div className="reviews__tp">
-          <span className="rating__count">Excellent (3,890)</span>
+          <span className="rating__count">{data?.ratingCount ?? 'Excellent (3,890)'}</span>
           <div className="rating__stars">
             {Array.from({ length: 5 }).map((_, i) => (
               <StarChip key={i} />
@@ -44,22 +70,23 @@ export function Reviews() {
           </div>
         </div>
         <h2 className="reviews__title">
-          <span className="c">Don&rsquo;t take</span> our word for it
+          <span className="c">{data?.heading?.accent ?? 'Don’t take'}</span>{' '}
+          {data?.heading?.rest ?? 'our word for it'}
         </h2>
       </div>
 
       <div className="reviews__grid">
-        {Array.from({ length: 3 }).map((_, col) => (
-          <div className="reviews__col" key={col}>
-            {Array.from({ length: 4 }).map((__, row) => (
-              <ReviewCard key={row} />
+        {columns.map((col, ci) => (
+          <div className="reviews__col" key={ci}>
+            {col.map((r, ri) => (
+              <ReviewCard key={ri} review={r} />
             ))}
           </div>
         ))}
       </div>
 
       <a className="btn btn--outline" href="#">
-        View more
+        {data?.viewMoreLabel ?? 'View more'}
       </a>
     </section>
   );
