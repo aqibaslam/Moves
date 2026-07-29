@@ -105,11 +105,11 @@ export function MenuIcon() {
   );
 }
 
-/** The rounded starburst behind the "30 days" guarantee badge. */
+/** Scalloped seal behind the "30 days" guarantee badge (Figma). */
 export function Starburst() {
   return (
-    <svg viewBox="0 0 307 300" fill="currentColor" aria-hidden="true">
-      <path d="M153.5 0l28 34 42-18 12 44 44 6-16 42 34 30-34 30 16 42-44 6-12 44-42-18-28 34-28-34-42 18-12-44-44-6 16-42L20 210l34-30-16-42 44-6 12-44 42 18 28-34z" />
+    <svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true">
+      <path d="M100.0 26.0A18.5 18.5 0 0 1 128.3 31.6A18.5 18.5 0 0 1 152.3 47.7A18.5 18.5 0 0 1 168.4 71.7A18.5 18.5 0 0 1 174.0 100.0A18.5 18.5 0 0 1 168.4 128.3A18.5 18.5 0 0 1 152.3 152.3A18.5 18.5 0 0 1 128.3 168.4A18.5 18.5 0 0 1 100.0 174.0A18.5 18.5 0 0 1 71.7 168.4A18.5 18.5 0 0 1 47.7 152.3A18.5 18.5 0 0 1 31.6 128.3A18.5 18.5 0 0 1 26.0 100.0A18.5 18.5 0 0 1 31.6 71.7A18.5 18.5 0 0 1 47.7 47.7A18.5 18.5 0 0 1 71.7 31.6A18.5 18.5 0 0 1 100.0 26.0Z" />
     </svg>
   );
 }

@@ -81,7 +81,8 @@
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.0556em;
-  padding: 16px 32px;
+  height: 45px;
+  padding: 0 32px;
   border-radius: 90px;
   white-space: nowrap;
   transition:
@@ -112,7 +113,6 @@
   border: 1px solid var(--navy);
   font-size: 16px;
   letter-spacing: -0.0625em;
-  padding: 14px 32px;
 }
 .btn--outline:hover {
   background: var(--navy);
@@ -223,6 +223,39 @@
 .nav__cta-full {
   display: inline;
 }
+/* header CTA is shorter than section buttons: 39px desktop */
+.nav__cta {
+  height: 39px;
+}
+
+/* mobile slide-down menu (opened by the hamburger) */
+.nav__menu {
+  display: none;
+}
+.nav__menu--open {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 16px 24px;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+}
+.nav__menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.nav__menu-links a {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.nav__menu-cta {
+  width: 100%;
+}
 
 .hero {
   display: flex;
@@ -230,7 +263,9 @@
   min-height: 800px;
 }
 .hero__left {
-  flex: 0 0 707px;
+  /* shrink proportionally with the media below 1440 so the portrait
+     column isn't squeezed (and the image not over-cropped) */
+  flex: 1 1 707px;
   max-width: 707px;
   display: flex;
   flex-direction: column;
@@ -403,12 +438,13 @@
   padding-top: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 40px;
 }
 .problem__items {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 20px;
   list-style: none;
 }
 .problem__item {
@@ -422,7 +458,7 @@
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 32px;
-  line-height: 1.4;
+  line-height: 1.1875;
   letter-spacing: -0.02em;
   color: rgba(4, 20, 58, 0.2);
   transition: color var(--duration-fast, 140ms) var(--ease-standard, cubic-bezier(0.2, 0, 0, 1));
@@ -460,6 +496,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Anchor the top edge: subjects' heads sit near the top of these photos,
+     so any cover-crop or the scale-in below must eat the bottom, never the top. */
+  object-position: center top;
+  transform-origin: top center;
   opacity: 0;
   transform: scale(1.04);
   transition:
@@ -538,6 +578,14 @@
 }
 .manifesto__title .dim {
   color: rgba(255, 255, 255, 0.4);
+}
+/* scroll-linked word highlight: each word brightens as the block scrolls up */
+.manifesto__title .reveal-word {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.25s ease-out;
+}
+.manifesto__title .reveal-word.is-lit {
+  color: var(--white);
 }
 .manifesto__sub {
   font-family: var(--f-body);
@@ -670,6 +718,10 @@
 .how__head-l .lead {
   max-width: 488px;
 }
+/* the after-steps CTA is mobile-only (desktop keeps the header CTA) */
+.how__cta--foot {
+  display: none;
+}
 .how__steps {
   display: flex;
   align-items: stretch;
@@ -709,19 +761,24 @@
   height: 218px;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   /* pink pill behind the step photo — Figma EL-1784e7b7 (fill #FDADB0, r150) */
   background: var(--pink-chip);
   border-radius: 150px;
+  /* keep the photo inside the pill — no pop-out above the oval */
+  overflow: hidden;
 }
 .step__media img {
   height: 100%;
   width: auto;
+  max-width: 100%;
   object-fit: contain;
+  object-position: bottom center;
 }
 .step__media--stack img {
   position: absolute;
+  bottom: 0;
 }
 .step__body {
   font-family: var(--f-body);
@@ -785,6 +842,7 @@
 }
 .bacard {
   flex: 0 0 327px;
+  align-self: flex-start;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -843,14 +901,14 @@
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--navy);
-  margin: 0;
+  /* 20px above/below the quote (trim 12px from the card's 32px gap) */
+  margin: -12px 0;
 }
 .bacard__foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: auto;
 }
 .bacard__signed {
   font-family: var(--f-body);
@@ -936,10 +994,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   padding: 40px;
   border-radius: 24px;
   background: var(--bg);
+  min-height: 402px;
+}
+/* button pinned to the bottom of the card */
+.pcard > .btn {
+  margin-top: auto;
 }
 .pcard--pink {
   background: var(--pink-bg);
@@ -966,7 +1029,7 @@
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 32px;
-  line-height: 50px;
+  line-height: 1.2;
   letter-spacing: -0.0625em;
   color: var(--navy);
   margin: 0;
@@ -1017,7 +1080,7 @@
 .pcard__feats {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 .feat {
   display: flex;
@@ -1026,12 +1089,34 @@
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 16px;
+  line-height: 1.1875;
   letter-spacing: -0.02em;
   color: var(--navy);
 }
 .feat svg {
   flex: none;
   color: var(--blue);
+}
+/* Pricing card text uses line-height 100% on desktop (Figma) */
+@media (min-width: 641px) {
+  .pricing .pcard__title,
+  .pricing .pcard__from,
+  .pricing .pcard__price b,
+  .pricing .pcard__price span,
+  .pricing .feat {
+    line-height: 1;
+  }
+  /* feature list: 20px between rows, 24px above/below the block */
+  .pricing .pcard__feats {
+    gap: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  /* feature check icon sized to Figma (11 × 8) */
+  .pricing .feat svg {
+    width: 11px;
+    height: 8px;
+  }
 }
 /* button follows the uniform 24px card gap (Figma) — not pinned to the bottom */
 
@@ -1099,7 +1184,7 @@
 .rcard__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
 }
 .rcard__stars {
   display: flex;
@@ -1167,16 +1252,39 @@
 .team__head-l .lead {
   max-width: 591px;
 }
+/* auto-looping carousel viewport */
 .team__cards {
+  overflow: hidden;
+}
+.team__track {
+  display: flex;
+  width: max-content;
+  animation: team-scroll 45s linear infinite;
+}
+.team__track:hover {
+  animation-play-state: paused;
+}
+.team__group {
   display: flex;
   gap: 4px;
-  /* 4 fixed-width cards overflow the row in Figma — scroll horizontally */
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  padding-inline: 2px; /* half the gap so the loop seam stays even */
+  flex: none;
 }
-.team__cards::-webkit-scrollbar {
+@keyframes team-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .team__track {
+    animation: none;
+  }
+}
+/* bullet dots are mobile-only (desktop is the marquee) */
+.team__dots {
   display: none;
 }
 .tcard {
@@ -1375,6 +1483,15 @@
   letter-spacing: -0.02em;
   color: var(--navy);
   margin: 0;
+}
+.tier__text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* the after-cards CTA is mobile-only (desktop keeps the header CTA) */
+.movers__cta--foot {
+  display: none;
 }
 
 /* ============================================================
@@ -1720,6 +1837,11 @@
   .problem__media {
     flex-basis: auto;
     width: 100%;
+    /* stacked layout: keep it square (like desktop/mobile) instead of a
+       607px-tall full-width letterbox that crops the photo top-to-bottom */
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-width: 608px;
   }
   .how__steps,
   .pricing__cards,
@@ -1822,7 +1944,8 @@
     display: inline;
   }
   .nav__cta {
-    padding: 11px 17px;
+    height: 31px;
+    padding: 0 17px;
     font-size: 14px;
   }
   .nav__logo {
@@ -1866,14 +1989,15 @@
     flex-direction: column;
     gap: 28px;
   }
+  /* Figma mobile order: list items → image → closing note.
+     display:contents lifts the list's children into the body flow so the
+     image can sit between the items and the note. */
   .problem__list {
-    flex-basis: auto;
-    padding-top: 0;
-    gap: 28px;
-    order: 2;
+    display: contents;
   }
   .problem__items {
     gap: 16px;
+    order: 1;
   }
   .problem__item {
     font-size: 20px;
@@ -1883,15 +2007,26 @@
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-    order: 1;
+    order: 2;
+  }
+  .problem__note {
+    order: 3;
   }
 
   /* ---- manifesto ---- */
   .manifesto {
     padding: 50px 16px 120px;
+    /* Figma mobile: tight header group (eyebrow→heading→body 16) */
+    gap: 16px;
   }
   .manifesto__figure {
+    /* Figma mobile image ~337×272; 28px above it, sits just below the body */
     width: min(337px, 92%);
+    margin-top: 12px;
+    aspect-ratio: 337 / 272;
+  }
+  .manifesto__btn {
+    margin-top: 8px;
   }
 
   /* ---- marquee ---- */
@@ -1919,6 +2054,15 @@
   }
   .how__head-l .lead {
     max-width: none;
+  }
+  /* CTA moves below the steps, fixed 256px, centred (Figma mobile) */
+  .how__cta--head {
+    display: none;
+  }
+  .how__cta--foot {
+    display: inline-flex;
+    width: 256px;
+    align-self: center;
   }
   .how__steps {
     flex-direction: column;
@@ -1957,22 +2101,56 @@
     flex-direction: column;
     gap: 4px;
   }
+  /* flex:none clears the tablet 240px basis (which squished the card
+     and its button); fixed 324px height with balanced 24px padding. */
   .pcard {
+    flex: none;
+    min-height: 324px;
+    gap: 6px;
     padding: 24px 16px;
+  }
+  .pcard__product {
+    width: 62px;
+    height: 65px;
+  }
+  /* 24px above + below the divider (card gap is 6px, so +18px margin) */
+  .pcard__div {
+    margin: 18px 0;
+  }
+  /* Figma mobile type scale + spacing */
+  .pcard__info {
+    gap: 11px;
+  }
+  .pcard__pricing {
+    gap: 4px;
   }
   .pcard__title {
     font-size: 18px;
     line-height: 1.2;
   }
+  .pcard__from {
+    font-size: 14px;
+  }
   .pcard__price b {
     font-size: 26px;
+    line-height: 1;
+  }
+  .pcard__price span {
+    font-size: 14px;
+    line-height: 1.2;
   }
   .pcard__feats {
     gap: 12px;
   }
+  .pcard .feat {
+    font-size: 14px;
+    line-height: 1.2;
+  }
   .pcard .btn {
     width: 100%;
-    padding: 12px 24px;
+    padding: 0 24px;
+    /* fixed 24px above the CTA (overrides the desktop margin-top:auto pin) */
+    margin-top: 24px;
   }
 
   /* ---- reviews: single column ---- */
@@ -1985,8 +2163,44 @@
   .team {
     gap: 24px;
   }
+  /* mobile: turn the marquee into a real drag/scroll slider with dots */
+  .team__cards {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+  }
+  .team__cards::-webkit-scrollbar {
+    display: none;
+  }
+  .team__cards.dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    user-select: none;
+  }
+  .team__cards.dragging .tcard {
+    pointer-events: none;
+  }
+  .team__track {
+    animation: none;
+    width: max-content;
+  }
+  .team__group {
+    padding-inline: 0;
+  }
+  .team__group + .team__group {
+    display: none; /* drop the marquee duplicate on mobile */
+  }
   .tcard {
     flex: 0 0 330px;
+    scroll-snap-align: start;
+  }
+  .team__dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
   }
 
   /* ---- proof: horizontal scroll ---- */
@@ -2027,15 +2241,49 @@
     flex-direction: column;
     gap: 4px;
   }
+  /* Figma mobile: icon on the LEFT, text column on the right.
+     flex:none clears the tablet-breakpoint 240px basis (which became
+     extra card height in this vertical stack). */
   .tier {
+    flex: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
     padding: 20px 16px;
   }
+  .tier__icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0;
+    flex: none;
+  }
+  .tier__text {
+    gap: 12px;
+  }
+  .tier__title {
+    font-size: 18px;
+  }
+  .tier__body {
+    font-size: 16px;
+  }
+  /* CTA moves below the cards, fixed 256px, centred (Figma mobile) */
+  .movers__cta--head {
+    display: none;
+  }
+  .movers__cta--foot {
+    display: inline-flex;
+    width: 256px;
+    align-self: center;
+  }
 
-  /* section buttons go full-width beneath the centred header */
-  .how__head .btn,
-  .team__head .btn,
-  .movers__head .btn {
+  /* how header CTA is hidden on mobile (shown after the steps) */
+  .how__head .btn {
     width: 100%;
+  }
+  /* team CTA fixed to 256px, left-aligned on mobile */
+  .team__head .btn {
+    width: 256px;
+    align-self: flex-start;
   }
 
   /* ---- CTA banner ---- */
@@ -2043,6 +2291,11 @@
     min-height: 640px;
     padding: 50px 16px 0;
     justify-content: flex-start;
+  }
+  /* landscape bg would crop to the empty gradient on a portrait phone;
+     bias the crop to the woman on the left so the image actually shows */
+  .cta__banner > img {
+    object-position: 22% center;
   }
   .cta__badge {
     width: 180px;
@@ -2081,12 +2334,16 @@
     flex-direction: column-reverse;
     gap: 24px;
   }
+  /* Figma mobile: mailing list, then a divider, then the stacked nav + socials */
   .footer__left {
     gap: 20px;
+    border-top: 1px solid rgba(220, 220, 220, 0.2);
+    padding-top: 24px;
   }
   .footer__nav {
-    flex-wrap: wrap;
-    gap: 16px 24px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
   }
   .footer__mail {
     width: 100%;

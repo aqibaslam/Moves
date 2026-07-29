@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { mediaUrl } from '@/lib/media';
 
 export interface ProblemData {
   eyebrow?: string;
@@ -13,20 +12,27 @@ export interface ProblemData {
 // Each "wrong move" gets its own image, so hovering a heading swaps the slide
 // (Dermatica-style). Images reuse the page's existing portraits.
 const ITEMS = [
-  { t: 'Closed-mouth photo', img: 'problem-portrait' },
-  { t: 'Hand over your mouth, mid-laugh', img: 'hero-portrait' },
-  { t: 'Turn away from the camera', img: 'manifesto-woman' },
-  { t: 'Photo you took, then deleted.', img: 'ba-1-before' },
-  { t: '“Careful” smile.', img: 'ba-1-after' },
-  { t: 'Camera off, again.', img: 'ba-2-before' },
+  { t: 'Closed-mouth photo', img: 'problem-1' },
+  { t: 'Hand over your mouth, mid-laugh', img: 'problem-2' },
+  { t: 'Turn away from the camera', img: 'problem-3' },
+  { t: 'Photo you took, then deleted.', img: 'problem-4' },
+  { t: '“Careful” smile.', img: 'problem-5' },
+  { t: 'Camera off, again.', img: 'problem-6' },
 ];
 
 export function Problem({ data }: { data?: ProblemData }) {
   const [active, setActive] = useState(0);
 
-  const items = data?.items?.length
-    ? data.items.map((it) => ({ text: it.text ?? '', img: mediaUrl(it.image, '') }))
-    : ITEMS.map((it) => ({ text: it.t, img: `/images/${it.img}.png` }));
+  // Text can still come from the CMS; the images are the dedicated Figma
+  // photos (problem-1…6) mapped by position — they're specific to this
+  // section, unlike the shared CMS portraits used elsewhere.
+  const texts = data?.items?.length
+    ? data.items.map((it) => it.text ?? '')
+    : ITEMS.map((it) => it.t);
+  const items = texts.map((text, i) => ({
+    text,
+    img: `/images/problem-${Math.min(i + 1, ITEMS.length)}.png`,
+  }));
 
   return (
     <section className="card-section problem">

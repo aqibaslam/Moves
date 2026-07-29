@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { CartBag, MenuIcon } from './icons';
 import { mediaAlt, mediaUrl } from '@/lib/media';
 
@@ -20,6 +23,8 @@ const FALLBACK_NAV = [
 ];
 
 export function Header({ data }: { data?: HeaderData }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const navLinks = data?.navLinks?.length ? data.navLinks : FALLBACK_NAV;
   const noteDesktop =
     data?.announcementNote ?? 'Every MOVES® smile is signed by a named, GDC-registered dentist.';
@@ -69,11 +74,38 @@ export function Header({ data }: { data?: HeaderData }) {
               <CartBag />
             </button>
           )}
-          <button type="button" className="nav__icon nav__icon--mobile" aria-label="Menu">
-            <MenuIcon />
+          <button
+            type="button"
+            className="nav__icon nav__icon--mobile"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            {menuOpen ? (
+              <svg width="22" height="16" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                <path d="M4 4l14 14M18 4L4 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <MenuIcon />
+            )}
           </button>
         </div>
       </nav>
+
+      {/* mobile slide-down menu */}
+      <div id="mobile-menu" className={`nav__menu${menuOpen ? ' nav__menu--open' : ''}`}>
+        <div className="nav__menu-links">
+          {navLinks.map((l, i) => (
+            <a key={i} href={l.href ?? '#'} onClick={() => setMenuOpen(false)}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+        <a className="btn btn--navy nav__menu-cta" href={btnHref} onClick={() => setMenuOpen(false)}>
+          {btnLabel}
+        </a>
+      </div>
     </>
   );
 }

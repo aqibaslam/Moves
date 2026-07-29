@@ -1,0 +1,1399 @@
+ROOT "Ads Page - Moves (Desktop) - 2026, July 23" 1440x14318 [col pad:0/0/0/0 gap:0 /] fill=#f2f6fe
+
+===== SECTION 1 =====
+[FRAME] "Frame 2147244219" 1440x14318 [col pad:0/0/0/0 gap:16 /]
+ [FRAME] "Frame 2147244833" 1440x899 [col pad:0/0/0/0 gap:0 /] fill=#ffffff r[0,0,24,24]
+ [FRAME] "Frame 2147244680" 1440x99 [col pad:0/0/0/0 gap:0 /] fill=#05143b
+ [FRAME] "Container" 1440x39 [row pad:11/326/11/326 gap:8 CENTER/CENTER] fill=#05143b
+ [FRAME] "Text" 445x17 [col pad:0/0/0/0 gap:0 /CENTER]
+ [TEXT] "Every MOVES® smile is signed by a named," 445x17 fill=#ffffff
+            » "Every MOVES® smile is signed by a named, GDC-registered dentist."  {Silka 400 14px lh:17px ls:-0.28px CENTER }
+ [FRAME] "Navigation" 1440x60 [row pad:20/60/20/60 gap:24 SPACE_BETWEEN/CENTER] fill=#ffffff r[16,16,0,0]
+ [FRAME] "Frame 2147228614" 163x20 [row pad:0/0/0/0 gap:24 CENTER/CENTER]
+ [FRAME] "Moves-Primary-Logo 1" 163x20
+ [GROUP] "Group 3" 163x20
+ [GROUP] "Group 2" 163x20
+ [GROUP] "Clip path group" 163x20
+ [GROUP] "clip-path" 163x20
+ [GROUP] "Group 1" 130x20
+ [FRAME] "Moves-Primary-Logo 2" 163x20
+ [GROUP] "Group 3" 163x20
+ [GROUP] "Group 2" 163x20
+ [GROUP] "Clip path group" 163x20
+ [GROUP] "clip-path" 163x20
+ [GROUP] "Group 1" 112x20
+ [FRAME] "Subtract 2" 9x8
+ [TEXT] "Save over 85% on your first month" 303x19 fill=#04143a
+          » "Save over 85% on your first month"  {Silka 500 16px lh:19px ls:-0.32px LEFT UPPER}
+ [FRAME] "Frame 2147244408" 1440x800 [row pad:0/0/0/0 gap:0 SPACE_BETWEEN/] fill=#fde3e4 r[16,16,24,24]
+ [FRAME] "Frame 2147244211" 680x800 [col pad:40/80/40/60 gap:40 CENTER/] fill=#fde3e4 r16 stroke=#e9e9e9 sw1
+ [FRAME] "Frame 2147228499" 597x297 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147228645" 397x25 [row pad:0/0/0/0 gap:16.137929916381836 /CENTER]
+ [TEXT] "Excellent (3,890)" 130x11 fill=#000000
+              » "Excellent (3,890)"  {Aeonik 700 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Stars" 133x25 [row pad:0/0/0/0 gap:2.4597699642181396 /]
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [FRAME] "Frame 516" 102x25 [row pad:0/0/0/0 gap:4.965517044067383 CENTER/CENTER]
+ [TEXT] "Trustpilot" 75x11 fill=#000000
+                » "Trustpilot"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "The smile you've been putting off" 597x158 fill=#04143a
+            » "The smile you've been putting off"  {Jost 500 72px lh:110% ls:-2.00px LEFT TITLE}
+              (accent colors: #fc5257)
+ [TEXT] "Clear aligners planned in person and sig" 597x66 fill=#04143a
+            » "Clear aligners planned in person and signed by a named, GDC-registered dentist. Prices pub"  {Silka 400 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Frame 2147228410" 590x124 [col pad:0/0/0/0 gap:50 /]
+ [FRAME] "Frame 2147228533" 590x124 [col pad:0/0/0/0 gap:12 /]
+ [FRAME] "Frame 2147228534" 555x22 [row pad:0/0/0/0 gap:14 /CENTER]
+ [TEXT] "Every treatment plan signed by a named, " 522x22 fill=#04143a
+                » "Every treatment plan signed by a named, GDC-registered dentist"  {Silka 500 18px lh:22px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147228537" 349x22 [row pad:0/0/0/0 gap:14 /CENTER]
+ [TEXT] "Progress checked at every tray change" 316x22 fill=#04143a
+                » "Progress checked at every tray change"  {Silka 500 18px lh:22px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147228535" 348x22 [row pad:0/0/0/0 gap:14 /CENTER]
+ [TEXT] "Every price published below, from £895" 315x22 fill=#04143a
+                » "Every price published below, from £895"  {Silka 500 18px lh:22px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147228536" 285x22 [row pad:0/0/0/0 gap:14 /CENTER]
+ [TEXT] "30-day money-back guarantee" 252x22 fill=#04143a
+                » "30-day money-back guarantee"  {Silka 500 18px lh:22px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244409" 277x95 [col pad:0/0/0/0 gap:12 /]
+ [INSTANCE] "Fill Button" 254x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 190x13 fill=#ffffff
+              » "Book Free Consultation"  {Silka 700 18px lh:25px ls:-1.00px CENTER }
+ [TEXT] "Free, online, no pressure. If aligners a" 277x38 fill=#04143a
+            » "Free, online, no pressure. If aligners aren't right for you, we'll say so."  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244710" 733x800 [col pad:32/32/32/32 gap:32 MAX/] fill=IMAGE(9fda3e717c342c2aa9bf7853180554c75c923acf,STRETCH) r16
+ [GROUP] "Group 1073714832" 309x19
+ [TEXT] "Excellent (3,890)" 117x11 fill=#ffffff
+            » "Excellent (3,890)"  {Aeonik 700 16.147628784179688px lh:102% ls:-0.48px LEFT }
+              (accent colors: #ffffff)
+ [FRAME] "katman_1" 98x19
+ [GROUP] "trustpilot-logo" 98x19
+ [FRAME] "Layer_1" 77x19
+ [FRAME] "Desktop - 76" 1440x120 [col pad:0/60/0/60 gap:10 /] fill=#ffffff stroke=#dedede sw1
+ [FRAME] "Desktop - 5" 1320x120 fill=#ffffff stroke=#dedede sw1
+ [FRAME] "Container" 1440x20 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Frame 2147244701" 1393x20 [row pad:0/0/0/0 gap:38.70967483520508 /CENTER]
+ [FRAME] "Frame 2147244699" 175x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 156x20 fill=#04143a
+          » "MAKING MOVES"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244700" 205x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 186x20 fill=#04143a
+          » "SMILES IN MOTION"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244701" 137x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 118x20 fill=#04143a
+          » "YOUR MOVE"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244702" 137x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 118x20 fill=#04143a
+          » "FIRST MOVE"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244703" 92x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 73x20 fill=#04143a
+          » "SIGNED"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244704" 92x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 73x20 fill=#04143a
+          » "SIGNED"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244705" 205x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 186x20 fill=#04143a
+          » "SMILES IN MOTION"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Frame 2147244706" 137x20 [row pad:0/0/0/0 gap:7.7419352531433105 /CENTER]
+ [FRAME] "Subtract 2" 11x10
+ [TEXT] "MAKING MOVES · SMILES IN MOTION · YOUR M" 118x20 fill=#04143a
+          » "FIRST MOVE"  {Silka 500 16.774192810058594px lh:20px ls:2.13px LEFT }
+ [FRAME] "Desktop - 5360" 1440x809 [col pad:80/0/80/0 gap:40 CENTER/CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147244246" 782x151 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "BEFORE AND AFTERS" 137x14 fill=#fc5257
+        » "BEFORE AND AFTERS"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Real moves. Signed." 397x53 fill=#04143a
+        » "Real moves. Signed."  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+          (accent colors: #fc5257)
+ [TEXT] "Every case unretouched, originals on fil" 373x44 fill=#04143a
+        » "Every case unretouched, originals on file, signed by the dentist responsible."  {Silka 400 16px lh:140% ls:-0.32px CENTER }
+ [FRAME] "Frame 2147244522" 1440x458 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Frame 2147244541" 1440x418 [row pad:0/60/0/60 gap:4 /]
+ [FRAME] "Article" 327x418 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 295x378 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Container" 295x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(a1bc1d588fddb895c8316a6cd00d0583b6fe6778,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(520cc109b069ace68a88c3bfb7b108f7b9574f86,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r16 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x149 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x13 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Lisa A." 55x13 fill=#04143a
+                  » "Lisa A."  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Container:margin" 295x110 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 295x70 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [TEXT] ""I have had great interactions with the " 283x70 fill=#04143a
+                    » "“I started eight months before my wedding so I wouldn't spend the photos doing my careful "  {Silka 400 14px lh:140% ls:-0.28px LEFT }
+ [FRAME] "Frame 2147244843" 295x26 [row pad:0/0/0/0 gap:0 SPACE_BETWEEN/CENTER]
+ [TEXT] "Signed by Dr. Amelia Hart" 170x17 fill=#04143a
+                  » "Signed by Dr. Amelia Hart"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 95x26 [row pad:6/10.5/6/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [TEXT] "GDC: 251837" 74x14 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [FRAME] "Article" 327x418 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 295x378 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Container" 295x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(59660204d9ea8a672385c7bc9dc5c7ce7ee047af,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(520cc109b069ace68a88c3bfb7b108f7b9574f86,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x149 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x13 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Priya R." 64x13 fill=#04143a
+                  » "Priya R."  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Container:margin" 295x110 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 295x70 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [TEXT] ""I have had great interactions with the " 283x70 fill=#04143a
+                    » ""I used to talk with my hand near my mouth without noticing. Now I catch myself grinning i"  {Silka 400 14px lh:140% ls:-0.28px LEFT }
+ [FRAME] "Frame 2147244843" 295x26 [row pad:0/0/0/0 gap:0 SPACE_BETWEEN/CENTER]
+ [TEXT] "Signed by Dr. Amir Hussain" 177x17 fill=#04143a
+                  » "Signed by Dr. Amir Hussain"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 95x26 [row pad:6/10.5/6/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [TEXT] "GDC: 251837" 74x14 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [FRAME] "Article" 327x418 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 295x378 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Container" 295x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(59660204d9ea8a672385c7bc9dc5c7ce7ee047af,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(520cc109b069ace68a88c3bfb7b108f7b9574f86,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x149 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x13 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Sarah M." 76x13 fill=#04143a
+                  » "Sarah M. "  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Container:margin" 295x110 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 295x70 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [TEXT] ""I have had great interactions with the " 283x70 fill=#04143a
+                    » ""Fourteen weeks. The plan on my screen said fourteen weeks, and it was fourteen weeks. I'v"  {Silka 400 14px lh:140% ls:-0.28px LEFT }
+ [FRAME] "Frame 2147244843" 295x26 [row pad:0/0/0/0 gap:0 SPACE_BETWEEN/CENTER]
+ [TEXT] "Signed by Dr. Amelia Hart" 170x17 fill=#04143a
+                  » "Signed by Dr. Amelia Hart"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 95x26 [row pad:6/10.5/6/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [TEXT] "GDC: 251837" 74x14 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [FRAME] "Article" 327x418 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 295x378 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Container" 295x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(e5fb9715132e1115811b1ef7993326cefc9cbc84,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 146x197 fill=IMAGE(474522dd457c12cdae0c8d1c3babdcc51ce742ac,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x149 [col pad:0/0/0/0 gap:0 SPACE_BETWEEN/]
+ [FRAME] "Frame 2147244844" 295x103 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 295x13 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Tom W." 62x13 fill=#04143a
+                    » "Tom W."  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Container:margin" 295x90 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 295x50 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [FRAME] "Frame 2147244843" 295x26 [row pad:0/0/0/0 gap:0 SPACE_BETWEEN/CENTER]
+ [TEXT] "Signed by Dr. Amir Hussain" 177x17 fill=#04143a
+                  » "Signed by Dr. Amir Hussain "  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 95x26 [row pad:6/10.5/6/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [TEXT] "GDC: 251837" 74x14 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [FRAME] "Article" 345x435 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 313x395 [col pad:0/0/0/0 gap:42 /]
+ [FRAME] "Container" 313x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 155x197 fill=IMAGE(e5fb9715132e1115811b1ef7993326cefc9cbc84,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 155x197 fill=IMAGE(474522dd457c12cdae0c8d1c3babdcc51ce742ac,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 313x156 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 313x15 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Priya R." 66x15 fill=#04143a
+                  » "Priya R."  {Caveat 700 24px lh:30px ls:0 LEFT }
+ [FRAME] "Container:margin" 313x110 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 313x70 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [TEXT] ""I have had great interactions with the " 301x70 fill=#04143a
+                    » ""I used to talk with my hand near my mouth without noticing I was doing it. Now I catch my"  {Silka 400 14px lh:140% ls:-0.28px LEFT }
+ [FRAME] "Container" 107x31 [row pad:7/10.5/7/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [FRAME] "Container" 86x17 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "GDC: 251837" 86x17 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Article" 345x433 [col pad:20/16/20/16 gap:32 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244538" 313x393 [col pad:0/0/0/0 gap:42 /]
+ [FRAME] "Container" 313x197 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Container" 155x197 fill=IMAGE(e5fb9715132e1115811b1ef7993326cefc9cbc84,FILL) r12
+ [FRAME] "Container" 60x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 40x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 155x197 fill=IMAGE(474522dd457c12cdae0c8d1c3babdcc51ce742ac,FILL) r12
+ [FRAME] "Container" 51x22 [row pad:4/9/4/9 gap:0 CENTER/CENTER] fill=#000000 r50 stroke=#ffffff sw0.800000011920929
+ [FRAME] "Container" 31x12 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 313x154 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Container" 313x15 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Priya R." 66x15 fill=#04143a
+                  » "Priya R."  {Caveat 700 24px lh:30px ls:0 LEFT }
+ [FRAME] "Container:margin" 313x108 [col pad:20/0/20/0 gap:0 /]
+ [FRAME] "Container" 313x68 [col pad:0/0/0/10 gap:0 /] stroke=#04143a sw1
+ [TEXT] ""I have had great interactions with the " 301x68 fill=#04143a
+                    » ""I used to talk with my hand near my mouth without noticing I was doing it. Now I catch my"  {Silka 500 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 107x31 [row pad:7/10.5/7/10.5 gap:0 CENTER/CENTER] fill=#ffffff r50
+ [FRAME] "Container" 86x17 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "GDC: 251837" 86x17 fill=#04143a
+                    » "GDC: 251837"  {Silka 500 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147239707" 1440x8 [col pad:0/0/0/0 gap:10 CENTER/CENTER]
+ [FRAME] "Frame 2147244735" 112x8 [row pad:0/0/0/0 gap:8 /CENTER]
+ [RECTANGLE] "Rectangle 3470623" 32x8 fill=#04143a r100
+ [RECTANGLE] "Rectangle 3470624" 8x8 fill=#f2f6fe r100 stroke=#04143a sw1
+ [RECTANGLE] "Rectangle 3470625" 8x8 fill=#f2f6fe r100 stroke=#04143a sw1
+ [RECTANGLE] "Rectangle 3470626" 8x8 fill=#f2f6fe r100 stroke=#04143a sw1
+ [RECTANGLE] "Rectangle 3470627" 8x8 fill=#f2f6fe r100 stroke=#04143a sw1
+ [RECTANGLE] "Rectangle 3470628" 8x8 fill=#f2f6fe r100 stroke=#04143a sw1
+ [FRAME] "Frame 2147241497" 108x48 [row pad:0/0/0/0 gap:12 CENTER/CENTER]
+ [FRAME] "Button - Previous slide" 48x48 [row pad:0/0/0/0 gap:0 CENTER/CENTER] fill=#f9f9f9 r50
+ [FRAME] "Caret" 24x24 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "6543dc76a1a78c81dfc78bc4_caret-down.svg " 24x24 [col pad:0/0/0/0 gap:0 CENTER/CENTER]
+ [FRAME] "6543dc76a1a78c81dfc78bc4_caret-down.svg" 24x24
+ [FRAME] "Button - Next slide" 48x48 [row pad:0/0/0/0 gap:0 CENTER/CENTER] fill=#f9f9f9 r50
+ [FRAME] "Caret" 24x24 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "6543dc76a1a78c81dfc78bc4_caret-down.svg " 24x24 [col pad:0/0/0/0 gap:0 CENTER/CENTER]
+ [FRAME] "6543dc76a1a78c81dfc78bc4_caret-down.svg" 24x24
+ [FRAME] "Section" 1440x1005 [col pad:120/60/120/60 gap:30 /CENTER] fill=IMAGE(2260aca52362ddff6466097c9ea4b257650540e4,STRETCH) r24
+ [TEXT] "WHY WE'RE CALLED MOVES" 183x14 fill=#ffffff
+      » "WHY WE'RE CALLED MOVES"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [FRAME] "Frame 2147244894" 1320x721
+ [FRAME] "Frame 2147244892" 1320x174 [row pad:10/10/10/10 gap:10 CENTER/CENTER]
+ [TEXT] "A straighter smile is the outcome. Confi" 1070x154 fill=#ffffff
+          » "A straighter smile is the outcome. Confidence is the move."  {Jost 500 70px lh:110% ls:-2.00px CENTER TITLE}
+            (accent colors: #ffffff)
+ [FRAME] "Frame 2147244896" 287x296 [col pad:0/0/0/0 gap:40 /]
+ [FRAME] "Frame 2147244887" 277x211 [col pad:0/0/0/0 gap:40 /]
+ [TEXT] "Why we're called MOVES" 194x17 fill=#ffffff
+            » "Why we're called MOVES"  {Silka 500 14px lh:17px ls:1.00px LEFT }
+ [FRAME] "Frame 2147244886" 277x154 [col pad:0/0/0/0 gap:42 /]
+ [TEXT] "Aligner brands sell trays. Trays are the" 275x154 fill=#ffffff
+              » "MOVES turns clear aligner treatment into a guided journey from your first consultation to "  {Silka 400 18px lh:22px ls:-0.36px LEFT }
+ [FRAME] "Frame 2147244813" 266x45 [col pad:0/0/0/0 gap:42 /]
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+              » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244895" 551x644
+ [FRAME] "Frame 2147244894" 551x644
+ [RECTANGLE] "Rectangle 3470631" 474x510 fill=gradient[#fc5257→#fa7c80] r[237,237,0,0]
+ [RECTANGLE] "ChatGPT Image Jul 27, 2026, 11_37_39 AM " 585x644 fill=IMAGE(eca93649ed6b9efa377a8ab195b4fc04083817c7,FILL)
+ [FRAME] "Frame 2147244889" 562x128 [col pad:0/0/0/0 gap:7.173652648925781 /]
+ [RECTANGLE] "Rectangle 3470614" 803x157 fill=#fd888b r9999
+ [FRAME] "Desktop - 5361" 1440x1212 [col pad:100/60/100/60 gap:10 CENTER/CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147244258" 1320x1012 [col pad:0/0/0/0 gap:40 /]
+ [FRAME] "Frame 2147244815" 1320x268 [col pad:0/0/0/0 gap:32 CENTER/CENTER]
+ [FRAME] "Frame 2147244246" 809x151 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "PRICING" 56x14 fill=#fc5257
+            » "PRICING"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Exactly what mOVES costs" 534x53 fill=#04143a
+            » "Exactly what mOVES costs"  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+              (accent colors: #fc5257)
+ [TEXT] "Some brands make you book a call to lear" 809x44 fill=#04143a
+            » "Some brands make you book a call to learn a price. Ours are published. Every package, in f"  {Silka 400 16px lh:140% ls:-0.32px CENTER }
+ [FRAME] "Frame 2147244376" 1320x85 [col pad:0/0/0/0 gap:20 /CENTER]
+ [INSTANCE] "Container" 258x48 [col pad:0/0/0/0 gap:0 /] r999 stroke=#bacefd sw1
+ [FRAME] "List" 256x46 [row pad:4/4/4/4 gap:0 /CENTER]
+ [FRAME] "List Item" 126x38 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Button - Dating" 126x38 [row pad:10/20/10/20 gap:12 CENTER/CENTER] fill=#04143a r999
+ [TEXT] "Pay monthly" 86x18 fill=#ffffff
+                    » "Pay monthly"  {Silka 500 14px lh:18px ls:0 CENTER }
+ [FRAME] "List Item" 122x38 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Button - Dating" 122x38 [row pad:10/20/10/20 gap:12 CENTER/CENTER] r999
+ [TEXT] "Pay upfront" 82x18 fill=#04143a
+                    » "Pay upfront"  {Silka 500 14px lh:18px ls:0 CENTER }
+ [TEXT] "[Spread the cost over up to 30 months at" 1320x17 fill=#04143a
+            » "[Spread the cost over up to 30 months at 0% APR representative, subject to status.]"  {Silka 400 14px lh:17px ls:-0.28px CENTER }
+ [FRAME] "Frame 2147244385" 1320x704 [col pad:0/0/0/0 gap:4 /]
+ [FRAME] "Frame 2147244257" 1320x331 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Frame 2147243978" 315x331 [col pad:4/24/24/24 gap:40 /] fill=#f2f6fe r24 stroke=#f5f6fa sw1
+ [FRAME] "Frame 2147244411" 267x263 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244168" 267x194 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 267x194 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Nudge" 101x22 fill=#004df6
+                    » "Nudge"  {Silka 700 32px lh:50px ls:-0.64px LEFT }
+ [FRAME] "Frame 2147244166" 218x56 [col pad:0/0/0/0 gap:8 /]
+ [TEXT] "Best for: minor relapse: teeth that were" 267x76 fill=#04143a
+                    » "Best for: minor relapse: teeth that were straightened once and have drifted, or a single t"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+                  » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147243978" 364x331 [col pad:4/24/24/24 gap:40 /] fill=#f2f6fe r24 stroke=#f5f6fa sw1
+ [FRAME] "Frame 2147244411" 316x263 [col pad:0/0/0/0 gap:24 SPACE_BETWEEN/]
+ [FRAME] "Frame 2147244168" 316x175 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 316x175 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Shift" 74x22 fill=#04143a
+                    » "Shift"  {Silka 700 32px lh:50px ls:-0.64px LEFT }
+ [FRAME] "Frame 2147244166" 218x56 [col pad:0/0/0/0 gap:8 /]
+ [TEXT] "Best for: mild crowding, small gaps, or " 316x57 fill=#04143a
+                    » "Best for: mild crowding, small gaps, or minor rotation.
+Treatment time: 3-4 months"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+                  » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244152" 250x165 [col pad:24/16/24/16 gap:10 /] fill=#ffffff r8
+ [FRAME] "Frame 2147244150" 218x117 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147205246" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Single Arch (Dual from £50)" 197x10 fill=#04143a
+                    » "Single Arch (Dual from £50)"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205243" 218x27 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 months treatment time" 197x27 fill=#04143a
+                    » "Up to 4 months treatment time"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205244" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 3-4 teeth" 151x10 fill=#04143a
+                    » "Crowding on 3-4 teeth"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205240" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 aligners." 109x10 fill=#04143a
+                    » "Up to 4 aligners."  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147243978" 314x331 [col pad:4/24/24/24 gap:40 /] fill=#f2f6fe r24 stroke=#f5f6fa sw1
+ [FRAME] "Frame 2147244411" 266x263 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244168" 266x194 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 266x194 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Align" 78x22 fill=#fc5257
+                    » "Align"  {Silka 700 32px lh:50px ls:-0.64px LEFT }
+ [FRAME] "Frame 2147244166" 218x56 [col pad:0/0/0/0 gap:8 /]
+ [TEXT] "Best for: minor relapse: teeth that were" 266x76 fill=#04143a
+                    » "Best for: noticeable crowding, gaps, or mild bite issues, with several teeth on the move.
+"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#fc5257 r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+                  » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244152" 250x165 [col pad:24/16/24/16 gap:10 /] fill=#ffffff r8
+ [FRAME] "Frame 2147244150" 218x117 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147205246" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Single Arch (Dual from £50)" 197x10 fill=#04143a
+                    » "Single Arch (Dual from £50)"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205243" 218x27 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 months treatment time" 197x27 fill=#04143a
+                    » "Up to 4 months treatment time"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205244" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 3-4 teeth" 151x10 fill=#04143a
+                    » "Crowding on 3-4 teeth"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205240" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 aligners." 109x10 fill=#04143a
+                    » "Up to 4 aligners."  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147243978" 315x331 [col pad:4/24/24/24 gap:40 /] fill=#f2f6fe r24 stroke=#f5f6fa sw1
+ [FRAME] "Frame 2147244411" 267x263 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244168" 267x194 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 267x194 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Transform" 162x22 fill=#004df6
+                    » "Transform"  {Silka 700 32px lh:50px ls:-0.64px LEFT }
+ [FRAME] "Frame 2147244166" 218x56 [col pad:0/0/0/0 gap:8 /]
+ [TEXT] "Best for: minor relapse: teeth that were" 267x76 fill=#04143a
+                    » "Best for: generalised crowding, rotation, or bite correction across both arches.
+Treatment"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#004df6 r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+                  » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244152" 250x165 [col pad:24/16/24/16 gap:10 /] fill=#ffffff r8
+ [FRAME] "Frame 2147244150" 218x117 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147205246" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Single Arch (Dual from £50)" 197x10 fill=#04143a
+                    » "Single Arch (Dual from £50)"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205243" 218x27 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 months treatment time" 197x27 fill=#04143a
+                    » "Up to 4 months treatment time"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205244" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 3-4 teeth" 151x10 fill=#04143a
+                    » "Crowding on 3-4 teeth"  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Frame 2147205240" 218x10 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Up to 4 aligners." 109x10 fill=#04143a
+                    » "Up to 4 aligners."  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [FRAME] "Container" 1320x369 [row pad:40/40/40/40 gap:60 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244367" 590x223 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Paragraph" 590x32 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Every package includes" 349x32 fill=#04143a
+                » "Every package includes"  {Silka 500 32px lh:100% ls:-1.28px LEFT }
+ [FRAME] "Frame 2147244364" 590x159 [col pad:0/0/0/0 gap:16 /]
+ [FRAME] "Frame 2147205242" 423x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "In-person dentist appointments (scan, fi" 402x19 fill=#04143a
+                  » "In-person dentist appointments (scan, fitting, finish)"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205241" 590x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Mid-course corrections if your dentist c" 399x19 fill=#04143a
+                  » "Mid-course corrections if your dentist calls for them"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205240" 375x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Signed plan + digital preview of the mov" 354x19 fill=#04143a
+                  » "Signed plan + digital preview of the movement"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205242" 404x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Check-ins through treatment we contact y" 383x19 fill=#04143a
+                  » "Check-ins through treatment we contact you first"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205241" 590x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Every aligner in your plan, made in Germ" 336x19 fill=#04143a
+                  » "Every aligner in your plan, made in Germany"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244368" 590x277 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Paragraph" 590x32 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "What decides your tier" 335x32 fill=#04143a
+                » "What decides your tier"  {Silka 500 32px lh:100% ls:-1.28px LEFT }
+ [FRAME] "Frame 2147244364" 590x124 [col pad:0/0/0/0 gap:16 /]
+ [FRAME] "Frame 2147205242" 281x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "01" 17x19 fill=#fc5257
+                  » "01"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "How far your teeth need to move" 254x19 fill=#04143a
+                  » "How far your teeth need to move"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205241" 590x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "02" 20x19 fill=#fc5257
+                  » "02"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "How many teeth need to move" 241x19 fill=#04143a
+                  » " How many teeth need to move"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205240" 302x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "03" 20x19 fill=#fc5257
+                  » "03"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Whether your bite needs correcting" 272x19 fill=#04143a
+                  » "Whether your bite needs correcting"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205242" 185x19 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "04" 20x19 fill=#fc5257
+                  » "04"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "How long it will take" 155x19 fill=#04143a
+                  » "How long it will take"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Your consultation gives you an estimate." 590x57 fill=#04143a
+              » "Your consultation gives you an estimate. Your dentist confirms it at your first appointmen"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244386" 1440x1244 [col pad:100/0/100/0 gap:40 /] fill=#ffffff r24
+ [FRAME] "Frame 2147244246" 1440x226 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "us vs them" 80x14 fill=#fc5257
+        » "us vs them"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Same straight teeth. Three very differen" 886x106 fill=#04143a
+        » "Same straight teeth. 
+Three very different bills."  {Jost 500 48px lh:110% ls:-2.00px CENTER TITLE}
+          (accent colors: #fc5257)
+ [TEXT] "Most people reading this have either had" 808x66 fill=#04143a
+        » "Most people reading this have either had an Invisalign quote or assumed braces were the on"  {Silka 400 16px lh:140% ls:-0.32px CENTER }
+ [FRAME] "Frame 2147244221" 1440x778 [col pad:0/60/0/60 gap:42 /CENTER]
+ [FRAME] "Frame 2147244188" 1320x778 [col pad:0/0/0/0 gap:0 /] r24 stroke=#04143a sw1
+ [FRAME] "Frame 2147243792" 1320x778 [row pad:0/0/0/0 gap:0 CENTER/] r24
+ [FRAME] "Frame 2147229633" 312x778 [col pad:0/0/0/0 gap:0 /] fill=#f2f6fe r[24,0,0,24] stroke=#04143a sw1
+ [FRAME] "Frame 2147229634" 312x76 [row pad:0/16/0/16 gap:10 /CENTER] r[24,0,0,0]
+ [FRAME] "Frame 2147229580" 312x702 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Data" 312x78 [col pad:26/16/27/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Typical total cost" 153x13 fill=#04143a
+                  » "Typical total cost"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Treatment time" 134x13 fill=#04143a
+                  » "Treatment time"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Visible?" 66x13 fill=#04143a
+                  » "Visible?"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Eat what you like?" 156x13 fill=#04143a
+                  » "Eat what you like?"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Who signs your plan" 173x13 fill=#04143a
+                  » "Who signs your plan"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Who's watching between visits" 267x13 fill=#04143a
+                  » "Who's watching between visits"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "If teeth don't match the plan" 249x13 fill=#04143a
+                  » "If teeth don't match the plan"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] stroke=#04143a sw1
+ [TEXT] "Retainers" 83x13 fill=#04143a
+                  » "Retainers"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Data" 312x78 [col pad:16/16/16/16 gap:0 CENTER/] r[0,0,0,24] stroke=#04143a sw1
+ [TEXT] "Whitening" 87x13 fill=#04143a
+                  » "Whitening"  {Silka 500 18px lh:22px ls:-0.38px LEFT }
+ [FRAME] "Frame 2147229610" 333x778 [col pad:0/0/0/0 gap:0 /] fill=#ffbfc1
+ [FRAME] "Cell" 333x76 [col pad:10/0/10/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [FRAME] "Frame 2147228614" 115x14 [row pad:0/0/0/0 gap:19.3424072265625 CENTER/CENTER]
+ [FRAME] "Moves-Primary-Logo 1" 115x14
+ [GROUP] "Group 3" 115x14
+ [FRAME] "Frame 2147229582" 333x702 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "£2,495 all-inclusive (Align, where most " 210x38 fill=#04143a
+                  » "£2,495 all-inclusive (Align, where most people land)"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "4-6 months for most cases" 210x19 fill=#04143a
+                  » "4-6 months for most cases"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Virtually invisible" 128x19 fill=#04143a
+                  » "Virtually invisible"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Yes, trays come out" 151x19 fill=#04143a
+                  » "Yes, trays come out"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "A named, GDC-registered dentist, on the " 210x38 fill=#04143a
+                  » "A named, GDC-registered dentist, on the plan"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Care Plan check at every tray change" 210x38 fill=#04143a
+                  » "Care Plan check at every tray change"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "[Refinements included*]" 186x19 fill=#04143a
+                  » "[Refinements included*]"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "[Included, worth £XXX]" 174x19 fill=#04143a
+                  » "[Included, worth £XXX]"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Data" 333x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "[Included, worth £XXX]" 174x19 fill=#04143a
+                  » "[Included, worth £XXX]"  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [FRAME] "Frame 2147229583" 112x624 [col pad:0/0/0/0 gap:0 /] stroke=#04143a sw1
+ [FRAME] "Cell" 112x76 [col pad:10/0/10/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [TEXT] "Mail-Order" 91x13 fill=#04143a
+                » "Mail-Order"  {Silka 500 18px lh:22px ls:-0.64px CENTER }
+ [FRAME] "Frame 2147229582" 112x547 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [FRAME] "Frame" 25x25
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [FRAME] "Frame" 25x25
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [TEXT] "Limited" 56x19 fill=#04143a
+                  » "Limited"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [TEXT] "Limited" 56x19 fill=#04143a
+                  » "Limited"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [FRAME] "Frame" 26x26
+ [FRAME] "Data" 112x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#dedede sw1
+ [FRAME] "Frame" 25x25
+ [FRAME] "Frame 2147229612" 337x778 [col pad:0/0/0/0 gap:0 /] fill=#f2f6fe stroke=#04143a sw0.5
+ [FRAME] "Cell" 337x76 [col pad:10/0/10/0 gap:0 CENTER/CENTER] stroke=#04143a sw0.5
+ [TEXT] "Invisalign" 81x13 fill=#04143a
+                » "Invisalign "  {Silka 500 18px lh:22px ls:-0.36px CENTER }
+ [FRAME] "Frame 2147229582" 337x702 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "£3,500-£5,000¹" 112x19 fill=#04143a
+                  » "£3,500-£5,000¹"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Varies; often 6-18 months" 196x19 fill=#04143a
+                  » "Varies; often 6-18 months"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Virtually invisible" 128x19 fill=#04143a
+                  » "Virtually invisible"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Yes, trays come out" 151x19 fill=#04143a
+                  » "Yes, trays come out"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Varies by practice" 139x19 fill=#04143a
+                  » "Varies by practice"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Varies by practice" 139x19 fill=#04143a
+                  » "Varies by practice"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Varies by provider" 138x19 fill=#04143a
+                  » "Varies by provider"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Usually sold separately" 178x19 fill=#04143a
+                  » "Usually sold separately"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Not included" 98x19 fill=#04143a
+                  » "Not included"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147229634" 337x778 [col pad:0/0/0/0 gap:0 /] fill=#f2f6fe r[0,24,24,0] stroke=#04143a sw0.5
+ [FRAME] "Cell" 337x76 [col pad:10/0/10/0 gap:0 CENTER/CENTER] r[0,24,0,0] stroke=#04143a sw0.5
+ [TEXT] "Fixed braces" 110x13 fill=#04143a
+                » "Fixed braces"  {Silka 500 18px lh:22px ls:-0.36px CENTER }
+ [FRAME] "Frame 2147229582" 337x702 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "£[2,000-£4,000]²" 126x19 fill=#04143a
+                  » "£[2,000-£4,000]²"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Typically 18-24 months" 175x19 fill=#04143a
+                  » "Typically 18-24 months"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Metal brackets and wires" 195x19 fill=#04143a
+                  » "Metal brackets and wires"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Food restrictions" 130x19 fill=#04143a
+                  » "Food restrictions"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Your orthodontist" 135x19 fill=#04143a
+                  » "Your orthodontist"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Adjustment visits only" 168x19 fill=#04143a
+                  » "Adjustment visits only"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Adjusted in-chair" 131x19 fill=#04143a
+                  » "Adjusted in-chair"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] stroke=#04143a sw1
+ [TEXT] "Usually sold separately" 178x19 fill=#04143a
+                  » "Usually sold separately"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Data" 337x78 [col pad:16/0/16/0 gap:0 CENTER/CENTER] r[0,0,24,0] stroke=#04143a sw1
+ [TEXT] "Not included" 98x19 fill=#04143a
+                  » "Not included"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Component 290" 1440x1200 [row pad:100/60/100/60 gap:0 /] fill=#ffffff r24
+ [FRAME] "Frame 2147244211" 660x1000 [col pad:40/40/40/0 gap:32 /] fill=#ffffff
+ [FRAME] "Frame 2147244274" 620x209 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "How does it work?" 142x14 fill=#fc5257
+          » "How does it work?"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Your first move to your last tray, in pl" 580x111 fill=#04143a
+          » "Your first move to your last tray, in plain English"  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+            (accent colors: #fc5257)
+ [TEXT] "Address symptoms, treat root causes, and" 620x44 fill=#04143a
+          » "Address symptoms, treat root causes, and adjust your behaviours, for immediate relief and "  {Silka 400 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244190" 660x1000 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Frame 2147244727" 660x1000 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147244326" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x150 [col pad:0/0/0/0 gap:24 CENTER/]
+ [FRAME] "Frame 2147244413" 660x150 [row pad:0/0/0/0 gap:24 /CENTER]
+ [RECTANGLE] "Rectangle 3470599" 318x150 fill=#05143b r12
+ [FRAME] "Frame 2147244393" 318x75 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 1" 51x17 fill=#fc5257
+                    » "Move 1"  {Silka 500 14px lh:17px ls:-0.28px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x46 [col pad:0/0/0/0 gap:12 /CENTER]
+ [FRAME] "Frame 2147244329" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x120 [col pad:0/0/0/0 gap:24 SPACE_BETWEEN/]
+ [FRAME] "Frame 2147244414" 660x150 [row pad:0/0/0/0 gap:24 /CENTER]
+ [RECTANGLE] "Rectangle 3470600" 318x150 fill=IMAGE(36c6f7b4cf118374003c9d43c52aa0b0bc9513c3,STRETCH) r12
+ [FRAME] "Frame 2147244392" 318x75 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 2" 52x17 fill=#fc5257
+                    » "Move 2"  {Silka 500 14px lh:17px ls:-0.28px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x46 [col pad:0/0/0/0 gap:12 /CENTER]
+ [FRAME] "Frame 2147244330" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x150 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244415" 660x150 [row pad:0/0/0/0 gap:24 /]
+ [RECTANGLE] "Rectangle 3470604" 318x150 fill=#05143b r12
+ [FRAME] "Frame 2147244391" 318x95 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 3" 53x17 fill=#fc5257
+                    » "Move 3"  {Silka 500 14px lh:17px ls:-0.28px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x66 [col pad:0/0/0/0 gap:12 /CENTER]
+ [FRAME] "Frame 2147244331" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x150 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244390" 660x150 [row pad:0/0/0/0 gap:24 /]
+ [RECTANGLE] "Rectangle 3470604" 318x150 fill=#05143b r12
+ [FRAME] "Frame 2147244416" 318x95 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 4" 53x17 fill=#fc5257
+                    » "Move 4"  {Silka 500 14px lh:17px ls:-0.28px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x66 [col pad:0/0/0/0 gap:12 /CENTER]
+ [FRAME] "Frame 2147244332" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x150 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244417" 660x150 [row pad:0/0/0/0 gap:24 /]
+ [RECTANGLE] "Rectangle 3470604" 318x150 fill=#05143b r12
+ [FRAME] "Frame 2147244389" 318x95 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 5" 53x17 fill=#fc5257
+                    » "Move 5"  {Silka 500 14px lh:17px ls:-0.28px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x66 [col pad:0/0/0/0 gap:12 /CENTER]
+ [FRAME] "Frame 2147244333" 660x150 [row pad:0/0/0/0 gap:10 /] stroke=#e9e9e9 sw0.5
+ [FRAME] "Frame 2147244330" 660x150 [col pad:0/0/0/0 gap:20 CENTER/]
+ [FRAME] "Frame 2147244329" 660x150 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244418" 660x150 [row pad:0/0/0/0 gap:24 /]
+ [RECTANGLE] "Rectangle 3470604" 318x150 fill=#05143b r12
+ [FRAME] "Frame 2147244388" 318x100 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "Move 6" 75x22 fill=#fc5257
+                    » "Move 6"  {Silka 500 18px lh:22px ls:1.00px LEFT UPPER}
+ [FRAME] "Frame 2147244327" 318x66 [col pad:0/0/0/0 gap:12 /CENTER]
+ [RECTANGLE] "Rectangle 3470612" 660x303 fill=gradient[#ffffff a0.00→#ffffff]
+ [FRAME] "Desktop - 60" 1440x697 [col pad:100/60/100/60 gap:10 CENTER/CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147244453" 1320x497 [col pad:0/0/0/0 gap:40 /CENTER]
+ [FRAME] "Frame 2147244832" 1320x226 [row pad:0/0/0/0 gap:42 SPACE_BETWEEN/MAX]
+ [FRAME] "Frame 2147244750" 754x226 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Candidacy" 80x14 fill=#fc5257
+            » "Candidacy"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Aligners aren't for everyone. Here's the" 754x106 fill=#04143a
+            » "Aligners aren't for everyone.
+Here's the honest list."  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+              (accent colors: #fc5257)
+ [TEXT] "No postal impression kits. No anonymous " 754x66 fill=#04143a
+            » "Not sure where you sit? That's what the free consultation is for. If aligners aren't your "  {Silka 400 16px lh:140% ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+            » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244257" 1320x231 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Frame 2147243978" 658x231 [col pad:24/24/24/24 gap:24 /] fill=#fde3e4 r24
+ [FRAME] "Frame 2147244368" 610x183 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244168" 610x24 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 610x24 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "What we treat" 143x24 fill=#04143a
+                  » "What we treat"  {Silka 500 20px lh:24px ls:-0.40px LEFT TITLE}
+ [FRAME] "Frame 2147244150" 610x135 [col pad:0/0/0/0 gap:20 /]
+ [INSTANCE] "Frame 2147205246" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 209x11 fill=#04143a
+                  » "Mild to moderate crowding"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205243" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 187x11 fill=#04143a
+                  » "Gaps and small spacing"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205244" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 99x11 fill=#04143a
+                  » "Mild rotation"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205240" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 422x11 fill=#04143a
+                  » "Relapse from teenage braces (teeth that drifted back)"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205247" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 213x11 fill=#04143a
+                  » "A single tooth that's shifted"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205245" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 173x11 fill=#04143a
+                  » "Crowding on 6-8 teeth"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [INSTANCE] "Frame 2147205241" 227x11 [row pad:0/0/0/0 gap:10 /CENTER]
+ [TEXT] "Crowding on 6-8 teeth" 173x11 fill=#04143a
+                  » "Crowding on 6-8 teeth"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Subtract 1" 22x20
+ [FRAME] "Frame 2147243978" 658x231 [col pad:24/24/24/24 gap:24 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244368" 610x156 [col pad:0/0/0/0 gap:24 /]
+ [FRAME] "Frame 2147244168" 610x24 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 2147244151" 610x24 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "May not suit" 123x24 fill=#04143a
+                  » "May not suit"  {Silka 500 20px lh:24px ls:-0.40px LEFT TITLE}
+ [FRAME] "Frame 2147244150" 610x108 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147205246" 227x12 [row pad:0/0/0/0 gap:10 /CENTER]
+ [FRAME] "Frame" 12x12
+ [GROUP] "图层_x0020_1" 12x12
+ [TEXT] "Bite problems caused by jaw position rat" 424x11 fill=#04143a
+                  » "Bite problems caused by jaw position rather than teeth"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205243" 227x12 [row pad:0/0/0/0 gap:10 /CENTER]
+ [FRAME] "Frame" 12x12
+ [GROUP] "图层_x0020_1" 12x12
+ [TEXT] "Gaps left by missing teeth, or replacing" 410x11 fill=#04143a
+                  » "Gaps left by missing teeth, or replacing missing teeth"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205244" 227x12 [row pad:0/0/0/0 gap:10 /CENTER]
+ [FRAME] "Frame" 12x12
+ [GROUP] "图层_x0020_1" 12x12
+ [TEXT] "Active gum disease or unstable gums" 287x11 fill=#04143a
+                  » "Active gum disease or unstable gums"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147205247" 227x12 [row pad:0/0/0/0 gap:10 /CENTER]
+ [FRAME] "Frame" 12x12
+ [GROUP] "图层_x0020_1" 12x12
+ [TEXT] "Teeth that are still developing" 228x11 fill=#04143a
+                  » "Teeth that are still developing"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container:margin" 1440x1359 [col pad:100/60/100/60 gap:0 /CENTER] fill=#ffffff r24
+ [FRAME] "Container" 1320x1159 [col pad:0/0/0/0 gap:4 /]
+ [FRAME] "Frame 2147244213" 1320x527 [row pad:60/60/60/60 gap:40 /CENTER] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244246" 1200x407 [col pad:0/0/0/0 gap:40 /]
+ [FRAME] "Frame 2147244406" 1200x271 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147244395" 1200x14 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "sounds familiar?" 1200x14 fill=#fc5257
+                » "sounds familiar?"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [FRAME] "Frame 2147244396" 1200x237 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Rehearsing a smile in the mirror the nig" 1200x50 fill=#04143a
+                » "Rehearsing a smile in the mirror the night before the interview."  {Silka 500 36px lh:140% ls:-0.72px LEFT }
+ [TEXT] "Deleting the pictures where you forgot t" 1200x39 fill=#04143a
+                » "Deleting the pictures where you forgot to be careful."  {Silka 500 28px lh:140% ls:-0.56px LEFT }
+ [TEXT] "Angling away from the camera." 1200x34 fill=#04143a
+                » "Angling away from the camera."  {Silka 500 24px lh:140% ls:-0.48px LEFT }
+ [TEXT] "Cloused-mouth photos" 1200x28 fill=#04143a
+                » "Cloused-mouth photos"  {Silka 500 20px lh:140% ls:-0.40px LEFT }
+ [TEXT] "The hand over your mouth mid-laugh" 1200x22 fill=#04143a
+                » "The hand over your mouth mid-laugh"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244405" 990x56 [col pad:0/0/0/0 gap:12 /]
+ [TEXT] "None of that is a personality trait. It'" 990x22 fill=#04143a
+              » "None of that is a personality trait. It's a still smile, and it's been running your photos"  {Silka 400 16px lh:140% ls:-0.32px LEFT }
+ [TEXT] "MOVES exists to end the still smile." 990x22 fill=#fc5257
+              » "MOVES exists to end the still smile."  {Silka 700 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Section" 1320x628 [col pad:60/60/60/60 gap:0 /] fill=IMAGE(2260aca52362ddff6466097c9ea4b257650540e4,STRETCH) r24
+ [FRAME] "Frame 2147244246" 1200x508 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "THE SIGNED DIFFERENCE" 1200x14 fill=#ffffff
+            » "THE SIGNED DIFFERENCE"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [FRAME] "Frame 2147244394" 1200x474 [col pad:0/0/0/0 gap:60 /]
+ [FRAME] "Frame 2147244402" 1017x176 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "Ask your aligner company who signs your " 1017x106 fill=#ffffff
+                » "Ask your aligner company who signs your treatment. We'll wait."  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+                  (accent colors: #ffffff)
+ [TEXT] "In 2023, an aligner brand with almost no" 1017x50 fill=#ffffff
+                » "In 2023, an aligner brand with almost no dentists collapsed overnight and stranded tens of"  {Silka 400 18px lh:140% ls:-0.36px LEFT }
+ [FRAME] "Frame 2147244401" 1200x238 [row pad:0/0/0/0 gap:20 SPACE_BETWEEN/MAX]
+ [FRAME] "Frame 2147244400" 575x230 [col pad:0/0/0/0 gap:32 /]
+ [FRAME] "Frame 2147244397" 575x49 [col pad:0/0/0/20 gap:8 /] stroke=#04143a sw1
+ [TEXT] "Scanned in person, at a clinic" 555x22 fill=#ffffff
+                    » "Scanned in person, at a clinic"  {Silka 500 18px lh:22px ls:-0.36px LEFT }
+ [TEXT] "Not a mail-order impression kit on your " 555x19 fill=#ffffff
+                    » "Not a mail-order impression kit on your kitchen table."  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244398" 575x68 [col pad:0/0/0/20 gap:8 /] stroke=#04143a sw1
+ [TEXT] "Signed by a named, GDC-registered dentis" 555x22 fill=#ffffff
+                    » "Signed by a named, GDC-registered dentist"  {Silka 500 18px lh:22px ls:-0.36px LEFT }
+ [TEXT] "Their name and number go on your plan, i" 555x38 fill=#ffffff
+                    » "Their name and number go on your plan, in your account, on your box. Look them up in eight"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244399" 575x49 [col pad:0/0/0/20 gap:8 /] stroke=#04143a sw1
+ [TEXT] "Aftercare that checks on you first" 555x22 fill=#ffffff
+                    » "Aftercare that checks on you first"  {Silka 500 18px lh:22px ls:-0.36px LEFT }
+ [TEXT] "Scheduled check-ins through treatment — " 555x19 fill=#ffffff
+                    » "Scheduled check-ins through treatment — before you have to ask."  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container (MOVES · The smile you've been" 485x238 [col pad:32/32/32/32 gap:14 /] fill=#ffffff r16
+ [FRAME] "Frame 2147244404" 421x20 [row pad:0/0/0/0 gap:14 /]
+ [FRAME] "Text" 385x17 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Subtract 1" 22x20
+ [FRAME] "Text" 421x56 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Amelia Hart" 228x56 fill=#05143b
+                    » "Amelia Hart"  {Silka 500 40px lh:56px ls:-0.80px LEFT }
+ [FRAME] "Container" 421x3 fill=#fc5257
+ [FRAME] "Container" 421x22 [row pad:0/0/0/0 gap:32 SPACE_BETWEEN/CENTER]
+ [FRAME] "Text" 127x22 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Text" 113x18 [col pad:0/0/0/0 gap:0 /]
+ [FRAME] "Text" 421x17 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Responsible for this plan. Verifiable on" 374x17 fill=#8a93a8
+                    » "Responsible for this plan. Verifiable on the GDC register."  {Silka 400 14px lh:17px ls:-0.28px LEFT }
+ [INSTANCE] "Component 280" 1440x531 [col pad:80/60/80/60 gap:40 /] fill=#ffffff r24
+ [FRAME] "Frame 2147244834" 1320x151 [row pad:0/0/0/0 gap:42 SPACE_BETWEEN/MAX]
+ [FRAME] "Frame 2147244246" 873x151 [col pad:0/0/0/0 gap:20 /]
+ [TEXT] "THE MOVES YOU ALREADY MAKE" 69x14 fill=#fc5257
+          » "OUR TEAM"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "The names behind the smiles." 602x53 fill=#04143a
+          » "The names behind the smiles."  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+            (accent colors: #fc5257)
+ [TEXT] "Every MOVES plan is signed by one of the" 591x44 fill=#04143a
+          » "Every MOVES plan is signed by one of these dentists. Every one of them is on the GDC regis"  {Silka 400 16px lh:140% ls:-0.32px LEFT }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+          » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244798" 1320x180 [row pad:0/0/0/0 gap:4 /]
+ [INSTANCE] "Frame 2147244823" 392x180 [row pad:24/20/0/20 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Mask group" 196x159 fill=IMAGE(326ec04513f2ce1847999e75e92dbc38a14fa342,STRETCH)
+ [FRAME] "Frame 2147244575" 140x156 [col pad:0/0/24/0 gap:16 SPACE_BETWEEN/MAX]
+ [FRAME] "Subtract 2" 22x20
+ [FRAME] "Frame 2147244837" 140x61 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Dr. Amir Hussain" 140x13 fill=#04143a
+              » "Dr. Amir Hussain"  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Frame 2147244829" 129x32 [col pad:0/0/0/0 gap:4 /]
+ [TEXT] "Moves Verified Dentist" 129x14 fill=#04143a
+                » "Moves Verified Dentist"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [TEXT] "GDC No. 12345" 86x14 fill=#04143a
+                » "GDC No. 12345"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [INSTANCE] "Frame 2147244822" 392x180 [row pad:24/20/0/20 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Mask group" 196x159 fill=IMAGE(326ec04513f2ce1847999e75e92dbc38a14fa342,STRETCH)
+ [FRAME] "Frame 2147244575" 140x156 [col pad:0/0/24/0 gap:16 SPACE_BETWEEN/MAX]
+ [FRAME] "Subtract 2" 22x20
+ [FRAME] "Frame 2147244837" 140x61 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Dr. Amir Hussain" 140x13 fill=#04143a
+              » "Dr. Amir Hussain"  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Frame 2147244829" 129x32 [col pad:0/0/0/0 gap:4 /]
+ [TEXT] "Moves Verified Dentist" 129x14 fill=#04143a
+                » "Moves Verified Dentist"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [TEXT] "GDC No. 12345" 86x14 fill=#04143a
+                » "GDC No. 12345"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [INSTANCE] "Frame 2147244820" 392x180 [row pad:24/20/0/20 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Mask group" 196x159 fill=IMAGE(326ec04513f2ce1847999e75e92dbc38a14fa342,STRETCH)
+ [FRAME] "Frame 2147244575" 140x156 [col pad:0/0/24/0 gap:16 SPACE_BETWEEN/MAX]
+ [FRAME] "Subtract 2" 22x20
+ [FRAME] "Frame 2147244837" 140x61 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Dr. Amir Hussain" 140x13 fill=#04143a
+              » "Dr. Amir Hussain"  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Frame 2147244829" 129x32 [col pad:0/0/0/0 gap:4 /]
+ [TEXT] "Moves Verified Dentist" 129x14 fill=#04143a
+                » "Moves Verified Dentist"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [TEXT] "GDC No. 12345" 86x14 fill=#04143a
+                » "GDC No. 12345"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [INSTANCE] "Frame 2147244821" 392x180 [row pad:24/20/0/20 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Mask group" 196x159 fill=IMAGE(326ec04513f2ce1847999e75e92dbc38a14fa342,STRETCH)
+ [FRAME] "Frame 2147244575" 140x156 [col pad:0/0/24/0 gap:16 SPACE_BETWEEN/MAX]
+ [FRAME] "Subtract 2" 22x20
+ [FRAME] "Frame 2147244837" 140x61 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Dr. Amir Hussain" 140x13 fill=#04143a
+              » "Dr. Amir Hussain"  {Silka 500 18px lh:22px ls:-0.38px CENTER }
+ [FRAME] "Frame 2147244829" 129x32 [col pad:0/0/0/0 gap:4 /]
+ [TEXT] "Moves Verified Dentist" 129x14 fill=#04143a
+                » "Moves Verified Dentist"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [TEXT] "GDC No. 12345" 86x14 fill=#04143a
+                » "GDC No. 12345"  {Silka 500 12px lh:14px ls:-0.24px LEFT }
+ [FRAME] "Frame 2147244278" 1440x1385 [row pad:100/60/100/60 gap:10 /CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147243953" 1320x1185 [col pad:0/0/0/0 gap:40 CENTER/CENTER] fill=#ffffff
+ [FRAME] "Frame 2147244211" 1320x132 [col pad:0/0/0/0 gap:0 /CENTER]
+ [FRAME] "Frame 2147244422" 523x132 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "OUR CLIENTS" 90x14 fill=#fc5257
+            » "OUR CLIENTS"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [FRAME] "Frame 2147228644" 397x25 [row pad:0/0/0/0 gap:16.137929916381836 /CENTER]
+ [TEXT] "Excellent (3,890)" 130x11 fill=#000000
+              » "Excellent (3,890)"  {Aeonik 700 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Stars" 133x25 [row pad:0/0/0/0 gap:2.4597699642181396 /]
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 25x25 [col pad:3.68965482711792/3.68965482711792/3.68965482711792/3.68965482711792 gap:0 /] fill=#219653
+ [FRAME] "Frame 516" 102x25 [row pad:0/0/0/0 gap:4.965517044067383 CENTER/CENTER]
+ [TEXT] "Trustpilot" 75x11 fill=#000000
+                » "Trustpilot"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Don't take our word for it" 523x53 fill=#04143a
+            » "Don't take our word for it"  {Jost 500 48px lh:110% ls:-2.00px CENTER TITLE}
+              (accent colors: #fc5257)
+ [FRAME] "Frame 2147244213" 1320x928 [row pad:0/0/0/0 gap:4 /]
+ [FRAME] "Frame 2147242159" 437x928 [col pad:0/0/0/0 gap:4 /]
+ [INSTANCE] "Frame 2147244804" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244801" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244803" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244802" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [FRAME] "Frame 2147242160" 437x928 [col pad:0/0/0/0 gap:4 /]
+ [INSTANCE] "Frame 2147244804" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244803" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244802" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244801" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [FRAME] "Frame 2147242161" 437x928 [col pad:0/0/0/0 gap:4 /CENTER]
+ [INSTANCE] "Frame 2147244807" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244806" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244805" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Frame 2147244804" 437x229 [col pad:32/32/32/32 gap:19 /] fill=#f2f6fe r24
+ [FRAME] "Frame 2147244786" 373x19 [row pad:0/0/0/0 gap:19 /]
+ [FRAME] "Stars" 97x18 [row pad:0/0/0/0 gap:1.7999998331069946 /]
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [INSTANCE] "Star" 18x18 [col pad:2.6999998092651367/2.6999998092651367/2.6999998092651367/2.6999998092651367 gap:0 /] fill=#219653
+ [TEXT] "Verified" 59x19 fill=#858585
+                » "Verified"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244831" 373x127 [col pad:0/0/0/0 gap:16 /]
+ [TEXT] "Pauline, 5 hours ago" 373x19 fill=#858585
+                » "Pauline, 5 hours ago"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "Moves is genius" 373x19 fill=#000000
+                » "Moves is genius"  {Silka 700 16px lh:19px ls:-0.32px LEFT }
+ [TEXT] "With Capable, I've expanded my network a" 373x57 fill=#858585
+                » "With Capable, I've expanded my network and found genuine connections. The seamless interfa"  {Silka 500 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 132x18 [row pad:0/0/0/0 gap:6 /CENTER]
+ [FRAME] "SVG" 18x18
+ [TEXT] "Mustafa - BMG" 108x12 fill=#000000
+                » "Mustafa - BMG"  {Saans 400 16px lh:12px ls:0 LEFT }
+ [INSTANCE] "Fill Button" 151x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#ffffff r90 stroke=#04143a sw1
+ [TEXT] "View More" 87x13 fill=#04143a
+          » "View More"  {Silka 700 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Desktop - 80" 1440x640 [col pad:0/60/0/60 gap:10 /] fill=#ffffff stroke=#dedede sw1
+ [FRAME] "Container" 1320x640 fill=#04143a stroke=#dedede sw0.5
+      [VECTOR] 1237x300 fill=IMAGE(5bf820d3993112e9b88f727692c683f77071d26c,STRETCH)
+ [FRAME] "Frame 2147244270" 613x261 [col pad:0/0/0/0 gap:40 /CENTER]
+ [FRAME] "Frame 2147244419" 591x176 [col pad:0/0/0/0 gap:24 /CENTER]
+ [TEXT] "30-Day Money-Back Guarantee" 587x114 fill=#ffffff
+            » "30-Day Money-Back Guarantee"  {Silka 700 52px lh:110% ls:-1.00px CENTER TITLE}
+ [TEXT] "Address symptoms, treat root causes, and" 591x38 fill=#ffffff
+            » "Address symptoms, treat root causes, and adjust your behaviours, for immediate relief and "  {Silka 400 16px lh:19px ls:-0.32px CENTER }
+ [INSTANCE] "Fill Button" 254x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#004df6 r4
+ [TEXT] "Book Free Consultation" 190x13 fill=#ffffff
+            » "Book Free Consultation"  {Silka 700 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Frame 2147244799" 1440x519 [col pad:0/0/0/0 gap:10 CENTER/CENTER]
+ [FRAME] "Container" 1440x519 [col pad:0/24/0/24 gap:32 CENTER/CENTER] fill=IMAGE(5ba866331ea1466527f694cb4713a106ba9c22ab,STRETCH) r20 stroke=#dedede sw0.5
+ [FRAME] "Frame 2147244427" 560x223 [col pad:0/0/0/0 gap:32 CENTER/CENTER]
+ [FRAME] "Frame 2147244550" 560x146 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "Your MOVE" 560x82 fill=#ffffff
+            » "Your MOVE"  {Jost 500 68px lh:120% ls:-2.00px CENTER TITLE}
+ [TEXT] "A free consultation, an honest answer, a" 346x44 fill=#ffffff
+            » "A free consultation, an honest answer, and a plan with a name on it."  {Silka 400 18px lh:22px ls:-0.36px CENTER }
+ [INSTANCE] "Fill Button" 250x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#04143a r90
+ [TEXT] "Book Free Consultation" 189x13 fill=#ffffff
+            » "Book Free Consultation"  {Silka 500 18px lh:25px ls:-1.00px CENTER }
+ [GROUP] "Group 2147205241" 312x305 r[0,0,0,0]
+        [STAR] 307x300 fill=#fc5257 r30
+ [FRAME] "Frame 2147244545" 153x158 [col pad:0/0/0/0 gap:2 /CENTER]
+ [FRAME] "Frame 2147244842" 128x73 [col pad:0/0/0/0 gap:2 /]
+ [TEXT] "Money back" 122x53 fill=#ffffff
+              » "Money back"  {Jost 400 16px lh:120% ls:0 CENTER UPPER}
+ [TEXT] "Guarantee" 122x53 fill=#ffffff
+              » "Guarantee"  {Jost 400 16px lh:120% ls:0 CENTER UPPER}
+ [TEXT] "30" 136x98 fill=#ffffff
+            » "30"  {Jost 500 60px lh:110% ls:-2.00px CENTER TITLE}
+ [TEXT] "days" 122x53 fill=#ffffff
+            » "days"  {Jost 400 16px lh:120% ls:0 CENTER UPPER}
+ [FRAME] "Desktop - 28" 1440x816 [col pad:100/60/100/60 gap:10 CENTER/CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147244220" 1320x616 [col pad:0/0/0/0 gap:40 /CENTER]
+ [FRAME] "Frame 2147244533" 666x156 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "THE MOVES YOU ALREADY MAKE" 215x14 fill=#fc5257
+          » "THE MOVES YOU ALREADY MAKE"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Real Smiles, real Stories" 473x58 fill=#fc5257
+          » "Real Smiles, real Stories"  {Jost 500 48px lh:120% ls:-2.00px CENTER TITLE}
+            (accent colors: #04143a)
+ [TEXT] "MOVES isn't a box in the post. Every pat" 666x44 fill=#04143a
+          » "MOVES isn't a box in the post. Every patient is examined, scanned and fitted in person by "  {Silka 400 16px lh:140% ls:-0.32px CENTER }
+ [FRAME] "Frame 2147244531" 1320x420 [row pad:0/0/0/0 gap:4 /CENTER]
+ [FRAME] "Frame 2147244259" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [FRAME] "Frame 2147244236" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [RECTANGLE] "3 1" 261x420 fill=IMAGE(117a58ac2fbe578b8880594b80a51788845a844b,FILL) r16
+ [FRAME] "Overlay+OverlayBlur" 50x48 [row pad:12/20/12/20 gap:10 /CENTER] fill=#ffffff r100
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x14
+ [FRAME] "Frame 2147244236" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [RECTANGLE] "4 1" 261x420 fill=IMAGE(6667935eb389a50ddca8b931335d895dc37b8158,FILL) r16
+ [FRAME] "Overlay+OverlayBlur" 50x48 [row pad:12/20/12/20 gap:10 /CENTER] fill=#ffffff r100
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x14
+ [FRAME] "Frame 2147244236" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [RECTANGLE] "3 1" 261x420 fill=IMAGE(117a58ac2fbe578b8880594b80a51788845a844b,FILL) r16
+ [FRAME] "Overlay+OverlayBlur" 50x48 [row pad:12/20/12/20 gap:10 /CENTER] fill=#ffffff r100
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x14
+ [FRAME] "Frame 2147244236" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [RECTANGLE] "1 501" 261x420 fill=IMAGE(412b3ac98e26393f0fb7add8e88280c95f659520,FILL) r16
+ [FRAME] "Overlay+OverlayBlur" 50x48 [row pad:12/20/12/20 gap:10 /CENTER] fill=#ffffff r100
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x14
+ [FRAME] "Frame 2147244236" 261x420 [col pad:0/0/0/0 gap:47 /]
+ [RECTANGLE] "3 1" 261x420 fill=IMAGE(117a58ac2fbe578b8880594b80a51788845a844b,FILL) r4
+ [FRAME] "Overlay+OverlayBlur" 50x48 [row pad:12/20/12/20 gap:10 /CENTER] fill=#ffffff r100
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x24
+ [FRAME] "65c4e55207489c857c77db81_Vector%20(12).s" 10x14
+ [FRAME] "Frame 2147244275" 1440x1088 [col pad:100/0/100/0 gap:40 /CENTER] fill=#ffffff r24
+ [FRAME] "Frame 2147244836" 540x92 [col pad:0/0/0/0 gap:20 /CENTER]
+ [TEXT] "FAQS" 34x14 fill=#fc5257
+        » "FAQS"  {Silka 500 12px lh:14px ls:1.00px LEFT UPPER}
+ [TEXT] "Frequently asked questions" 540x58 fill=#fc5257
+        » "Frequently asked questions "  {Jost 500 48px lh:120% ls:-2.00px CENTER TITLE}
+          (accent colors: #04143a)
+ [FRAME] "Frame 2147244220" 1440x756 [col pad:0/320/0/320 gap:42 /CENTER]
+ [FRAME] "Frame 2147244188" 800x756 [col pad:0/0/0/0 gap:4 /] r4
+ [FRAME] "Container" 800x162 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "How much does it cost?" 700x22 fill=#04143a
+                » "How much does it cost?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x2
+ [GROUP] "Group" 14x2
+ [TEXT] "From £895 (Nudge, for minor relapses) to" 736x76 fill=#04143a
+            » "From £895 (Nudge, for minor relapses) to £3,395 (Transform, for complex cases). Most peopl"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "How should dental aligners be cleaned an" 700x22 fill=#04143a
+                » "How should dental aligners be cleaned and maintained?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Can clear aligners close gaps?" 700x22 fill=#04143a
+                » "Can clear aligners close gaps?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Do clear aligners hurt?" 700x22 fill=#04143a
+                » "Do clear aligners hurt?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Pregnancy and orthodontics: Can I use te" 700x22 fill=#04143a
+                » "Pregnancy and orthodontics: Can I use teeth aligners?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Can you smoke when using invisible align" 700x22 fill=#04143a
+                » "Can you smoke when using invisible aligners?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "How long do clear aligners take?" 700x22 fill=#04143a
+                » "How long do clear aligners take?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "Are clear aligners expensive?" 700x22 fill=#04143a
+                » "Are clear aligners expensive?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Container" 800x70 [col pad:24/32/24/32 gap:0 SPACE_BETWEEN/] fill=#f2f6fe r16
+ [FRAME] "Frame 2147244189" 736x22 [row pad:0/0/0/0 gap:16 /]
+ [FRAME] "Heading 3" 700x22 [col pad:0/0/0/0 gap:0 /]
+ [TEXT] "When is the best time to start treatment" 487x22 fill=#04143a
+                » "When is the best time to start treatment with invisible aligners?"  {Silka 500 16px lh:140% ls:-0.32px LEFT }
+ [FRAME] "Layer_2" 20x20
+ [GROUP] "Group" 14x14
+ [GROUP] "Group" 2x14
+ [GROUP] "Group" 14x2
+ [TEXT] "How often do I need to change my clear a" 644x68 fill=#04143a
+            » "How often do I need to change my clear aligners? How often do I need to change my clear al"  {Silka 400 16px lh:19px ls:-0.32px LEFT }
+ [FRAME] "Frame 2147244817" 1440x1310 [col pad:0/0/0/0 gap:20 /]
+ [FRAME] "Frame 2147244056" 1440x657 fill=IMAGE(1f767dcb78a5fd7938ed2ffb6b2f7c5307afab51,FILL) r24
+ [FRAME] "Frame 2147244046" 525x333 [col pad:0/0/0/0 gap:52 /]
+ [FRAME] "Subtract 1" 35x32
+ [FRAME] "Frame 2147242961" 525x152 [col pad:0/0/0/0 gap:24 /]
+ [TEXT] "Your move." 346x53 fill=#04143a
+            » "Your move."  {Jost 500 48px lh:110% ls:-2.00px LEFT TITLE}
+ [TEXT] "The consultation is free. The scan shows" 525x75 fill=#04143a
+            » "The consultation is free. The scan shows what's possible. The plan comes signed. The only "  {Silka 400 18px lh:140% ls:-0.36px LEFT }
+ [INSTANCE] "Fill Button" 254x45 [row pad:16/32/16/32 gap:0 CENTER/CENTER] fill=#fc5257 r74
+ [TEXT] "Book Free Consultation" 190x13 fill=#ffffff
+            » "Book Free Consultation"  {Silka 700 18px lh:25px ls:-1.00px CENTER }
+ [FRAME] "Desktop - Footer with Email Signup" 1440x633 [col pad:100/60/100/60 gap:10 /] fill=#04143a r[24,24,0,0]
+ [FRAME] "Frame 2147244772" 1320x433 [col pad:0/0/0/0 gap:100 /]
+ [FRAME] "Frame 1171279467" 1320x96 [row pad:0/0/0/0 gap:162 SPACE_BETWEEN/]
+ [FRAME] "Frame 1171279468" 479x76 [col pad:0/0/0/0 gap:30 /]
+ [FRAME] "Frame 1171279427" 479x16 [row pad:0/0/0/0 gap:36 SPACE_BETWEEN/CENTER]
+ [TEXT] "Shop" 44x16 fill=#ffffff
+                » "Shop"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [TEXT] "About" 53x16 fill=#ffffff
+                » "About"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [TEXT] "Science" 67x16 fill=#ffffff
+                » "Science"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [TEXT] "FAQs" 40x16 fill=#ffffff
+                » "FAQs"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [TEXT] "Contact" 76x16 fill=#ffffff
+                » "Contact"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [FRAME] "Frame 33" 127x30 [row pad:0/0/0/0 gap:22.07280158996582 /CENTER]
+ [INSTANCE] "Social Icons" 27x27
+ [INSTANCE] "Social Icons" 27x27
+ [FRAME] "EnvelopeSimple" 30x30
+ [FRAME] "Frame 1171279466" 309x96 [col pad:0/0/0/0 gap:20 /MAX]
+ [TEXT] "join our mailing list" 193x20 fill=#ffffff
+              » "join our mailing list"  {Silka 400 20px lh:100% ls:-0.40px LEFT TITLE}
+ [FRAME] "Frame 11" 309x56 [row pad:10/10/10/30 gap:10 SPACE_BETWEEN/CENTER] fill=#ffffff r100 stroke=#270089 sw1
+ [TEXT] "YOUR EMAIL" 93x16 fill=#04143a
+                » "YOUR EMAIL"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}
+ [FRAME] "Frame 1171279403" 36x36 [row pad:8/8/8/8 gap:10 CENTER/CENTER] fill=#fc5257 r1000
+ [FRAME] "ArrowDownLeft" 20x20
+ [FRAME] "Frame 2147244771" 1320x237 [col pad:0/0/0/0 gap:14 /]
+ [FRAME] "Frame 2147244770" 1320x207
+ [FRAME] "Frame 2147244774" 1308x180
+ [TEXT] "© Copyright 2026 Moves" 1320x16 fill=#ffffff
+            » "© Copyright 2026 Moves"  {Silka 400 16px lh:100% ls:-0.32px LEFT UPPER}

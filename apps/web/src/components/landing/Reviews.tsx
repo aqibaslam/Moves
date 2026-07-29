@@ -1,6 +1,7 @@
 import { StarChip, TrustpilotStar } from './icons';
 
 export interface ReviewsData {
+  eyebrow?: string;
   ratingCount?: string;
   heading?: { accent?: string; rest?: string };
   viewMoreLabel?: string;
@@ -57,6 +58,7 @@ export function Reviews({ data }: { data?: ReviewsData }) {
   return (
     <section className="card-section reviews">
       <div className="reviews__head">
+        {data?.eyebrow ? <p className="eyebrow">{data.eyebrow}</p> : null}
         <div className="reviews__tp">
           <span className="rating__count">{data?.ratingCount ?? 'Excellent (3,890)'}</span>
           <div className="rating__stars">

@@ -54,7 +54,10 @@ export function Movers({ data }: { data?: MoversData }) {
               'Every patient becomes a Mover on scan day: a code of your own, rewards when a friend makes their move, first look at whatever we do next. The best Movers end up making the brand with us.'}
           </p>
         </div>
-        <a className="btn btn--navy btn--w250" href={data?.button?.href ?? '#cta'}>
+        <a
+          className="btn btn--navy btn--w250 movers__cta movers__cta--head"
+          href={data?.button?.href ?? '#cta'}
+        >
           {data?.button?.label ?? 'Book Free Consultation'}
         </a>
       </div>
@@ -66,11 +69,21 @@ export function Movers({ data }: { data?: MoversData }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={t.icon} alt="" aria-hidden="true" width={24} height={24} />
             </span>
-            <h3 className="tier__title">{t.title}</h3>
-            <p className="tier__body">{t.body}</p>
+            <div className="tier__text">
+              <h3 className="tier__title">{t.title}</h3>
+              <p className="tier__body">{t.body}</p>
+            </div>
           </div>
         ))}
       </div>
+
+      {/* mobile-only CTA: Figma places it beneath the role cards */}
+      <a
+        className="btn btn--navy movers__cta movers__cta--foot"
+        href={data?.button?.href ?? '#cta'}
+      >
+        {data?.button?.label ?? 'Book Free Consultation'}
+      </a>
     </section>
   );
 }

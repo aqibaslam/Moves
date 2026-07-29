@@ -1,4 +1,5 @@
 import { mediaUrl, mediaAlt } from '@/lib/media';
+import { ScrollRevealText } from './ScrollRevealText';
 
 export interface ManifestoData {
   eyebrow?: string;
@@ -10,7 +11,13 @@ export interface ManifestoData {
 }
 
 export function Manifesto({ data }: { data?: ManifestoData }) {
-  const hasHeading = Boolean(data?.heading?.bright || data?.heading?.dim);
+  const headingText = [
+    data?.heading?.bright ?? 'Moves is',
+    data?.heading?.dim ??
+      'not a clear aligner company. It is the moment behind modern smiles.',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <section className="manifesto">
@@ -26,17 +33,7 @@ export function Manifesto({ data }: { data?: ManifestoData }) {
       <p className="eyebrow manifesto__eyebrow">{data?.eyebrow ?? 'WHY WE’RE CALLED MOVES'}</p>
 
       <h2 className="manifesto__title">
-        {hasHeading ? (
-          <>
-            {data?.heading?.bright} <span className="dim">{data?.heading?.dim}</span>
-          </>
-        ) : (
-          <>
-            Moves is <span className="dim">not a clear aligner company.</span>
-            <br />
-            <span className="dim">It is the moment behind modern smiles.</span>
-          </>
-        )}
+        <ScrollRevealText text={headingText} />
       </h2>
 
       <p className="manifesto__sub">

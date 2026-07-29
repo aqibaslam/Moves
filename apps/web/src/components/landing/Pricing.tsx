@@ -47,7 +47,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           </div>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="pcard__product" src={plan.productImage} alt={plan.imageAlt} />
+        <img className="pcard__product" src="/images/pricing-aligner.png" alt={plan.imageAlt} />
       </div>
 
       <hr className="pcard__div" />

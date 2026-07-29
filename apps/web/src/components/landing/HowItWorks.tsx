@@ -65,7 +65,10 @@ export function HowItWorks({ data }: { data?: HowItWorksData }) {
               'No postal impression kits. No anonymous review team. A dentist, a scanner, a signature then motion.'}
           </p>
         </div>
-        <a className="btn btn--navy btn--w250" href={data?.button?.href ?? '#cta'}>
+        <a
+          className="btn btn--navy btn--w250 how__cta how__cta--head"
+          href={data?.button?.href ?? '#cta'}
+        >
           {data?.button?.label ?? 'Book Free Consultation'}
         </a>
       </div>
@@ -94,6 +97,14 @@ export function HowItWorks({ data }: { data?: HowItWorksData }) {
           </div>
         ))}
       </div>
+
+      {/* mobile-only CTA: Figma places it beneath the step cards */}
+      <a
+        className="btn btn--navy how__cta how__cta--foot"
+        href={data?.button?.href ?? '#cta'}
+      >
+        {data?.button?.label ?? 'Book Free Consultation'}
+      </a>
     </section>
   );
 }
