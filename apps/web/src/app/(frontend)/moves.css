@@ -137,7 +137,9 @@
   display: flex;
   flex-direction: column;
   overflow: clip;
-  border-radius: 16px;
+  /* top bar (announcement) is flush to match Figma; only the hero card's
+     bottom stays rounded */
+  border-radius: 0 0 16px 16px;
 }
 
 .announce {
