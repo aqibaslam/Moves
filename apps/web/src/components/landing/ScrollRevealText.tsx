@@ -25,10 +25,11 @@ export function ScrollRevealText({ text }: { text: string }) {
     const update = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // start lighting when the block enters the lower 90% of the viewport,
-      // finish once it reaches ~30% from the top — a controlled scroll reveal.
-      const start = vh * 0.9;
-      const end = vh * 0.3;
+      // Begin lighting as the block is still entering from just below the fold
+      // and only finish once it nears the top — a wide (~1.15×vh) span so the
+      // word-by-word reveal feels slow and deliberate rather than snapping on.
+      const start = vh * 1.15;
+      const end = vh * 0.1;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
       setLit(Math.ceil(p * words.length));
     };
