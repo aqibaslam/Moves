@@ -2321,6 +2321,12 @@
   .faq__q {
     padding: 20px 12px;
   }
+  /* match the answer's side padding to the question so it left-aligns
+     with the question text (as it does on desktop, where both are 32px) */
+  .faq__answer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 
   /* ---- footer: stacked ---- */
   .footer {
