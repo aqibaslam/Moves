@@ -1,7 +1,11 @@
-import { Fragment } from 'react';
+'use client';
+
+import { Fragment, useCallback, useEffect, useRef } from 'react';
 
 /* Comparison table (Figma §6). Columns: Feature · MOVES (highlighted) ·
-   Invisalign · Traditional braces. Values verbatim from the spec. */
+   Invisalign · Traditional braces. Values verbatim from the spec.
+   On mobile the table scrolls horizontally and a coral progress thumb
+   under it tracks the scroll position (Figma mobile design). */
 
 interface Row {
   label: string;
@@ -68,6 +72,33 @@ const ROWS: Row[] = [
 ];
 
 export function Comparison() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLSpanElement>(null);
+
+  // Move the coral thumb to reflect how far the table is scrolled.
+  const syncProgress = useCallback(() => {
+    const el = wrapRef.current;
+    const fill = fillRef.current;
+    if (!el || !fill) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const ratio = max > 0 ? el.scrollLeft / max : 0;
+    const thumb = el.scrollWidth > 0 ? el.clientWidth / el.scrollWidth : 1;
+    fill.style.width = `${thumb * 100}%`;
+    fill.style.left = `${ratio * (1 - thumb) * 100}%`;
+  }, []);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    syncProgress();
+    el.addEventListener('scroll', syncProgress, { passive: true });
+    window.addEventListener('resize', syncProgress);
+    return () => {
+      el.removeEventListener('scroll', syncProgress);
+      window.removeEventListener('resize', syncProgress);
+    };
+  }, [syncProgress]);
+
   return (
     <section className="card-section f-cmp">
       <div className="f-cmp__head">
@@ -81,7 +112,7 @@ export function Comparison() {
         </p>
       </div>
 
-      <div className="f-cmp__wrap">
+      <div className="f-cmp__wrap" ref={wrapRef}>
         <div className="f-cmp__table" role="table" aria-label="How Moves compares">
           {/* header row */}
           <div className="f-cmp__cell f-cmp__cell--head f-cmp__cell--label" role="columnheader" />
@@ -113,6 +144,11 @@ export function Comparison() {
             </Fragment>
           ))}
         </div>
+      </div>
+
+      {/* mobile-only scroll progress thumb (hidden on desktop where the table fits) */}
+      <div className="f-cmp__scroll" aria-hidden="true">
+        <span className="f-cmp__scroll-fill" ref={fillRef} />
       </div>
     </section>
   );

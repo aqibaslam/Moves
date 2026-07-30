@@ -823,7 +823,8 @@
   /* horizontal slider */
   overflow-x: auto;
   scroll-behavior: smooth;
-  scroll-snap-type: x proximity;
+  /* mandatory so a scroll always settles on the next card, not mid-slide */
+  scroll-snap-type: x mandatory;
   scroll-padding-inline: 60px;
   cursor: grab;
   scrollbar-width: none;

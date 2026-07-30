@@ -229,6 +229,15 @@
   margin: 0;
   white-space: pre-line;
 }
+.funnel-page .fpcard__treat {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 8px 0 0;
+}
 /* Pay monthly / Pay upfront toggle */
 .funnel-page .fp-toggle {
   display: inline-flex;
@@ -1263,5 +1272,358 @@
   .funnel-page .fb-coral__cta {
     align-self: center;
     margin-top: 24px;
+  }
+}
+
+/* comparison scroll-progress thumb — mobile only (hidden where table fits) */
+.funnel-page .f-cmp__scroll {
+  display: none;
+}
+
+/* =========================================================
+   MOBILE (≤640px) — pixel-mapped from Figma mobile funnel
+   frame 1465:29082 (390px). Placed last so it wins over the
+   ≤1080 / ≤1200 / earlier ≤640 rules above.
+   ========================================================= */
+@media (max-width: 640px) {
+  /* ---------- HERO ---------- */
+  .funnel-page .f-announce {
+    padding: 10px 16px 27px;
+    font-size: 12px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+  .funnel-page .f-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 8px 16px;
+    border-radius: 12px 12px 0 0;
+  }
+  .funnel-page .f-nav__logo {
+    width: 114px;
+    height: auto;
+  }
+  .funnel-page .f-nav__save {
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  /* hero card: portrait on top, pink content block below */
+  .funnel-page .f-hero {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    background: var(--pink-bg);
+    border-radius: 20px;
+    overflow: clip;
+  }
+  .funnel-page .f-hero .hero__media {
+    order: -1;
+    width: 100%;
+    max-width: none;
+  }
+  .funnel-page .f-hero .hero__left {
+    padding: 50px 16px 24px;
+    gap: 24px;
+  }
+  .funnel-page .f-hero .h-hero {
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: -0.0333em;
+  }
+  .funnel-page .f-hero .hero__sub {
+    display: none;
+  }
+  .funnel-page .f-hero .hero-feats {
+    gap: 8px;
+  }
+  .funnel-page .f-hero .hero-feat {
+    align-items: flex-start;
+    gap: 12px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+  .funnel-page .f-hero .hero-feat svg {
+    margin-top: 4px;
+  }
+  .funnel-page .f-hero .hero-ctagroup .btn {
+    width: 100% !important;
+  }
+  .funnel-page .f-hero .hero-cap {
+    font-size: 12px;
+    line-height: 1.25;
+    color: rgba(4, 20, 58, 0.7);
+    max-width: 287px;
+  }
+
+  /* ---------- CORAL BAND ---------- */
+  .funnel-page .fb-coral {
+    padding: 50px 16px 60px;
+  }
+  .funnel-page .fb-coral__eyebrow { order: 1; }
+  .funnel-page .fb-coral__title {
+    order: 2;
+    font-size: 36px;
+    letter-spacing: -0.0417em;
+  }
+  .funnel-page .fb-coral__aside { order: 3; }
+  .funnel-page .fb-coral__figure {
+    order: 4;
+    /* re-establish the positioning context so the arch / woman / glow
+       (position:absolute) compose INSIDE the 274×320 figure box instead of
+       escaping to .fb-coral__inner and covering the whole band */
+    position: relative;
+    width: 274px;
+    max-width: 274px;
+    margin-top: 8px;
+  }
+  .funnel-page .fb-coral__label { display: none; }
+  .funnel-page .fb-coral__body {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 0;
+  }
+  /* white hand-drawn arrow pointing at the woman (Figma shows it upper-left
+     of the figure). Anchored to the band bottom, which is stable. */
+  .funnel-page .fb-coral__arrow {
+    display: block;
+    left: 24px;
+    top: auto;
+    bottom: 225px;
+    width: 80px;
+    height: auto;
+    transform: none;
+  }
+
+  /* ---------- PRICING (horizontal card slider) ---------- */
+  .funnel-page .f-pricing {
+    padding: 50px 16px;
+    gap: 24px;
+  }
+  .funnel-page .f-pricing__head { gap: 24px; }
+  .funnel-page .f-pricing__intro .h-section { font-size: 32px; }
+  .funnel-page .f-pricing__cards {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* align the slider to the same inset width as the includes panel
+       (no edge-bleed) — cards still peek within the container */
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none;
+  }
+  .funnel-page .f-pricing__cards::-webkit-scrollbar { display: none; }
+  .funnel-page .fpcard {
+    flex: 0 0 86%;
+    max-width: 315px;
+    scroll-snap-align: start;
+    gap: 40px;
+    padding: 4px 24px 24px;
+    border-radius: 16px;
+  }
+  .funnel-page .fpcard__btn { margin-top: auto; }
+  .funnel-page .fpcard__title { font-size: 28px; line-height: 1.2; }
+  .funnel-page .fpcard__from { font-size: 12px; }
+  .funnel-page .fpcard__price { font-size: 38px; }
+  .funnel-page .fpcard__per { font-size: 16px; }
+  .funnel-page .fpcard__best { font-size: 14px; line-height: 1.4; }
+  .funnel-page .fpcard__treat { font-size: 14px; }
+  .funnel-page .fpcard__btn { width: 100%; }
+  /* includes / tier panel stacks into one column */
+  .funnel-page .f-includes {
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 24px;
+    /* tighten the space between the card slider and this panel */
+    margin-top: -16px;
+  }
+  .funnel-page .f-includes__col { width: 100%; }
+  .funnel-page .f-includes__title { font-size: 18px; }
+  .funnel-page .f-includes__list { gap: 16px; }
+  .funnel-page .f-includes__item {
+    font-size: 16px;
+    line-height: 1.4;
+    /* top-align the tick / number with the first line so multi-line rows
+       keep an even rhythm (Figma aligns the mark to the first line) */
+    align-items: flex-start;
+  }
+  .funnel-page .f-includes__item > svg {
+    flex: none;
+    margin-top: 4px;
+  }
+  .funnel-page .f-includes__num { line-height: 1.4; }
+  .funnel-page .f-includes__foot { font-size: 12px; line-height: 1.4; }
+
+  /* ---------- COMPARISON (horizontal scroll table) ---------- */
+  .funnel-page .f-cmp {
+    padding: 50px 16px;
+    gap: 28px;
+    /* no rounded corners on this section (per design); the scrolling table
+       reads better flush */
+    border-radius: 0;
+  }
+  .funnel-page .f-cmp__head { padding: 0; }
+  .funnel-page .f-cmp__head .h-section { font-size: 32px; }
+  /* table + scrollbar inset to the same 16px as every other section's content
+     (no edge-bleed), so widths line up across sections */
+  .funnel-page .f-cmp__wrap {
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .funnel-page .f-cmp__wrap::-webkit-scrollbar { display: none; }
+  .funnel-page .f-cmp__table {
+    min-width: 560px;
+    grid-template-columns: 145px 140px 140px 140px;
+    font-size: 14px;
+    border-radius: 0;
+  }
+  .funnel-page .f-cmp__cell {
+    padding: 14px 10px;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+  .funnel-page .f-cmp__cell--label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .funnel-page .f-cmp__scroll {
+    display: block;
+    position: relative;
+    height: 8px;
+    margin: 0;
+    border-radius: 40px;
+    background: var(--pink-bg);
+    overflow: hidden;
+  }
+  .funnel-page .f-cmp__scroll-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 40%;
+    border-radius: 40px;
+    background: var(--coral);
+  }
+
+  /* ---------- PROCESS (image-left rows) ---------- */
+  .funnel-page .f-process { padding: 50px 16px; gap: 28px; }
+  .funnel-page .f-process__intro .h-section { font-size: 32px; }
+  .funnel-page .f-process__list { gap: 24px; }
+  .funnel-page .f-move {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    /* no divider lines between steps on mobile */
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .funnel-page .f-move__media {
+    flex: none;
+    width: 113px;
+    height: 90px;
+    border-radius: 3px;
+    overflow: clip;
+  }
+  .funnel-page .f-move__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .funnel-page .f-move__text { flex: 1; gap: 8px; }
+  .funnel-page .f-move__num { font-size: 12px; letter-spacing: 0.0833em; }
+  .funnel-page .f-move__title { font-size: 16px; line-height: 1.3; }
+  .funnel-page .f-move__body { font-size: 14px; line-height: 1.4; }
+
+  /* ---------- CANDIDACY (head → cards → CTA) ---------- */
+  .funnel-page .f-cand {
+    padding: 50px 16px;
+    gap: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .funnel-page .f-cand__head { display: contents; }
+  .funnel-page .f-cand__head-l { order: 1; }
+  .funnel-page .f-cand__cards { order: 2; }
+  .funnel-page .f-cand__cta { order: 3; }
+  .funnel-page .f-cand__head-l .h-section { font-size: 32px; }
+  .funnel-page .f-cand__cards {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .funnel-page .f-cand__card { padding: 24px; }
+  .funnel-page .f-cand__title { font-size: 18px; }
+  .funnel-page .f-cand__item { font-size: 16px; }
+  .funnel-page .f-cand__cta {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* ---------- SIGNATURE CTA (familiar + signed) ---------- */
+  .funnel-page .f-sigcta { padding: 50px 16px; }
+  .funnel-page .f-familiar {
+    flex-direction: column;
+    padding: 40px 16px;
+    gap: 24px;
+  }
+  .funnel-page .f-familiar__l1 { font-size: 20px; line-height: 1.4; }
+  .funnel-page .f-familiar__l2 { font-size: 18px; }
+  .funnel-page .f-familiar__l3 { font-size: 16px; }
+  .funnel-page .f-familiar__l4 { font-size: 14px; }
+  .funnel-page .f-familiar__l5 { font-size: 12px; }
+  .funnel-page .f-signed {
+    padding: 40px 16px;
+    gap: 40px;
+  }
+  .funnel-page .f-signed__row {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .funnel-page .f-signed__title { font-size: 32px; line-height: 1.1; }
+  .funnel-page .f-sig__name { font-size: 32px; line-height: 1.2; }
+
+  /* ---------- YOUR MOVE band ---------- */
+  .funnel-page .f-yourmove {
+    min-height: 0;
+    height: 640px;
+    padding: 10px 16px 26px;
+    /* row flex → bottom-left content */
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+  /* dark gradient so white copy reads over the photo (Figma §14) */
+  .funnel-page .f-yourmove__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(20deg, rgba(0, 0, 0, 0.6) 8%, rgba(0, 0, 0, 0) 55%);
+  }
+  .funnel-page .f-yourmove__inner {
+    gap: 16px;
+    max-width: 326px;
+  }
+  .funnel-page .f-yourmove__copy { gap: 12px; }
+  .funnel-page .f-yourmove__mark { color: #fff; }
+  .funnel-page .f-yourmove__title {
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: 0.0536em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .funnel-page .f-yourmove__sub {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #fff;
   }
 }

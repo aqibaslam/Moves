@@ -7,43 +7,39 @@ interface Tier {
   title: string;
   accent: string; // title, price + top-border colour
   btnBg: string; // button fill
-  monthly: string;
-  upfront: string; // one-off total (placeholder = monthly × 24 @ 0% APR — set real figures)
+  monthly: string; // spread over 30 months @ 0% APR
+  upfront: string; // one-off total
   best: string;
+  treatment: string;
 }
 
 const TIERS: Tier[] = [
   {
-    title: 'Nudge',
+    title: 'Mild',
     accent: '#004df6',
     btnBg: '#04143a',
-    monthly: '£37',
-    upfront: '£888',
+    monthly: '£57',
+    upfront: '£1,695',
     best: 'Best for: minor relapse: teeth that were straightened once and have drifted, or a single tooth out of place.',
+    treatment: '4 months',
   },
   {
-    title: 'Shift',
+    title: 'Moderate',
     accent: '#04143a',
     btnBg: '#04143a',
-    monthly: '£60',
-    upfront: '£1,440',
-    best: 'Best for: mild crowding, small gaps, or minor rotation.\nTreatment time: 3-4 months',
+    monthly: '£80',
+    upfront: '£2,395',
+    best: 'Best for: mild crowding, small gaps, or minor rotation.',
+    treatment: '4-6 months',
   },
   {
-    title: 'Align',
+    title: 'Advanced',
     accent: '#fc5257',
     btnBg: '#fc5257',
-    monthly: '£83',
-    upfront: '£1,992',
-    best: 'Best for: noticeable crowding, gaps, or mild bite issues, with several teeth on the move.\nTreatment time: 4-6 months',
-  },
-  {
-    title: 'Transform',
-    accent: '#004df6',
-    btnBg: '#004df6',
-    monthly: '£113',
-    upfront: '£2,712',
-    best: 'Best for: generalised crowding, rotation, or bite correction across both arches.\nTreatment time: 6+ months',
+    monthly: '£100',
+    upfront: '£2,985',
+    best: 'Best for: noticeable crowding, gaps, or mild bite issues, with several teeth on the move.',
+    treatment: '4-6 months',
   },
 ];
 
@@ -65,7 +61,7 @@ const DECIDES = [
 type Mode = 'monthly' | 'upfront';
 
 export function FunnelPricing() {
-  const [mode, setMode] = useState<Mode>('monthly');
+  const [mode, setMode] = useState<Mode>('upfront');
 
   return (
     <section className="card-section f-pricing" id="pricing">
@@ -119,9 +115,10 @@ export function FunnelPricing() {
                   <span className="fpcard__from">From</span>
                   <span className="fpcard__price">{mode === 'monthly' ? t.monthly : t.upfront}</span>
                 </div>
-                <span className="fpcard__per">{mode === 'monthly' ? '/per month' : 'one-off'}</span>
+                <span className="fpcard__per">{mode === 'monthly' ? '/per month' : '/One - time'}</span>
               </div>
               <p className="fpcard__best">{t.best}</p>
+              <p className="fpcard__treat">Treatment time: {t.treatment}</p>
             </div>
 
             <a className="btn fpcard__btn" style={{ background: t.btnBg, color: '#fff' }} href="#cta">
