@@ -1288,7 +1288,8 @@
 @media (max-width: 640px) {
   /* ---------- HERO ---------- */
   .funnel-page .f-announce {
-    padding: 10px 16px 27px;
+    /* balanced, tight padding (Figma) — not a deep bottom gap */
+    padding: 11px 16px;
     font-size: 12px;
     line-height: 1.35;
     letter-spacing: -0.02em;
@@ -1296,8 +1297,9 @@
   .funnel-page .f-nav {
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    padding: 8px 16px;
+    /* small, even gap between the logo and the "save" line */
+    gap: 10px;
+    padding: 12px 16px;
     border-radius: 12px 12px 0 0;
   }
   .funnel-page .f-nav__logo {
@@ -1326,6 +1328,18 @@
   .funnel-page .f-hero .hero__left {
     padding: 50px 16px 24px;
     gap: 24px;
+  }
+  /* trustpilot rating row stays on a single line */
+  .funnel-page .f-hero .rating {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .funnel-page .f-hero .rating__count,
+  .funnel-page .f-hero .rating__tp span {
+    white-space: nowrap;
+  }
+  .funnel-page .f-hero .rating__stars {
+    flex: none;
   }
   .funnel-page .f-hero .h-hero {
     font-size: 36px;
