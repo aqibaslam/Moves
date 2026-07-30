@@ -25,7 +25,8 @@
   --f-mono: var(--font-aeonik), var(--font-silka), sans-serif;
 
   width: 100%;
-  max-width: 1440px;
+  /* full-bleed: no capped max-width, so there's no left/right gap on wide desktops */
+  max-width: none;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
@@ -59,6 +60,10 @@
 .h-section .c,
 .h-hero .c {
   color: var(--coral);
+}
+/* capitalize the hero headline on both landing and funnel */
+.h-hero {
+  text-transform: capitalize;
 }
 
 .lead {

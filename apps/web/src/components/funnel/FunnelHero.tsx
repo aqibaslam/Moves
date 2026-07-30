@@ -46,7 +46,7 @@ export function FunnelHero() {
             </div>
 
             <h1 className="h-hero">
-              <span className="c">The smile</span> you&rsquo;ve been putting off
+              <span className="c">The smile</span>{' '}you&rsquo;ve been putting off
             </h1>
 
             <p className="hero__sub">
