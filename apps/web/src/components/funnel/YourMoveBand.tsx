@@ -5,7 +5,19 @@ export function YourMoveBand() {
     <section className="f-yourmove">
       <div className="f-yourmove__bg">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/funnel/yourmove-band.png" alt="" aria-hidden="true" />
+        <img
+          className="f-yourmove__bg-desktop"
+          src="/images/funnel/yourmove-band.png"
+          alt=""
+          aria-hidden="true"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="f-yourmove__bg-mobile"
+          src="/images/funnel/yourmove-band-mobile.png"
+          alt=""
+          aria-hidden="true"
+        />
       </div>
 
       <div className="f-yourmove__inner">

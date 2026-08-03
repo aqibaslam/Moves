@@ -25,14 +25,49 @@
   --f-mono: var(--font-aeonik), var(--font-silka), sans-serif;
 
   width: 100%;
-  /* full-bleed: no capped max-width, so there's no left/right gap on wide desktops */
-  max-width: none;
+  /* content is capped at the 1440 design width (see the big-screen rule below,
+     which lets section backgrounds go full-bleed while content stays at 1440) */
+  max-width: 1440px;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
   background: var(--bg);
   overflow: clip;
+}
+
+/* Big screens (>1440): let section backgrounds go full-bleed (no big side
+   margins) while the content stays within the 1440 design grid. Applies to
+   both the home page and the funnel. */
+@media (min-width: 1441px) {
+  .moves-page {
+    max-width: none;
+  }
+  /* regular sections: full-bleed bg, content padded back to the 1440 grid */
+  .moves-page > .card-section:not(.ba):not(.f-cmp),
+  .moves-page > .manifesto,
+  .moves-page > .footer,
+  .moves-page > .f-yourmove {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  .moves-page > .card-section.pricing {
+    padding-inline: calc((100% - 1440px) / 2 + 220px);
+  }
+  /* sections whose content lives in an inner wrapper (carousel, comparison
+     table + head) — pad the wrapper, not the section, to the 1440 grid */
+  .moves-page > .ba .ba__cards,
+  .moves-page > .f-cmp .f-cmp__head,
+  .moves-page > .f-cmp .f-cmp__wrap {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  /* hero: image stays full-bleed to the right edge; text/nav align to the grid */
+  .moves-page > .hero-unit > .nav,
+  .moves-page > .hero-unit > .f-nav {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  .moves-page > .hero-unit > .hero {
+    padding-left: calc((100% - 1440px) / 2);
+  }
 }
 
 /* ---- shared primitives ---- */
@@ -142,9 +177,13 @@
   display: flex;
   flex-direction: column;
   overflow: clip;
+  position: relative;
   /* top bar (announcement) is flush to match Figma; only the hero card's
      bottom stays rounded */
   border-radius: 0 0 16px 16px;
+  /* navy backing: shows through the nav's rounded top corners so they read as
+     the announcement-bar colour (not the page background) */
+  background: var(--navy-2);
 }
 
 .announce {
@@ -186,6 +225,7 @@
   justify-content: space-between;
   padding: 10px 60px;
   background: var(--white);
+  /* rounded top; the navy hero-unit backing shows through the corners */
   border-radius: 16px 16px 0 0;
 }
 .nav__logo {
@@ -473,6 +513,10 @@
 .problem__item.active {
   font-weight: 500;
   color: var(--navy);
+}
+/* underline only on hover/focus — not while auto-advancing */
+.problem__item:hover,
+.problem__item:focus-visible {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -530,8 +574,37 @@
   flex: 1;
 }
 .progress i.on {
-  background: var(--white);
   flex: 0 0 82px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.35);
+}
+/* active segment fills left→right over the slide duration (Dermatica-style);
+   the 3.5s matches the auto-advance interval in Problem.tsx */
+.progress i.on::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: problem-fill 2.6s linear forwards;
+}
+/* pause the fill while the user hovers (the auto-advance pauses too) */
+.problem__body:hover .progress i.on::before {
+  animation-play-state: paused;
+}
+@keyframes problem-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .progress i.on::before {
+    animation: none;
+    transform: scaleX(1);
+  }
 }
 
 /* ============================================================
@@ -589,7 +662,6 @@
 /* scroll-linked word highlight: each word brightens as the block scrolls up */
 .manifesto__title .reveal-word {
   color: rgba(255, 255, 255, 0.4);
-  transition: color 0.25s ease-out;
 }
 .manifesto__title .reveal-word.is-lit {
   color: var(--white);

@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Scroll-linked word highlight, à la the reference "v2-testimonial":
- * every word starts dim and brightens one-by-one as the block scrolls
- * up through the viewport. Colours are defined in CSS via `.reveal-word`
- * / `.reveal-word.is-lit`, so callers keep full control of the palette.
+ * Scroll-linked heading reveal (attio-style, heading-only — nothing else in
+ * the section moves). Words start dim grey and brighten to white a couple at
+ * a time as the heading scrolls up through the viewport. Colours live in CSS
+ * (`.reveal-word` / `.reveal-word.is-lit`).
  */
 export function ScrollRevealText({ text }: { text: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -22,22 +22,24 @@ export function ScrollRevealText({ text }: { text: string }) {
       return;
     }
 
+    // reveal ~2 words per step so it moves in small groups, not one snap
+    const STEP = 2;
+    const steps = Math.max(1, Math.ceil(words.length / STEP));
+
     const update = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // Begin lighting as the block is still entering from just below the fold
-      // and only finish once it nears the top — a wide (~1.15×vh) span so the
-      // word-by-word reveal feels slow and deliberate rather than snapping on.
-      const start = vh * 1.15;
-      const end = vh * 0.1;
+      // Start as the heading enters from the bottom of the viewport and finish
+      // as it reaches the upper third — a full-viewport span so it reveals
+      // slowly and stays readable once complete. The heading itself doesn't
+      // move the layout; only the word colours change.
+      const start = vh * 1.0;
+      const end = vh * 0.28;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      setLit(Math.ceil(p * words.length));
+      setLit(Math.min(words.length, Math.ceil(p * steps) * STEP));
     };
 
-    // A rAF loop that runs only while the heading is on screen. Scroll events
-    // alone are throttled during momentum/inertial scrolling on mobile
-    // (esp. iOS), which makes the word-by-word reveal skip — the frame loop
-    // keeps it smooth there.
+    // rAF loop while on screen keeps it smooth during momentum scrolling.
     let raf = 0;
     let running = false;
     const loop = () => {

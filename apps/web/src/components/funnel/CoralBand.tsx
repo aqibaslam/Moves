@@ -1,3 +1,5 @@
+import { ScrollRevealText } from '@/components/landing/ScrollRevealText';
+
 /* Coral statement band — Funnel page (Figma node 1495:14062).
    Layered composition: centred eyebrow + heading, woman in a coral arch,
    a hand-drawn white arrow pointing at her, and a "Why we're called MOVES"
@@ -14,8 +16,7 @@ export function CoralBand() {
         <p className="fb-coral__eyebrow">WHY WE&rsquo;RE CALLED MOVES</p>
 
         <h2 className="fb-coral__title">
-          <span className="bright">A Straighter</span>{' '}
-          <span className="dim">Smile Is The Outcome. Confidence Is The Move.</span>
+          <ScrollRevealText text="A Straighter Smile Is The Outcome. Confidence Is The Move." />
         </h2>
 
         {/* centred image: coral arch + woman + glow */}

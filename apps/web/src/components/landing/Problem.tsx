@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface ProblemData {
   eyebrow?: string;
@@ -22,6 +22,8 @@ const ITEMS = [
 
 export function Problem({ data }: { data?: ProblemData }) {
   const [active, setActive] = useState(0);
+  // pause auto-advance while the user is hovering the section
+  const [paused, setPaused] = useState(false);
 
   // Text can still come from the CMS; the images are the dedicated Figma
   // photos (problem-1…6) mapped by position — they're specific to this
@@ -34,6 +36,18 @@ export function Problem({ data }: { data?: ProblemData }) {
     img: `/images/problem-${Math.min(i + 1, ITEMS.length)}.png`,
   }));
 
+  const count = items.length;
+  // auto-cycle through the moves (Dermatica-style); pauses on hover and is
+  // disabled for reduced-motion users. Hovering a heading still overrides it.
+  useEffect(() => {
+    if (paused || count <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = window.setInterval(() => {
+      setActive((a) => (a + 1) % count);
+    }, 2600);
+    return () => window.clearInterval(id);
+  }, [paused, count]);
+
   return (
     <section className="card-section problem">
       <div className="problem__head">
@@ -44,7 +58,11 @@ export function Problem({ data }: { data?: ProblemData }) {
         </h2>
       </div>
 
-      <div className="problem__body">
+      <div
+        className="problem__body"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         <div className="problem__list">
           <ul className="problem__items">
             {items.map((it, i) => (

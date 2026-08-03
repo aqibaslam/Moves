@@ -35,7 +35,25 @@
   justify-content: space-between;
   padding: 20px 60px;
   background: var(--white);
+  /* rounded top; the navy hero-unit backing shows through the corners */
   border-radius: 16px 16px 0 0;
+  position: relative;
+}
+/* thin white strip just below the nav — the hero (layered above it) reveals
+   it only through its own rounded top corners, so those corners read white
+   (the nav colour), not the navy backing. */
+.funnel-page .f-nav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 20px;
+  background: var(--white);
+}
+.funnel-page .f-hero {
+  position: relative;
+  z-index: 1;
 }
 .funnel-page .f-nav__logo {
   width: 163px;
@@ -479,7 +497,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 .funnel-page .f-move {
   display: flex;
@@ -906,6 +924,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* keep the lower part of the photo (her hands on the water) when cropping */
+  object-position: center bottom;
+}
+/* desktop landscape photo by default; mobile portrait photo hidden */
+.funnel-page .f-yourmove__bg-mobile {
+  display: none;
 }
 .funnel-page .f-yourmove__inner {
   display: flex;
@@ -1138,6 +1162,13 @@
 .funnel-page .fb-coral__title .dim {
   color: rgba(255, 255, 255, 0.4);
 }
+/* scroll reveal: words start dim white and brighten to full white */
+.funnel-page .fb-coral__title .reveal-word {
+  color: rgba(255, 255, 255, 0.4);
+}
+.funnel-page .fb-coral__title .reveal-word.is-lit {
+  color: #fff;
+}
 .funnel-page .fb-coral__figure {
   position: absolute;
   left: 28.47%;
@@ -1313,7 +1344,8 @@
     gap: 0;
     padding: 0;
     background: var(--pink-bg);
-    border-radius: 20px;
+    /* square top — flush under the nav, no corner-fill needed on mobile */
+    border-radius: 0;
     overflow: clip;
   }
   .funnel-page .f-hero .hero__media {
@@ -1610,6 +1642,13 @@
     /* row flex → bottom-left content */
     align-items: flex-end;
     justify-content: flex-start;
+  }
+  /* swap to the portrait photo on mobile */
+  .funnel-page .f-yourmove__bg-desktop {
+    display: none;
+  }
+  .funnel-page .f-yourmove__bg-mobile {
+    display: block;
   }
   /* dark gradient so white copy reads over the photo (Figma §14) */
   .funnel-page .f-yourmove__bg::after {
