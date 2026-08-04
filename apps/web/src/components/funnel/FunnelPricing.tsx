@@ -121,7 +121,7 @@ export function FunnelPricing() {
               <p className="fpcard__treat">Treatment time: {t.treatment}</p>
             </div>
 
-            <a className="btn fpcard__btn" style={{ background: t.btnBg, color: '#fff' }} href="#cta">
+            <a className="btn fpcard__btn" style={{ ['--btn-c' as string]: t.btnBg }} href="#cta">
               Book Free Consultation
             </a>
           </div>

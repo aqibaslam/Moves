@@ -1,5 +1,8 @@
-import { Starburst } from './icons';
 import { mediaUrl } from '@/lib/media';
+
+/* Scalloped seal outline (Figma guarantee stamp). */
+const SEAL_PATH =
+  'M100.0 26.0A18.5 18.5 0 0 1 128.3 31.6A18.5 18.5 0 0 1 152.3 47.7A18.5 18.5 0 0 1 168.4 71.7A18.5 18.5 0 0 1 174.0 100.0A18.5 18.5 0 0 1 168.4 128.3A18.5 18.5 0 0 1 152.3 152.3A18.5 18.5 0 0 1 128.3 168.4A18.5 18.5 0 0 1 100.0 174.0A18.5 18.5 0 0 1 71.7 168.4A18.5 18.5 0 0 1 47.7 152.3A18.5 18.5 0 0 1 31.6 128.3A18.5 18.5 0 0 1 26.0 100.0A18.5 18.5 0 0 1 31.6 71.7A18.5 18.5 0 0 1 47.7 47.7A18.5 18.5 0 0 1 71.7 31.6A18.5 18.5 0 0 1 100.0 26.0Z';
 
 export interface CtaData {
   title?: string;
@@ -28,13 +31,24 @@ export function CtaBanner({ data }: { data?: CtaData }) {
         </div>
 
         <div className="cta__badge" aria-hidden="true">
-          <Starburst />
-          <div className="cta__badge-txt">
-            <span className="lbl">{data?.badge?.topLabel ?? 'Money back'}</span>
-            <span className="lbl">{data?.badge?.midLabel ?? 'Guarantee'}</span>
-            <span className="big">{data?.badge?.bigNumber ?? '30'}</span>
-            <span className="lbl">{data?.badge?.bottomLabel ?? 'days'}</span>
-          </div>
+          <svg className="cta__seal" viewBox="0 0 200 200">
+            <defs>
+              {/* top arc the ring text follows (semicircle over the top) */}
+              <path id="cta-seal-arc" fill="none" d="M 40,100 A 60,60 0 0 1 160,100" />
+            </defs>
+            <path className="cta__seal-shape" d={SEAL_PATH} />
+            <text className="cta__seal-ring">
+              <textPath href="#cta-seal-arc" startOffset="50%" textAnchor="middle">
+                {`${data?.badge?.topLabel ?? 'Money back'} ${data?.badge?.midLabel ?? 'Guarantee'}`.toUpperCase()}
+              </textPath>
+            </text>
+            <text className="cta__seal-big" x="100" y="118" textAnchor="middle">
+              {data?.badge?.bigNumber ?? '30'}
+            </text>
+            <text className="cta__seal-sub" x="100" y="146" textAnchor="middle">
+              {(data?.badge?.bottomLabel ?? 'days').toUpperCase()}
+            </text>
+          </svg>
         </div>
       </div>
     </section>

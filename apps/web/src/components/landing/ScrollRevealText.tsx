@@ -4,42 +4,41 @@ import { useEffect, useRef, useState } from 'react';
 
 /**
  * Scroll-linked heading reveal (attio-style, heading-only — nothing else in
- * the section moves). Words start dim grey and brighten to white a couple at
- * a time as the heading scrolls up through the viewport. Colours live in CSS
- * (`.reveal-word` / `.reveal-word.is-lit`).
+ * the section moves). Each word's brightness is driven *continuously* by
+ * scroll via a `--t` custom property (0 = dim, 1 = lit), so the reveal is
+ * smooth rather than snapping — and it can't get stuck like a CSS transition
+ * fighting the rAF loop. Colours live in CSS (`.reveal-word`).
  */
 export function ScrollRevealText({ text }: { text: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const words = text.split(/\s+/).filter(Boolean);
-  const [lit, setLit] = useState(0);
+  // `front` is a float: how many words in the reveal has reached (with a
+  // fractional part for the word currently fading in).
+  const [front, setFront] = useState(0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setLit(words.length);
+      setFront(words.length);
       return;
     }
-
-    // reveal ~2 words per step so it moves in small groups, not one snap
-    const STEP = 2;
-    const steps = Math.max(1, Math.ceil(words.length / STEP));
 
     const update = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // Start as the heading enters from the bottom of the viewport and finish
-      // as it reaches the upper third — a full-viewport span so it reveals
-      // slowly and stays readable once complete. The heading itself doesn't
-      // move the layout; only the word colours change.
-      const start = vh * 1.0;
-      const end = vh * 0.28;
+      // Begin once the heading reaches the middle of the viewport, then reveal
+      // as it scrolls up toward the top — a slow, controlled span. Nothing in
+      // the layout moves; only the word colours change.
+      const start = vh * 0.6;
+      const end = vh * 0.08;
       const p = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      setLit(Math.min(words.length, Math.ceil(p * steps) * STEP));
+      setFront(p * words.length);
     };
 
-    // rAF loop while on screen keeps it smooth during momentum scrolling.
+    // rAF loop while the heading is on screen — keeps the reveal smooth during
+    // momentum/inertial scrolling where scroll events alone are throttled.
     let raf = 0;
     let running = false;
     const loop = () => {
@@ -75,12 +74,20 @@ export function ScrollRevealText({ text }: { text: string }) {
 
   return (
     <span ref={ref} className="reveal">
-      {words.map((w, i) => (
-        <span key={i} className={`reveal-word${i < lit ? ' is-lit' : ''}`}>
-          {w}
-          {i < words.length - 1 ? ' ' : ''}
-        </span>
-      ))}
+      {words.map((w, i) => {
+        // each word fades in over ~1 word of scroll — a smooth moving gradient
+        const t = Math.min(1, Math.max(0, front - i));
+        return (
+          <span
+            key={i}
+            className="reveal-word"
+            style={{ ['--t' as string]: t }}
+          >
+            {w}
+            {i < words.length - 1 ? ' ' : ''}
+          </span>
+        );
+      })}
     </span>
   );
 }

@@ -52,16 +52,11 @@ const BASE = [
   },
 ];
 
-// The design shows more cards than fit — duplicate the set so the track scrolls.
-const CARDS = [...BASE, ...BASE];
-
-const DOTS = 6;
-
 export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
-  const cards = data?.cards?.length
+  const base = data?.cards?.length
     ? data.cards.map((c) => ({
         before: mediaUrl(c.beforeImage, ''),
         after: mediaUrl(c.afterImage, ''),
@@ -72,7 +67,7 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
         signed: c.signedBy ?? '',
         gdc: c.gdc ?? 'GDC: 251837',
       }))
-    : CARDS.map((c) => ({
+    : BASE.map((c) => ({
         before: `/images/${c.before}.png`,
         after: `/images/${c.after}.png`,
         beforeAlt: `${c.name} before`,
@@ -82,6 +77,15 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
         signed: c.signed,
         gdc: 'GDC: 251837',
       }));
+
+  // Repeat the set so the track has plenty of slides to scroll through (the CMS
+  // currently holds a handful of testimonials; duplicating gives the swiper more
+  // cards and enough runway that every card scrolls fully into view).
+  const cards = [...base, ...base, ...base];
+
+  // one dot per *unique* card (the duplicates are only scroll runway), matching
+  // the Team slider's dot logic
+  const DOTS = Math.max(base.length, 1);
 
   // drag-to-scroll state (refs so dragging doesn't re-render on every move)
   const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
@@ -97,7 +101,7 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     const max = el.scrollWidth - el.clientWidth;
     const ratio = max > 0 ? el.scrollLeft / max : 0;
     setActive(Math.round(ratio * (DOTS - 1)));
-  }, []);
+  }, [DOTS]);
 
   const goToDot = (i: number) => {
     const el = trackRef.current;

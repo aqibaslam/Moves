@@ -53,12 +53,17 @@
   .moves-page > .card-section.pricing {
     padding-inline: calc((100% - 1440px) / 2 + 220px);
   }
-  /* sections whose content lives in an inner wrapper (carousel, comparison
-     table + head) — pad the wrapper, not the section, to the 1440 grid */
-  .moves-page > .ba .ba__cards,
+  /* sections whose content lives in an inner wrapper (comparison table + head)
+     — pad the wrapper, not the section, to the 1440 grid */
   .moves-page > .f-cmp .f-cmp__head,
   .moves-page > .f-cmp .f-cmp__wrap {
     padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  /* B&A carousel is a horizontal scroll container: inset the *viewport* to the
+     1440 grid with margins (padding would let cards bleed through the gutter to
+     the screen edge) so it matches other sections on both sides */
+  .moves-page > .ba .ba__cards {
+    margin-inline: calc((100% - 1440px) / 2 + 60px);
   }
   /* hero: image stays full-bleed to the right edge; text/nav align to the grid */
   .moves-page > .hero-unit > .nav,
@@ -125,9 +130,13 @@
   padding: 0 32px;
   border-radius: 90px;
   white-space: nowrap;
+  box-sizing: border-box;
+  border: 1px solid transparent;
   transition:
     transform 140ms cubic-bezier(0.2, 0, 0, 1),
     background 140ms cubic-bezier(0.2, 0, 0, 1),
+    color 140ms cubic-bezier(0.2, 0, 0, 1),
+    border-color 140ms cubic-bezier(0.2, 0, 0, 1),
     opacity 140ms cubic-bezier(0.2, 0, 0, 1);
 }
 .btn:active {
@@ -136,16 +145,22 @@
 .btn--navy {
   background: var(--navy);
   color: var(--white);
+  border-color: var(--navy);
 }
+/* hover inverts to a ghost: transparent fill, border + text kept (mirrors the
+   header outline CTA, which inverts the other way) */
 .btn--navy:hover {
-  background: var(--navy-2);
+  background: transparent;
+  color: var(--navy);
 }
 .btn--coral {
   background: var(--coral);
   color: var(--white);
+  border-color: var(--coral);
 }
 .btn--coral:hover {
-  opacity: 0.92;
+  background: transparent;
+  color: var(--coral);
 }
 .btn--outline {
   background: transparent;
@@ -661,10 +676,8 @@
 }
 /* scroll-linked word highlight: each word brightens as the block scrolls up */
 .manifesto__title .reveal-word {
-  color: rgba(255, 255, 255, 0.4);
-}
-.manifesto__title .reveal-word.is-lit {
-  color: var(--white);
+  /* brightness driven continuously by scroll via --t (0 dim → 1 lit) */
+  color: rgba(255, 255, 255, calc(0.4 + 0.6 * var(--t, 0)));
 }
 .manifesto__sub {
   font-family: var(--f-body);
@@ -859,6 +872,16 @@
   position: absolute;
   bottom: 0;
 }
+/* Step 02 (step2.png) is framed down to the hips, so bottom-anchoring slices
+   his coat flat against the pill's edge. Zoom in and top-anchor so the lower
+   body falls below the pill (hidden by overflow) — a head-and-torso crop that
+   matches the other steps instead of a hard cut. */
+.how__steps .step:nth-child(2) .step__media img {
+  height: 135%;
+  max-width: none;
+  align-self: flex-start;
+  object-position: top center;
+}
 .step__body {
   font-family: var(--f-body);
   font-weight: 400;
@@ -895,14 +918,18 @@
 .ba__cards {
   display: flex;
   gap: 4px;
-  padding: 0 60px;
-  width: 100%;
+  /* inset the scroll VIEWPORT with margins (not padding) so a gap shows on
+     both sides — with padding, overflow clips at the padding box and cards
+     bleed through the right gutter to the screen edge */
+  align-self: stretch;
+  margin-inline: 60px;
+  padding-inline: 0;
   /* horizontal slider */
   overflow-x: auto;
   scroll-behavior: smooth;
   /* mandatory so a scroll always settles on the next card, not mid-slide */
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 60px;
+  scroll-padding-inline: 0;
   cursor: grab;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -921,8 +948,12 @@
   user-select: none;
 }
 .bacard {
-  flex: 0 0 327px;
-  align-self: flex-start;
+  /* exactly 4 whole cards fill the column at any width (4 cards + 3×4px gaps),
+     so none is ever half-cut — responsive instead of a fixed 327px */
+  flex: 0 0 calc((100% - 12px) / 4);
+  /* stretch so every card matches the tallest — equal height regardless of
+     quote length (foot is pinned to the bottom, see .bacard__foot) */
+  align-self: stretch;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -989,6 +1020,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  /* pin to the bottom so feet line up across equal-height cards */
+  margin-top: auto;
 }
 .bacard__signed {
   font-family: var(--f-body);
@@ -1477,12 +1510,19 @@
   border-radius: 16px;
   overflow: clip;
 }
-.ptile img {
+.ptile img,
+.ptile video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* while playing, let native controls sit at the bottom (contain avoids cropping
+   the controls bar); still covers the tile */
+.ptile--playing video {
+  object-fit: cover;
+  background: #000;
 }
 .ptile__play {
   position: absolute;
@@ -1492,10 +1532,17 @@
   display: grid;
   place-items: center;
   padding: 14px 18px;
+  border: 0;
   border-radius: 100px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(5px);
   color: var(--navy);
+  cursor: pointer;
+  transition: background 140ms cubic-bezier(0.2, 0, 0, 1), transform 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+.ptile__play:hover {
+  background: var(--white);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
 /* ============================================================
@@ -1637,37 +1684,38 @@
   right: 60px;
   width: 307px;
   height: 300px;
-  color: var(--coral);
-  display: grid;
-  place-items: center;
+  /* seal tilt to match the Figma reference (35° clockwise) */
+  transform: rotate(35deg);
 }
-.cta__badge svg {
-  position: absolute;
-  inset: 0;
+.cta__seal {
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
-.cta__badge-txt {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--white);
-  text-align: center;
+.cta__seal-shape {
+  fill: var(--coral);
 }
-.cta__badge-txt .lbl {
-  font-family: var(--f-head);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-.cta__badge-txt .big {
+/* "MONEY BACK GUARANTEE" curved around the top of the seal */
+.cta__seal-ring {
+  fill: var(--white);
   font-family: var(--f-head);
   font-weight: 500;
-  font-size: 60px;
-  line-height: 1.1;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.cta__seal-big {
+  fill: var(--white);
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 58px;
   letter-spacing: -0.0333em;
+}
+.cta__seal-sub {
+  fill: var(--white);
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 3px;
 }
 
 /* ============================================================
@@ -2165,8 +2213,9 @@
     padding: 0 16px;
   }
   .ba__cards {
-    padding: 0 16px;
-    scroll-padding-inline: 16px;
+    margin-inline: 16px;
+    padding-inline: 0;
+    scroll-padding-inline: 0;
   }
   .bacard {
     flex: 0 0 340px;
@@ -2383,9 +2432,6 @@
     top: auto;
     bottom: 24px;
     right: 16px;
-  }
-  .cta__badge-txt .big {
-    font-size: 37px;
   }
 
   /* ---- FAQs ---- */

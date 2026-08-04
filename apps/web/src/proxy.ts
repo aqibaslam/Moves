@@ -14,7 +14,41 @@
 import { createServerClient, type CookieMethodsServer } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+/**
+ * Launch gate — everyone hits a password wall (/password) until they enter the
+ * shared password, which sets the `moves_gate` cookie. Kept in sync with
+ * app/(frontend)/password/actions.ts.
+ */
+const GATE_COOKIE = 'moves_gate';
+const GATE_TOKEN = 'unlocked';
+
+function isGateExempt(pathname: string): boolean {
+  return (
+    pathname === '/password' ||
+    pathname.startsWith('/password/') ||
+    pathname === '/lock' || // clears the gate cookie, then redirects to /password
+    pathname.startsWith('/api') || // Payload API (+ server-action posts)
+    pathname.startsWith('/admin') || // Payload admin has its own auth
+    pathname.startsWith('/_next') ||
+    pathname === '/favicon.ico'
+  );
+}
+
 export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Password wall: block everything but the exemptions until unlocked.
+  if (!isGateExempt(pathname)) {
+    const unlocked = request.cookies.get(GATE_COOKIE)?.value === GATE_TOKEN;
+    if (!unlocked) {
+      const to = request.nextUrl.clone();
+      to.pathname = '/password';
+      to.search = '';
+      to.searchParams.set('from', pathname + request.nextUrl.search);
+      return NextResponse.redirect(to);
+    }
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

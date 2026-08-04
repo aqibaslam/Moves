@@ -191,6 +191,15 @@
   height: 45px;
   padding: 0 24px;
   line-height: 1;
+  /* tier colour comes from --btn-c (set inline per card) so the hover can
+     invert it — same ghost-on-hover behaviour as the home-page CTAs */
+  background: var(--btn-c, var(--navy));
+  color: #fff;
+  border: 1px solid var(--btn-c, var(--navy));
+}
+.funnel-page .fpcard__btn:hover {
+  background: transparent;
+  color: var(--btn-c, var(--navy));
 }
 .funnel-page .fpcard__top {
   display: flex;
@@ -915,6 +924,13 @@
   padding: 60px;
   isolation: isolate;
 }
+/* big screens: background stays full-bleed, but pull the content in to the
+   1440 grid so "Your Move." lines up with every other section's content */
+@media (min-width: 1441px) {
+  .funnel-page .f-yourmove {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+}
 .funnel-page .f-yourmove__bg {
   position: absolute;
   inset: 0;
@@ -1164,10 +1180,8 @@
 }
 /* scroll reveal: words start dim white and brighten to full white */
 .funnel-page .fb-coral__title .reveal-word {
-  color: rgba(255, 255, 255, 0.4);
-}
-.funnel-page .fb-coral__title .reveal-word.is-lit {
-  color: #fff;
+  /* brightness driven continuously by scroll via --t (0 dim → 1 lit) */
+  color: rgba(255, 255, 255, calc(0.4 + 0.6 * var(--t, 0)));
 }
 .funnel-page .fb-coral__figure {
   position: absolute;
