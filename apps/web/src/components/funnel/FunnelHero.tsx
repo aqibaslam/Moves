@@ -1,4 +1,5 @@
-import { StarChip, TrustpilotStar, Check } from '@/components/landing/icons';
+import { Check } from '@/components/landing/icons';
+import { TrustpilotWidget } from '@/components/landing/TrustpilotWidget';
 
 const FEATURES = [
   'Every treatment plan signed by a named, GDC-registered dentist',
@@ -33,16 +34,7 @@ export function FunnelHero() {
         <div className="hero__left">
           <div className="hero__intro">
             <div className="rating">
-              <span className="rating__count">Excellent (3,890)</span>
-              <div className="rating__stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarChip key={i} />
-                ))}
-              </div>
-              <div className="rating__tp">
-                <TrustpilotStar />
-                <span>Trustpilot</span>
-              </div>
+              <TrustpilotWidget />
             </div>
 
             <h1 className="h-hero">
@@ -76,7 +68,19 @@ export function FunnelHero() {
 
         <div className="hero__media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero-portrait.png" alt="A person smiling confidently" />
+          <img
+            className="hero__img hero__img--desktop"
+            src="/images/hero-portrait.png"
+            alt="A person smiling confidently"
+          />
+          {/* mobile-only hero image — same as the home page */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="hero__img hero__img--mobile"
+            src="/images/hero-portrait-mobile.png"
+            alt=""
+            aria-hidden="true"
+          />
         </div>
       </section>
     </div>

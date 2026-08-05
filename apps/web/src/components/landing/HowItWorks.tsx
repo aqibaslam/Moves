@@ -51,6 +51,14 @@ export function HowItWorks({ data }: { data?: HowItWorksData }) {
         overlay: i === 0 ? '/images/step1-b.png' : null,
       }));
 
+  // Step 01 (Scan Day) uses a single pre-composed phone-in-hand image (no
+  // screen overlay) — served statically so it's identical in dev and prod.
+  if (steps[0]) {
+    steps[0].image = '/images/step1-scan.png';
+    steps[0].imageAlt = 'A dentist on a video call shown on a phone held in hand';
+    steps[0].overlay = null;
+  }
+
   return (
     <section className="card-section how">
       <div className="how__head">

@@ -1,95 +1,116 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { mediaUrl, mediaAlt } from '@/lib/media';
 
 export interface BeforeAftersData {
   eyebrow?: string;
   heading?: { accent?: string; rest?: string };
   subtext?: string;
-  cards?: {
-    name?: string;
-    quote?: string;
-    signedBy?: string;
-    gdc?: string;
-    beforeImage?: unknown;
-    afterImage?: unknown;
-  }[];
 }
 
-const BASE = [
+interface BaCard {
+  before: string;
+  after: string;
+  name: string;
+  quote: string;
+  signed: string;
+}
+
+// Content from Figma (node 2061-3005). NOTE: the before/after photos are
+// placeholders (reusing the existing ba-* images) until the real Figma exports
+// are dropped into public/images.
+const BASE: BaCard[] = [
   {
-    before: 'ba-1-before',
-    after: 'ba-1-after',
-    name: 'Lisa A.',
+    before: 'ba-daniel-before',
+    after: 'ba-daniel-after',
+    name: 'Daniel K.',
     quote:
-      '“I started eight months before my wedding so I wouldn’t spend the photos doing my careful smile. Best line in the whole planning spreadsheet.”',
+      '“The check-ins kept me motivated, and my smile changed exactly as the plan showed. I’m really pleased with the result.”',
     signed: 'Signed by Dr. Amelia Hart',
   },
   {
-    before: 'ba-2-before',
-    after: 'ba-2-after',
-    name: 'Priya R.',
+    before: 'ba-sophie-before',
+    after: 'ba-sophie-after',
+    name: 'Sophie L.',
     quote:
-      '“I used to talk with my hand near my mouth without noticing. Now I catch myself grinning in meetings. Nobody warned me about that part.”',
-    signed: 'Signed by Dr. Amir Hussain',
-  },
-  {
-    before: 'ba-2-before',
-    after: 'ba-2-after',
-    name: 'Sarah M.',
-    quote:
-      '“Fourteen weeks. The plan on my screen said fourteen weeks, and it was fourteen weeks. I’ve had sofas take longer to arrive.”',
+      '“I wanted straighter teeth without making treatment a big part of my life. The aligners fitted easily around everything.”',
     signed: 'Signed by Dr. Amelia Hart',
   },
   {
-    before: 'ba-4-before',
-    after: 'ba-4-after',
-    name: 'Tom W.',
+    before: 'ba-adam-before',
+    after: 'ba-adam-after',
+    name: 'Adam J.',
     quote:
-      '“I stopped editing my smile out of photos, then noticed I’d started smiling in them. That’s the whole review, really.”',
-    signed: 'Signed by Dr. Amir Hussain',
+      '“My front teeth had bothered me for years. Now I smile naturally without thinking about how my teeth look.”',
+    signed: 'Signed by Dr. Amelia Hart',
+  },
+  {
+    before: 'ba-claire-before',
+    after: 'ba-claire-after',
+    name: 'Claire B.',
+    quote:
+      '“I thought I had left it too late to straighten my teeth. The process was comfortable, supportive and easier than expected.”',
+    signed: 'Signed by Dr. Amelia Hart',
+  },
+  {
+    before: 'ba-james-before',
+    after: 'ba-james-after',
+    name: 'James T.',
+    quote:
+      '“The treatment plan gave me a clear timeline from the beginning. Everything stayed on track, with support whenever I needed it.”',
+    signed: 'Signed by Dr. Amelia Hart',
+  },
+  {
+    before: 'ba-hannah-before',
+    after: 'ba-hannah-after',
+    name: 'Hannah W.',
+    quote:
+      '“My teeth were something I always noticed in photos. Now my smile is the first thing I actually like about them.”',
+    signed: 'Signed by Dr. Amelia Hart',
+  },
+  {
+    before: 'ba-aisha-before',
+    after: 'ba-aisha-after',
+    name: 'Aisha R.',
+    quote:
+      '“The changes were gradual, but every new tray brought me closer. Seeing the final comparison made it completely worth it.”',
+    signed: 'Signed by Dr. Amelia Hart',
+  },
+  {
+    before: 'ba-emily-before',
+    after: 'ba-emily-after',
+    name: 'Emily R.',
+    quote:
+      '“I could see a difference within the first few trays. The whole process felt simple, clear and completely manageable.”',
+    signed: 'Signed by Dr. Amelia Hart',
   },
 ];
+
+const AUTOPLAY_MS = 3000;
 
 export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  const base = data?.cards?.length
-    ? data.cards.map((c) => ({
-        before: mediaUrl(c.beforeImage, ''),
-        after: mediaUrl(c.afterImage, ''),
-        beforeAlt: mediaAlt(c.beforeImage, `${c.name ?? ''} before`),
-        afterAlt: mediaAlt(c.afterImage, `${c.name ?? ''} after`),
-        name: c.name ?? '',
-        quote: c.quote ?? '',
-        signed: c.signedBy ?? '',
-        gdc: c.gdc ?? 'GDC: 251837',
-      }))
-    : BASE.map((c) => ({
-        before: `/images/${c.before}.png`,
-        after: `/images/${c.after}.png`,
-        beforeAlt: `${c.name} before`,
-        afterAlt: `${c.name} after`,
-        name: c.name,
-        quote: c.quote,
-        signed: c.signed,
-        gdc: 'GDC: 251837',
-      }));
+  const cards = BASE.map((c) => ({
+    before: `/images/${c.before}.png`,
+    after: `/images/${c.after}.png`,
+    name: c.name,
+    quote: c.quote,
+    signed: c.signed,
+    gdc: 'GDC: 251837',
+  }));
+  const DOTS = cards.length;
+  // render the set twice so auto-play can wrap seamlessly (infinite loop)
+  const loop = [...cards, ...cards];
 
-  // Repeat the set so the track has plenty of slides to scroll through (the CMS
-  // currently holds a handful of testimonials; duplicating gives the swiper more
-  // cards and enough runway that every card scrolls fully into view).
-  const cards = [...base, ...base, ...base];
-
-  // one dot per *unique* card (the duplicates are only scroll runway), matching
-  // the Team slider's dot logic
-  const DOTS = Math.max(base.length, 1);
-
-  // drag-to-scroll state (refs so dragging doesn't re-render on every move)
-  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
-
+  // width of one card + gap — the amount to move per step
+  const cardStep = () => {
+    const el = trackRef.current;
+    const card = el?.querySelector<HTMLElement>('.bacard');
+    return card ? card.offsetWidth + 4 : 0;
+  };
   const maxScroll = () => {
     const el = trackRef.current;
     return el ? el.scrollWidth - el.clientWidth : 0;
@@ -98,15 +119,16 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
   const syncActive = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    const ratio = max > 0 ? el.scrollLeft / max : 0;
-    setActive(Math.round(ratio * (DOTS - 1)));
+    const card = el.querySelector<HTMLElement>('.bacard');
+    const step = card ? card.offsetWidth + 4 : 0;
+    const idx = step > 0 ? Math.round(el.scrollLeft / step) : 0;
+    setActive(((idx % DOTS) + DOTS) % DOTS);
   }, [DOTS]);
 
   const goToDot = (i: number) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollTo({ left: (i / (DOTS - 1)) * maxScroll(), behavior: 'smooth' });
+    el.scrollTo({ left: Math.min(i * cardStep(), maxScroll()), behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -121,10 +143,30 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     };
   }, [syncActive]);
 
+  // Auto-play: advance one card at a time and loop back at the end. Pauses while
+  // the user is interacting (hover / drag) and for reduced-motion users.
+  useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = window.setInterval(() => {
+      const el = trackRef.current;
+      if (!el) return;
+      const step = cardStep();
+      const setWidth = step * cards.length;
+      // once we've scrolled a full set into the duplicate, jump back by one set
+      // instantly — the cards are identical, so the loop is seamless
+      if (el.scrollLeft >= setWidth - 2) el.scrollLeft -= setWidth;
+      el.scrollBy({ left: step, behavior: 'smooth' });
+    }, AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  // drag-to-scroll (refs so dragging doesn't re-render on every move)
+  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
   const onPointerDown = (e: React.PointerEvent) => {
     const el = trackRef.current;
-    // Only take over dragging for mouse; touch/pen use native momentum scroll.
     if (!el || e.pointerType !== 'mouse') return;
+    setPaused(true);
     drag.current = { down: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
     el.classList.add('dragging');
   };
@@ -159,26 +201,27 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
       <div
         className="ba__cards"
         ref={trackRef}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
-        onPointerLeave={endDrag}
         onPointerCancel={endDrag}
         role="group"
         aria-label="Before and after case studies"
       >
-        {cards.map((c, i) => (
+        {loop.map((c, i) => (
           <article className="bacard" key={`${c.name}-${i}`}>
             <div className="bacard__imgs">
               <div className="bacard__img">
                 <span className="ba-chip">Before</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.before} alt={c.beforeAlt} draggable={false} />
+                <img src={c.before} alt={`${c.name} before`} draggable={false} />
               </div>
               <div className="bacard__img">
                 <span className="ba-chip">After</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.after} alt={c.afterAlt} draggable={false} />
+                <img src={c.after} alt={`${c.name} after`} draggable={false} />
               </div>
             </div>
             <h3 className="bacard__name">{c.name}</h3>

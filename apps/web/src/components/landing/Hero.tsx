@@ -1,4 +1,4 @@
-import { StarChip, TrustpilotStar } from './icons';
+import { TrustpilotWidget } from './TrustpilotWidget';
 import { mediaUrl, mediaAlt } from '@/lib/media';
 
 export interface HeroData {
@@ -17,16 +17,7 @@ export function Hero({ data }: { data?: HeroData }) {
       <div className="hero__left">
         <div className="hero__intro">
           <div className="rating">
-            <div className="rating__stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <StarChip key={i} />
-              ))}
-            </div>
-            <div className="rating__tp">
-              <TrustpilotStar />
-              <span>Trustpilot</span>
-            </div>
-            <span className="rating__count">{data?.ratingCount ?? 'Excellent (3,890)'}</span>
+            <TrustpilotWidget />
           </div>
 
           <h1 className="h-hero">
@@ -65,8 +56,17 @@ export function Hero({ data }: { data?: HeroData }) {
       <div className="hero__media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          className="hero__img hero__img--desktop"
           src={mediaUrl(data?.heroImage, '/images/hero-portrait.png')}
           alt={mediaAlt(data?.heroImage, 'A person smiling confidently')}
+        />
+        {/* mobile-only hero image — pink background + shadow baked in */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="hero__img hero__img--mobile"
+          src="/images/hero-portrait-mobile.png"
+          alt=""
+          aria-hidden="true"
         />
       </div>
     </section>

@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CartBag, MenuIcon } from './icons';
-import { mediaAlt, mediaUrl } from '@/lib/media';
+import { MenuIcon } from './icons';
 
 export interface HeaderData {
   announcementNote?: string;
@@ -32,7 +31,6 @@ export function Header({ data }: { data?: HeaderData }) {
   const btnLabel = data?.button?.label ?? 'Book A Consultation';
   const btnLabelMobile = data?.button?.labelMobile ?? 'Consultation';
   const btnHref = data?.button?.href ?? '#cta';
-  const showCart = data?.showCart ?? true;
 
   return (
     <>
@@ -50,8 +48,8 @@ export function Header({ data }: { data?: HeaderData }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="nav__logo"
-          src={mediaUrl(data?.logo, '/images/moves-logo.svg')}
-          alt={mediaAlt(data?.logo, 'Moves')}
+          src="/images/moves-logo.svg"
+          alt="Moves"
           width={163}
           height={20}
         />
@@ -69,11 +67,6 @@ export function Header({ data }: { data?: HeaderData }) {
             <span className="nav__cta-full">{btnLabel}</span>
             <span className="nav__cta-short">{btnLabelMobile}</span>
           </a>
-          {showCart && (
-            <button type="button" className="nav__icon nav__icon--mobile" aria-label="Cart">
-              <CartBag />
-            </button>
-          )}
           <button
             type="button"
             className="nav__icon nav__icon--mobile"

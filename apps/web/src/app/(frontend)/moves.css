@@ -292,15 +292,35 @@
 
 /* mobile slide-down menu (opened by the hamburger) */
 .nav__menu {
-  display: none;
-}
-.nav__menu--open {
+  /* always in the DOM + collapsed, so open/close can animate smoothly
+     (display:none can't transition) */
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 16px 24px;
+  padding: 0 16px;
   background: var(--white);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid transparent;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-height 380ms cubic-bezier(0.2, 0, 0, 1),
+    padding 380ms cubic-bezier(0.2, 0, 0, 1),
+    border-color 260ms ease,
+    opacity 240ms ease;
+}
+.nav__menu--open {
+  max-height: 460px;
+  padding: 20px 16px 24px;
+  border-top-color: var(--line);
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav__menu {
+    transition: none;
+  }
 }
 .nav__menu-links {
   display: flex;
@@ -323,6 +343,11 @@
   display: flex;
   background: var(--pink-bg);
   min-height: 800px;
+  position: relative;
+}
+/* the mobile hero image is swapped in only at the mobile breakpoint */
+.hero__img--mobile {
+  display: none;
 }
 .hero__left {
   /* shrink proportionally with the media below 1440 so the portrait
@@ -344,6 +369,52 @@
   display: flex;
   align-items: center;
   gap: 16px;
+}
+/* Trustpilot widget (Figma) — real text + green star boxes */
+.tp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-body);
+  color: var(--navy);
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+.tp__label {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.tp__stars-img {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+.tp__count {
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  /* "review on" is regular; "100+" is medium; whole phrase underlined */
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tp__count-num {
+  font-weight: 500;
+}
+.tp__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.tp__brand-star {
+  height: 18px;
+  width: auto;
+  display: block;
+}
+.tp__brand-name {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
 }
 .rating__stars {
   display: flex;
@@ -376,7 +447,7 @@
 }
 .h-hero {
   font-family: var(--f-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 72px;
   line-height: 1.1;
   letter-spacing: -0.0278em;
@@ -433,6 +504,7 @@
   font-size: 28px;
   line-height: 1;
   color: var(--navy-2);
+  white-space: nowrap;
 }
 .sigcard__div {
   width: 1px;
@@ -686,7 +758,9 @@
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--white);
-  max-width: 620px;
+  /* wider cap so the copy sits on two lines on desktop (mobile still wraps to
+     the narrower container) */
+  max-width: 820px;
   margin: 0;
 }
 /* Woman image sits in flow between the copy and the CTA.
@@ -1060,6 +1134,11 @@
 }
 .dots__btn {
   cursor: pointer;
+  /* smoothly grow/fill the active pill as the slider auto-advances */
+  transition:
+    width 400ms cubic-bezier(0.2, 0, 0, 1),
+    background-color 400ms ease,
+    border-color 400ms ease;
 }
 .dots i.on,
 .dots__btn.on {
@@ -2055,6 +2134,11 @@
   .announce--mobile {
     display: inline;
   }
+  /* header keeps its rounded top with navy corners; only the hero-unit bottom
+     stays flush (the earlier "card" bottom rounding is what we removed) */
+  .hero-unit {
+    border-radius: 0;
+  }
   .nav {
     padding: 12px 16px;
   }
@@ -2095,15 +2179,41 @@
   }
   .hero__media {
     flex-basis: auto;
-    min-height: 345px;
+    /* show the whole card image (square top, rounded bottom, shadow baked in) */
+    min-height: 0;
   }
+  .hero__media .hero__img--desktop {
+    display: none;
+  }
+  .hero__media .hero__img--mobile {
+    display: block;
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  /* CTA (Figma mobile order): secondary link on top, primary button below */
   .hero__cta {
-    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    align-items: flex-start;
     gap: 16px;
   }
-  .hero .rating__count,
-  .hero .rating__tp span {
+  /* Trustpilot widget stays a touch smaller on mobile so it fits one row */
+  .hero .tp {
+    gap: 5px;
+    flex-wrap: nowrap;
+  }
+  .hero .tp__label,
+  .hero .tp__brand-name {
     font-size: 12.8px;
+  }
+  .hero .tp__count {
+    font-size: 11.2px;
+  }
+  .hero .tp__stars-img {
+    height: 17px;
+  }
+  .hero .tp__brand-star {
+    height: 16px;
   }
   .sigcard {
     width: 100%;
@@ -2155,6 +2265,8 @@
   }
   .manifesto__btn {
     margin-top: 8px;
+    /* this section's CTA is 256px wide on mobile (overrides btn--w250) */
+    width: 256px;
   }
 
   /* ---- marquee ---- */
@@ -2212,8 +2324,9 @@
   .ba__head {
     padding: 0 16px;
   }
+  /* mobile: full-width swiper — no left/right spacing (desktop keeps its inset) */
   .ba__cards {
-    margin-inline: 16px;
+    margin-inline: 0;
     padding-inline: 0;
     scroll-padding-inline: 0;
   }
