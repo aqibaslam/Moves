@@ -1,4 +1,5 @@
-import { StarChip, TrustpilotStar } from './icons';
+import { StarChip } from './icons';
+import { TrustpilotWidget } from './TrustpilotWidget';
 
 export interface ReviewsData {
   eyebrow?: string;
@@ -60,16 +61,7 @@ export function Reviews({ data }: { data?: ReviewsData }) {
       <div className="reviews__head">
         {data?.eyebrow ? <p className="eyebrow">{data.eyebrow}</p> : null}
         <div className="reviews__tp">
-          <span className="rating__count">{data?.ratingCount ?? 'Excellent (3,890)'}</span>
-          <div className="rating__stars">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <StarChip key={i} />
-            ))}
-          </div>
-          <div className="rating__tp">
-            <TrustpilotStar />
-            <span>Trustpilot</span>
-          </div>
+          <TrustpilotWidget />
         </div>
         <h2 className="reviews__title">
           <span className="c">{data?.heading?.accent ?? 'Don’t take'}</span>{' '}

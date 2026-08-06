@@ -1333,13 +1333,7 @@
 .reviews__tp {
   display: flex;
   align-items: center;
-  gap: 16px;
-}
-.reviews__tp .rating__count {
-  color: var(--ink);
-}
-.reviews__tp .rating__tp span {
-  color: var(--ink);
+  justify-content: center;
 }
 .reviews__title {
   font-family: var(--f-head);
