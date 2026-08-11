@@ -1,3 +1,5 @@
+import { BOOKING_PATH } from '@/lib/booking/links';
+
 /* "Your move." band (Figma §15) — copy on the left over a full-bleed
    lifestyle image, coral CTA. */
 export function YourMoveBand() {
@@ -39,7 +41,7 @@ export function YourMoveBand() {
             The only thing we can&rsquo;t do is book it for you.
           </p>
         </div>
-        <a className="btn btn--coral" href="#cta">
+        <a className="btn btn--coral" href={BOOKING_PATH}>
           Book Free Consultation
         </a>
       </div>

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { mediaUrl, mediaAlt } from '@/lib/media';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface TeamData {
   eyebrow?: string;
@@ -132,7 +133,7 @@ export function Team({ data }: { data?: TeamData }) {
               'Every MOVES plan is signed by one of these dentists. Every one of them is on the GDC register, check for yourself.'}
           </p>
         </div>
-        <a className="btn btn--navy btn--w250 team__cta" href={data?.button?.href ?? '#cta'}>
+        <a className="btn btn--navy btn--w250 team__cta" href={bookingHref(data?.button?.href)}>
           {data?.button?.label ?? 'Book Free Consultation'}
         </a>
       </div>

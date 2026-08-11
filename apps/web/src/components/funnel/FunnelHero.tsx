@@ -1,5 +1,6 @@
 import { Check } from '@/components/landing/icons';
 import { TrustpilotWidget } from '@/components/landing/TrustpilotWidget';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 const FEATURES = [
   'Every treatment plan signed by a named, GDC-registered dentist',
@@ -57,7 +58,7 @@ export function FunnelHero() {
           </ul>
 
           <div className="hero-ctagroup">
-            <a className="btn btn--navy" href="#cta" style={{ width: 254 }}>
+            <a className="btn btn--navy" href={BOOKING_PATH} style={{ width: 254 }}>
               Book Free Consultation
             </a>
             <p className="hero-cap">

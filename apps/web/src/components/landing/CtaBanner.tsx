@@ -1,4 +1,5 @@
 import { mediaUrl } from '@/lib/media';
+import { bookingHref } from '@/lib/booking/links';
 
 /* Scalloped seal outline (Figma guarantee stamp). */
 const SEAL_PATH =
@@ -25,7 +26,7 @@ export function CtaBanner({ data }: { data?: CtaData }) {
             {data?.subtext ??
               'A free consultation, an honest answer, and a plan with a name on it.'}
           </p>
-          <a className="btn btn--navy btn--w250" href={data?.button?.href ?? '#'}>
+          <a className="btn btn--navy btn--w250" href={bookingHref(data?.button?.href)}>
             {data?.button?.label ?? 'Book Free Consultation'}
           </a>
         </div>

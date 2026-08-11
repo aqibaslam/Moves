@@ -1,5 +1,6 @@
 import { mediaUrl, mediaAlt } from '@/lib/media';
 import { ScrollRevealText } from './ScrollRevealText';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface ManifestoData {
   eyebrow?: string;
@@ -53,7 +54,7 @@ export function Manifesto({ data }: { data?: ManifestoData }) {
 
       <a
         className="btn btn--navy btn--w250 manifesto__btn"
-        href={data?.button?.href ?? '#cta'}
+        href={bookingHref(data?.button?.href)}
       >
         {data?.button?.label ?? 'Book Free Consultation'}
       </a>

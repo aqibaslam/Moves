@@ -1,4 +1,5 @@
 import { mediaUrl, mediaAlt } from '@/lib/media';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface HowItWorksData {
   eyebrow?: string;
@@ -75,7 +76,7 @@ export function HowItWorks({ data }: { data?: HowItWorksData }) {
         </div>
         <a
           className="btn btn--navy btn--w250 how__cta how__cta--head"
-          href={data?.button?.href ?? '#cta'}
+          href={bookingHref(data?.button?.href)}
         >
           {data?.button?.label ?? 'Book Free Consultation'}
         </a>
@@ -109,7 +110,7 @@ export function HowItWorks({ data }: { data?: HowItWorksData }) {
       {/* mobile-only CTA: Figma places it beneath the step cards */}
       <a
         className="btn btn--navy how__cta how__cta--foot"
-        href={data?.button?.href ?? '#cta'}
+        href={bookingHref(data?.button?.href)}
       >
         {data?.button?.label ?? 'Book Free Consultation'}
       </a>

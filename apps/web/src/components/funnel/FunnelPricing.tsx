@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Check } from '@/components/landing/icons';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 interface Tier {
   title: string;
@@ -121,7 +122,7 @@ export function FunnelPricing() {
               <p className="fpcard__treat">Treatment time: {t.treatment}</p>
             </div>
 
-            <a className="btn fpcard__btn" style={{ ['--btn-c' as string]: t.btnBg }} href="#cta">
+            <a className="btn fpcard__btn" style={{ ['--btn-c' as string]: t.btnBg }} href={BOOKING_PATH}>
               Book Free Consultation
             </a>
           </div>

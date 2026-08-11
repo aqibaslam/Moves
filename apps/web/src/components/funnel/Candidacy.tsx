@@ -1,4 +1,5 @@
 import { Check } from '@/components/landing/icons';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 /* Candidacy (Figma §8) — "Aligners aren't for everyone. Here's the honest list." */
 
@@ -52,7 +53,7 @@ export function Candidacy() {
             paid.
           </p>
         </div>
-        <a className="btn btn--navy f-cand__cta" href="#cta">
+        <a className="btn btn--navy f-cand__cta" href={BOOKING_PATH}>
           Book Free Consultation
         </a>
       </div>

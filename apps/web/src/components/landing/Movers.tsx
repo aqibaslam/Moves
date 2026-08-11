@@ -1,4 +1,5 @@
 import { mediaUrl } from '@/lib/media';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface MoversData {
   eyebrow?: string;
@@ -56,7 +57,7 @@ export function Movers({ data }: { data?: MoversData }) {
         </div>
         <a
           className="btn btn--navy btn--w250 movers__cta movers__cta--head"
-          href={data?.button?.href ?? '#cta'}
+          href={bookingHref(data?.button?.href)}
         >
           {data?.button?.label ?? 'Book Free Consultation'}
         </a>
@@ -80,7 +81,7 @@ export function Movers({ data }: { data?: MoversData }) {
       {/* mobile-only CTA: Figma places it beneath the role cards */}
       <a
         className="btn btn--navy movers__cta movers__cta--foot"
-        href={data?.button?.href ?? '#cta'}
+        href={bookingHref(data?.button?.href)}
       >
         {data?.button?.label ?? 'Book Free Consultation'}
       </a>

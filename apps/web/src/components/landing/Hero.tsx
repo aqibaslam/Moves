@@ -1,5 +1,6 @@
 import { TrustpilotWidget } from './TrustpilotWidget';
 import { mediaUrl, mediaAlt } from '@/lib/media';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface HeroData {
   ratingCount?: string;
@@ -32,7 +33,7 @@ export function Hero({ data }: { data?: HeroData }) {
         </div>
 
         <div className="hero__cta">
-          <a className="btn btn--navy btn--w250" href={data?.primaryButton?.href ?? '#cta'}>
+          <a className="btn btn--navy btn--w250" href={bookingHref(data?.primaryButton?.href)}>
             {data?.primaryButton?.label ?? 'Book Free Consultation'}
           </a>
           <a className="hero__link" href="#pricing">

@@ -1,5 +1,6 @@
 import { Check } from './icons';
 import { mediaUrl, mediaAlt } from '@/lib/media';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 export interface PricingData {
   eyebrow?: string;
@@ -77,7 +78,7 @@ const FALLBACK_PLANS: Plan[] = [
     imageAlt: 'Clear aligner',
     features: FEATURES,
     buttonLabel: 'Book Free Consultation',
-    buttonHref: '#cta',
+    buttonHref: BOOKING_PATH,
     variant: 'pink',
   },
   {
@@ -88,7 +89,7 @@ const FALLBACK_PLANS: Plan[] = [
     imageAlt: 'Composite bonding',
     features: FEATURES,
     buttonLabel: 'Book Free Consultation',
-    buttonHref: '#cta',
+    buttonHref: BOOKING_PATH,
     variant: 'navy',
   },
 ];
@@ -103,7 +104,7 @@ export function Pricing({ data }: { data?: PricingData }) {
         imageAlt: mediaAlt(p.productImage, p.title ?? ''),
         features: p.features?.length ? p.features.map((f) => f.text ?? '') : FEATURES,
         buttonLabel: p.buttonLabel ?? 'Book Free Consultation',
-        buttonHref: '#cta',
+        buttonHref: BOOKING_PATH,
         variant: p.variant ?? 'navy',
       }))
     : FALLBACK_PLANS;

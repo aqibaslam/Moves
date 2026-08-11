@@ -1,4 +1,5 @@
 import { ScrollRevealText } from '@/components/landing/ScrollRevealText';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 /* Coral statement band — Funnel page (Figma node 1495:14062).
    Layered composition: centred eyebrow + heading, woman in a coral arch,
@@ -38,7 +39,7 @@ export function CoralBand() {
             MOVES turns clear aligner treatment into a guided journey from your first consultation
             to your signed plan, from every tray change to the moment you stop hiding your smile.
           </p>
-          <a className="btn btn--navy fb-coral__cta" href="#cta">
+          <a className="btn btn--navy fb-coral__cta" href={BOOKING_PATH}>
             Book Free Consultation
           </a>
         </div>

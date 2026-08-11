@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { MenuIcon } from './icons';
+import { bookingHref } from '@/lib/booking/links';
 
 export interface HeaderData {
   announcementNote?: string;
@@ -30,7 +31,7 @@ export function Header({ data }: { data?: HeaderData }) {
   const noteMobile = data?.announcementMobile ?? 'SAVE OVER 85% ON YOUR FIRST MONTH';
   const btnLabel = data?.button?.label ?? 'Book A Consultation';
   const btnLabelMobile = data?.button?.labelMobile ?? 'Consultation';
-  const btnHref = data?.button?.href ?? '#cta';
+  const btnHref = bookingHref(data?.button?.href);
 
   return (
     <>
