@@ -27,15 +27,9 @@ export function BookingConfirmation({
       <p className="bk-done__when">{confirmation.when}</p>
 
       <p className="bk-done__body">
-        We’ve sent a confirmation to <strong>{email}</strong> with everything you need. Your dentist
-        will meet you on the video call — no software to install.
+        We’ve sent a confirmation to <strong>{email}</strong> with everything you need, including
+        your video-call link. Your dentist will meet you on the call — no software to install.
       </p>
-
-      {confirmation.meetingUrl ? (
-        <a className="btn btn--navy" href={confirmation.meetingUrl} target="_blank" rel="noreferrer">
-          Join link
-        </a>
-      ) : null}
 
       {confirmation.stub ? (
         <p className="bk-done__note">
