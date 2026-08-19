@@ -7,7 +7,7 @@ import { createClient } from '@moves/supabase-client/server';
 import {
   PREVIEW_COOKIE,
   PREVIEW_TOKEN,
-  checkPreviewPassword,
+  checkPreviewCredentials,
   isPreviewMode,
   isSupabaseConfigured,
 } from '../lib/auth';
@@ -38,7 +38,7 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
       return { error: 'Those details don’t match an admin account.' };
     }
   } else if (isPreviewMode()) {
-    if (!checkPreviewPassword(password)) {
+    if (!checkPreviewCredentials(email, password)) {
       return { error: 'Those details don’t match an admin account.' };
     }
 

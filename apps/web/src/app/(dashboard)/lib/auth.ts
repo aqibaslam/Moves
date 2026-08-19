@@ -19,8 +19,12 @@ import { createClient } from '@moves/supabase-client/server';
 export const PREVIEW_COOKIE = 'moves_admin_preview';
 export const PREVIEW_TOKEN = 'preview';
 
-/** Preview password. Local-only — see the file header. */
-const PREVIEW_PASSWORD = process.env.ADMIN_PREVIEW_PASSWORD ?? 'moves-admin';
+/**
+ * Preview credentials. Local-only — see the file header. Both are overridable
+ * via env so the pair here is never the thing anyone actually relies on.
+ */
+export const PREVIEW_EMAIL = process.env.ADMIN_PREVIEW_EMAIL ?? 'admin@moves.co';
+const PREVIEW_PASSWORD = process.env.ADMIN_PREVIEW_PASSWORD ?? 'admin1234';
 
 export function isSupabaseConfigured(): boolean {
   return Boolean(
@@ -36,8 +40,13 @@ export function isPreviewMode(): boolean {
   return !isSupabaseConfigured() && process.env.NODE_ENV !== 'production';
 }
 
-export function checkPreviewPassword(password: string): boolean {
-  return isPreviewMode() && password === PREVIEW_PASSWORD;
+/** Both halves must match — previously any email was accepted. */
+export function checkPreviewCredentials(email: string, password: string): boolean {
+  return (
+    isPreviewMode() &&
+    email.trim().toLowerCase() === PREVIEW_EMAIL.toLowerCase() &&
+    password === PREVIEW_PASSWORD
+  );
 }
 
 export type AdminUser = {
@@ -63,6 +72,6 @@ export async function getAdminUser(): Promise<AdminUser | null> {
 
   const store = await cookies();
   return store.get(PREVIEW_COOKIE)?.value === PREVIEW_TOKEN
-    ? { email: 'preview@moves.local', preview: true }
+    ? { email: PREVIEW_EMAIL, preview: true }
     : null;
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { MovesMark } from '../MovesMark';
-import { getAdminUser, isPreviewMode } from '../lib/auth';
+import { PREVIEW_EMAIL, getAdminUser, isPreviewMode } from '../lib/auth';
 import { LoginForm } from './LoginForm';
 
 export const metadata: Metadata = {
@@ -39,9 +39,9 @@ export default async function LoginPage({
 
         {preview ? (
           <p className="dash-login__hint">
-            <strong>Preview mode.</strong> No Supabase project is configured, so any email works
-            with the password <code>moves-admin</code>. Wire up Supabase and this fallback
-            disables itself.
+            <strong>Preview mode.</strong> No Supabase project is configured yet. Sign in with{' '}
+            <code>{PREVIEW_EMAIL}</code> / <code>admin1234</code>. Wire up Supabase and this
+            fallback disables itself.
           </p>
         ) : null}
 
