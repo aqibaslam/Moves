@@ -29,6 +29,8 @@ function isGateExempt(pathname: string): boolean {
     pathname === '/lock' || // clears the gate cookie, then redirects to /password
     pathname.startsWith('/api') || // Payload API (+ server-action posts)
     pathname.startsWith('/admin') || // Payload admin has its own auth
+    pathname === '/login' || // Moves dashboard sign-in
+    pathname.startsWith('/dashboard') || // Moves dashboard has its own auth
     pathname.startsWith('/_next') ||
     pathname === '/favicon.ico'
   );
@@ -82,11 +84,12 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Gate private routes here.
-  const isProtected = request.nextUrl.pathname.startsWith('/app');
+  const isProtected = request.nextUrl.pathname.startsWith('/dashboard');
 
   if (isProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
+    url.search = '';
     url.searchParams.set('next', request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
