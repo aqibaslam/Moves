@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { aeonik, caveat, jost, silka } from './fonts';
+import { aeonik, caveat, dmSans, inter, jost, silka } from './fonts';
 import './globals.css';
 import './moves.css';
 
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jost.variable} ${silka.variable} ${caveat.variable} ${aeonik.variable}`}
+      className={`${jost.variable} ${silka.variable} ${caveat.variable} ${aeonik.variable} ${inter.variable} ${dmSans.variable}`}
     >
       <body>
         <a href="#main" className="sr-only">

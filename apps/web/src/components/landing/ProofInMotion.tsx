@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Play } from './icons';
 import { mediaUrl } from '@/lib/media';
 
@@ -77,6 +77,9 @@ function VideoTile({
 export function ProofInMotion({ data }: { data?: ProofData }) {
   // index of the tile currently playing — only one at a time
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // slider scroll position → active bullet (like the before/after section)
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [dot, setDot] = useState(0);
 
   const tiles =
     data?.videos?.length && data.videos.some((v) => v.videoUrl || v.video)
@@ -85,6 +88,36 @@ export function ProofInMotion({ data }: { data?: ProofData }) {
           poster: mediaUrl(v.thumbnail, ''),
         }))
       : FALLBACK_VIDEOS.map((src) => ({ src, poster: '' }));
+
+  const DOTS = tiles.length;
+  const tileStep = () => {
+    const t = gridRef.current?.querySelector<HTMLElement>('.ptile');
+    return t ? t.offsetWidth + 4 : 0;
+  };
+  const syncDot = useCallback(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const t = el.querySelector<HTMLElement>('.ptile');
+    const step = t ? t.offsetWidth + 4 : 0;
+    const idx = step > 0 ? Math.round(el.scrollLeft / step) : 0;
+    setDot(Math.max(0, Math.min(idx, DOTS - 1)));
+  }, [DOTS]);
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', syncDot, { passive: true });
+    window.addEventListener('resize', syncDot);
+    syncDot();
+    return () => {
+      el.removeEventListener('scroll', syncDot);
+      window.removeEventListener('resize', syncDot);
+    };
+  }, [syncDot]);
+  const goToDot = (i: number) => {
+    const el = gridRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * tileStep(), behavior: 'smooth' });
+  };
 
   return (
     <section className="card-section proof">
@@ -100,7 +133,7 @@ export function ProofInMotion({ data }: { data?: ProofData }) {
         </p>
       </div>
 
-      <div className="proof__grid">
+      <div className="proof__grid" ref={gridRef}>
         {tiles.map((t, i) => (
           <VideoTile
             key={i}
@@ -108,6 +141,19 @@ export function ProofInMotion({ data }: { data?: ProofData }) {
             poster={t.poster || undefined}
             active={activeIndex === i}
             onPlay={() => setActiveIndex(i)}
+          />
+        ))}
+      </div>
+
+      <div className="proof__dots dots" role="tablist" aria-label="Video slides">
+        {tiles.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`proof__dot${i === dot ? ' is-active' : ''}`}
+            aria-label={`Go to video ${i + 1}`}
+            aria-selected={i === dot}
+            onClick={() => goToDot(i)}
           />
         ))}
       </div>

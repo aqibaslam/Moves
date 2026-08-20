@@ -20,7 +20,35 @@ interface Member {
   photoAlt: string;
 }
 
-function Card({ m }: { m: Member }) {
+function Card({ m, stacked }: { m: Member; stacked?: boolean }) {
+  if (stacked) {
+    // Vertical Figma card: mark top-left → large photo → name + role centered.
+    return (
+      <article className="tcard tcard--stacked">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="tcard__mark"
+          src="/images/team-icon.svg"
+          alt=""
+          aria-hidden="true"
+          width={22}
+          height={20}
+          draggable={false}
+        />
+        <div className="tcard__photo-wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="tcard__photo" src={m.photo} alt={m.photoAlt} draggable={false} />
+        </div>
+        <div className="tcard__info">
+          <p className="tcard__name">{m.name}</p>
+          <div className="tcard__sub">
+            <span>{m.role}</span>
+            <span>{m.gdc}</span>
+          </div>
+        </div>
+      </article>
+    );
+  }
   return (
     <article className="tcard">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -48,7 +76,8 @@ function Card({ m }: { m: Member }) {
   );
 }
 
-export function Team({ data }: { data?: TeamData }) {
+export function Team({ data, variant }: { data?: TeamData; variant?: 'stacked' }) {
+  const stacked = variant === 'stacked';
   const members: Member[] = data?.members?.length
     ? data.members.map((m) => ({
         name: m.name ?? '',
@@ -154,12 +183,12 @@ export function Team({ data }: { data?: TeamData }) {
         <div className="team__track">
           <div className="team__group">
             {members.map((m, i) => (
-              <Card m={m} key={`a-${i}`} />
+              <Card m={m} stacked={stacked} key={`a-${i}`} />
             ))}
           </div>
           <div className="team__group" aria-hidden="true">
             {members.map((m, i) => (
-              <Card m={m} key={`b-${i}`} />
+              <Card m={m} stacked={stacked} key={`b-${i}`} />
             ))}
           </div>
         </div>

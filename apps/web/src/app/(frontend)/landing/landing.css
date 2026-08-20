@@ -1,0 +1,1451 @@
+/* ============================================================
+   Landing Page — "New Moves Dental 2.0".
+   Scoped under .landing-2 (inherits brand tokens from .moves-page).
+   Only the 2.0-specific hero lives here; other sections reuse the
+   existing landing component styles from moves.css.
+   ============================================================ */
+
+/* 2.0 is a continuous white surface — remove the inter-section page-bg gaps
+   and the card corner radii so adjacent sections butt together seamlessly
+   (the homepage keeps its card-with-gaps look — this is scoped to .landing-2). */
+.moves-page.landing-2 {
+  gap: 0;
+  /* 2.0 is a continuous white surface — the page background shows through the
+     footer's (and other) rounded-corner notches, so it must be white, not the
+     light-blue page tint. */
+  background: var(--white);
+  /* Figma 2.0 accent is #ff0003 (not the #fc5257 coral). Overriding the token
+     recolours every accent, heading highlight, button and border on the page. */
+  --coral: #ff0003;
+  /* Figma 2.0 typography: Inter for all body/UI text; display headings use
+     Google Sans (proprietary, not loadable) so they fall back to Inter — the
+     closest available match to Google Sans's geometric look. Overriding the two
+     font tokens re-fonts the whole landing page in one place. */
+  --f-body: var(--font-inter), -apple-system, system-ui, sans-serif;
+  --f-head: 'Google Sans', var(--font-inter), -apple-system, system-ui, sans-serif;
+}
+.landing-2 > .card-section {
+  border-radius: 0;
+}
+.landing-2 .hero-unit {
+  border-radius: 0;
+  /* The navy hero-unit backing shows through the nav's rounded top corners.
+     Since the announce bar is red here, match the backing to it so those
+     corners read as the (red) announcement-bar colour — same behaviour as the
+     original navy header, not a stray navy notch under the red bar. */
+  background: #ff0003;
+}
+/* Round the hero IMAGES' OUTER corners (top + bottom), with a white layer
+   behind so those corners read white. Inner (center) corners stay square so the
+   two halves meet flush. The header (.nav / .hero-unit bg) is untouched. */
+.landing-2 .h2 {
+  background: var(--white);
+}
+/* Overlap the two halves ~20px at the center so the seam is always a clean hard
+   edge — no rounded/white notch can appear where they meet, at any width. */
+.landing-2 .h2__bg .h2__img {
+  flex-shrink: 0;
+}
+.landing-2 .h2__bg .h2__img--left {
+  width: calc(50% + 20px);
+  border-radius: 16px 0 0 16px; /* top-left + bottom-left only */
+}
+.landing-2 .h2__bg .h2__img--right {
+  margin-left: -20px;
+  border-radius: 0 16px 16px 0; /* top-right + bottom-right only */
+}
+
+/* Remove the hidden mobile menu's top border line. */
+.landing-2 .nav__menu {
+  border-top: none;
+}
+
+/* Top (announce) bar: red background, white text. */
+.landing-2 .announce {
+  background: #ff0003;
+  color: var(--white);
+}
+
+/* Marquee band: white background, 15px top padding, no bottom padding. */
+.landing-2 .marquee {
+  background: var(--white);
+  padding: 15px 0 0;
+}
+
+/* ---- Buttons — Figma 2.0 colour scheme -----------------------------
+   Primary filled button = red (#ff0003) fill + white text; hover inverts to a
+   white fill with red text and a red border (Figma "Fill Button" states). */
+/* CTA banner button — updated Figma: white fill, red text (hover inverts). */
+.landing-2 .cta .btn {
+  background: var(--white);
+  color: var(--coral);
+  border-color: var(--white);
+}
+.landing-2 .cta .btn:hover {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+}
+.landing-2 .btn--coral:hover {
+  background: var(--white);
+  color: var(--coral);
+  border-color: var(--coral);
+}
+/* CTA heading "Your move" — 76px white (Figma), larger than section headings. */
+.landing-2 .cta__title {
+  color: var(--white);
+}
+/* Exact Figma button label metrics (Inter 500 · 18 / 25.33 / -1). */
+.landing-2 .btn {
+  line-height: 25.33px;
+  letter-spacing: -1px;
+}
+/* White / outline CTAs (hero + nav) use red text + red border (Figma). */
+.landing-2 .btn--light,
+.landing-2 .btn--outline {
+  color: var(--coral);
+  border-color: var(--coral);
+}
+.landing-2 .btn--light:hover,
+.landing-2 .btn--outline:hover {
+  background: var(--coral);
+  color: var(--white);
+  border-color: var(--coral);
+}
+
+/* ---- Team ("The names behind the smiles") — Figma colours + type ----
+   Red CTA, grey #f5f5f5 cards (r24), Inter card name 22 / role+GDC 14. */
+.landing-2 .team__cta {
+  background: var(--coral);
+  color: var(--white);
+  border-color: var(--coral);
+}
+.landing-2 .team__cta:hover {
+  background: var(--white);
+  color: var(--coral);
+  border-color: var(--coral);
+}
+.landing-2 .tcard {
+  background: #f5f5f5;
+  border-radius: 24px;
+}
+.landing-2 .tcard__name {
+  font-size: 22px;
+  line-height: 26.6px;
+  letter-spacing: -0.4px;
+}
+.landing-2 .tcard__sub span {
+  font-size: 14px;
+  line-height: 16.9px;
+  color: var(--navy);
+}
+.landing-2 .team .lead {
+  font-size: 16px;
+  line-height: 22.4px;
+  color: var(--navy);
+}
+/* Vertical (stacked) card — Figma 364×436: mark top-left, big photo, then
+   name + role centered below. */
+.landing-2 .tcard--stacked {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: auto;
+  aspect-ratio: 364 / 436;
+  padding: 20px;
+  gap: 14px;
+}
+.landing-2 .tcard--stacked .tcard__mark {
+  align-self: flex-start;
+}
+.landing-2 .tcard--stacked .tcard__photo-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.landing-2 .tcard--stacked .tcard__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  align-self: auto;
+  border-radius: 16px;
+}
+.landing-2 .tcard--stacked .tcard__info {
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.landing-2 .tcard--stacked .tcard__sub {
+  align-items: center;
+}
+/* Desktop: static 4-up (drop the marquee); scrolls if there are more than 4. */
+@media (min-width: 768px) {
+  .landing-2 .team__cards {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .landing-2 .team__cards::-webkit-scrollbar {
+    display: none;
+  }
+  .landing-2 .team__track {
+    animation: none;
+    width: 100%;
+  }
+  .landing-2 .team__group {
+    width: 100%;
+    padding-inline: 0;
+  }
+  .landing-2 .team__group + .team__group {
+    display: none;
+  }
+  /* four equal cards fill the row (exactly 4-up) */
+  .landing-2 .team__group {
+    display: flex;
+  }
+  .landing-2 .tcard {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+/* Mobile: full-width track (edge to edge) with a peek — like the before/after
+   slider. The track breaks out of the .team section's 16px padding. */
+@media (max-width: 767px) {
+  .landing-2 .team__cards {
+    margin-inline: -16px;
+    padding-left: 16px;
+    padding-right: 0;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+  }
+  .landing-2 .tcard {
+    flex: 0 0 87vw;
+    scroll-snap-align: start;
+  }
+}
+
+/* ---- Section heading type (Figma 2.0 desktop spec) -------------------
+   Google Sans SemiBold · 48px · line-height 100% · letter-spacing -2px.
+   NOTE: "Google Sans" is a proprietary font (not on Google Fonts and no font
+   file in the repo), so it falls back to the project heading font until a
+   Google Sans .woff2 is wired via next/font/local. Applies at desktop; the
+   existing per-section mobile rules keep smaller sizes on narrow screens. */
+@media (min-width: 768px) {
+  .moves-page.landing-2 .h-section,
+  .moves-page.landing-2 .reviews2__title,
+  .moves-page.landing-2 .one-moment__title,
+  .moves-page.landing-2 .moves3__title,
+  .moves-page.landing-2 .proof__title,
+  .moves-page.landing-2 .faqs__title,
+  .moves-page.landing-2 .cta__title {
+    font-family: 'Google Sans', var(--f-head);
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+}
+/* CTA "Your move" heading is larger than the section headings (Figma 76px). */
+@media (min-width: 768px) {
+  .moves-page.landing-2 .cta__title {
+    font-size: 76px;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+}
+
+/* ---- 2.0 CTA v2 (Figma): coral gradient card + portrait on the right ---- */
+.landing-2 .cta--v2 {
+  background: var(--white);
+  padding: 40px 60px;
+}
+.landing-2 .cta--v2 .cta__banner {
+  position: relative;
+  max-width: 1320px;
+  margin-inline: auto;
+  height: 600px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.landing-2 .cta--v2 .cta__inner {
+  margin: 0;
+}
+.landing-2 .cta--v2 .cta__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.landing-2 .cta--v2 .cta__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  /* explicit Figma gaps: heading→subtext 20px, subtext→button 50px */
+  gap: 0;
+  padding: 0 60px;
+  max-width: 620px;
+}
+.landing-2 .cta--v2 .cta__sub {
+  margin-top: 20px;
+}
+.landing-2 .cta--v2 .cta__inner .btn {
+  margin-top: 50px;
+}
+.landing-2 .cta--v2 .cta__sub {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--white);
+  margin: 20px 0 0;
+  max-width: 420px;
+}
+.landing-2 .cta--v2 .cta__woman {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: 40px;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom right;
+  z-index: 1;
+}
+@media (max-width: 767px) {
+  /* Mobile CTA (Figma): centered stack — heading 40 / subtext / button, then
+     the portrait below, all centered on the coral card. */
+  .landing-2 .cta--v2 {
+    padding: 25px 16px;
+  }
+  .landing-2 .cta--v2 .cta__banner {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 0 0;
+  }
+  .landing-2 .cta--v2 .cta__inner {
+    position: relative;
+    z-index: 2;
+    padding: 0 16px;
+    max-width: none;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .moves-page.landing-2 .cta--v2 .cta__title {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: -1.5px;
+  }
+  .landing-2 .cta--v2 .cta__sub {
+    margin-top: 16px;
+    max-width: none;
+  }
+  .landing-2 .cta--v2 .cta__inner .btn {
+    margin-top: 16px;
+  }
+  .landing-2 .cta--v2 .cta__woman {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    height: auto;
+    width: 288px;
+    max-width: 88%;
+    margin: 24px auto 0;
+    object-fit: contain;
+  }
+}
+
+/* ---- 2.0 Footer (Figma): red band, white logo, navy link columns ---- */
+.landing-2 .footer--v2 {
+  /* Figma: #FF0003 at ~5% opacity — a pale red tint, not solid red. */
+  background: #ff00030d;
+  /* rounded top corners (Figma rectRadii [30,30,0,0]) */
+  border-radius: 30px 30px 0 0;
+  padding: 51px 60px;
+}
+.landing-2 .footer--v2 .footer__inner {
+  /* 1320 = 1440 design grid − 60px inset each side, so footer content lines up
+     with every other section's content on wide screens. */
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.landing-2 .footer--v2 .footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+}
+.landing-2 .footer--v2 .footer__logo {
+  height: 52px;
+  width: auto;
+  /* pale tint background — keep the brand red logo (visible on near-white) */
+}
+.landing-2 .footer--v2 .footer__cols {
+  display: flex;
+  gap: 38px;
+}
+.landing-2 .footer--v2 .footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 144px;
+}
+.landing-2 .footer--v2 .footer__col-title {
+  /* button reset — it's the accordion toggle on mobile */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: default;
+  text-align: left;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21.6px;
+  color: var(--navy);
+  margin: 0;
+}
+/* Accordion chevron — hidden on desktop (static columns), shown on mobile. */
+.landing-2 .footer--v2 .footer__col-chevron {
+  display: none;
+  flex: none;
+  color: var(--navy);
+}
+.landing-2 .footer--v2 .footer__col-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.landing-2 .footer--v2 .footer__col-list a {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.6px;
+  letter-spacing: -0.32px;
+  color: var(--navy);
+  text-decoration: none;
+  transition: opacity 140ms ease;
+}
+.landing-2 .footer--v2 .footer__col-list a:hover {
+  opacity: 0.7;
+}
+.landing-2 .footer--v2 .footer__divider {
+  border: 0;
+  border-top: 1px solid rgba(4, 20, 58, 0.2);
+  margin: 0;
+}
+.landing-2 .footer--v2 .footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.landing-2 .footer--v2 .footer__copy {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: -0.32px;
+  color: var(--navy);
+  margin: 0;
+}
+.landing-2 .footer--v2 .footer__social-2 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.landing-2 .footer--v2 .footer__social-label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 16px;
+  line-height: 19.4px;
+  letter-spacing: -0.32px;
+  color: var(--navy);
+}
+.landing-2 .footer--v2 .footer__social-icons {
+  display: flex;
+  gap: 10px;
+}
+/* Social pills — Figma: navy outline pill, label + circular icon badge. */
+.landing-2 .footer--v2 .footer__social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 4px 4px 14px;
+  border: 1px solid var(--navy);
+  border-radius: 90px;
+  color: var(--navy);
+  text-decoration: none;
+  transition: background 140ms ease, color 140ms ease;
+}
+.landing-2 .footer--v2 .footer__social-name {
+  font-family: var(--font-dm-sans), var(--font-inter), sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.6px;
+  letter-spacing: -0.32px;
+}
+.landing-2 .footer--v2 .footer__social-badge {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.landing-2 .footer--v2 .footer__social-pill:hover {
+  opacity: 0.7;
+}
+@media (max-width: 767px) {
+  .landing-2 .footer--v2 {
+    padding: 25px 16px;
+  }
+  /* No divider between the columns and the copyright row on mobile (Figma). */
+  .landing-2 .footer--v2 .footer__divider {
+    display: none;
+  }
+  .landing-2 .footer--v2 .footer__top {
+    flex-direction: column;
+    gap: 24px;
+  }
+  /* Mobile: columns become tap-to-expand accordions (Figma). */
+  .landing-2 .footer--v2 .footer__cols {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+  .landing-2 .footer--v2 .footer__col {
+    width: 100%;
+    gap: 0;
+    border-bottom: 1px solid rgba(4, 20, 58, 0.15);
+  }
+  .landing-2 .footer--v2 .footer__col-title {
+    padding: 14px 0;
+    cursor: pointer;
+  }
+  .landing-2 .footer--v2 .footer__col-chevron {
+    display: block;
+    transition: transform 200ms ease;
+  }
+  .landing-2 .footer--v2 .footer__col.is-open .footer__col-chevron {
+    transform: rotate(180deg);
+  }
+  .landing-2 .footer--v2 .footer__col-list {
+    display: none;
+    padding-bottom: 14px;
+  }
+  .landing-2 .footer--v2 .footer__col.is-open .footer__col-list {
+    display: flex;
+  }
+  /* Mobile bottom (Figma order): social section first, copyright last. */
+  .landing-2 .footer--v2 .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .landing-2 .footer--v2 .footer__social-2 {
+    order: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+  .landing-2 .footer--v2 .footer__copy {
+    order: 2;
+  }
+}
+
+/* ---- 2.0 Hero -------------------------------------------------------- */
+
+.landing-2 .h2 {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 55.5vw, 800px);
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.landing-2 .h2__bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 0;
+}
+.landing-2 .h2__img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.landing-2 .h2__img--left {
+  object-position: center;
+}
+.landing-2 .h2__img--right {
+  object-position: center 20%;
+}
+
+.landing-2 .h2__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 40px;
+}
+
+.landing-2 .h2__copy {
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.landing-2 .h2__title {
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: clamp(40px, 6.4vw, 92px);
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  color: var(--white);
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+}
+.landing-2 .h2__cta {
+  margin-top: 28px;
+}
+
+.landing-2 .h2__trust {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--white);
+  font-family: var(--f-body);
+}
+.landing-2 .h2__trust-label {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+.landing-2 .h2__trust-stars {
+  height: 19px;
+  width: auto;
+}
+.landing-2 .h2__trust-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+.landing-2 .h2__trust-brand img {
+  height: 18px;
+  width: auto;
+}
+
+/* ---- 2.0 Reviews — "Real moves. Signed." --------------------------- */
+
+.landing-2 .reviews2 {
+  --r2-card: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-block: 72px 64px;
+}
+.landing-2 .reviews2__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.landing-2 .reviews2__head .eyebrow {
+  letter-spacing: 0.0833em;
+}
+.landing-2 .reviews2__title {
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.0417em;
+  color: var(--navy);
+  margin: 0;
+}
+.landing-2 .reviews2__title .c {
+  color: var(--coral);
+}
+.landing-2 .reviews2__sub {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 46ch;
+}
+
+.landing-2 .reviews2__row {
+  display: flex;
+  gap: 4px;
+  /* the section is a centered flex column — stretch so the track fills its
+     full width (otherwise it collapses and the cards size wrong) */
+  align-self: stretch;
+  /* Inset the scroll VIEWPORT with margins (not padding) so exactly four whole
+     cards fill it with a clean gap on both sides — with padding the overflow
+     clips at the padding box and a fifth card peeks through the right gutter. */
+  margin-inline: 60px;
+  /* carousel track: horizontal scroll, snap to each card, hidden scrollbar */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+.landing-2 .reviews2__row.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+.landing-2 .reviews2__row::-webkit-scrollbar {
+  display: none;
+}
+
+.landing-2 .r2card {
+  /* fixed carousel width — four cards visible, the rest scroll */
+  flex: 0 0 calc((100% - 12px) / 4);
+  scroll-snap-align: start;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 16px;
+  background: var(--r2-card);
+  border-radius: 24px;
+}
+.landing-2 .r2card__imgs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+.landing-2 .r2card__img {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 134 / 190;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.landing-2 .r2card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.landing-2 .r2card__tag {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 6px 11px;
+  border-radius: var(--radius-full);
+  /* Opaque (not translucent) and sized to fully cover the "Before"/"After"
+     pill baked into the placeholder photos, so only this HTML label shows. */
+  background: #3c3c3c;
+  color: var(--white);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1;
+}
+.landing-2 .r2card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* fill the remaining card height so the signature can pin to the bottom */
+  flex: 1 1 auto;
+}
+.landing-2 .r2card__name {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.021em;
+  color: var(--navy);
+  margin: 0;
+}
+.landing-2 .r2card__quote {
+  margin: 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--coral);
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.landing-2 .r2card__signed {
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--grey);
+  margin: 0;
+  /* align the signature to the card bottom across all columns */
+  margin-top: auto;
+}
+
+.landing-2 .reviews2__dots {
+  display: flex;
+  gap: 8px;
+}
+/* Dots: same shape/behaviour as the homepage slider (8px hollow circle →
+   32px filled pill), recoloured to the reference red. */
+.landing-2 .reviews2__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    width 400ms cubic-bezier(0.2, 0, 0, 1),
+    background-color 400ms ease,
+    border-color 400ms ease;
+}
+.landing-2 .reviews2__dot.is-active {
+  width: 32px;
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+/* Big screens (>1440): keep the section content within the 1440 design grid
+   like every other section. Drop the generic section inline-padding so the
+   carousel row's own margin alone insets the viewport to grid + 60px. */
+@media (min-width: 1441px) {
+  .landing-2.moves-page > .reviews2.card-section {
+    padding-inline: 0;
+  }
+  .landing-2 .reviews2__row {
+    margin-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  /* One-moment: grey stays full-bleed; the inner card (max-width 1440) does the
+     capping, so drop the generic section padding that would shrink it to 1320. */
+  .landing-2.moves-page > .one-moment.card-section {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .landing-2 .reviews2__title {
+    font-size: 34px;
+  }
+  .landing-2 .reviews2__row {
+    margin-inline: 20px;
+  }
+  .landing-2 .r2card {
+    /* wide card with a small peek of the next (Figma ~340 on 390) */
+    flex: 0 0 87vw;
+    scroll-snap-align: start;
+    /* slide card corner radius on mobile (Figma) */
+    border-radius: 16px;
+  }
+  /* Before/After photos use a 16px corner radius on mobile (Figma). */
+  .landing-2 .r2card__img {
+    border-radius: 16px;
+  }
+  /* Problem section image: 16px corner radius on mobile (Figma). */
+  .landing-2 .problem__media {
+    border-radius: 16px;
+  }
+  /* Pricing cards: 16px corner radius on mobile (Figma). */
+  .landing-2 .pcard,
+  .landing-2 .pcard--pink {
+    border-radius: 16px;
+  }
+}
+
+/* ---- 2.0 Problem overrides (reuses homepage <Problem>) --------------
+   On /landing the section is centered with no eyebrow and no closing note. */
+.landing-2 .problem__head {
+  align-items: center;
+  text-align: center;
+}
+/* Cap the heading width so it wraps like the Figma reference. */
+.landing-2 .problem .h-section {
+  max-width: 741px;
+  margin-inline: auto;
+}
+.landing-2 .problem .eyebrow {
+  display: none;
+}
+.landing-2 .problem__note {
+  display: none;
+}
+
+/* ---- 2.0 Pricing overrides (reuses homepage <Pricing>) --------------
+   Grey section, white cards, one-line titles, coral CTAs (Figma). */
+.landing-2 .pricing {
+  background: #f5f5f5;
+  /* rounded card (Figma cornerRadius 30, all corners) */
+  border-radius: 30px;
+}
+.landing-2 .pcard,
+.landing-2 .pcard--pink {
+  background: var(--white);
+}
+.landing-2 .pcard__title {
+  white-space: nowrap;
+  /* pricing card titles use Inter (Figma) */
+  font-family: var(--font-inter), -apple-system, system-ui, sans-serif;
+}
+.landing-2 .pcard > .btn {
+  background: var(--coral);
+  color: var(--white);
+  border-color: var(--coral);
+}
+.landing-2 .pcard > .btn:hover {
+  background: var(--white);
+  color: var(--coral);
+  border-color: var(--coral);
+}
+
+/* ---- 2.0 "The one moment behind modern smiles" -------------------- */
+
+.landing-2 .one-moment {
+  /* grey background spans the full section width (edge to edge); deepened from
+     #f5f5f5 so the 30px rounded corners read clearly against the near-white page */
+  background: #e8e8e8;
+  padding-block: 0;
+  /* rounded corners on the full-width grey band */
+  border-radius: 30px;
+  overflow: hidden;
+}
+.landing-2 .one-moment__card {
+  /* content block capped at the 1440 design width, centered */
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 64px 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.landing-2 .one-moment__title {
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.0417em;
+  color: var(--navy);
+  text-align: center;
+  margin: 0;
+  /* heading width per Figma */
+  max-width: 650px;
+}
+.landing-2 .one-moment__title .c {
+  color: var(--coral);
+}
+
+.landing-2 .one-moment__chips {
+  display: flex;
+  flex-direction: column;
+  /* center the per-row widths (1st/3rd rows are narrower than the 2nd) */
+  align-items: center;
+  gap: 12px;
+  /* middle row width per Figma; shrinks on narrow screens */
+  width: 814px;
+  max-width: 100%;
+  margin-top: 28px;
+}
+.landing-2 .one-moment__chip-row {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  /* fade each row at its own left/right edge (per-row, so the narrower 1st/3rd
+     rows fade at their own edges too, not the wider block's) */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+/* 1st and 3rd rows are narrower than the middle row (Figma). */
+.landing-2 .one-moment__chip-row:nth-child(1),
+.landing-2 .one-moment__chip-row:nth-child(3) {
+  width: 648px;
+}
+.landing-2 .one-moment__chip-track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  will-change: transform;
+}
+.landing-2 .one-moment__chip-track.is-ltr {
+  animation: om-marquee-ltr 34s linear infinite;
+}
+.landing-2 .one-moment__chip-track.is-rtl {
+  animation: om-marquee-rtl 30s linear infinite;
+}
+/* Pause the marquee while the row is hovered. */
+.landing-2 .one-moment__chip-row:hover .one-moment__chip-track {
+  animation-play-state: paused;
+}
+@keyframes om-marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes om-marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-2 .one-moment__chip-track {
+    animation: none;
+  }
+}
+.landing-2 .one-moment__chip {
+  flex: none;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.landing-2 .one-moment__figure {
+  margin-top: 8px;
+  max-width: 560px;
+}
+.landing-2 .one-moment__figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---- 2.0 "You move, in three moves" -------------------------------- */
+
+.landing-2 .moves3 {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(420px, 1.15fr);
+  gap: 80px;
+  align-items: start;
+  padding: 56px 60px;
+}
+.landing-2 .moves3__intro {
+  display: flex;
+  flex-direction: column;
+  /* explicit gaps: heading→description 20px, description→CTA 42px (see below) */
+  gap: 0;
+  position: sticky;
+  top: 100px;
+}
+.landing-2 .moves3__title {
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: clamp(34px, 4.2vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.0417em;
+  color: var(--navy);
+  margin: 0;
+  /* heading width per Figma */
+  max-width: 332px;
+}
+.landing-2 .moves3__title .c {
+  color: var(--coral);
+}
+.landing-2 .moves3__sub {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 42ch;
+  /* gap between heading and description */
+  margin-top: 20px;
+}
+.landing-2 .moves3__cta {
+  width: 250px;
+  /* gap between description and CTA */
+  margin-top: 42px;
+}
+
+.landing-2 .moves3__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.landing-2 .moves3__step {
+  display: flex;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  /* align the icon to the end (bottom) of the row, like the reference */
+  align-items: flex-end;
+}
+.landing-2 .moves3__step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.landing-2 .moves3__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  /* no badge background — icons sit directly on the section like the reference */
+  color: var(--navy);
+}
+.landing-2 .moves3__icon img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.landing-2 .moves3__step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.landing-2 .moves3__step-num {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--coral);
+}
+.landing-2 .moves3__step-title {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0;
+}
+.landing-2 .moves3__step-text {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  opacity: 0.82;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .landing-2 .moves3 {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 24px;
+  }
+  .landing-2 .moves3__intro {
+    position: static;
+  }
+  .landing-2 .moves3__cta {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+@media (max-width: 767px) {
+  .landing-2 .one-moment__card {
+    padding: 40px 20px 0;
+  }
+}
+
+/* Light (white) button variant — used on the coral hero. Figma: white fill,
+   red text + red border; hover inverts to a red fill with white text. */
+.landing-2 .btn--light {
+  background: var(--white);
+  color: var(--coral);
+  border-color: var(--coral);
+  width: 250px;
+}
+.landing-2 .btn--light:hover {
+  background: var(--coral);
+  color: var(--white);
+  border-color: var(--coral);
+}
+
+/* ---- Mobile: single coral panel, headline overlaid ------------------ */
+@media (max-width: 767px) {
+  /* Mobile hero: the two images STACK vertically (Figma 390×340 each), with the
+     headline + CTA overlaid across the seam. */
+  .landing-2 .h2 {
+    height: 680px;
+  }
+  .landing-2 .h2__bg {
+    flex-direction: column;
+  }
+  .landing-2 .h2__bg .h2__img--left,
+  .landing-2 .h2__bg .h2__img--right {
+    display: block;
+    width: 100%;
+    height: 340px;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* rounded outer corners (Figma): top image rounds the top, bottom image the
+     bottom — together the stacked hero reads as one rounded rectangle */
+  .landing-2 .h2__bg .h2__img--left {
+    border-radius: 13px 13px 0 0;
+  }
+  .landing-2 .h2__bg .h2__img--right {
+    border-radius: 0 0 13px 13px;
+  }
+  .landing-2 .h2__inner {
+    padding: 0 24px;
+    justify-content: center;
+  }
+  .landing-2 .h2__title {
+    font-size: clamp(34px, 11vw, 52px);
+  }
+  .landing-2 .h2__cta {
+    width: 100%;
+    max-width: 320px;
+  }
+  .landing-2 .h2__trust {
+    left: 0;
+    right: 0;
+    bottom: 36px;
+  }
+}
+
+/* ============================================================
+   MOBILE — pixel spec from Figma "…Mobile 2026" frame (48:290).
+   390px artboard. Type scale first; section spacing below.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* ---- Mobile type scale (family/size/line-height/tracking) ---- */
+  .moves-page.landing-2 .h2__title {
+    font-size: 48px;
+    line-height: 52.8px;
+    letter-spacing: -1.5px;
+  }
+  .moves-page.landing-2 .moves3__title {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: -1.5px;
+  }
+  .moves-page.landing-2 .reviews2__title,
+  .moves-page.landing-2 .one-moment__title,
+  .moves-page.landing-2 .problem .h-section,
+  .moves-page.landing-2 .faqs__title,
+  .moves-page.landing-2 .proof__title,
+  .moves-page.landing-2 .cta__title {
+    font-size: 32px;
+    line-height: 35.2px;
+    letter-spacing: -1.5px;
+  }
+  .moves-page.landing-2 .pricing .h-section {
+    font-size: 28px;
+    line-height: 30.8px;
+    letter-spacing: -2px;
+  }
+  .moves-page.landing-2 .moves3__step-title {
+    font-size: 18px;
+    line-height: 21.8px;
+    letter-spacing: -0.36px;
+  }
+  .moves-page.landing-2 .pcard__price b {
+    font-size: 26px;
+    line-height: 26px;
+    letter-spacing: -1.04px;
+  }
+}
+
+/* ============================================================
+   MOBILE — consistent section spacing (Figma: 50px block / 16px inline).
+   Most sections already match; these three were off.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Marquee band is desktop-only (Figma hides it on mobile). */
+  .landing-2 > .marquee {
+    display: none;
+  }
+  /* Hero image bleeds to its edge (0 padding), so add a 25px bottom margin
+     so the hero → before/after gap matches the 50px section rhythm. */
+  .landing-2 .hero-unit {
+    margin-bottom: 25px;
+  }
+  /* Every section contributes 25px top + 25px bottom, so the gap between any
+     two adjacent sections is a uniform 50px (Figma). */
+  .landing-2 .reviews2,
+  .landing-2 .problem,
+  .landing-2 .pricing,
+  .landing-2 .proof,
+  .landing-2 .team,
+  .landing-2 .faqs {
+    padding-block: 25px;
+  }
+  /* Full-width slider track: no side margins (edge to edge); only a left inset
+     so the first card aligns at 16px and the peek reaches the right edge. */
+  .landing-2 .reviews2__row {
+    margin-inline: 0;
+    padding-left: 16px;
+    padding-right: 0;
+    scroll-padding-left: 16px;
+  }
+  .landing-2 .one-moment__card {
+    padding: 25px 16px 0;
+  }
+  /* Grey band is a full-bleed 0-padding section, so it would otherwise sit
+     only 25px from its neighbours. Add 25px vertical margin (white page bg)
+     so the gap around it matches the 50px rhythm of every other section. */
+  .landing-2 .one-moment {
+    margin-block: 25px;
+  }
+  .landing-2 .moves3 {
+    padding: 25px 16px;
+  }
+}
+
+/* ============================================================
+   MOBILE — element spacing to match Figma (heading→subtext/content gaps).
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Reviews2: heading→subtext 16, section head→cards 28 */
+  .landing-2 .reviews2 {
+    gap: 28px;
+  }
+  .landing-2 .reviews2__head {
+    gap: 16px;
+  }
+  /* One-moment: heading→chips 16 */
+  .landing-2 .one-moment__chips {
+    margin-top: 16px;
+  }
+  /* You move: heading→subtext 28 */
+  .landing-2 .moves3__sub {
+    margin-top: 28px;
+  }
+  /* Pricing / Proof: heading→lead 16 */
+  .landing-2 .pricing__head {
+    gap: 16px;
+  }
+  .landing-2 .proof__head {
+    gap: 16px;
+  }
+  /* Team: heading→lead 28 */
+  .landing-2 .team__head-l {
+    gap: 28px;
+  }
+  /* FAQs: heading→list 16 (the .faqs flex gap controls head→list) */
+  .landing-2 .faqs {
+    gap: 16px;
+  }
+}
+
+/* Mobile: step icon sits at the top (front) of each tile, aligned with the
+   STEP label — not bottom-aligned like the desktop layout (Figma). */
+@media (max-width: 767px) {
+  .landing-2 .moves3__step {
+    align-items: flex-start;
+  }
+}
+
+/* Mobile: proof video slides — full-width track with a peek (like before/after).
+   Track breaks out of the .proof section's 16px padding. */
+@media (max-width: 767px) {
+  .landing-2 .proof__grid {
+    /* force full-viewport width so the flex-column stretch can't cap it */
+    width: 100vw;
+    max-width: none;
+    align-self: flex-start;
+    margin-left: -16px;
+    margin-right: 0;
+    padding-left: 16px;
+    padding-right: 0;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .landing-2 .ptile {
+    flex: 0 0 87vw;
+    height: auto;
+    aspect-ratio: 270 / 420;
+    scroll-snap-align: start;
+    /* video tile corner radius on mobile (Figma) */
+    border-radius: 16px;
+  }
+}
+
+/* ---- Proof slider dots — red, like the before/after section ----------
+   Shown on both breakpoints; desktop becomes a scroll carousel so they navigate. */
+.landing-2 .proof__dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.landing-2 .proof__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  background: transparent;
+  cursor: pointer;
+  transition: width 400ms cubic-bezier(0.2, 0, 0, 1), background-color 400ms ease,
+    border-color 400ms ease;
+}
+.landing-2 .proof__dot.is-active {
+  width: 32px;
+  background: var(--coral);
+  border-color: var(--coral);
+}
+@media (min-width: 768px) {
+  .landing-2 .proof__grid {
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+  .landing-2 .proof__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .landing-2 .ptile {
+    flex: 0 0 calc((100% - 12px) / 4);
+    scroll-snap-align: start;
+  }
+}

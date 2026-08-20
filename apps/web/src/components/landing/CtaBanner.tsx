@@ -13,7 +13,31 @@ export interface CtaData {
   badge?: { topLabel?: string; midLabel?: string; bigNumber?: string; bottomLabel?: string };
 }
 
-export function CtaBanner({ data }: { data?: CtaData }) {
+export function CtaBanner({ data, variant }: { data?: CtaData; variant?: 'v2' }) {
+  if (variant === 'v2') {
+    // Updated Figma CTA: coral gradient card + portrait on the right (no seal).
+    return (
+      <section className="cta cta--v2" id="cta">
+        <div className="cta__banner">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="cta__bg" src="/images/cta-gradient.png" alt="" aria-hidden="true" />
+          <div className="cta__inner">
+            <h2 className="cta__title">{data?.title ?? 'Your move'}</h2>
+            <p className="cta__sub">
+              {data?.subtext ??
+                'Get the smile you’ve always wanted with a clear aligner treatment tailored to your needs.'}
+            </p>
+            <a className="btn btn--light btn--w250" href={bookingHref(data?.button?.href)}>
+              {data?.button?.label ?? 'Book Free Consultation'}
+            </a>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="cta__woman" src="/images/cta-woman.png" alt="" aria-hidden="true" />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="cta" id="cta">
       <div className="cta__banner">

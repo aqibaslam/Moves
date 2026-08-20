@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 
 export interface ProblemData {
   eyebrow?: string;
-  heading?: { accent?: string; rest?: string };
+  // `lead` (when set) renders the coral accent FIRST, then `rest` in navy
+  // (the 2.0 landing design). Otherwise `rest` renders first, then `accent`.
+  heading?: { accent?: string; rest?: string; lead?: string };
   items?: { text?: string; image?: unknown }[];
   note?: string;
 }
@@ -53,8 +55,17 @@ export function Problem({ data }: { data?: ProblemData }) {
       <div className="problem__head">
         <p className="eyebrow">{data?.eyebrow ?? 'THE MOVES YOU ALREADY MAKE'}</p>
         <h2 className="h-section">
-          {data?.heading?.rest ?? 'Your’ve been making moves for years.'}{' '}
-          <span className="c">{data?.heading?.accent ?? 'Just the wrong ones.'}</span>
+          {data?.heading?.lead ? (
+            <>
+              <span className="c">{data.heading.lead}</span>
+              {data?.heading?.rest ?? ''}
+            </>
+          ) : (
+            <>
+              {data?.heading?.rest ?? 'Your’ve been making moves for years.'}{' '}
+              <span className="c">{data?.heading?.accent ?? 'Just the wrong ones.'}</span>
+            </>
+          )}
         </h2>
       </div>
 

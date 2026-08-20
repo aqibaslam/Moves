@@ -1,4 +1,4 @@
-import { Caveat, Jost } from 'next/font/google';
+import { Caveat, DM_Sans, Inter, Jost } from 'next/font/google';
 import localFont from 'next/font/local';
 
 /**
@@ -33,6 +33,22 @@ export const caveat = Caveat({
   weight: ['400', '500'],
   display: 'swap',
   variable: '--font-caveat',
+});
+
+// Inter — used for the 2.0 pricing card titles (Figma).
+export const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+// DM Sans — footer social-button labels (Figma).
+export const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-dm-sans',
 });
 
 export const aeonik = localFont({
