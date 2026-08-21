@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    products: Product;
+    orders: Order;
+    consultations: Consultation;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
+    consultations: ConsultationsSelect<false> | ConsultationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -231,6 +237,101 @@ export interface Media {
   };
 }
 /**
+ * Treatment plans and add-ons available to order.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  /**
+   * Shown to patients, e.g. "Moves Full".
+   */
+  name: string;
+  /**
+   * URL-safe id. Leave blank to derive from the name.
+   */
+  slug?: string | null;
+  /**
+   * Integer pence — 240000 is £2,400. Money is never stored as a float; rounding errors compound across a ledger.
+   */
+  pricePence: number;
+  /**
+   * Short summary shown on the pricing card.
+   */
+  description?: string | null;
+  /**
+   * Unticked products stay in past orders but cannot be ordered again.
+   */
+  active?: boolean | null;
+  /**
+   * Optional product image.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Treatment plans ordered by patients.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  /**
+   * Human-facing order number. Auto-generated if left blank.
+   */
+  reference?: string | null;
+  patientName: string;
+  patientEmail: string;
+  patientPhone?: string | null;
+  /**
+   * Which treatment plan was ordered.
+   */
+  product: number | Product;
+  /**
+   * Copied from the product at order time, then frozen. A later price change must not rewrite historic orders.
+   */
+  amountPence: number;
+  status: 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
+  /**
+   * Treating GDC-registered dentist.
+   */
+  dentist?: string | null;
+  clinic?: string | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Consultations booked through the website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultations".
+ */
+export interface Consultation {
+  id: number;
+  patientName: string;
+  email: string;
+  phone?: string | null;
+  scheduledFor: string;
+  clinic?: string | null;
+  dentist?: string | null;
+  status: 'upcoming' | 'completed' | 'no_show' | 'cancelled';
+  /**
+   * Where the booking came from — Website, Instagram, Referral…
+   */
+  source?: string | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -261,6 +362,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
+      } | null)
+    | ({
+        relationTo: 'consultations';
+        value: number | Consultation;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -378,6 +491,56 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  pricePence?: T;
+  description?: T;
+  active?: T;
+  image?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  reference?: T;
+  patientName?: T;
+  patientEmail?: T;
+  patientPhone?: T;
+  product?: T;
+  amountPence?: T;
+  status?: T;
+  dentist?: T;
+  clinic?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultations_select".
+ */
+export interface ConsultationsSelect<T extends boolean = true> {
+  patientName?: T;
+  email?: T;
+  phone?: T;
+  scheduledFor?: T;
+  clinic?: T;
+  dentist?: T;
+  status?: T;
+  source?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

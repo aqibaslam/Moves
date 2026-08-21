@@ -1,0 +1,824 @@
+/* ============================================================
+   Moves Dental — admin dashboard.
+   Brand values mirror app/(frontend)/moves.css so the admin and
+   the marketing site read as one product. Raw values live here
+   only; components carry class names.
+   ============================================================ */
+
+.dash {
+  --bg: #f2f6fe;
+  --white: #fff;
+  --navy: #04143a;
+  --coral: #fc5257;
+  --pink-bg: #fde3e4;
+  --green: #219653;
+  --amber: #b26a00;
+  --blue: #004df6;
+  --grey: #6b7280;
+  --line: rgba(4, 20, 58, 0.1);
+  --line-soft: rgba(4, 20, 58, 0.06);
+
+  --f-head: var(--font-jost), Georgia, serif;
+  --f-body: var(--font-silka), ui-sans-serif, system-ui, sans-serif;
+
+  --sidebar-w: 248px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow-card: 0 1px 2px rgba(4, 20, 58, 0.04);
+
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--navy);
+  font-family: var(--f-body);
+}
+
+/* ---------- app shell ---------- */
+
+.dash__shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100dvh;
+}
+
+.dash__sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px 16px;
+  background: var(--white);
+  border-right: 1px solid var(--line);
+}
+
+.dash__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px;
+}
+
+.dash__mark {
+  width: 26px;
+  height: 24px;
+  color: var(--coral);
+  flex: none;
+}
+
+.dash__brandtext {
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+}
+
+.dash__brandsub {
+  display: block;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.dash__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash__navlabel {
+  padding: 0 8px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.dash__navlink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__navlink:hover {
+  background: var(--bg);
+}
+
+.dash__navlink[aria-current='page'] {
+  background: var(--pink-bg);
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.dash__navicon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.dash__sidefoot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 8px 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.dash__who {
+  min-width: 0;
+}
+
+.dash__wholabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.dash__whoemail {
+  font-size: 13px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.dash__signout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__signout:hover {
+  background: var(--bg);
+}
+
+/* ---------- main ---------- */
+
+.dash__main {
+  min-width: 0;
+  padding: 32px 40px 64px;
+}
+
+.dash__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.dash__title {
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.dash__sub {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--grey);
+}
+
+/* ---------- preview banner ---------- */
+
+.dash__banner {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border: 1px solid rgba(178, 106, 0, 0.28);
+  border-radius: var(--radius);
+  background: #fff8ec;
+  color: var(--amber);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---------- cards ---------- */
+
+.dash__card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.dash__cardhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.dash__cardtitle {
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 19px;
+}
+
+.dash__cardnote {
+  font-size: 13px;
+  color: var(--grey);
+}
+
+/* ---------- stat tiles ---------- */
+
+.dash__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dash__stat {
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.dash__statlabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.dash__statvalue {
+  margin-top: 10px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.dash__statnote {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--grey);
+}
+
+.dash__statdelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dash__statdelta--up { color: var(--green); }
+.dash__statdelta--down { color: var(--coral); }
+.dash__statdelta span { font-weight: 400; color: var(--grey); }
+
+/* ---------- chart ---------- */
+
+.dash__grid2 {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dash__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 220px;
+  padding: 24px;
+}
+
+.dash__bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+/* The plot area. The fill is a percentage of THIS, not of the whole column —
+   otherwise the count and day labels eat into the same space and flex-shrink
+   compresses tall bars more than short ones, which misreports the data. */
+.dash__bartrack {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dash__barfill {
+  width: 100%;
+  max-width: 44px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(180deg, var(--coral), #fd888b);
+}
+
+.dash__barday {
+  flex: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--grey);
+}
+
+.dash__barcount {
+  flex: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- breakdown list ---------- */
+
+.dash__breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+}
+
+.dash__brow {
+  display: grid;
+  gap: 8px;
+}
+
+.dash__brtop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.dash__brname { font-weight: 500; }
+.dash__brval { font-weight: 700; }
+
+.dash__track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.dash__trackfill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--navy);
+}
+
+/* ---------- table ---------- */
+
+.dash__tablewrap {
+  overflow-x: auto;
+}
+
+.dash__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* Only the columns that genuinely must stay on one line get nowrap. Applying
+   it to the whole table pushed Status off-screen behind a scrollbar at 1440px;
+   letting the prose columns wrap keeps every column visible at any width. */
+.dash__ref,
+.dash__num,
+.dash__when,
+.dash__table th,
+.dash__pill {
+  white-space: nowrap;
+}
+
+.dash__table th {
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  background: #fafbff;
+  border-bottom: 1px solid var(--line);
+}
+
+.dash__table td {
+  padding: 14px 20px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.dash__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dash__table tbody tr {
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__table tbody tr:hover {
+  background: #fafbff;
+}
+
+.dash__ref {
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.dash__name { font-weight: 500; }
+
+.dash__muted { color: var(--grey); }
+
+.dash__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* ---------- status pill ---------- */
+
+.dash__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.dash__pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.dash__pill--green  { background: #e7f6ed; color: var(--green); }
+.dash__pill--blue   { background: #e6edff; color: var(--blue); }
+.dash__pill--amber  { background: #fff3e0; color: var(--amber); }
+.dash__pill--grey   { background: #f1f2f4; color: var(--grey); }
+.dash__pill--coral  { background: var(--pink-bg); color: var(--coral); }
+
+/* ---------- empty state ---------- */
+
+.dash__empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--grey);
+  font-size: 14px;
+}
+
+/* ---------- login ---------- */
+
+.dash-login {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--bg, #f2f6fe);
+}
+
+.dash-login__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 32px;
+  background: #fff;
+  border: 1px solid rgba(4, 20, 58, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px -8px rgba(4, 20, 58, 0.12);
+  text-align: center;
+}
+
+.dash-login__mark {
+  width: 34px;
+  height: 31px;
+  margin: 0 auto;
+  color: #fc5257;
+}
+
+.dash-login__brand {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: #04143a;
+}
+
+.dash-login__title {
+  margin-top: 18px;
+  font-family: var(--font-jost), Georgia, serif;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 1.2;
+  color: #04143a;
+}
+
+.dash-login__sub {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
+.dash-login__form {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.dash-login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dash-login__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #04143a;
+}
+
+.dash-login__input {
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(4, 20, 58, 0.18);
+  border-radius: 12px;
+  background: #fff;
+  font-size: 15px;
+  color: #04143a;
+  transition: border-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash-login__input::placeholder { color: #9aa1ad; }
+
+.dash-login__input:hover { border-color: rgba(4, 20, 58, 0.32); }
+
+.dash-login__btn {
+  min-height: 48px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: #fc5257;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash-login__btn:hover:not(:disabled) { background: #e8464b; }
+
+.dash-login__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dash-login__error {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fde3e4;
+  color: #c22a2f;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.dash-login__hint {
+  margin-top: 18px;
+  padding: 12px;
+  border: 1px dashed rgba(4, 20, 58, 0.18);
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #6b7280;
+  text-align: left;
+}
+
+.dash-login__hint code {
+  font-family: var(--font-aeonik), ui-monospace, monospace;
+  font-weight: 700;
+  color: #04143a;
+}
+
+.dash-login__foot {
+  margin-top: 22px;
+  font-size: 12px;
+  color: #9aa1ad;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .dash__grid2 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+  .dash__shell { grid-template-columns: 1fr; }
+
+  .dash__sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 12px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dash__navlabel, .dash__brandsub, .dash__who { display: none; }
+
+  .dash__nav { flex-direction: row; gap: 6px; }
+
+  .dash__sidefoot {
+    flex-direction: row;
+    margin-top: 0;
+    margin-left: auto;
+    padding: 0;
+    border-top: none;
+  }
+
+  .dash__main { padding: 24px 20px 56px; }
+
+  .dash__title { font-size: 26px; }
+}
+
+@media (max-width: 480px) {
+  .dash__main { padding: 20px 16px 48px; }
+  .dash__statvalue { font-size: 29px; }
+}
+
+/* ---------- buttons ---------- */
+
+.dash__primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__primary:hover:not(:disabled) { background: #e8464b; }
+.dash__primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.dash__ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__ghost:hover { background: var(--bg); }
+
+/* ---------- inline form ---------- */
+
+.dash__form {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.dash__formgrid {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 14px;
+}
+
+.dash__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dash__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.dash__optional {
+  font-weight: 400;
+  color: var(--grey);
+}
+
+.dash__input {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(4, 20, 58, 0.18);
+  border-radius: 10px;
+  background: var(--white);
+  font-size: 15px;
+  color: var(--navy);
+  transition: border-color 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dash__input:hover { border-color: rgba(4, 20, 58, 0.32); }
+.dash__input::placeholder { color: #9aa1ad; }
+
+.dash__textarea {
+  min-height: 68px;
+  padding: 10px 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.dash__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dash__check input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--coral);
+  cursor: pointer;
+}
+
+.dash__formactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.dash__formerror {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--pink-bg);
+  color: #c22a2f;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.dash__formok {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #e7f6ed;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .dash__formgrid { grid-template-columns: 1fr; }
+}
