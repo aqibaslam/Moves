@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 function safePath(raw?: string): string {
-  return raw && raw.startsWith('/') && !raw.startsWith('//') ? raw : '/dashboard';
+  return raw && raw.startsWith('/') && !raw.startsWith('//') ? raw : '/admin';
 }
 
 export default async function LoginPage({
@@ -19,7 +19,7 @@ export default async function LoginPage({
   searchParams: Promise<{ next?: string }>;
 }) {
   // Already signed in → skip the form.
-  if (await getAdminUser()) redirect('/dashboard');
+  if (await getAdminUser()) redirect('/admin');
 
   const { next } = await searchParams;
 

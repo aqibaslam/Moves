@@ -11,13 +11,13 @@ export type SignInState = { error?: string };
 
 /** Only same-origin absolute paths — blocks "//evil.com" and full URLs. */
 function safePath(raw: string): string {
-  return raw.startsWith('/') && !raw.startsWith('//') ? raw : '/dashboard';
+  return raw.startsWith('/') && !raw.startsWith('//') ? raw : '/admin';
 }
 
 export async function signIn(_prev: SignInState, formData: FormData): Promise<SignInState> {
   const email = String(formData.get('email') ?? '').trim();
   const password = String(formData.get('password') ?? '');
-  const next = safePath(String(formData.get('next') ?? '/dashboard'));
+  const next = safePath(String(formData.get('next') ?? '/admin'));
 
   if (!email || !password) {
     return { error: 'Enter both your email and password.' };

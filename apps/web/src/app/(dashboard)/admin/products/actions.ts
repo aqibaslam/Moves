@@ -60,8 +60,8 @@ export async function createProduct(
     return { error: 'Could not save the product. Please try again.' };
   }
 
-  revalidatePath('/dashboard/products');
-  revalidatePath('/dashboard');
+  revalidatePath('/admin/products');
+  revalidatePath('/admin');
   return { ok: true };
 }
 
@@ -78,5 +78,5 @@ export async function toggleProductActive(id: number, active: boolean): Promise<
     overrideAccess: false,
   });
 
-  revalidatePath('/dashboard/products');
+  revalidatePath('/admin/products');
 }

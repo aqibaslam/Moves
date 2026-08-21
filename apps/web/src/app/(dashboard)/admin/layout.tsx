@@ -37,16 +37,16 @@ export default async function DashboardLayout({
 
           <nav className="dash__nav" aria-label="Dashboard">
             <p className="dash__navlabel">Overview</p>
-            <NavLink href="/dashboard" label="Home">
+            <NavLink href="/admin" label="Home">
               <HomeIcon />
             </NavLink>
-            <NavLink href="/dashboard/products" label="Products">
+            <NavLink href="/admin/products" label="Products">
               <ProductsIcon />
             </NavLink>
-            <NavLink href="/dashboard/orders" label="Orders">
+            <NavLink href="/admin/orders" label="Orders">
               <OrdersIcon />
             </NavLink>
-            <NavLink href="/dashboard/consultations" label="Consultations">
+            <NavLink href="/admin/consultations" label="Consultations">
               <ConsultIcon />
             </NavLink>
           </nav>

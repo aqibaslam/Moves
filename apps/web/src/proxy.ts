@@ -31,9 +31,9 @@ function isGateExempt(pathname: string): boolean {
     pathname.startsWith('/password/') ||
     pathname === '/lock' || // clears the gate cookie, then redirects to /password
     pathname.startsWith('/api') || // Payload API (+ server-action posts)
-    pathname.startsWith('/admin') || // Payload admin has its own auth
+    pathname.startsWith('/cms') || // Payload admin UI has its own auth
     pathname === '/login' || // Moves dashboard sign-in
-    pathname.startsWith('/dashboard') || // Moves dashboard has its own auth
+    pathname.startsWith('/admin') || // Moves staff dashboard has its own auth
     pathname.startsWith('/_next') ||
     pathname === '/favicon.ico'
   );
@@ -54,7 +54,7 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if (pathname.startsWith('/dashboard') && !request.cookies.get(AUTH_COOKIE)) {
+  if (pathname.startsWith('/admin') && !request.cookies.get(AUTH_COOKIE)) {
     const to = request.nextUrl.clone();
     to.pathname = '/login';
     to.search = '';

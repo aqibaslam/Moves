@@ -43,6 +43,8 @@ const storagePlugins = process.env.S3_BUCKET
   : [];
 
 export default buildConfig({
+  // Admin UI lives at /cms — the custom staff dashboard owns /admin.
+  routes: { admin: '/cms' },
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },

@@ -1,7 +1,7 @@
 /**
  * Admin auth for the Moves dashboard — Payload's `users` collection.
  *
- * The dashboard and the CMS at /admin share one session: both read the
+ * The dashboard and the CMS at /cms share one session: both read the
  * `payload-token` cookie, so signing into either signs you into both.
  *
  * payload.auth() verifies the token against the database on every call. There

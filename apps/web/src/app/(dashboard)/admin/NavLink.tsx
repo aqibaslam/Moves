@@ -18,9 +18,9 @@ export function NavLink({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  // Exact match for the index, prefix match for sections — so /dashboard does
-  // not stay highlighted while you are on /dashboard/orders.
-  const active = href === '/dashboard' ? pathname === href : pathname.startsWith(href);
+  // Exact match for the index, prefix match for sections — so /admin does
+  // not stay highlighted while you are on /admin/orders.
+  const active = href === '/admin' ? pathname === href : pathname.startsWith(href);
 
   return (
     <Link className="dash__navlink" href={href} aria-current={active ? 'page' : undefined}>
