@@ -6,7 +6,10 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
+import { Consultations } from './payload/collections/Consultations';
 import { Media } from './payload/collections/Media';
+import { Orders } from './payload/collections/Orders';
+import { Products } from './payload/collections/Products';
 import { Users } from './payload/collections/Users';
 import { globals } from './payload/globals';
 
@@ -48,7 +51,7 @@ export default buildConfig({
       description: 'Edit every section, image and video on the Moves landing page.',
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Products, Orders, Consultations],
   globals,
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'CHANGE-ME-IN-ENV',

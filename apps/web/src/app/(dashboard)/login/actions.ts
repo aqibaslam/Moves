@@ -1,16 +1,11 @@
 'use server';
 
 import type { Route } from 'next';
+import config from '@payload-config';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createClient } from '@moves/supabase-client/server';
-import {
-  PREVIEW_COOKIE,
-  PREVIEW_TOKEN,
-  checkPreviewCredentials,
-  isPreviewMode,
-  isSupabaseConfigured,
-} from '../lib/auth';
+import { getPayload } from 'payload';
+import { AUTH_COOKIE } from '../lib/auth';
 
 export type SignInState = { error?: string };
 
@@ -28,43 +23,39 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     return { error: 'Enter both your email and password.' };
   }
 
-  if (isSupabaseConfigured()) {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const payload = await getPayload({ config });
 
-    if (error) {
-      // Deliberately vague: distinguishing "no such user" from "wrong password"
-      // hands an attacker a way to enumerate valid admin emails.
-      return { error: 'Those details don’t match an admin account.' };
-    }
-  } else if (isPreviewMode()) {
-    if (!checkPreviewCredentials(email, password)) {
-      return { error: 'Those details don’t match an admin account.' };
-    }
-
-    const store = await cookies();
-    store.set(PREVIEW_COOKIE, PREVIEW_TOKEN, {
-      httpOnly: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 8,
-      secure: process.env.NODE_ENV === 'production',
+  let token: string | undefined;
+  try {
+    const result = await payload.login({
+      collection: 'users',
+      data: { email, password },
     });
-  } else {
-    return { error: 'Sign-in is unavailable: Supabase is not configured.' };
+    token = result.token;
+  } catch {
+    // Deliberately vague: distinguishing "no such user" from "wrong password"
+    // hands an attacker a way to enumerate valid admin emails. Payload also
+    // locks an account after repeated failures, which this preserves.
+    return { error: 'Those details don’t match an admin account.' };
   }
+
+  if (!token) {
+    return { error: 'Sign-in failed. Please try again.' };
+  }
+
+  const store = await cookies();
+  store.set(AUTH_COOKIE, token, {
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+    secure: process.env.NODE_ENV === 'production',
+  });
 
   redirect(next as Route);
 }
 
 export async function signOut(): Promise<void> {
-  if (isSupabaseConfigured()) {
-    const supabase = await createClient();
-    await supabase.auth.signOut();
-  }
-
   const store = await cookies();
-  store.delete(PREVIEW_COOKIE);
-
+  store.delete(AUTH_COOKIE);
   redirect('/login');
 }

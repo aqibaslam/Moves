@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import { StatusPill } from '../StatusPill';
-import {
-  CONSULTATIONS,
-  CONSULTATION_STATUS_LABEL,
-  type ConsultationStatus,
-} from '../../lib/demo-data';
+import { CONSULTATION_STATUS_LABEL, listConsultations } from '../../lib/data';
+import type { Consultation } from '@/payload-types';
 
 export const metadata: Metadata = { title: 'Consultations' };
 
-const TONE: Record<ConsultationStatus, 'green' | 'blue' | 'amber' | 'grey' | 'coral'> = {
+const TONE: Record<
+  NonNullable<Consultation['status']>,
+  'green' | 'blue' | 'amber' | 'grey' | 'coral'
+> = {
   upcoming: 'blue',
   completed: 'green',
   no_show: 'coral',
@@ -24,8 +24,9 @@ const whenFmt = new Intl.DateTimeFormat('en-GB', {
   hour12: false,
 });
 
-export default function ConsultationsPage() {
-  const upcoming = CONSULTATIONS.filter((c) => c.status === 'upcoming').length;
+export default async function ConsultationsPage() {
+  const consultations = await listConsultations();
+  const upcoming = consultations.filter((c) => c.status === 'upcoming').length;
 
   return (
     <>
@@ -42,8 +43,10 @@ export default function ConsultationsPage() {
           <p className="dash__cardnote">{upcoming} upcoming</p>
         </div>
 
-        {CONSULTATIONS.length === 0 ? (
-          <p className="dash__empty">No consultations booked yet.</p>
+        {consultations.length === 0 ? (
+          <p className="dash__empty">
+            No consultations yet. Bookings from the site will land here.
+          </p>
         ) : (
           <div className="dash__tablewrap">
             <table className="dash__table">
@@ -59,14 +62,14 @@ export default function ConsultationsPage() {
                 </tr>
               </thead>
               <tbody>
-                {CONSULTATIONS.map((c) => (
+                {consultations.map((c) => (
                   <tr key={c.id}>
                     <td className="dash__name">{c.patientName}</td>
                     <td className="dash__muted">{c.email}</td>
                     <td className="dash__when">{whenFmt.format(new Date(c.scheduledFor))}</td>
-                    <td className="dash__muted">{c.clinic}</td>
-                    <td className="dash__muted">{c.dentist}</td>
-                    <td className="dash__muted">{c.source}</td>
+                    <td className="dash__muted">{c.clinic || '—'}</td>
+                    <td className="dash__muted">{c.dentist || '—'}</td>
+                    <td className="dash__muted">{c.source || '—'}</td>
                     <td>
                       <StatusPill tone={TONE[c.status]}>
                         {CONSULTATION_STATUS_LABEL[c.status]}

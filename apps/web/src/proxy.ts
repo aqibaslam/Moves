@@ -1,17 +1,17 @@
 /**
- * Refreshes the Supabase auth session on every request.
- *
  * Next.js 16 renamed the `middleware` file convention to `proxy` — same
  * capability, clearer name. The exported function must be called `proxy`.
  *
- * Server Components cannot write cookies, so without this the access token
- * expires and users get silently logged out. This file is what makes the
- * try/catch in @moves/supabase-client/server safe to swallow.
+ * Two jobs:
+ *   1. the pre-launch password wall on the public site
+ *   2. a cheap signed-out redirect for /dashboard
  *
- * Do not add logic between createServerClient and getUser() — an early return
- * there causes random logouts that are extremely hard to debug.
+ * The dashboard check here only looks for the presence of Payload's auth
+ * cookie. It is a fast path to avoid rendering a page we know will bounce —
+ * NOT a security boundary. The real verification is payload.auth() in
+ * app/(dashboard)/dashboard/layout.tsx, which validates the token against the
+ * database. Never rely on this cookie check alone.
  */
-import { createServerClient, type CookieMethodsServer } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
@@ -21,6 +21,9 @@ import { NextResponse, type NextRequest } from 'next/server';
  */
 const GATE_COOKIE = 'moves_gate';
 const GATE_TOKEN = 'unlocked';
+
+/** Payload's default auth cookie (no cookiePrefix is configured). */
+const AUTH_COOKIE = 'payload-token';
 
 function isGateExempt(pathname: string): boolean {
   return (
@@ -36,7 +39,7 @@ function isGateExempt(pathname: string): boolean {
   );
 }
 
-export async function proxy(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Password wall: block everything but the exemptions until unlocked.
@@ -51,50 +54,15 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  let supabaseResponse = NextResponse.next({ request });
-
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  // Lets the scaffold run before Supabase is configured. Once you have a
-  // project, remove this guard — after that, missing env vars should be a
-  // loud failure rather than a silent pass-through.
-  if (!url || !anonKey) {
-    return supabaseResponse;
+  if (pathname.startsWith('/dashboard') && !request.cookies.get(AUTH_COOKIE)) {
+    const to = request.nextUrl.clone();
+    to.pathname = '/login';
+    to.search = '';
+    to.searchParams.set('next', pathname);
+    return NextResponse.redirect(to);
   }
 
-  const cookies: CookieMethodsServer = {
-    getAll() {
-      return request.cookies.getAll();
-    },
-    setAll(cookiesToSet) {
-      cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-      supabaseResponse = NextResponse.next({ request });
-      cookiesToSet.forEach(({ name, value, options }) =>
-        supabaseResponse.cookies.set(name, value, options),
-      );
-    },
-  };
-
-  const supabase = createServerClient(url, anonKey, { cookies });
-
-  // Revalidates the token. Must be called — do not remove.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // Gate private routes here.
-  const isProtected = request.nextUrl.pathname.startsWith('/dashboard');
-
-  if (isProtected && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    url.search = '';
-    url.searchParams.set('next', request.nextUrl.pathname);
-    return NextResponse.redirect(url);
-  }
-
-  return supabaseResponse;
+  return NextResponse.next();
 }
 
 export const config = {

@@ -2,15 +2,13 @@ import { redirect } from 'next/navigation';
 import { MovesMark } from '../MovesMark';
 import { getAdminUser } from '../lib/auth';
 import { signOut } from '../login/actions';
-import { ConsultIcon, HomeIcon, OrdersIcon } from './icons';
+import { ConsultIcon, HomeIcon, OrdersIcon, ProductsIcon } from './icons';
 import { NavLink } from './NavLink';
 
 /**
- * Never prerender an authenticated route. Without this the build can statically
- * bake these pages: at build time NODE_ENV is production and Supabase may be
- * unconfigured, so getAdminUser() short-circuits without touching cookies(),
- * Next sees no dynamic API, and it prerenders. The auth check must run per
- * request, not once at build.
+ * Never prerender an authenticated route. These pages must run their auth
+ * check per request, and they read live rows from the database — neither is
+ * safe to bake at build time.
  */
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +40,9 @@ export default async function DashboardLayout({
             <NavLink href="/dashboard" label="Home">
               <HomeIcon />
             </NavLink>
+            <NavLink href="/dashboard/products" label="Products">
+              <ProductsIcon />
+            </NavLink>
             <NavLink href="/dashboard/orders" label="Orders">
               <OrdersIcon />
             </NavLink>
@@ -53,7 +54,7 @@ export default async function DashboardLayout({
           <div className="dash__sidefoot">
             <div className="dash__who">
               <p className="dash__wholabel">Signed in</p>
-              <p className="dash__whoemail">{user.email}</p>
+              <p className="dash__whoemail">{user.name || user.email}</p>
             </div>
             <form action={signOut}>
               <button className="dash__signout" type="submit">
@@ -64,12 +65,6 @@ export default async function DashboardLayout({
         </aside>
 
         <main className="dash__main" id="main">
-          {user.preview ? (
-            <p className="dash__banner">
-              <strong>Preview mode.</strong> Supabase isn’t configured, so this is placeholder
-              data behind a local password — not real sign-in and not real records.
-            </p>
-          ) : null}
           {children}
         </main>
       </div>

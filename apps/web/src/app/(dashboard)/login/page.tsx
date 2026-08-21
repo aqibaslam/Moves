@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { MovesMark } from '../MovesMark';
-import { PREVIEW_EMAIL, getAdminUser, isPreviewMode } from '../lib/auth';
+import { getAdminUser } from '../lib/auth';
 import { LoginForm } from './LoginForm';
 
 export const metadata: Metadata = {
@@ -22,7 +22,6 @@ export default async function LoginPage({
   if (await getAdminUser()) redirect('/dashboard');
 
   const { next } = await searchParams;
-  const preview = isPreviewMode();
 
   return (
     <main className="dash-login">
@@ -36,14 +35,6 @@ export default async function LoginPage({
         </p>
 
         <LoginForm next={safePath(next)} />
-
-        {preview ? (
-          <p className="dash-login__hint">
-            <strong>Preview mode.</strong> No Supabase project is configured yet. Sign in with{' '}
-            <code>{PREVIEW_EMAIL}</code> / <code>admin1234</code>. Wire up Supabase and this
-            fallback disables itself.
-          </p>
-        ) : null}
 
         <p className="dash-login__foot">Authorised clinic staff only.</p>
       </div>

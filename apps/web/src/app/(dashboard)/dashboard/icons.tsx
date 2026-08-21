@@ -31,3 +31,10 @@ export const ConsultIcon = () => (
     <path d="m9.5 15.5 1.8 1.8 3.4-3.4" />
   </svg>
 );
+
+export const ProductsIcon = () => (
+  <svg {...base}>
+    <path d="M12 3 3 7.5v9L12 21l9-4.5v-9Z" />
+    <path d="M3 7.5 12 12l9-4.5M12 12v9" />
+  </svg>
+);
