@@ -21,12 +21,11 @@ const dirname = path.dirname(filename);
 const db = process.env.DATABASE_URL
   ? postgresAdapter({
       pool: { connectionString: process.env.DATABASE_URL },
-      // Auto-sync the schema on connect so a fresh Neon database gets its
-      // tables without a separate migration step. Without this, a deployed
-      // /admin 500s on the first query because the tables don't exist yet.
-      // This is the get-it-live path; move to `prodMigrations` before the
-      // schema is under real churn, since push diffs the schema on every
-      // cold start.
+      // Auto-sync the schema in NON-production only (Payload gates push on
+      // NODE_ENV — see @payloadcms/drizzle connect.js). This builds the tables
+      // when you run locally against Neon. In production Payload never pushes,
+      // so the Neon schema must already exist (created by a local dev run, or
+      // via prodMigrations).
       push: true,
     })
   : sqliteAdapter({ client: { url: `file:${path.resolve(dirname, '../moves-cms-dev.db')}` } });
