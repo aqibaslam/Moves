@@ -16,7 +16,16 @@ const dirname = path.dirname(filename);
 // Database: Supabase Postgres in production (once DATABASE_URL is set), and a
 // zero-setup local SQLite file for development so the admin runs immediately.
 const db = process.env.DATABASE_URL
-  ? postgresAdapter({ pool: { connectionString: process.env.DATABASE_URL } })
+  ? postgresAdapter({
+      pool: { connectionString: process.env.DATABASE_URL },
+      // Auto-sync the schema on connect so a fresh Neon database gets its
+      // tables without a separate migration step. Without this, a deployed
+      // /admin 500s on the first query because the tables don't exist yet.
+      // This is the get-it-live path; move to `prodMigrations` before the
+      // schema is under real churn, since push diffs the schema on every
+      // cold start.
+      push: true,
+    })
   : sqliteAdapter({ client: { url: `file:${path.resolve(dirname, '../moves-cms-dev.db')}` } });
 
 // Supabase Storage (S3-compatible) — only enabled once keys are provided.
