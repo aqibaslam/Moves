@@ -5,7 +5,6 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { buildConfig } from 'payload';
-import sharp from 'sharp';
 import { Consultations } from './payload/collections/Consultations';
 import { Media } from './payload/collections/Media';
 import { Orders } from './payload/collections/Orders';
@@ -50,6 +49,29 @@ const storagePlugins = process.env.S3_BUCKET
     ]
   : [];
 
+/**
+ * sharp powers Payload's image resizing.
+ *
+ * Its native binary fails to load on Vercel's serverless runtime under pnpm
+ * (ERR_DLOPEN_FAILED: libvips-cpp.so is missing, because pnpm's symlinked
+ * node_modules doesn't survive the function bundle). A static import made that
+ * a hard crash on EVERY Payload route — /cms, /admin and /login all 500'd.
+ *
+ * Load it defensively instead: resizing is a nice-to-have, an admin that
+ * doesn't boot is not. Locally (and anywhere the binary resolves) sharp is
+ * used exactly as before; where it can't load, Payload runs without resizing
+ * and uploads keep their original dimensions.
+ */
+let sharpModule: typeof import('sharp').default | undefined;
+try {
+  sharpModule = (await import('sharp')).default;
+} catch (err) {
+  console.warn(
+    '[payload] sharp could not be loaded — image resizing is disabled.',
+    err instanceof Error ? err.message : err,
+  );
+}
+
 export default buildConfig({
   // Admin UI lives at /cms — the custom staff dashboard owns /admin.
   routes: { admin: '/cms' },
@@ -69,6 +91,6 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db,
-  sharp,
+  sharp: sharpModule,
   plugins: [...storagePlugins],
 });

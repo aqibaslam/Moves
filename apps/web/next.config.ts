@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
 
   // Promoted out of `experimental` in Next 16.
   typedRoutes: true,
+
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });
