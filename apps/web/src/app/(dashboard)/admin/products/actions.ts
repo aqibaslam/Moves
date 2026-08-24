@@ -28,6 +28,39 @@ function str(raw: FormDataEntryValue | null): string | undefined {
   return s || undefined;
 }
 
+
+/**
+ * Uploads any files from the Media field into the `media` collection (which is
+ * backed by Vercel Blob in production) and returns their ids. Best-effort per
+ * file: a bad upload is skipped, not fatal to the whole save.
+ */
+async function uploadMedia(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  files: File[],
+): Promise<number[]> {
+  const ids: number[] = [];
+  for (const file of files) {
+    if (!file || typeof file.arrayBuffer !== 'function' || file.size === 0) continue;
+    try {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const doc = await payload.create({
+        collection: 'media',
+        data: { alt: file.name },
+        file: {
+          data: buffer,
+          mimetype: file.type || 'application/octet-stream',
+          name: file.name,
+          size: file.size,
+        },
+      });
+      ids.push(doc.id as number);
+    } catch (err) {
+      console.error('[products] media upload failed for', file.name, err);
+    }
+  }
+  return ids;
+}
+
 export async function createProduct(
   _prev: ProductFormState,
   formData: FormData,
@@ -50,6 +83,10 @@ export async function createProduct(
     .filter(Boolean);
 
   const payload = await getPayload({ config });
+
+  const mediaFiles = formData.getAll('media').filter((f): f is File => f instanceof File);
+  const mediaIds = await uploadMedia(payload, mediaFiles);
+  const [primaryImage, ...galleryIds] = mediaIds;
 
   try {
     const doc = await payload.create({
@@ -75,6 +112,8 @@ export async function createProduct(
         productType: str(formData.get('productType')),
         vendor: str(formData.get('vendor')),
         tags: tags.length ? tags : undefined,
+        image: primaryImage ?? undefined,
+        gallery: galleryIds.length ? galleryIds.map((id) => ({ file: id })) : undefined,
         seoTitle: str(formData.get('seoTitle')),
         seoDescription: str(formData.get('seoDescription')),
       },

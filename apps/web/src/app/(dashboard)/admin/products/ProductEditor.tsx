@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { createProduct, type ProductFormState } from './actions';
 
 const INITIAL: ProductFormState = {};
@@ -24,6 +24,7 @@ function Switch({ name, defaultChecked }: { name: string; defaultChecked?: boole
 export function ProductEditor() {
   const router = useRouter();
   const [state, action, pending] = useActionState(createProduct, INITIAL);
+  const [mediaCount, setMediaCount] = useState(0);
 
   // On success, go back to the list where the new row appears.
   useEffect(() => {
@@ -56,14 +57,21 @@ export function ProductEditor() {
             </div>
             <div className="pe__field">
               <span className="pe__label">Media</span>
-              <div className="pe__drop">
-                <strong>Upload new</strong> or select existing<br />
-                Accepts images, videos, or 3D models
-              </div>
-              <span className="pe__hint">
-                Image upload needs blob storage configured on the deployment — the field is ready,
-                uploads are disabled until then.
-              </span>
+              <label className="pe__drop pe__drop--live">
+                <input
+                  className="pe__hidden"
+                  type="file"
+                  name="media"
+                  accept="image/*,video/*"
+                  multiple
+                  onChange={(e) => setMediaCount(e.currentTarget.files?.length ?? 0)}
+                />
+                {mediaCount > 0 ? (
+                  <><strong>{mediaCount} file{mediaCount > 1 ? 's' : ''} selected</strong><br />Click to change</>
+                ) : (
+                  <><strong>Upload new</strong> — click to choose files<br />Images or video. First image is the primary.</>
+                )}
+              </label>
             </div>
             <div className="pe__field">
               <label className="pe__label" htmlFor="category">Category</label>

@@ -987,3 +987,6 @@
 @media (max-width: 900px) {
   .pe__grid { grid-template-columns: 1fr; }
 }
+
+.pe__drop--live { cursor: pointer; display: block; transition: border-color 140ms, background 140ms; }
+.pe__drop--live:hover { border-color: var(--coral); background: #fff5f5; }

@@ -4,6 +4,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import { buildConfig } from 'payload';
 import { Consultations } from './payload/collections/Consultations';
 import { Media } from './payload/collections/Media';
@@ -31,23 +32,39 @@ const db = process.env.DATABASE_URL
 
 // Supabase Storage (S3-compatible) — only enabled once keys are provided.
 // Until then, uploads fall back to Payload's local disk so the CMS still works.
-const storagePlugins = process.env.S3_BUCKET
+// Vercel's Blob integration injects the token under a store-prefixed name
+// (moves_READ_WRITE_TOKEN); locally we use the standard BLOB_READ_WRITE_TOKEN.
+// Accept either so no duplicate env var is needed.
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN || process.env.moves_READ_WRITE_TOKEN;
+
+// Media storage, in priority order:
+//   1. Vercel Blob  — when a blob token is set (the deployed default)
+//   2. S3           — when S3_BUCKET is set
+//   3. local disk   — dev fallback (does NOT persist on Vercel serverless)
+const storagePlugins = blobToken
   ? [
-      s3Storage({
-        collections: { media: { prefix: 'media' } },
-        bucket: process.env.S3_BUCKET,
-        config: {
-          endpoint: process.env.S3_ENDPOINT,
-          region: process.env.S3_REGION || 'us-east-1',
-          forcePathStyle: true, // required for Supabase Storage
-          credentials: {
-            accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-          },
-        },
+      vercelBlobStorage({
+        collections: { media: true },
+        token: blobToken,
       }),
     ]
-  : [];
+  : process.env.S3_BUCKET
+    ? [
+        s3Storage({
+          collections: { media: { prefix: 'media' } },
+          bucket: process.env.S3_BUCKET,
+          config: {
+            endpoint: process.env.S3_ENDPOINT,
+            region: process.env.S3_REGION || 'us-east-1',
+            forcePathStyle: true, // required for Supabase Storage
+            credentials: {
+              accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+              secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+            },
+          },
+        }),
+      ]
+    : [];
 
 /**
  * sharp powers Payload's image resizing.
