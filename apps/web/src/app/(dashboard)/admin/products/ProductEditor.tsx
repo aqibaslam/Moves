@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { createProduct, type ProductFormState } from './actions';
+import { MediaInput } from './MediaInput';
 
 const INITIAL: ProductFormState = {};
 
@@ -24,7 +25,6 @@ function Switch({ name, defaultChecked }: { name: string; defaultChecked?: boole
 export function ProductEditor() {
   const router = useRouter();
   const [state, action, pending] = useActionState(createProduct, INITIAL);
-  const [mediaCount, setMediaCount] = useState(0);
 
   // On success, go back to the list where the new row appears.
   useEffect(() => {
@@ -55,24 +55,7 @@ export function ProductEditor() {
               <textarea className="pe__textarea" id="description" name="description"
                 placeholder="Full arch treatment, start to finish — planned and signed by a GDC-registered dentist." />
             </div>
-            <div className="pe__field">
-              <span className="pe__label">Media</span>
-              <label className="pe__drop pe__drop--live">
-                <input
-                  className="pe__hidden"
-                  type="file"
-                  name="media"
-                  accept="image/*,video/*"
-                  multiple
-                  onChange={(e) => setMediaCount(e.currentTarget.files?.length ?? 0)}
-                />
-                {mediaCount > 0 ? (
-                  <><strong>{mediaCount} file{mediaCount > 1 ? 's' : ''} selected</strong><br />Click to change</>
-                ) : (
-                  <><strong>Upload new</strong> — click to choose files<br />Images or video. First image is the primary.</>
-                )}
-              </label>
-            </div>
+            <MediaInput name="media" />
             <div className="pe__field">
               <label className="pe__label" htmlFor="category">Category</label>
               <input className="pe__input" id="category" name="category" placeholder="Clear aligners" />

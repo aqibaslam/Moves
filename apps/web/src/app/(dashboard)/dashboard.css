@@ -990,3 +990,46 @@
 
 .pe__drop--live { cursor: pointer; display: block; transition: border-color 140ms, background 140ms; }
 .pe__drop--live:hover { border-color: var(--coral); background: #fff5f5; }
+
+/* media picker — thumbnail grid */
+.pe__media {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+}
+.pe__thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.pe__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pe__thumbfile {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; padding: 6px;
+  font-size: 11px; color: var(--grey); text-align: center; word-break: break-word;
+}
+.pe__thumbx {
+  position: absolute; top: 4px; right: 4px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(4, 20, 58, 0.72); color: #fff;
+  font-size: 15px; line-height: 1; display: flex; align-items: center; justify-content: center;
+  transition: background 140ms;
+}
+.pe__thumbx:hover { background: var(--coral); }
+.pe__badge {
+  position: absolute; bottom: 4px; left: 4px;
+  padding: 2px 7px; border-radius: 999px;
+  background: var(--navy); color: #fff; font-size: 10px; font-weight: 700;
+}
+.pe__addtile {
+  aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  border: 1.5px dashed rgba(4, 20, 58, 0.25); border-radius: 10px;
+  background: #fafbff; color: var(--grey); font-size: 12px; font-weight: 600;
+  transition: border-color 140ms, background 140ms, color 140ms;
+}
+.pe__addtile span { font-size: 20px; line-height: 1; }
+.pe__addtile:hover { border-color: var(--coral); color: var(--coral); background: #fff5f5; }
