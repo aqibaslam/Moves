@@ -1,9 +1,13 @@
 import type { CollectionConfig } from 'payload';
 
 /**
- * Treatment plans the practice sells (Moves Full, Lite, Refine…).
- * Read is public so the marketing site can render pricing; writes require a
- * signed-in team member.
+ * Products the practice sells (treatment plans like Moves Full / Lite / Refine,
+ * plus any add-ons). The field set mirrors a Shopify-style product editor so
+ * the dashboard's "Add product" screen can offer the same sections — adapted
+ * for a treatment-plan store rather than physical retail goods.
+ *
+ * Money is stored as integer pence throughout. Never a float: rounding errors
+ * compound across a ledger.
  */
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -21,18 +25,19 @@ export const Products: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
+    // ── Title + description ──────────────────────────────────
     {
       name: 'name',
       type: 'text',
       required: true,
-      admin: { description: 'Shown to patients, e.g. "Moves Full".' },
+      admin: { description: 'Product title, e.g. "Moves Full".' },
     },
     {
       name: 'slug',
       type: 'text',
       unique: true,
       index: true,
-      admin: { description: 'URL-safe id. Leave blank to derive from the name.' },
+      admin: { description: 'URL-safe id. Leave blank to derive from the title.' },
       hooks: {
         beforeValidate: [
           ({ value, data }) => {
@@ -47,38 +52,143 @@ export const Products: CollectionConfig = {
       },
     },
     {
+      name: 'description',
+      type: 'textarea',
+      admin: { description: 'Shown on the product / pricing card.' },
+    },
+
+    // ── Media ────────────────────────────────────────────────
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Primary image, shown first everywhere.' },
+    },
+    {
+      name: 'gallery',
+      type: 'array',
+      labels: { singular: 'Image', plural: 'Media' },
+      admin: { description: 'Additional images or video.' },
+      fields: [{ name: 'file', type: 'upload', relationTo: 'media', required: true }],
+    },
+
+    {
+      name: 'category',
+      type: 'text',
+      admin: { description: 'e.g. "Clear aligners", "Whitening", "Retainers".' },
+    },
+
+    // ── Pricing (integer pence) ──────────────────────────────
+    {
       name: 'pricePence',
       type: 'number',
       required: true,
       min: 0,
       label: 'Price (pence)',
-      admin: {
-        description:
-          'Integer pence — 240000 is £2,400. Money is never stored as a float; rounding errors compound across a ledger.',
-      },
+      admin: { description: '240000 = £2,400.' },
     },
     {
-      name: 'description',
-      type: 'textarea',
-      admin: { description: 'Short summary shown on the pricing card.' },
+      name: 'compareAtPence',
+      type: 'number',
+      min: 0,
+      label: 'Compare-at price (pence)',
+      admin: { description: 'Original price, shown struck through. Optional.' },
     },
+    {
+      name: 'costPerItemPence',
+      type: 'number',
+      min: 0,
+      label: 'Cost per item (pence)',
+      admin: { description: 'Your cost. Used for margin, never shown to patients.' },
+    },
+    {
+      name: 'chargeTax',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: { description: 'Charge tax on this product.' },
+    },
+
+    // ── Inventory ────────────────────────────────────────────
+    {
+      name: 'trackQuantity',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { description: 'Track how many are available.' },
+    },
+    {
+      name: 'quantity',
+      type: 'number',
+      defaultValue: 0,
+      min: 0,
+      admin: {
+        description: 'Units available.',
+        condition: (data) => Boolean(data?.trackQuantity),
+      },
+    },
+    { name: 'sku', type: 'text', label: 'SKU', admin: { description: 'Stock keeping unit.' } },
+    { name: 'barcode', type: 'text', admin: { description: 'Barcode (ISBN, UPC, GTIN…).' } },
+    {
+      name: 'continueSellingWhenOutOfStock',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+
+    // ── Shipping ─────────────────────────────────────────────
+    {
+      name: 'physicalProduct',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: { description: 'Untick for a service (no shipping).' },
+    },
+    {
+      name: 'weightGrams',
+      type: 'number',
+      min: 0,
+      label: 'Weight (grams)',
+      admin: { condition: (data) => Boolean(data?.physicalProduct) },
+    },
+
+    // ── Status + organization (sidebar) ──────────────────────
     {
       name: 'active',
       type: 'checkbox',
       defaultValue: true,
-      admin: { description: 'Unticked products stay in past orders but cannot be ordered again.' },
+      label: 'Active',
+      admin: {
+        position: 'sidebar',
+        description: 'Active products can be ordered. Untick = Draft.',
+      },
     },
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      admin: { description: 'Optional product image.' },
+      name: 'productType',
+      type: 'text',
+      label: 'Type',
+      admin: { position: 'sidebar' },
+    },
+    { name: 'vendor', type: 'text', admin: { position: 'sidebar' } },
+    {
+      name: 'tags',
+      type: 'text',
+      hasMany: true,
+      admin: { position: 'sidebar', description: 'Comma-separated labels.' },
     },
     {
       name: 'sortOrder',
       type: 'number',
       defaultValue: 0,
-      admin: { description: 'Lower numbers appear first.' },
+      admin: { position: 'sidebar', description: 'Lower numbers appear first.' },
+    },
+
+    // ── SEO ──────────────────────────────────────────────────
+    {
+      name: 'seoTitle',
+      type: 'text',
+      admin: { description: 'Search engine title. Defaults to the product title.' },
+    },
+    {
+      name: 'seoDescription',
+      type: 'textarea',
+      admin: { description: 'Search engine description.' },
     },
   ],
 };

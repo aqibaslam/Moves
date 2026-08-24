@@ -245,33 +245,94 @@ export interface Media {
 export interface Product {
   id: number;
   /**
-   * Shown to patients, e.g. "Moves Full".
+   * Product title, e.g. "Moves Full".
    */
   name: string;
   /**
-   * URL-safe id. Leave blank to derive from the name.
+   * URL-safe id. Leave blank to derive from the title.
    */
   slug?: string | null;
   /**
-   * Integer pence — 240000 is £2,400. Money is never stored as a float; rounding errors compound across a ledger.
-   */
-  pricePence: number;
-  /**
-   * Short summary shown on the pricing card.
+   * Shown on the product / pricing card.
    */
   description?: string | null;
   /**
-   * Unticked products stay in past orders but cannot be ordered again.
-   */
-  active?: boolean | null;
-  /**
-   * Optional product image.
+   * Primary image, shown first everywhere.
    */
   image?: (number | null) | Media;
+  /**
+   * Additional images or video.
+   */
+  gallery?:
+    | {
+        file: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * e.g. "Clear aligners", "Whitening", "Retainers".
+   */
+  category?: string | null;
+  /**
+   * 240000 = £2,400.
+   */
+  pricePence: number;
+  /**
+   * Original price, shown struck through. Optional.
+   */
+  compareAtPence?: number | null;
+  /**
+   * Your cost. Used for margin, never shown to patients.
+   */
+  costPerItemPence?: number | null;
+  /**
+   * Charge tax on this product.
+   */
+  chargeTax?: boolean | null;
+  /**
+   * Track how many are available.
+   */
+  trackQuantity?: boolean | null;
+  /**
+   * Units available.
+   */
+  quantity?: number | null;
+  /**
+   * Stock keeping unit.
+   */
+  sku?: string | null;
+  /**
+   * Barcode (ISBN, UPC, GTIN…).
+   */
+  barcode?: string | null;
+  continueSellingWhenOutOfStock?: boolean | null;
+  /**
+   * Untick for a service (no shipping).
+   */
+  physicalProduct?: boolean | null;
+  weightGrams?: number | null;
+  /**
+   * Active products can be ordered. Untick = Draft.
+   */
+  active?: boolean | null;
+  productType?: string | null;
+  vendor?: string | null;
+  /**
+   * Comma-separated labels.
+   */
+  tags?: string[] | null;
   /**
    * Lower numbers appear first.
    */
   sortOrder?: number | null;
+  /**
+   * Search engine title. Defaults to the product title.
+   */
+  seoTitle?: string | null;
+  /**
+   * Search engine description.
+   */
+  seoDescription?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -499,11 +560,33 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
-  pricePence?: T;
   description?: T;
-  active?: T;
   image?: T;
+  gallery?:
+    | T
+    | {
+        file?: T;
+        id?: T;
+      };
+  category?: T;
+  pricePence?: T;
+  compareAtPence?: T;
+  costPerItemPence?: T;
+  chargeTax?: T;
+  trackQuantity?: T;
+  quantity?: T;
+  sku?: T;
+  barcode?: T;
+  continueSellingWhenOutOfStock?: T;
+  physicalProduct?: T;
+  weightGrams?: T;
+  active?: T;
+  productType?: T;
+  vendor?: T;
+  tags?: T;
   sortOrder?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }
