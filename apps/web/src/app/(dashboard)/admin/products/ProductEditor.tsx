@@ -160,6 +160,11 @@ export function ProductEditor() {
           <section className="pe__card">
             <div className="pe__cardtitle">Product organization</div>
             <div className="pe__field">
+              <label className="pe__label" htmlFor="handle">Handle (URL)</label>
+              <input className="pe__input" id="handle" name="handle" placeholder="moves-full" />
+              <span className="pe__hint">Opens at /product/&lt;handle&gt;. Leave blank to derive from the title.</span>
+            </div>
+            <div className="pe__field">
               <label className="pe__label" htmlFor="productType">Type</label>
               <input className="pe__input" id="productType" name="productType" placeholder="Treatment plan" />
             </div>

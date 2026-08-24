@@ -95,6 +95,7 @@ export async function createProduct(
       overrideAccess: false,
       data: {
         name,
+        slug: str(formData.get('handle')),
         description: str(formData.get('description')),
         category: str(formData.get('category')),
         pricePence,
