@@ -16,5 +16,16 @@
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10"
+  },
+  "peerDependencies": {
+    "next": ">=15"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "next": "16.2.12"
   }
 }
