@@ -6,6 +6,7 @@ import { getPayload } from 'payload';
 import { getAdminUser } from '../../../lib/auth';
 import { StatusPill } from '../../StatusPill';
 import { ORDER_STATUS_LABEL } from '../../../lib/data';
+import { CustomerForm } from '../CustomerForm';
 
 export const metadata: Metadata = { title: 'Customer' };
 export const dynamic = 'force-dynamic';
@@ -66,21 +67,20 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         </div>
 
         <aside className="od__side">
-          <section className="dash__card">
-            <div className="od__sidehead">Contact</div>
-            <a className="dash__rowlink" href={`mailto:${customer.email}`}>{customer.email}</a>
-            <div className="od__sidesub">Phone</div>
-            <div className="od__addr"><p>{customer.phone || '—'}</p></div>
-            <div className="od__sidesub">Address</div>
-            <div className="od__addr">
-              <p>{customer.name}</p>
-              {a.line1 ? <p>{a.line1}</p> : null}
-              {a.line2 ? <p>{a.line2}</p> : null}
-              {a.city ? <p>{a.city}</p> : null}
-              {a.postcode ? <p>{a.postcode}</p> : null}
-              <p>{a.country || 'United Kingdom'}</p>
-            </div>
-          </section>
+          <CustomerForm
+            initial={{
+              id: customer.id,
+              name: customer.name,
+              email: customer.email,
+              phone: customer.phone ?? '',
+              line1: a.line1 ?? '',
+              line2: a.line2 ?? '',
+              city: a.city ?? '',
+              postcode: a.postcode ?? '',
+              country: a.country ?? 'United Kingdom',
+              notes: customer.notes ?? '',
+            }}
+          />
         </aside>
       </div>
     </>

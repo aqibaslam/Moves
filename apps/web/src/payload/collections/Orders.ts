@@ -114,6 +114,27 @@ export const Orders: CollectionConfig = {
     },
     { name: 'tags', type: 'text', hasMany: true },
     { name: 'notes', type: 'textarea' },
+    {
+      name: 'timeline',
+      type: 'array',
+      labels: { singular: 'Timeline entry', plural: 'Timeline' },
+      admin: { description: 'Comments and activity, newest appended last.' },
+      fields: [
+        {
+          name: 'kind',
+          type: 'select',
+          defaultValue: 'event',
+          options: [
+            { label: 'Comment', value: 'comment' },
+            { label: 'Event', value: 'event' },
+            { label: 'Email', value: 'email' },
+          ],
+        },
+        { name: 'text', type: 'text', required: true },
+        { name: 'author', type: 'text' },
+        { name: 'at', type: 'date' },
+      ],
+    }
   ],
   hooks: {
     beforeValidate: [

@@ -392,6 +392,18 @@ export interface Order {
   };
   tags?: string[] | null;
   notes?: string | null;
+  /**
+   * Comments and activity, newest appended last.
+   */
+  timeline?:
+    | {
+        kind?: ('comment' | 'event' | 'email') | null;
+        text: string;
+        author?: string | null;
+        at?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -678,6 +690,15 @@ export interface OrdersSelect<T extends boolean = true> {
       };
   tags?: T;
   notes?: T;
+  timeline?:
+    | T
+    | {
+        kind?: T;
+        text?: T;
+        author?: T;
+        at?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

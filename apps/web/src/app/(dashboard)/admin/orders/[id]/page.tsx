@@ -8,6 +8,8 @@ import { getAdminUser } from '../../../lib/auth';
 import { StatusPill } from '../../StatusPill';
 import { ORDER_STATUS_LABEL } from '../../../lib/data';
 import { FulfillButton } from './FulfillButton';
+import { OrderTags } from './OrderTags';
+import { OrderTimeline } from './OrderTimeline';
 
 export const metadata: Metadata = { title: 'Order' };
 export const dynamic = 'force-dynamic';
@@ -128,6 +130,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
               <div className="od__payrow"><span>{paid ? 'Paid' : 'Balance'}</span><span /><span>{gbp(paid ? total : 0)}</span></div>
             </div>
           </section>
+          <OrderTimeline orderId={order.id} items={(order.timeline ?? []) as { kind?: string | null; text?: string | null; author?: string | null; at?: string | null }[]} />
         </div>
 
         <aside className="od__side">
@@ -149,11 +152,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
 
           <section className="dash__card">
             <div className="od__sidehead">Tags</div>
-            {Array.isArray(order.tags) && order.tags.length ? (
-              <div className="od__tags">{order.tags.map((t) => <span className="dash__pill dash__pill--grey" key={t}>{t}</span>)}</div>
-            ) : (
-              <p className="od__paymuted">No tags. <Link className="dash__rowlink" href={`/admin/orders/${order.id}/edit`}>Add</Link></p>
-            )}
+            <div className="od__tagwrap">
+              <OrderTags orderId={order.id} initial={Array.isArray(order.tags) ? order.tags : []} />
+            </div>
           </section>
         </aside>
       </div>

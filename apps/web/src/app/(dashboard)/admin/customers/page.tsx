@@ -30,6 +30,7 @@ export default async function CustomersPage() {
           <h1 className="dash__title">Customers</h1>
           <p className="dash__sub">Everyone who has placed an order or been added by hand.</p>
         </div>
+        <Link className="dash__primary" href="/admin/customers/new">Add customer</Link>
       </header>
 
       <section className="dash__card" aria-label="Customers">

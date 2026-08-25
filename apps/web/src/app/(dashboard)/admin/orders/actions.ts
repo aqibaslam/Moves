@@ -121,7 +121,12 @@ export async function saveOrder(input: OrderInput): Promise<OrderResult> {
     if (input.id) {
       saved = await payload.update({ collection: 'orders', id: input.id, user, overrideAccess: false, data });
     } else {
-      saved = await payload.create({ collection: 'orders', user, overrideAccess: false, data });
+      const stamp = new Date().toISOString();
+      const seed: TimelineEntry[] = [{ kind: 'event', text: `Order created by ${authorName(user)}`, author: authorName(user), at: stamp }];
+      if (input.status !== 'draft') {
+        seed.push({ kind: 'email', text: `Order confirmation email sent to ${input.customer.email.trim()}`, author: authorName(user), at: stamp });
+      }
+      saved = await payload.create({ collection: 'orders', user, overrideAccess: false, data: { ...data, timeline: seed } });
     }
 
     revalidatePath('/admin/orders');
@@ -140,11 +145,89 @@ export async function setFulfillment(orderId: number, status: 'unfulfilled' | 'f
   const payload = await getPayload({ config });
   try {
     await payload.update({ collection: 'orders', id: orderId, user, overrideAccess: false, data: { fulfillmentStatus: status } });
+    await appendTimeline(payload, user, orderId, { kind: 'event', text: status === 'fulfilled' ? 'Marked as fulfilled' : 'Marked as unfulfilled' });
     revalidatePath(`/admin/orders/${orderId}`);
     revalidatePath('/admin/orders');
     return { ok: true };
   } catch (err) {
     console.error('[orders] setFulfillment failed', err);
     return { ok: false };
+  }
+}
+
+
+type TimelineEntry = { kind: 'comment' | 'event' | 'email'; text: string; author?: string; at?: string };
+
+function authorName(user: NonNullable<Awaited<ReturnType<typeof getPayloadUser>>>): string {
+  return user.name || user.email;
+}
+
+/** Append one entry to an order's timeline (preserving existing rows). */
+async function appendTimeline(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  user: NonNullable<Awaited<ReturnType<typeof getPayloadUser>>>,
+  orderId: number,
+  entry: TimelineEntry,
+): Promise<void> {
+  const order = await payload.findByID({ collection: 'orders', id: orderId });
+  const existing = (order.timeline ?? []).map((t) => ({ kind: t.kind, text: t.text, author: t.author, at: t.at }));
+  const stamp = new Date().toISOString();
+  await payload.update({
+    collection: 'orders',
+    id: orderId,
+    user,
+    overrideAccess: false,
+    data: { timeline: [...existing, { ...entry, author: entry.author ?? authorName(user), at: stamp }] },
+  });
+}
+
+export async function addComment(orderId: number, text: string): Promise<{ ok: boolean }> {
+  const user = await getPayloadUser();
+  if (!user) return { ok: false };
+  const body = text.trim();
+  if (!body) return { ok: false };
+  const payload = await getPayload({ config });
+  try {
+    await appendTimeline(payload, user, orderId, { kind: 'comment', text: body });
+    revalidatePath(`/admin/orders/${orderId}`);
+    return { ok: true };
+  } catch (err) {
+    console.error('[orders] addComment failed', err);
+    return { ok: false };
+  }
+}
+
+export async function addTag(orderId: number, tag: string): Promise<{ ok: boolean; tags: string[] }> {
+  const user = await getPayloadUser();
+  if (!user) return { ok: false, tags: [] };
+  const t = tag.trim();
+  const payload = await getPayload({ config });
+  try {
+    const order = await payload.findByID({ collection: 'orders', id: orderId });
+    const current = Array.isArray(order.tags) ? order.tags : [];
+    if (!t || current.includes(t)) return { ok: true, tags: current };
+    const tags = [...current, t];
+    await payload.update({ collection: 'orders', id: orderId, user, overrideAccess: false, data: { tags } });
+    revalidatePath(`/admin/orders/${orderId}`);
+    return { ok: true, tags };
+  } catch (err) {
+    console.error('[orders] addTag failed', err);
+    return { ok: false, tags: [] };
+  }
+}
+
+export async function removeTag(orderId: number, tag: string): Promise<{ ok: boolean; tags: string[] }> {
+  const user = await getPayloadUser();
+  if (!user) return { ok: false, tags: [] };
+  const payload = await getPayload({ config });
+  try {
+    const order = await payload.findByID({ collection: 'orders', id: orderId });
+    const tags = (Array.isArray(order.tags) ? order.tags : []).filter((x) => x !== tag);
+    await payload.update({ collection: 'orders', id: orderId, user, overrideAccess: false, data: { tags } });
+    revalidatePath(`/admin/orders/${orderId}`);
+    return { ok: true, tags };
+  } catch (err) {
+    console.error('[orders] removeTag failed', err);
+    return { ok: false, tags: [] };
   }
 }
