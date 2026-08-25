@@ -45,7 +45,7 @@ export default async function ProductsPage() {
               <tbody>
                 {products.map((p) => (
                   <tr key={p.id}>
-                    <td className="dash__name">{p.name}</td>
+                    <td className="dash__name"><Link className="dash__rowlink" href={`/admin/products/${p.id}`}>{p.name}</Link></td>
                     <td className="dash__muted">{p.description || '—'}</td>
                     <td>
                       <StatusPill tone={p.active ? 'green' : 'grey'}>

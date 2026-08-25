@@ -12,7 +12,7 @@ type Item = { file: File; url: string };
  * state and keep a hidden input's .files in sync (via DataTransfer) so the
  * surrounding <form> still submits them under `name` to the server action.
  */
-export function MediaInput({ name }: { name: string }) {
+export function MediaInput({ name, existing = [] }: { name: string; existing?: string[] }) {
   const [items, setItems] = useState<Item[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const pickRef = useRef<HTMLInputElement>(null);
@@ -70,9 +70,18 @@ export function MediaInput({ name }: { name: string }) {
         onChange={(e) => addFiles(e.currentTarget.files)}
       />
 
+      {existing.length > 0 ? (
+        <div className="pe__media" style={{ marginBottom: 10 }}>
+          {existing.map((src) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <div className="pe__thumb" key={src}><img src={src} alt="" /></div>
+          ))}
+        </div>
+      ) : null}
+
       {items.length === 0 ? (
         <button type="button" className="pe__drop pe__drop--live" onClick={() => pickRef.current?.click()}>
-          <strong>Upload new</strong> — click to choose files
+          <strong>{existing.length ? 'Add more images' : 'Upload new'}</strong> — click to choose files
           <br />
           Images or video. You can add more one at a time.
         </button>

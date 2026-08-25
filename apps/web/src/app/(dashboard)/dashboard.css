@@ -1033,3 +1033,6 @@
 }
 .pe__addtile span { font-size: 20px; line-height: 1; }
 .pe__addtile:hover { border-color: var(--coral); color: var(--coral); background: #fff5f5; }
+
+.dash__rowlink { color: var(--navy); font-weight: 600; }
+.dash__rowlink:hover { color: var(--coral); text-decoration: underline; }
