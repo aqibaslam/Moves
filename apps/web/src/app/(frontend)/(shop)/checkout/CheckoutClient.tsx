@@ -9,13 +9,13 @@ export function CheckoutClient() {
   const { lines, subtotalPence, clear } = useCart();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState<string[] | null>(null);
+  const [done, setDone] = useState<string | null>(null);
 
   if (done) {
     return (
       <div className="co__done">
         <h1>Order placed 🎉</h1>
-        <p>Thanks — your reference{done.length > 1 ? 's' : ''}: <strong>{done.join(', ')}</strong>.</p>
+        <p>Thanks — your reference: <strong>{done}</strong>.</p>
         <p style={{ marginTop: 16 }}><Link href="/" className="cd__continue">Back to home</Link></p>
       </div>
     );
@@ -42,7 +42,7 @@ export function CheckoutClient() {
     setPending(false);
     if (res.ok) {
       clear();
-      setDone(res.references);
+      setDone(res.reference);
     } else {
       setError(res.error);
     }
