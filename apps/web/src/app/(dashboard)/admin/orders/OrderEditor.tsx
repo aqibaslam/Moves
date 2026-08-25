@@ -17,6 +17,7 @@ export type OrderInitial = {
   };
   lines: Line[];
   status: 'draft' | 'placed';
+  shippingPence?: number;
   tags: string;
   notes: string;
 };
@@ -33,11 +34,14 @@ export function OrderEditor({ products, initial }: { products: ProductOpt[]; ini
   const [status, setStatus] = useState<'draft' | 'placed'>(initial?.status ?? 'draft');
   const [tags, setTags] = useState(initial?.tags ?? '');
   const [notes, setNotes] = useState(initial?.notes ?? '');
+  const [shipping, setShipping] = useState(initial?.shippingPence != null ? String(initial.shippingPence / 100) : '');
   const [pick, setPick] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const total = lines.reduce((s, l) => s + (byId.get(l.productId)?.pricePence ?? 0) * l.quantity, 0);
+  const subtotal = lines.reduce((s, l) => s + (byId.get(l.productId)?.pricePence ?? 0) * l.quantity, 0);
+  const shippingPence = Math.max(0, Math.round((Number(shipping.replace(/[£,\s]/g, '')) || 0) * 100));
+  const total = subtotal + shippingPence;
 
   const addProduct = (id: number) => {
     if (!id) return;
@@ -56,6 +60,7 @@ export function OrderEditor({ products, initial }: { products: ProductOpt[]; ini
       customer: c,
       lines,
       status: finalStatus,
+      shippingPence,
       tags,
       notes,
     };
@@ -107,6 +112,16 @@ export function OrderEditor({ products, initial }: { products: ProductOpt[]; ini
                     </div>
                   );
                 })}
+                <div className="oe__total" style={{ fontSize: 14, borderTop: '1px solid var(--line-soft)', paddingTop: 12 }}>
+                  <span>Subtotal</span><span>{gbp(subtotal)}</span>
+                </div>
+                <div className="oe__srow">
+                  <label className="pe__label" htmlFor="shipping">Shipping</label>
+                  <div className="pe__prefix" style={{ maxWidth: 140 }}>
+                    <span>£</span>
+                    <input className="pe__input" id="shipping" inputMode="decimal" placeholder="0.00" value={shipping} onChange={(e) => setShipping(e.target.value)} />
+                  </div>
+                </div>
                 <div className="oe__total"><span>Total</span><strong>{gbp(total)}</strong></div>
               </div>
             )}

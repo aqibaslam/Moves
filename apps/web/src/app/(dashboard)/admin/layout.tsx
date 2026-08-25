@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { MovesMark } from '../MovesMark';
 import { getAdminUser } from '../lib/auth';
 import { signOut } from '../login/actions';
-import { ConsultIcon, HomeIcon, OrdersIcon, ProductsIcon } from './icons';
+import { ConsultIcon, CustomersIcon, HomeIcon, OrdersIcon, ProductsIcon } from './icons';
 import { NavLink } from './NavLink';
 
 /**
@@ -48,6 +48,9 @@ export default async function DashboardLayout({
             </NavLink>
             <NavLink href="/admin/consultations" label="Consultations">
               <ConsultIcon />
+            </NavLink>
+            <NavLink href="/admin/customers" label="Customers">
+              <CustomersIcon />
             </NavLink>
           </nav>
 

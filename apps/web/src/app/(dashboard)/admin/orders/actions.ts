@@ -21,6 +21,7 @@ export type OrderInput = {
   customer: OrderCustomerInput;
   lines: OrderLineInput[];
   status: 'draft' | 'placed';
+  shippingPence?: number;
   tags?: string;
   notes?: string;
 };
@@ -93,13 +94,15 @@ export async function saveOrder(input: OrderInput): Promise<OrderResult> {
     if (!lineItems.length) return { ok: false, error: 'None of the chosen products exist.' };
 
     const address = input.customer;
+    const shippingPence = Math.max(0, Math.floor(input.shippingPence ?? 0));
     const data = {
       customer: customerId,
       patientName: input.customer.name.trim(),
       patientEmail: input.customer.email.trim(),
       patientPhone: input.customer.phone?.trim() || undefined,
       lineItems,
-      amountPence: total,
+      shippingPence,
+      amountPence: total + shippingPence,
       status: input.status,
       tags: tags.length ? tags : undefined,
       notes: input.notes?.trim() || undefined,
@@ -127,5 +130,21 @@ export async function saveOrder(input: OrderInput): Promise<OrderResult> {
   } catch (err) {
     console.error('[orders] saveOrder failed', err);
     return { ok: false, error: 'Could not save the order. Please try again.' };
+  }
+}
+
+
+export async function setFulfillment(orderId: number, status: 'unfulfilled' | 'fulfilled'): Promise<{ ok: boolean }> {
+  const user = await getPayloadUser();
+  if (!user) return { ok: false };
+  const payload = await getPayload({ config });
+  try {
+    await payload.update({ collection: 'orders', id: orderId, user, overrideAccess: false, data: { fulfillmentStatus: status } });
+    revalidatePath(`/admin/orders/${orderId}`);
+    revalidatePath('/admin/orders');
+    return { ok: true };
+  } catch (err) {
+    console.error('[orders] setFulfillment failed', err);
+    return { ok: false };
   }
 }

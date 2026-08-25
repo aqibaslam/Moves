@@ -80,6 +80,23 @@ export const Orders: CollectionConfig = {
       options: [...ORDER_STATUSES],
       index: true,
     },
+    {
+      name: 'fulfillmentStatus',
+      type: 'select',
+      defaultValue: 'unfulfilled',
+      options: [
+        { label: 'Unfulfilled', value: 'unfulfilled' },
+        { label: 'Fulfilled', value: 'fulfilled' },
+      ],
+      index: true,
+    },
+    {
+      name: 'shippingPence',
+      type: 'number',
+      min: 0,
+      defaultValue: 0,
+      label: 'Shipping (pence)',
+    },
     { name: 'dentist', type: 'text', admin: { description: 'Treating GDC-registered dentist.' } },
     { name: 'clinic', type: 'text' },
     {

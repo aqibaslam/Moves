@@ -38,3 +38,11 @@ export const ProductsIcon = () => (
     <path d="M3 7.5 12 12l9-4.5M12 12v9" />
   </svg>
 );
+
+export const CustomersIcon = () => (
+  <svg {...base}>
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M3.5 19a5.5 5.5 0 0 1 11 0" />
+    <path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 19a5.5 5.5 0 0 0-3-4.9" />
+  </svg>
+);

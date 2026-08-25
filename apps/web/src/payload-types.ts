@@ -374,6 +374,8 @@ export interface Order {
    */
   amountPence?: number | null;
   status: 'draft' | 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
+  fulfillmentStatus?: ('unfulfilled' | 'fulfilled') | null;
+  shippingPence?: number | null;
   /**
    * Treating GDC-registered dentist.
    */
@@ -659,6 +661,8 @@ export interface OrdersSelect<T extends boolean = true> {
       };
   amountPence?: T;
   status?: T;
+  fulfillmentStatus?: T;
+  shippingPence?: T;
   dentist?: T;
   clinic?: T;
   shippingAddress?:
