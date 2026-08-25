@@ -7,6 +7,7 @@ import { s3Storage } from '@payloadcms/storage-s3';
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import { buildConfig } from 'payload';
 import { Consultations } from './payload/collections/Consultations';
+import { Customers } from './payload/collections/Customers';
 import { Media } from './payload/collections/Media';
 import { Orders } from './payload/collections/Orders';
 import { Products } from './payload/collections/Products';
@@ -100,7 +101,7 @@ export default buildConfig({
       description: 'Edit every section, image and video on the Moves landing page.',
     },
   },
-  collections: [Users, Media, Products, Orders, Consultations],
+  collections: [Users, Media, Products, Orders, Consultations, Customers],
   globals,
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'CHANGE-ME-IN-ENV',

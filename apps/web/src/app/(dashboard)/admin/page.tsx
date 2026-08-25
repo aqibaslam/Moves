@@ -29,7 +29,7 @@ export default async function DashboardHomePage() {
   ]);
 
   const billable = orders.filter((o) => o.status !== 'cancelled');
-  const revenue = billable.reduce((sum, o) => sum + o.amountPence, 0);
+  const revenue = billable.reduce((sum, o) => sum + (o.amountPence ?? 0), 0);
   const upcoming = consultations.filter((c) => c.status === 'upcoming').length;
   const completed = consultations.filter((c) => c.status === 'completed').length;
   const noShow = consultations.filter((c) => c.status === 'no_show').length;
@@ -52,7 +52,7 @@ export default async function DashboardHomePage() {
   const byProduct = [...billable
     .reduce((acc, o) => {
       const name = typeof o.product === 'object' && o.product !== null ? o.product.name : 'Unknown';
-      return acc.set(name, (acc.get(name) ?? 0) + o.amountPence);
+      return acc.set(name, (acc.get(name) ?? 0) + (o.amountPence ?? 0));
     }, new Map<string, number>())
     .entries()]
     .sort((a, b) => b[1] - a[1]);

@@ -68,6 +68,7 @@ export async function listConsultations(): Promise<Consultation[]> {
 }
 
 export const ORDER_STATUS_LABEL: Record<NonNullable<Order['status']>, string> = {
+  draft: 'Draft',
   placed: 'Placed',
   in_production: 'In production',
   shipped: 'Shipped',

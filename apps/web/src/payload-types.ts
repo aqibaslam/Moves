@@ -72,6 +72,7 @@ export interface Config {
     products: Product;
     orders: Order;
     consultations: Consultation;
+    customers: Customer;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
     consultations: ConsultationsSelect<false> | ConsultationsSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -352,19 +354,61 @@ export interface Order {
   patientEmail: string;
   patientPhone?: string | null;
   /**
-   * Which treatment plan was ordered.
+   * Who placed the order.
    */
-  product: number | Product;
+  customer?: (number | null) | Customer;
+  /**
+   * Legacy single-line orders. New orders use line items.
+   */
+  product?: (number | null) | Product;
+  lineItems?:
+    | {
+        product: number | Product;
+        quantity: number;
+        unitPricePence: number;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Copied from the product at order time, then frozen. A later price change must not rewrite historic orders.
    */
-  amountPence: number;
-  status: 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
+  amountPence?: number | null;
+  status: 'draft' | 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
   /**
    * Treating GDC-registered dentist.
    */
   dentist?: string | null;
   clinic?: string | null;
+  shippingAddress?: {
+    name?: string | null;
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    postcode?: string | null;
+    country?: string | null;
+    phone?: string | null;
+  };
+  tags?: string[] | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  address?: {
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    postcode?: string | null;
+    country?: string | null;
+  };
   notes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -435,6 +479,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'consultations';
         value: number | Consultation;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -599,11 +647,32 @@ export interface OrdersSelect<T extends boolean = true> {
   patientName?: T;
   patientEmail?: T;
   patientPhone?: T;
+  customer?: T;
   product?: T;
+  lineItems?:
+    | T
+    | {
+        product?: T;
+        quantity?: T;
+        unitPricePence?: T;
+        id?: T;
+      };
   amountPence?: T;
   status?: T;
   dentist?: T;
   clinic?: T;
+  shippingAddress?:
+    | T
+    | {
+        name?: T;
+        line1?: T;
+        line2?: T;
+        city?: T;
+        postcode?: T;
+        country?: T;
+        phone?: T;
+      };
+  tags?: T;
   notes?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -621,6 +690,27 @@ export interface ConsultationsSelect<T extends boolean = true> {
   dentist?: T;
   status?: T;
   source?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  address?:
+    | T
+    | {
+        line1?: T;
+        line2?: T;
+        city?: T;
+        postcode?: T;
+        country?: T;
+      };
   notes?: T;
   updatedAt?: T;
   createdAt?: T;
