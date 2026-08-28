@@ -1,0 +1,667 @@
+/* ============================================================
+   Funnel 2026 — new-branding reskin of /funnel.
+   Scoped to .funnel-2026 so /funnel and /funnel-ads are untouched.
+
+   New branding (New Moves Dental 2.0): coral-pink accent #ed3b44 + navy
+   #04143a / dark #091620, Inter body + Google Sans headings. Every element
+   that uses var(--coral)/var(--f-head)/var(--f-body) recolours + retypes.
+   ============================================================ */
+.moves-page.funnel-2026 {
+  /* sections butt (Figma frame itemSpacing 0); spacing comes from each
+     section's own padding — same model as the landing (.landing-2 gap:0). */
+  gap: 0;
+  --coral: #ed3b44;
+  --f-body: var(--font-inter), -apple-system, system-ui, sans-serif;
+  --f-head: 'Google Sans', var(--font-inter), -apple-system, system-ui, sans-serif;
+  /* tokens used by the reused DentistNames section */
+  --lp-dark: #091620;
+  --lp-navy: #04143a;
+  --lp-grey: #f5f5f5;
+}
+
+/* ============================================================
+   HERO — new branding: dark #091620 stage with the full-bleed portrait
+   background (woman on navy); copy sits on the left in white.
+   ============================================================ */
+/* Rounded top corners on the HERO SECTION only (part 3) — the announcement
+   bar + header stay square. The white nav strip behind shows through the
+   notches, so the corners read white (Figma). */
+.funnel-2026 .f-hero {
+  background: #091620 url('/images/funnel2026-hero.png') center right / cover no-repeat;
+  border-radius: 16px 16px 0 0;
+  overflow: clip;
+}
+/* the image is now the hero background — drop the separate media column */
+.funnel-2026 .f-hero .hero__media {
+  display: none;
+}
+/* copy goes light on the dark stage (the "The Smile" accent stays coral) */
+.funnel-2026 .f-hero .hero__left {
+  color: var(--white);
+}
+.funnel-2026 .f-hero .h-hero {
+  color: var(--white);
+}
+.funnel-2026 .f-hero .hero__sub {
+  color: rgba(255, 255, 255, 0.82);
+}
+.funnel-2026 .f-hero .hero-feat {
+  color: var(--white);
+}
+.funnel-2026 .f-hero .hero-cap {
+  color: rgba(255, 255, 255, 0.7);
+}
+/* Trustpilot widget: dark-navy text → white on the dark hero (Figma) */
+.funnel-2026 .f-hero .tp,
+.funnel-2026 .f-hero .tp__label,
+.funnel-2026 .f-hero .tp__count,
+.funnel-2026 .f-hero .tp__brand-name {
+  color: var(--white);
+}
+
+/* ============================================================
+   "You move, in three moves" (ThreeMoves) — styles copied from the landing
+   so the section renders on funnel-2026. Scoped to .funnel-2026.
+   ============================================================ */
+.funnel-2026 .moves3 {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(420px, 1.15fr);
+  gap: 80px;
+  align-items: start;
+  padding: 56px 60px;
+}
+.funnel-2026 .moves3__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 100px;
+}
+.funnel-2026 .moves3__title {
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: clamp(34px, 4.2vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.0417em;
+  color: var(--navy);
+  margin: 0;
+  max-width: 332px;
+}
+.funnel-2026 .moves3__title .c {
+  color: var(--coral);
+}
+.funnel-2026 .moves3__sub {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  opacity: 0.85;
+  margin: 20px 0 0;
+  max-width: 42ch;
+}
+.funnel-2026 .moves3__cta {
+  width: 250px;
+  margin-top: 42px;
+}
+.funnel-2026 .moves3__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.funnel-2026 .moves3__step {
+  display: flex;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  align-items: flex-end;
+}
+.funnel-2026 .moves3__step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.funnel-2026 .moves3__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  color: var(--navy);
+}
+.funnel-2026 .moves3__icon img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.funnel-2026 .moves3__step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.funnel-2026 .moves3__step-num {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--coral);
+}
+.funnel-2026 .moves3__step-title {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0;
+}
+.funnel-2026 .moves3__step-text {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  opacity: 0.82;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .funnel-2026 .moves3 {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 24px;
+  }
+  .funnel-2026 .moves3__intro {
+    position: static;
+  }
+  .funnel-2026 .moves3__cta {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* ============================================================
+   Pricing cards — new branding (Figma "Exactly what moves costs"):
+   grey cards, NO coloured top bars, all-navy titles/prices, all-red
+   buttons + toggle, grey "includes" panels.
+   ============================================================ */
+.funnel-2026 .fpcard {
+  background: #f5f5f5;
+  border-color: #ececec;
+}
+/* drop the per-tier coloured top bar */
+.funnel-2026 .fpcard::before {
+  display: none;
+}
+/* titles + prices are all navy (not per-tier blue/navy/red) */
+.funnel-2026 .fpcard__title,
+.funnel-2026 .fpcard__price {
+  color: var(--navy);
+}
+/* every card CTA is coral-pink */
+.funnel-2026 .fpcard__btn {
+  background: var(--coral);
+  border-color: var(--coral);
+  color: var(--white);
+}
+.funnel-2026 .fpcard__btn:hover {
+  background: transparent;
+  color: var(--coral);
+}
+/* toggle active pill: navy → coral */
+.funnel-2026 .fp-toggle__opt--active {
+  background: var(--coral);
+}
+/* "Every package includes / What decides your tier" panels → grey */
+.funnel-2026 .f-includes {
+  background: #f5f5f5;
+}
+.funnel-2026 .f-includes__num {
+  color: var(--coral);
+}
+
+/* ============================================================
+   CTA "Your smile. Our signature." — dark navy band, left-aligned copy,
+   product kit on the right, badge top-right (Figma).
+   ============================================================ */
+.funnel-2026 .cta .cta__banner {
+  background: #091620 url('/images/funnel2026-kit.png') right 40px center / auto 80% no-repeat;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 48px 60px;
+  border: 0;
+}
+/* hide the default woman background image */
+.funnel-2026 .cta .cta__banner > img {
+  display: none;
+}
+.funnel-2026 .cta__inner {
+  align-items: flex-start;
+  text-align: left;
+  width: auto;
+  max-width: 460px;
+  z-index: 1;
+}
+.funnel-2026 .cta__title {
+  color: var(--white);
+}
+.funnel-2026 .cta__title .c {
+  color: var(--coral);
+}
+.funnel-2026 .cta__sub {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* keep the dark band on the 1440 grid (Figma) */
+.funnel-2026 .cta__banner {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+/* badge: small + contained in the top-right corner (was 307px, overflowing) */
+.funnel-2026 .cta__badge {
+  width: 120px;
+  height: 120px;
+  top: 28px;
+  right: 40px;
+}
+
+/* ============================================================
+   Candidacy ("Aligners aren't for everyone") — Figma:
+   "What we treat" = dark navy card, white text, red checks;
+   "May not suit" = grey card, navy text, red ×.
+   ============================================================ */
+.funnel-2026 .f-cand__card--treat {
+  background: #091620;
+}
+.funnel-2026 .f-cand__card--treat .f-cand__title,
+.funnel-2026 .f-cand__card--treat .f-cand__item {
+  color: var(--white);
+}
+.funnel-2026 .f-cand__card--treat .f-cand__cardhead svg {
+  color: var(--white);
+}
+/* checks (what we treat) → coral instead of blue */
+.funnel-2026 .f-cand__item--yes svg {
+  color: var(--coral);
+}
+.funnel-2026 .f-cand__card--not {
+  background: #f5f5f5;
+}
+
+/* ============================================================
+   Comparison table — MOVES column: pink → dark navy #091620 (Figma),
+   white text + white logo.
+   ============================================================ */
+.funnel-2026 .f-cmp__cell--moves {
+  background: #091620;
+  color: var(--white);
+}
+.funnel-2026 .f-cmp__cell--head.f-cmp__cell--moves img {
+  filter: brightness(0) invert(1);
+}
+
+/* Primary CTAs: navy → coral-pink (new branding). */
+.funnel-2026 .btn--navy {
+  background: var(--coral);
+  color: var(--white);
+  border-color: var(--coral);
+}
+.funnel-2026 .btn--navy:hover {
+  background: transparent;
+  color: var(--coral);
+}
+
+/* ============================================================
+   CoralBand → new-branding "A straighter smile…":
+   dark navy #091620 section, a BLUE dome behind the portrait (not coral),
+   white text (bright→dim reveal), white arrow — matches the new Figma.
+   ============================================================ */
+.funnel-2026 .fb-coral {
+  background: #091620;
+}
+/* drop the old red texture background */
+.funnel-2026 .fb-coral__bg {
+  display: none;
+}
+/* arch → blue dome gradient (Figma: #091620 → #6174A5) */
+.funnel-2026 .fb-coral__arch {
+  background: linear-gradient(180deg, #091620 0%, #6174a5 100%);
+}
+/* soft ground shadow at the base of the portrait */
+.funnel-2026 .fb-coral__glow {
+  left: -8%;
+  width: 116%;
+  top: 95%;
+  height: 12%;
+  background: rgba(0, 0, 0, 0.28);
+  filter: blur(28px);
+  opacity: 0.85;
+}
+/* text stays white on the navy ground (bright→dim reveal, as the funnel base);
+   no dark/red overrides needed — the funnel defaults are already white. */
+
+/* ============================================================
+   "The names behind the smiles" (DentistNames) — styles copied from
+   landing-2026, scoped to .funnel-2026.
+   ============================================================ */
+.funnel-2026 .lp26-dentists {
+  background: var(--lp-grey);
+  padding: 80px 60px;
+  border-radius: 30px;
+}
+.funnel-2026 .lp26-dentists__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+.funnel-2026 .lp26-dentists__title {
+  margin: 0 0 14px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 48px);
+  letter-spacing: -0.02em;
+  color: var(--lp-navy);
+}
+.funnel-2026 .lp26-dentists__sub {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.funnel-2026 .lp26-dentists__avatars {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.funnel-2026 .lp26-dentists__avatar {
+  width: 92px;
+  height: 116px;
+  padding: 0;
+  border: 0;
+  border-radius: 60px;
+  overflow: clip;
+  cursor: pointer;
+  background: #e4e4e4;
+  opacity: 0.6;
+  transition: opacity 160ms ease, outline-color 160ms ease;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+.funnel-2026 .lp26-dentists__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.funnel-2026 .lp26-dentists__avatar.is-active { opacity: 1; outline-color: var(--lp-navy); }
+.funnel-2026 .lp26-dentists__card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: stretch;
+  background: var(--lp-dark);
+  border-radius: 30px;
+  padding: 48px;
+  color: var(--white);
+  overflow: clip;
+}
+.funnel-2026 .lp26-dentists__info { align-self: center; }
+.funnel-2026 .lp26-dentists__photo {
+  align-self: end;
+  justify-self: center;
+  width: auto;
+  max-width: 100%;
+  height: calc(100% + 48px);
+  margin-bottom: -48px;
+  object-fit: contain;
+  object-position: bottom center;
+}
+.funnel-2026 .lp26-dentists__name {
+  margin: 0 0 6px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 26px;
+}
+.funnel-2026 .lp26-dentists__role {
+  margin: 0 0 20px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  color: var(--coral);
+}
+.funnel-2026 .lp26-dentists__bio {
+  margin: 0 0 28px;
+  max-width: 620px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+.funnel-2026 .lp26-dentists__creds {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.funnel-2026 .lp26-dentists__creds-title {
+  margin: 0 0 12px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--white);
+}
+.funnel-2026 .lp26-dentists__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================================================
+   "What's included" (WhatsIncluded) — heading, product image, 4x2 cards, CTA.
+   ============================================================ */
+.funnel-2026 .f26-incl {
+  background: var(--white);
+  padding: 80px 60px;
+  text-align: center;
+}
+.funnel-2026 .f26-incl__head {
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+.funnel-2026 .f26-incl__title {
+  margin: 0 0 16px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 48px);
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.funnel-2026 .f26-incl__title .c { color: var(--coral); }
+.funnel-2026 .f26-incl__sub {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.funnel-2026 .f26-incl__product {
+  display: block;
+  max-width: 640px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 48px;
+}
+.funnel-2026 .f26-incl__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.funnel-2026 .f26-incl__card {
+  background: var(--lp-grey);
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.funnel-2026 .f26-incl__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background: var(--navy);
+  color: var(--white);
+}
+.funnel-2026 .f26-incl__ctitle {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.funnel-2026 .f26-incl__cbody {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(4, 20, 58, 0.65);
+}
+.funnel-2026 .f26-incl__cta {
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  padding: 16px 28px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-flex;
+  transition: background 160ms ease, color 160ms ease;
+}
+.funnel-2026 .f26-incl__cta:hover { background: transparent; color: var(--coral); }
+
+@media (max-width: 900px) {
+  .funnel-2026 .lp26-dentists { padding: 50px 16px; }
+  .funnel-2026 .lp26-dentists__card {
+    grid-template-columns: 1fr;
+    padding: 28px;
+    text-align: center;
+  }
+  .funnel-2026 .lp26-dentists__photo { max-width: 240px; margin: 0 auto; height: auto; }
+  .funnel-2026 .lp26-dentists__creds { justify-content: center; gap: 28px; }
+  .funnel-2026 .f26-incl { padding: 50px 16px; }
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   FAQ — 2-column layout + plus/minus (copied from landing-2026).
+   ============================================================ */
+.funnel-2026 .faqs {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 80px;
+  text-align: left;
+}
+.funnel-2026 .faqs__head {
+  flex: 0 0 38%;
+  text-align: left;
+  align-items: flex-start;
+}
+.funnel-2026 .faqs__list {
+  flex: 1;
+  width: auto;
+  max-width: none;
+}
+.funnel-2026 .faqs .eyebrow { display: none; }
+.funnel-2026 .faqs__title {
+  color: var(--lp-navy);
+  margin: 0 0 16px;
+}
+.funnel-2026 .faqs__title .ink { color: var(--coral); }
+.funnel-2026 .faqs__desc {
+  margin: 0 0 28px;
+  max-width: 420px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.funnel-2026 .faqs__cta {
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  padding: 16px 28px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+.funnel-2026 .faqs__cta:hover { background: transparent; color: var(--coral); }
+.funnel-2026 .faqs .faq { background: var(--lp-grey); }
+.funnel-2026 .faqs .faq__q > span:first-child { color: var(--lp-dark); }
+.funnel-2026 .faqs .faq__icon { color: var(--lp-dark); }
+.funnel-2026 .faqs .faq--open .faq__icon { transform: none; }
+.funnel-2026 .faqs .faq--open .faq__icon svg { display: none; }
+.funnel-2026 .faqs .faq--open .faq__icon::after {
+  content: '';
+  width: 14px;
+  height: 1.7px;
+  background: currentColor;
+  border-radius: 2px;
+}
+/* Proof section: no eyebrow (Figma "Real smiles, real stories") */
+.funnel-2026 .proof .eyebrow { display: none; }
+
+@media (max-width: 900px) {
+  .funnel-2026 .faqs { flex-direction: column; gap: 28px; }
+  .funnel-2026 .faqs__head { flex-basis: auto; width: 100%; }
+  .funnel-2026 .faqs__desc { max-width: none; }
+}
+
+/* ============================================================
+   MOBILE (Figma 451:247) — hero: image on top, copy below on navy.
+   ============================================================ */
+@media (max-width: 767px) {
+  .funnel-2026 .f-hero {
+    background: #091620;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border-radius: 16px 16px 0 0;
+  }
+  .funnel-2026 .f-hero .hero__media {
+    display: block;
+    order: -1;
+    width: 100%;
+    height: 340px;
+    background: url('/images/funnel2026-hero.png') 72% center / cover no-repeat;
+  }
+  .funnel-2026 .f-hero .hero__media img { display: none; }
+  .funnel-2026 .f-hero .hero__left {
+    padding: 28px 16px 40px;
+  }
+  /* CTA: product kit below the copy on mobile (was a right-side background) */
+  .funnel-2026 .cta .cta__banner {
+    flex-direction: column;
+    background-image: none;
+    background-color: #091620;
+    padding: 40px 16px;
+    text-align: left;
+  }
+  .funnel-2026 .cta__inner { max-width: none; }
+  .funnel-2026 .cta__badge { width: 96px; height: 96px; top: 16px; right: 16px; }
+}

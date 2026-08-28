@@ -7,6 +7,8 @@ const SEAL_PATH =
 
 export interface CtaData {
   title?: string;
+  /* optional two-tone heading (rest + coral accent), overrides `title` */
+  heading?: { rest?: string; accent?: string };
   subtext?: string;
   button?: { label?: string; href?: string };
   backgroundImage?: unknown;
@@ -45,7 +47,16 @@ export function CtaBanner({ data, variant }: { data?: CtaData; variant?: 'v2' })
         <img src={mediaUrl(data?.backgroundImage, '/images/cta-bg.png')} alt="" aria-hidden="true" />
 
         <div className="cta__inner">
-          <h2 className="cta__title">{data?.title ?? 'Your MOVE'}</h2>
+          <h2 className="cta__title">
+            {data?.heading ? (
+              <>
+                {data.heading.rest ?? ''}
+                <span className="c">{data.heading.accent ?? ''}</span>
+              </>
+            ) : (
+              data?.title ?? 'Your MOVE'
+            )}
+          </h2>
           <p className="cta__sub">
             {data?.subtext ??
               'A free consultation, an honest answer, and a plan with a name on it.'}

@@ -1,0 +1,1021 @@
+/* ============================================================
+   Home Page — 2026 (Figma node 413:9263).
+   New sections + a dark hero. Reused 2.0 sections inherit their styling
+   from landing.css via the `.landing-2` class on the page wrapper; this
+   file only adds the NEW sections and the dark-hero overrides. Scoped to
+   `.lp26` so nothing leaks to /landing or any other page.
+
+   Palette: navy #04143a (dark grounds), coral #ff0003 (accent/CTA),
+   grey #f5f5f5 (light sections). Fonts inherit the 2.0 Inter/Google Sans.
+   ============================================================ */
+
+.lp26 {
+  --lp-navy: #04143a; /* dark text on light sections */
+  --lp-dark: #091620; /* dark section/card backgrounds (Figma) */
+  --lp-hero-bg: #091620;
+  --lp-grey: #f5f5f5;
+  background: var(--white);
+}
+/* Figma 2026 accent is a coral-pink (#ed3b44), not the landing's pure red.
+   Overrides --coral for the whole page, so every CTA + text accent (new AND
+   reused sections) picks it up. Higher specificity than `.moves-page.landing-2`. */
+.moves-page.landing-2.lp26 {
+  --coral: #ed3b44;
+}
+
+/* red accent helper for the two-tone headings */
+.lp26 .ink-red {
+  color: var(--coral);
+}
+
+/* Shared red CTA button (2.0 ads style). */
+.lp26 .lp26-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  padding: 16px 28px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+.lp26 .lp26-btn:hover {
+  background: transparent;
+  color: var(--coral);
+}
+
+/* Hero-unit backing is dark, so the NAV's rounded top corners (from moves.css,
+   16px) read dark — like the landing. The announce bar keeps its own dark bg
+   (square), so the top bar + header are unchanged. */
+.lp26 .hero-unit,
+.lp26-hu {
+  background: var(--lp-hero-bg);
+}
+/* White frame wrapping the hero stage: the stage's rounded corners (all four)
+   reveal this white ground, so the dark hero card floats with white corners
+   between the white nav above and the white marquee below. */
+.lp26 .lp26-hero-frame {
+  background: var(--white);
+}
+.lp26 .announce {
+  background: var(--lp-hero-bg);
+  color: var(--white);
+}
+
+/* ============================================================
+   0 — HERO (413:9264)
+   ============================================================ */
+.lp26-hero {
+  position: relative;
+  background: var(--lp-hero-bg);
+  overflow: clip;
+  min-height: 760px;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  /* all four corners rounded 16px (Figma); the white frame behind shows
+     through the notches (landing-style white corners) on top AND bottom. */
+  border-radius: 16px;
+}
+.lp26-hero__mark {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(120px, 24vw, 360px);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #e9edf5 0%, #9aa6bd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+  pointer-events: none;
+}
+.lp26-hero__mark sup {
+  font-size: 0.2em;
+  vertical-align: super;
+}
+.lp26-hero__photo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  height: 92%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+}
+.lp26-hero__overlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 60px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.lp26-hero__title {
+  margin: 0 0 28px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+/* ============================================================
+   4 — "Moves is not a clear aligner company" (413:9579)
+   ============================================================ */
+.lp26-nac {
+  position: relative;
+  background: var(--lp-dark);
+  color: var(--white);
+  overflow: clip;
+  /* rounded dark card (Figma) — background is full-bleed */
+  border-radius: 30px;
+}
+/* Content frame: 1440 max, centred, with the 60px side gutters (Figma).
+   Everything (portrait, dome, pills, copy) lives inside this frame. */
+.lp26-nac__inner {
+  position: relative;
+  max-width: 1440px;
+  margin-inline: auto;
+  min-height: 760px;
+  padding-inline: 60px;
+}
+/* Portrait fills the left half of the frame and bleeds to its bottom + left
+   gutter (Figma); the copy takes the right half. */
+.lp26-nac__media {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 60px;
+  width: calc(50% - 60px);
+}
+.lp26-nac__body {
+  width: 50%;
+  margin-left: 50%;
+  padding: 80px 0 80px 40px;
+  min-height: 760px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* blue dome sitting behind the portrait, bottom-left */
+.lp26-nac__dome {
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: -6%;
+  width: 74%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+}
+/* portrait anchored to the bottom-left edge of the card */
+.lp26-nac__photo {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: 100%;
+  max-width: 135%;
+  object-fit: contain;
+  object-position: bottom left;
+}
+.lp26-nac__pill {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  background: rgba(4, 20, 58, 0.4);
+  backdrop-filter: blur(6px);
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: var(--white);
+  white-space: nowrap;
+}
+.lp26-nac__pill::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background: var(--coral);
+}
+/* pill placement mapped from the Figma frame (left half of the section) */
+.lp26-nac__pill--a { top: 52%; left: 14%; }
+.lp26-nac__pill--b { top: 60%; left: 64%; }
+.lp26-nac__pill--c { top: 82%; left: 20%; }
+.lp26-nac__title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.lp26-nac__lead {
+  margin: 0 0 16px;
+  max-width: 560px;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+.lp26-nac__list {
+  list-style: none;
+  margin: 8px 0 32px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.lp26-nac__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--f-body);
+  font-size: 18px;
+  color: var(--white);
+}
+.lp26-nac__check {
+  color: var(--white);
+  display: inline-flex;
+}
+
+/* ============================================================
+   6 — "You're not making this move alone" (413:9684)
+   ============================================================ */
+.lp26-alone {
+  background: var(--white);
+  padding: 80px 60px;
+}
+.lp26-alone__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+.lp26-alone__title {
+  margin: 0 0 16px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--lp-navy);
+}
+.lp26-alone__sub {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.lp26-alone__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+/* pagination — hidden on desktop (3-up grid), shown under the mobile carousel */
+.lp26-alone__dots {
+  display: none;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 24px;
+}
+.lp26-alone__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  background: transparent;
+  cursor: pointer;
+  transition: width 300ms cubic-bezier(0.2, 0, 0, 1), background-color 300ms ease;
+}
+.lp26-alone__dot.is-active {
+  width: 32px;
+  background: var(--coral);
+}
+.lp26-alone__card {
+  position: relative;
+  border-radius: 24px;
+  overflow: clip;
+  min-height: 560px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.lp26-alone__card--light { background: var(--lp-grey); }
+.lp26-alone__card--dark { background: var(--lp-dark); }
+.lp26-alone__card--photo { padding: 0; background: var(--lp-dark); }
+/* dark scrim at the top of the photo card so the heading stays readable */
+.lp26-alone__card--photo::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 45%;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(9, 22, 32, 0.75) 0%, rgba(9, 22, 32, 0) 100%);
+}
+.lp26-alone__ctitle {
+  margin: 0 0 24px;
+  text-align: center;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--lp-navy);
+}
+.lp26-alone__ctitle--light { color: var(--white); }
+.lp26-alone__ctitle--over {
+  position: absolute;
+  z-index: 2;
+  top: 28px;
+  left: 24px;
+  right: 24px;
+  color: var(--white);
+}
+.lp26-alone__card--photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* phone chat mock */
+.lp26-alone__phone {
+  position: relative;
+  margin-top: auto;
+  border-radius: 28px 28px 0 0;
+  border: 8px solid #0b1c3f;
+  border-bottom: 0;
+  overflow: clip;
+  aspect-ratio: 300 / 360;
+  background: #dbe4f5;
+}
+.lp26-alone__phone img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lp26-alone__bubble {
+  position: absolute;
+  z-index: 2;
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  line-height: 1.3;
+}
+.lp26-alone__bubble--out {
+  top: 14px;
+  left: 14px;
+  background: var(--coral);
+  color: var(--white);
+}
+.lp26-alone__bubble--in {
+  bottom: 14px;
+  right: 14px;
+  background: rgba(4, 20, 58, 0.92);
+  color: var(--white);
+}
+
+/* treatment plan panel */
+.lp26-plan {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 20px;
+}
+.lp26-plan__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.lp26-plan__name { font-family: var(--f-body); font-weight: 500; color: var(--white); font-size: 15px; }
+.lp26-plan__date { font-family: var(--f-body); color: rgba(255, 255, 255, 0.55); font-size: 13px; }
+.lp26-plan__row { margin-bottom: 18px; }
+.lp26-plan__label { margin: 0; font-family: var(--f-body); font-weight: 500; color: var(--white); font-size: 15px; }
+.lp26-plan__meta { margin: 2px 0 8px; font-family: var(--f-body); color: rgba(255, 255, 255, 0.55); font-size: 13px; }
+.lp26-plan__track {
+  position: relative;
+  height: 6px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.lp26-plan__track span {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 100px;
+  background: var(--coral);
+  transform: translate(-50%, -50%);
+}
+.lp26-plan__scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================================
+   7 — "The names behind the smiles" (413:9736)
+   ============================================================ */
+.lp26-dentists {
+  background: var(--lp-grey);
+  padding: 80px 60px;
+}
+/* rounded grey card (Figma) — overrides `.landing-2 > .card-section` radius:0.
+   Background is full-bleed; the content is held to the 1440 grid on large
+   screens by the shared `.card-section` padding rule in moves.css. */
+.lp26 .lp26-dentists {
+  border-radius: 30px;
+}
+.lp26-dentists__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+.lp26-dentists__title {
+  margin: 0 0 14px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 48px);
+  letter-spacing: -0.02em;
+  color: var(--lp-navy);
+}
+.lp26-dentists__sub {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.lp26-dentists__avatars {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.lp26-dentists__avatar {
+  width: 92px;
+  height: 116px;
+  padding: 0;
+  border: 0;
+  border-radius: 60px;
+  overflow: clip;
+  cursor: pointer;
+  background: #e4e4e4;
+  opacity: 0.6;
+  transition: opacity 160ms ease, outline-color 160ms ease;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+.lp26-dentists__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.lp26-dentists__avatar.is-active { opacity: 1; outline-color: var(--lp-navy); }
+.lp26-dentists__card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: stretch;
+  background: var(--lp-dark);
+  border-radius: 30px;
+  padding: 48px;
+  color: var(--white);
+  overflow: clip;
+}
+.lp26-dentists__info {
+  align-self: center;
+}
+/* portrait bottom-anchored, bleeding to the card's bottom edge (cancels the
+   48px bottom padding); sized so the head rises to align with the name. */
+.lp26-dentists__photo {
+  align-self: end;
+  justify-self: center;
+  width: auto;
+  max-width: 100%;
+  height: calc(100% + 48px);
+  margin-bottom: -48px;
+  object-fit: contain;
+  object-position: bottom center;
+}
+.lp26-dentists__name {
+  margin: 0 0 6px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 26px;
+}
+.lp26-dentists__role {
+  margin: 0 0 20px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  color: var(--coral);
+}
+.lp26-dentists__bio {
+  margin: 0 0 28px;
+  max-width: 620px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+.lp26-dentists__creds {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.lp26-dentists__creds-title {
+  margin: 0 0 12px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--white);
+}
+.lp26-dentists__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================================================
+   10 — "Your smile. In motion." (413:10162)
+   ============================================================ */
+.lp26-motion {
+  position: relative;
+  min-height: 726px;
+  display: flex;
+  justify-content: center;
+  overflow: clip;
+  isolation: isolate;
+  border-radius: 16px 16px 0 0;
+}
+.lp26-motion__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+/* Figma scrim (linear-gradient #000 0 → 0.5) for text visibility. Sits ABOVE
+   the photo (z-1) but below the content (z-2) — the earlier version painted
+   behind the photo, so the text had no scrim and read blurry. */
+.lp26-motion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 25.9%, rgba(0, 0, 0, 0.5) 100%);
+}
+.lp26-motion__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 44px 60px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.lp26-motion__title {
+  margin: 0;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: clamp(30px, 3.4vw, 52px);
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+.lp26-motion__pill {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  /* Figma: 22px gap between label and button */
+  gap: 22px;
+  padding: 8px 8px 8px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+}
+.lp26-motion__label {
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--white);
+}
+/* button matches the Figma pill button (~239×55) */
+.lp26-motion__pill .lp26-btn {
+  padding: 19px 30px;
+}
+.lp26-motion__quote {
+  margin: 18px 0 0;
+  max-width: 460px;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================================
+   11 — FOOTER (dark, newsletter) (413:10170)
+   ============================================================ */
+.lp26-foot {
+  background: var(--lp-dark);
+  color: var(--white);
+  padding: 64px 60px 48px;
+  border-radius: 30px 30px 0 0;
+}
+.lp26-foot__inner {
+  max-width: 1320px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.lp26-foot__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+.lp26-foot__brand { max-width: 420px; }
+.lp26-foot__logo {
+  height: 34px;
+  width: auto;
+  margin-bottom: 20px;
+  /* red brand logo → white on the navy ground */
+  filter: brightness(0) invert(1);
+}
+.lp26-foot__pitch {
+  margin: 0 0 24px;
+  font-family: var(--f-body);
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--white);
+}
+.lp26-foot__signup {
+  display: flex;
+  gap: 10px;
+  max-width: 380px;
+}
+.lp26-foot__signup input {
+  flex: 1;
+  min-width: 0;
+  background: var(--white);
+  border: 0;
+  border-radius: 100px;
+  padding: 14px 20px;
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: var(--lp-navy);
+}
+.lp26-foot__cols {
+  display: flex;
+  gap: 48px;
+}
+.lp26-foot__col { min-width: 130px; }
+.lp26-foot__col-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: default;
+  text-align: left;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--white);
+  margin: 0 0 18px;
+}
+.lp26-foot__chevron { display: none; color: var(--white); }
+.lp26-foot__col-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lp26-foot__col-list a {
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+.lp26-foot__col-list a:hover { color: var(--white); }
+.lp26-foot__divider {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  margin: 0;
+}
+.lp26-foot__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.lp26-foot__copy { margin: 0; font-family: var(--f-body); font-size: 15px; color: rgba(255, 255, 255, 0.75); }
+.lp26-foot__social { display: flex; align-items: center; gap: 16px; }
+.lp26-foot__social-label { font-family: var(--f-body); font-size: 15px; color: rgba(255, 255, 255, 0.75); }
+.lp26-foot__social-icons { display: flex; gap: 10px; }
+.lp26-foot__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 90px;
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--f-body);
+  font-size: 15px;
+}
+.lp26-foot__pill img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+}
+
+/* ============================================================
+   FAQ — 2026 colour scheme + plus/minus toggle (Figma node 413:10083).
+   Scoped to .lp26 so /landing and the homepage FAQ are untouched.
+   ============================================================ */
+/* two-column layout (Figma): heading + description + CTA left, accordion right */
+.lp26 .faqs {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 80px;
+  text-align: left;
+}
+.lp26 .faqs__head {
+  flex: 0 0 38%;
+  text-align: left;
+  align-items: flex-start;
+}
+.lp26 .faqs__list {
+  flex: 1;
+  width: auto;
+  max-width: none;
+}
+/* no eyebrow above the heading (Figma) */
+.lp26 .faqs .eyebrow {
+  display: none;
+}
+/* heading: "Frequently asked" navy, "questions" red */
+.lp26 .faqs__title {
+  color: var(--lp-navy);
+  margin: 0 0 16px;
+}
+.lp26 .faqs__title .ink {
+  color: var(--coral);
+}
+.lp26 .faqs__desc {
+  margin: 0 0 28px;
+  max-width: 420px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(4, 20, 58, 0.7);
+}
+.lp26 .faqs__cta {
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+  border-radius: 100px;
+  padding: 16px 28px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+.lp26 .faqs__cta:hover {
+  background: transparent;
+  color: var(--coral);
+}
+.lp26 .faqs .faq {
+  background: var(--lp-grey); /* #f5f5f5, not the base blue #f2f6fe */
+}
+.lp26 .faqs .faq__q > span:first-child {
+  color: var(--lp-dark); /* #091620 */
+}
+.lp26 .faqs .faq__icon {
+  color: var(--lp-dark);
+}
+/* Open state is a MINUS (Figma), not a rotated ×: hide the plus, draw a bar. */
+.lp26 .faqs .faq--open .faq__icon {
+  transform: none;
+}
+.lp26 .faqs .faq--open .faq__icon svg {
+  display: none;
+}
+.lp26 .faqs .faq--open .faq__icon::after {
+  content: '';
+  width: 14px;
+  height: 1.7px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   LARGE SCREENS (>1440): backgrounds go full-bleed, content stays on the
+   1440 grid. Mirrors the shared .card-section rule in moves.css for the new
+   sections that aren't card-sections. Footer/hero content is already centred.
+   ============================================================ */
+@media (min-width: 1441px) {
+  .lp26 .lp26-alone,
+  .lp26 .lp26-dentists {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+  .lp26 .lp26-motion__inner,
+  .lp26 .lp26-foot__inner {
+    max-width: 1320px;
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 900px) {
+  .lp26-alone,
+  .lp26-dentists {
+    grid-template-columns: 1fr;
+  }
+  /* move-alone cards become a swipeable carousel on mobile (Figma) */
+  .lp26-alone__grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* full-width track, 16px left inset, peek of the next card. Trailing
+       space lets the last card snap to the start (so its dot can activate). */
+    margin-inline: -16px;
+    padding-left: 16px;
+    padding-right: 20vw;
+    scroll-padding-left: 16px;
+  }
+  .lp26-alone__grid::-webkit-scrollbar { display: none; }
+  .lp26-alone__card {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
+    min-height: 520px;
+  }
+  .lp26-alone__dots { display: flex; }
+  /* not-a-clear-aligner: stack copy over a full-width bottom-anchored portrait */
+  .lp26-nac {
+    padding: 50px 0 0;
+  }
+  .lp26-nac__inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding-inline: 16px;
+  }
+  .lp26-nac__body {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 40px;
+    min-height: 0;
+    order: 1;
+  }
+  .lp26-nac__media {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    height: 420px;
+    order: 2;
+  }
+  .lp26-nac__photo,
+  .lp26-nac__dome {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  /* checklist in two columns on mobile (Figma) */
+  .lp26-nac__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 8px;
+  }
+  /* dark card radius matches the hero on mobile (16px) */
+  .lp26-nac { border-radius: 16px; }
+  .lp26-alone,
+  .lp26-dentists { padding: 50px 16px; }
+  .lp26-alone__grid { gap: 12px; }
+  .lp26-dentists__card { grid-template-columns: 1fr; padding: 28px; text-align: center; }
+  .lp26-dentists__photo { max-width: 240px; margin: 0 auto; }
+  .lp26-dentists__creds { justify-content: center; gap: 28px; }
+  /* Mobile hero (Figma): drop the giant wordmark; headline + CTA on top,
+     portrait below (no overlay). */
+  .lp26-hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 0;
+  }
+  .lp26-hero__mark { display: none; }
+  .lp26-hero__overlay {
+    position: static;
+    order: 1;
+    padding: 40px 20px 24px;
+  }
+  .lp26-hero__title { font-size: 34px; }
+  .lp26-hero__photo {
+    position: static;
+    order: 2;
+    transform: none;
+    left: auto;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .lp26-motion { min-height: 560px; }
+  .lp26-motion__inner { padding: 40px 16px; }
+  /* FAQ stacks on mobile */
+  .lp26 .faqs { flex-direction: column; gap: 28px; }
+  .lp26 .faqs__head { flex-basis: auto; width: 100%; }
+  .lp26 .faqs__desc { max-width: none; }
+
+  /* footer → single column + accordion */
+  .lp26-foot { padding: 40px 16px; }
+  .lp26-foot__top { flex-direction: column; gap: 32px; }
+  .lp26-foot__cols { flex-direction: column; gap: 0; }
+  .lp26-foot__col { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+  .lp26-foot__col-title { margin: 0; padding: 16px 0; cursor: pointer; }
+  .lp26-foot__chevron { display: block; transition: transform 200ms ease; }
+  .lp26-foot__col.is-open .lp26-foot__chevron { transform: rotate(180deg); }
+  .lp26-foot__col-list { display: none; padding-bottom: 16px; }
+  .lp26-foot__col.is-open .lp26-foot__col-list { display: flex; }
+  .lp26-foot__bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .lp26-foot__signup { max-width: none; }
+}
+
+/* ============================================================
+   Pixel-perfect section padding + radius (Figma 413:9263, desktop).
+   Scoped to .lp26. Sections: 80px top/bottom, 60px left/right.
+   ============================================================ */
+@media (min-width: 768px) {
+  /* Pricing side padding 220 → 60 (Figma) so the cards use the full grid */
+  .lp26 .pricing {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  /* section radii per Figma */
+  .lp26 .lp26-nac { border-radius: 16px; }        /* was 30 */
+  .lp26 .lp26-dentists { border-radius: 24px; }   /* was 30 */
+  /* FAQ: no top padding (butts the proof section above), 80 bottom */
+  .lp26 .faqs { padding-top: 0; }
+  /* Reviews2 top padding 80 (Figma) */
+  .lp26 .reviews2 { padding-top: 80px; }
+}

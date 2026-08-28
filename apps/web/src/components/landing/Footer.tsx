@@ -1,5 +1,7 @@
 'use client';
 
+import './footer-v2.css';
+
 import { useState } from 'react';
 import { ArrowUpRight, Envelope } from './icons';
 import { mediaUrl, mediaAlt } from '@/lib/media';

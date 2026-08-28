@@ -6,6 +6,8 @@ import { Plus } from './icons';
 export interface FaqsData {
   eyebrow?: string;
   heading?: { accent?: string; rest?: string };
+  description?: string;
+  cta?: { label?: string; href?: string };
   items?: { question?: string; answer?: string }[];
 }
 
@@ -66,6 +68,12 @@ export function Faqs({ data }: { data?: FaqsData }) {
           {data?.heading?.accent ?? 'Frequently'}{' '}
           <span className="ink">{data?.heading?.rest ?? 'asked questions'}</span>
         </h2>
+        {data?.description ? <p className="faqs__desc">{data.description}</p> : null}
+        {data?.cta ? (
+          <a className="btn faqs__cta" href={data.cta.href ?? '#'}>
+            {data.cta.label ?? 'Book Free Consultation'}
+          </a>
+        ) : null}
       </div>
 
       <div className="faqs__list">
