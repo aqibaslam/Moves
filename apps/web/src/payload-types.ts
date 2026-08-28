@@ -72,6 +72,7 @@ export interface Config {
     products: Product;
     orders: Order;
     consultations: Consultation;
+    customers: Customer;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
     consultations: ConsultationsSelect<false> | ConsultationsSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -245,33 +247,94 @@ export interface Media {
 export interface Product {
   id: number;
   /**
-   * Shown to patients, e.g. "Moves Full".
+   * Product title, e.g. "Moves Full".
    */
   name: string;
   /**
-   * URL-safe id. Leave blank to derive from the name.
+   * URL-safe id. Leave blank to derive from the title.
    */
   slug?: string | null;
   /**
-   * Integer pence — 240000 is £2,400. Money is never stored as a float; rounding errors compound across a ledger.
-   */
-  pricePence: number;
-  /**
-   * Short summary shown on the pricing card.
+   * Shown on the product / pricing card.
    */
   description?: string | null;
   /**
-   * Unticked products stay in past orders but cannot be ordered again.
-   */
-  active?: boolean | null;
-  /**
-   * Optional product image.
+   * Primary image, shown first everywhere.
    */
   image?: (number | null) | Media;
+  /**
+   * Additional images or video.
+   */
+  gallery?:
+    | {
+        file: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * e.g. "Clear aligners", "Whitening", "Retainers".
+   */
+  category?: string | null;
+  /**
+   * 240000 = £2,400.
+   */
+  pricePence: number;
+  /**
+   * Original price, shown struck through. Optional.
+   */
+  compareAtPence?: number | null;
+  /**
+   * Your cost. Used for margin, never shown to patients.
+   */
+  costPerItemPence?: number | null;
+  /**
+   * Charge tax on this product.
+   */
+  chargeTax?: boolean | null;
+  /**
+   * Track how many are available.
+   */
+  trackQuantity?: boolean | null;
+  /**
+   * Units available.
+   */
+  quantity?: number | null;
+  /**
+   * Stock keeping unit.
+   */
+  sku?: string | null;
+  /**
+   * Barcode (ISBN, UPC, GTIN…).
+   */
+  barcode?: string | null;
+  continueSellingWhenOutOfStock?: boolean | null;
+  /**
+   * Untick for a service (no shipping).
+   */
+  physicalProduct?: boolean | null;
+  weightGrams?: number | null;
+  /**
+   * Active products can be ordered. Untick = Draft.
+   */
+  active?: boolean | null;
+  productType?: string | null;
+  vendor?: string | null;
+  /**
+   * Comma-separated labels.
+   */
+  tags?: string[] | null;
   /**
    * Lower numbers appear first.
    */
   sortOrder?: number | null;
+  /**
+   * Search engine title. Defaults to the product title.
+   */
+  seoTitle?: string | null;
+  /**
+   * Search engine description.
+   */
+  seoDescription?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -291,19 +354,75 @@ export interface Order {
   patientEmail: string;
   patientPhone?: string | null;
   /**
-   * Which treatment plan was ordered.
+   * Who placed the order.
    */
-  product: number | Product;
+  customer?: (number | null) | Customer;
+  /**
+   * Legacy single-line orders. New orders use line items.
+   */
+  product?: (number | null) | Product;
+  lineItems?:
+    | {
+        product: number | Product;
+        quantity: number;
+        unitPricePence: number;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Copied from the product at order time, then frozen. A later price change must not rewrite historic orders.
    */
-  amountPence: number;
-  status: 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
+  amountPence?: number | null;
+  status: 'draft' | 'placed' | 'in_production' | 'shipped' | 'delivered' | 'cancelled';
+  fulfillmentStatus?: ('unfulfilled' | 'fulfilled') | null;
+  shippingPence?: number | null;
   /**
    * Treating GDC-registered dentist.
    */
   dentist?: string | null;
   clinic?: string | null;
+  shippingAddress?: {
+    name?: string | null;
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    postcode?: string | null;
+    country?: string | null;
+    phone?: string | null;
+  };
+  tags?: string[] | null;
+  notes?: string | null;
+  /**
+   * Comments and activity, newest appended last.
+   */
+  timeline?:
+    | {
+        kind?: ('comment' | 'event' | 'email') | null;
+        text: string;
+        author?: string | null;
+        at?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  address?: {
+    line1?: string | null;
+    line2?: string | null;
+    city?: string | null;
+    postcode?: string | null;
+    country?: string | null;
+  };
   notes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -374,6 +493,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'consultations';
         value: number | Consultation;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -499,11 +622,33 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
-  pricePence?: T;
   description?: T;
-  active?: T;
   image?: T;
+  gallery?:
+    | T
+    | {
+        file?: T;
+        id?: T;
+      };
+  category?: T;
+  pricePence?: T;
+  compareAtPence?: T;
+  costPerItemPence?: T;
+  chargeTax?: T;
+  trackQuantity?: T;
+  quantity?: T;
+  sku?: T;
+  barcode?: T;
+  continueSellingWhenOutOfStock?: T;
+  physicalProduct?: T;
+  weightGrams?: T;
+  active?: T;
+  productType?: T;
+  vendor?: T;
+  tags?: T;
   sortOrder?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -516,12 +661,44 @@ export interface OrdersSelect<T extends boolean = true> {
   patientName?: T;
   patientEmail?: T;
   patientPhone?: T;
+  customer?: T;
   product?: T;
+  lineItems?:
+    | T
+    | {
+        product?: T;
+        quantity?: T;
+        unitPricePence?: T;
+        id?: T;
+      };
   amountPence?: T;
   status?: T;
+  fulfillmentStatus?: T;
+  shippingPence?: T;
   dentist?: T;
   clinic?: T;
+  shippingAddress?:
+    | T
+    | {
+        name?: T;
+        line1?: T;
+        line2?: T;
+        city?: T;
+        postcode?: T;
+        country?: T;
+        phone?: T;
+      };
+  tags?: T;
   notes?: T;
+  timeline?:
+    | T
+    | {
+        kind?: T;
+        text?: T;
+        author?: T;
+        at?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -538,6 +715,27 @@ export interface ConsultationsSelect<T extends boolean = true> {
   dentist?: T;
   status?: T;
   source?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  address?:
+    | T
+    | {
+        line1?: T;
+        line2?: T;
+        city?: T;
+        postcode?: T;
+        country?: T;
+      };
   notes?: T;
   updatedAt?: T;
   createdAt?: T;

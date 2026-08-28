@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { StatusPill } from '../StatusPill';
 import { formatPence, listProducts } from '../../lib/data';
-import { NewProductForm } from './NewProductForm';
+import Link from 'next/link';
 
 export const metadata: Metadata = { title: 'Products' };
 
@@ -16,7 +16,7 @@ export default async function ProductsPage() {
           <h1 className="dash__title">Products</h1>
           <p className="dash__sub">Treatment plans patients can order.</p>
         </div>
-        <NewProductForm />
+        <Link className="dash__primary" href="/admin/products/new">Add product</Link>
       </header>
 
       <section className="dash__card" aria-label="Products">
@@ -45,7 +45,7 @@ export default async function ProductsPage() {
               <tbody>
                 {products.map((p) => (
                   <tr key={p.id}>
-                    <td className="dash__name">{p.name}</td>
+                    <td className="dash__name"><Link className="dash__rowlink" href={`/admin/products/${p.id}`}>{p.name}</Link></td>
                     <td className="dash__muted">{p.description || '—'}</td>
                     <td>
                       <StatusPill tone={p.active ? 'green' : 'grey'}>

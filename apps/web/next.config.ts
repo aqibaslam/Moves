@@ -29,8 +29,16 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // Product saves post their images through a Server Action; the default
+  // 1 MB request cap rejects anything with a real photo (HTTP 413). Raise it
+  // so multi-image products save.
+  experimental: {
+    serverActions: { bodySizeLimit: '25mb' },
+  },
+
   // Promoted out of `experimental` in Next 16.
   typedRoutes: true,
+
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });

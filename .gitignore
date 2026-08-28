@@ -43,3 +43,5 @@ Thumbs.db
 
 # claude local overrides
 .claude/settings.local.json
+.vercel
+.env*
