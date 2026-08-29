@@ -254,10 +254,30 @@
 .funnel-2026 .cta__sub {
   color: rgba(255, 255, 255, 0.8);
 }
-/* keep the dark band on the 1440 grid (Figma) */
-.funnel-2026 .cta__banner {
-  max-width: 1440px;
-  margin-inline: auto;
+/* Blue band sits on the 1320 content grid — its edges line up with the video
+   and FAQ sections (60px inset each side of the 1440 grid, Figma 451:2638). */
+.funnel-2026 .cta {
+  padding-inline: 60px;
+}
+.funnel-2026 .cta .cta__banner {
+  max-width: none;
+  margin-inline: 0;
+}
+@media (min-width: 1441px) {
+  .funnel-2026 .cta {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+}
+/* Desktop: match the Figma 1320×600 band + 744-wide product kit (≈56%). The
+   fixed aspect keeps the image from clipping while it's sized by width. */
+@media (min-width: 1080px) {
+  .funnel-2026 .cta .cta__banner {
+    aspect-ratio: 1320 / 600;
+    min-height: 0;
+    padding: 60px;
+    background-size: 56% auto;
+    background-position: right 32px center;
+  }
 }
 /* badge: small + contained in the top-right corner (was 307px, overflowing) */
 .funnel-2026 .cta__badge {
@@ -680,8 +700,10 @@
     padding: 28px 16px 40px;
   }
   /* CTA: product kit below the copy on mobile (was a right-side background) */
+  .funnel-2026 .cta { padding-inline: 16px; }
   .funnel-2026 .cta .cta__banner {
     flex-direction: column;
+    aspect-ratio: auto;
     background-image: none;
     background-color: #091620;
     padding: 40px 16px;
