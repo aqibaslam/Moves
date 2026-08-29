@@ -211,12 +211,14 @@
 .funnel-2026 .fp-toggle__opt--active {
   background: var(--coral);
 }
-/* "Every package includes / What decides your tier" panels → grey */
-.funnel-2026 .f-includes {
-  background: #f5f5f5;
+/* Figma: a thin divider sits between the price and the "Best for…" copy */
+.funnel-2026 .fpcard__best {
+  border-top: 1px solid #e2e2e2;
+  padding-top: 20px;
 }
-.funnel-2026 .f-includes__num {
-  color: var(--coral);
+/* "Every package includes / What decides your tier" is NOT in the 2026 Figma */
+.funnel-2026 .f-includes {
+  display: none;
 }
 
 /* ============================================================
