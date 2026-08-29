@@ -48,13 +48,17 @@
 .funnel-2026 .f-cand__head-l .lead {
   text-align: left;
 }
-/* Desktop: heading/copy on the left, CTA on the right (Figma). The base funnel
-   centres this head + stacks the CTA below — restore the two-column row. */
+/* heading is sentence case in Figma (not Title Case) */
+.funnel-2026 .f-cand__title-h {
+  text-transform: none;
+}
+/* Desktop: heading/copy on the left, CTA pinned to the bottom-right (Figma).
+   The base funnel centres this head + stacks the CTA below — restore the row. */
 @media (min-width: 1081px) {
   .funnel-2026 .f-cand__head {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
   }
 }
 .funnel-2026 :is(
@@ -135,12 +139,14 @@
   line-height: 28px;
   letter-spacing: -0.4px;
 }
-/* candidacy card headers ("What we treat" / "May not suit") — Medium 32/50/-2 */
+/* candidacy card headers ("What we treat" / "May not suit") — Medium 32/50/-2,
+   sentence case (Figma), not the base Title-Case capitalize */
 .funnel-2026 .f-cand__title {
   font-weight: 500;
   font-size: 32px;
   line-height: 50px;
   letter-spacing: -2px;
+  text-transform: none;
 }
 /* FAQ questions — Public Sans Medium 17/24/-0.34 */
 .funnel-2026 .faq__q {
@@ -432,8 +438,9 @@
 .funnel-2026 .f-cand__card--treat .f-cand__item {
   color: var(--white);
 }
+/* "What we treat" header mark → red (Figma) */
 .funnel-2026 .f-cand__card--treat .f-cand__cardhead svg {
-  color: var(--white);
+  color: var(--coral);
 }
 /* checks (what we treat) → coral instead of blue */
 .funnel-2026 .f-cand__item--yes svg {
@@ -441,6 +448,10 @@
 }
 .funnel-2026 .f-cand__card--not {
   background: #f5f5f5;
+}
+/* "May not suit" items: red × only — no strike-through on the text (Figma) */
+.funnel-2026 .f-cand__item--no span {
+  text-decoration: none;
 }
 
 /* ============================================================
