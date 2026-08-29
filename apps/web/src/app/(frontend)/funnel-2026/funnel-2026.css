@@ -34,6 +34,29 @@
 .moves-page.funnel-2026 {
   font-family: var(--f-body);
 }
+
+/* The Figma 2026 design has NO eyebrow/subheading labels above the section
+   headings (Pricing, Why we're called MOVES, US vs Them, Candidacy, Before &
+   After, etc.) — the heading sits at the top of each section. Hide them all. */
+.funnel-2026 .eyebrow,
+.funnel-2026 .fb-coral__eyebrow {
+  display: none;
+}
+/* Candidacy head is left-aligned in Figma (heading + copy left, CTA right) */
+.funnel-2026 .f-cand__head-l,
+.funnel-2026 .f-cand__head-l .h-section,
+.funnel-2026 .f-cand__head-l .lead {
+  text-align: left;
+}
+/* Desktop: heading/copy on the left, CTA on the right (Figma). The base funnel
+   centres this head + stacks the CTA below — restore the two-column row. */
+@media (min-width: 1081px) {
+  .funnel-2026 .f-cand__head {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 .funnel-2026 :is(
   .h-hero,
   .h-section,
