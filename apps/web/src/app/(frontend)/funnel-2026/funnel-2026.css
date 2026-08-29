@@ -42,6 +42,15 @@
 .funnel-2026 .fb-coral__eyebrow {
   display: none;
 }
+/* Before & After testimonial cards: the base uses var(--bg), which is white on
+   this page so the cards vanish — give them the Figma light-grey (#f5f5f5), and
+   make the quote's left rule coral (not navy). */
+.funnel-2026 .bacard {
+  background: #f5f5f5;
+}
+.funnel-2026 .bacard__quote {
+  border-left-color: var(--coral);
+}
 /* Candidacy head is left-aligned in Figma (heading + copy left, CTA right) */
 .funnel-2026 .f-cand__head-l,
 .funnel-2026 .f-cand__head-l .h-section,
