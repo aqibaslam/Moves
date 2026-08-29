@@ -14,26 +14,26 @@ interface Dentist {
 const DENTISTS: Dentist[] = [
   {
     name: 'Dr. Amir Hussain',
-    avatar: '/images/ba-adam-after.png',
-    photo: '/images/lp26-dentist-1.png',
+    avatar: '/images/f26-dentist-1.png',
+    photo: '/images/f26-dentist-1-big.png',
     bio: 'Dr. Amir Hussain brings expertise in evidence-led nutrition and preventive health, translating complex science into practical everyday guidance. Their input helps shape a formula designed to be complete, convenient, and easy to use consistently.',
   },
   {
     name: 'Dr. Amelia Hart',
-    avatar: '/images/ba-aisha-after.png',
-    photo: '/images/team-photo.png',
+    avatar: '/images/f26-dentist-2.png',
+    photo: '/images/f26-dentist-2.png',
     bio: 'Dr. Amelia Hart focuses on aligner-led orthodontics, planning every case in person and signing off each treatment step so patients always know who is responsible for their smile.',
   },
   {
     name: 'Dr. Daniel Cole',
-    avatar: '/images/ba-daniel-after.png',
-    photo: '/images/team-photo.png',
+    avatar: '/images/f26-dentist-3.png',
+    photo: '/images/f26-dentist-3.png',
     bio: 'Dr. Daniel Cole combines cosmetic dentistry with a patient-first approach, guiding each MOVES plan from first scan through to the final reveal with clear, honest expectations.',
   },
   {
     name: 'Dr. Sophie Ellis',
-    avatar: '/images/ba-sophie-after.png',
-    photo: '/images/team-photo.png',
+    avatar: '/images/f26-dentist-4.png',
+    photo: '/images/f26-dentist-4.png',
     bio: 'Dr. Sophie Ellis is a GDC-registered dentist who reviews progress at every stage, adjusting treatment when needed so results stay on track and feel natural.',
   },
 ];
