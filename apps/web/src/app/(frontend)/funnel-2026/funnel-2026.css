@@ -51,6 +51,21 @@
 .funnel-2026 .bacard__quote {
   border-left-color: var(--coral);
 }
+/* CTA buttons (dentist card + footer newsletter Submit) → coral. The base
+   .lp26-btn coral is scoped to .lp26 (landing); re-apply it here. */
+.funnel-2026 .lp26-btn {
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+}
+.funnel-2026 .lp26-btn:hover {
+  background: transparent;
+  color: var(--coral);
+}
+/* Footer is full-bleed square in Figma — no rounded top corners */
+.funnel-2026 .lp26-foot {
+  border-radius: 0;
+}
 /* Candidacy head is left-aligned in Figma (heading + copy left, CTA right) */
 .funnel-2026 .f-cand__head-l,
 .funnel-2026 .f-cand__head-l .h-section,
@@ -493,10 +508,22 @@
    ============================================================ */
 .funnel-2026 .fb-coral {
   background: #091620;
+  /* Figma 2026 section is 1440×881 (the base uses the old 1440×1005), which
+     gives the 80px top/bottom padding the design calls for. */
+  aspect-ratio: 1440 / 881;
 }
 /* drop the old red texture background */
 .funnel-2026 .fb-coral__bg {
   display: none;
+}
+/* heading sits ~80px from the top (Figma 9.76%), 48px so it wraps to two lines
+   like the design (base is 4.861cqw ≈ 69px, far too large) */
+.funnel-2026 .fb-coral__title {
+  top: 9.76%;
+  width: 58.54%; /* Figma text box 843px → wraps to two lines */
+  font-size: clamp(28px, 3.333cqw, 48px);
+  line-height: 1;
+  letter-spacing: -0.0417em;
 }
 /* 2026 uses a single pre-composited figure image (navy dome + portrait +
    ground shadow, baked in from Figma) — the CSS arch/glow parts aren't used. */
@@ -504,11 +531,11 @@
 .funnel-2026 .fb-coral__glow {
   display: none;
 }
-/* sit the figure lower than the old arch box so the portrait's head clears the
-   heading, with the ground shadow resting near the section base (2026 Figma) */
+/* figure box matches the Figma placement (top 23.04%, height 73.10%) — the
+   portrait sits just below the two-line heading, shadow near the base */
 .funnel-2026 .fb-coral__figure {
-  top: 37%;
-  height: 60%;
+  top: 23.04%;
+  height: 73.1%;
 }
 .funnel-2026 .fb-coral__composite {
   position: absolute;
