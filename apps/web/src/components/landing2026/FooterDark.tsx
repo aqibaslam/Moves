@@ -51,7 +51,7 @@ export function FooterDark() {
         <div className="lp26-foot__top">
           <div className="lp26-foot__brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="lp26-foot__logo" src="/images/moves-logo.svg" alt="Moves" />
+            <img className="lp26-foot__logo" src="/images/f26-foot-logo.svg" alt="Moves" />
             <p className="lp26-foot__pitch">
               Enter your email for clear aligner tips, treatment guidance, and the latest from MOVES.
             </p>

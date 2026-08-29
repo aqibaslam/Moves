@@ -24,10 +24,9 @@
   max-width: 420px;
 }
 .lp26-foot__logo {
-  height: 34px;
+  height: 40px;
   width: auto;
   margin-bottom: 20px;
-  filter: brightness(0) invert(1);
 }
 .lp26-foot__pitch {
   margin: 0 0 24px;

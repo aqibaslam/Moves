@@ -66,6 +66,27 @@
 .funnel-2026 .lp26-foot {
   border-radius: 0;
 }
+/* Uniform 80px top/bottom section padding on desktop (Figma) — normalise the
+   sections that drift (Pricing 100, ThreeMoves 56, Comparison 100, Candidacy
+   100). Desktop only so the 50/16 mobile padding is preserved. */
+@media (min-width: 641px) {
+  .funnel-2026 .f-pricing,
+  .funnel-2026 .moves3,
+  .funnel-2026 .f-cmp,
+  .funnel-2026 .f-cand {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+/* Mobile: 50px top/bottom, 16px sides (Figma mobile) for every section */
+@media (max-width: 640px) {
+  .funnel-2026 .f-pricing,
+  .funnel-2026 .moves3,
+  .funnel-2026 .f-cmp,
+  .funnel-2026 .f-cand {
+    padding: 50px 16px;
+  }
+}
 /* Candidacy head is left-aligned in Figma (heading + copy left, CTA right) */
 .funnel-2026 .f-cand__head-l,
 .funnel-2026 .f-cand__head-l .h-section,
@@ -179,6 +200,17 @@
   line-height: 24px;
   letter-spacing: -0.34px;
 }
+/* section headings that don't use .h-section: match the Figma 48/48 (line-height
+   1.0) so every section heading has the same leading */
+.funnel-2026 .proof__title,
+.funnel-2026 .faqs__title {
+  line-height: 1;
+}
+.funnel-2026 .lp26-dentists__title,
+.funnel-2026 .f26-incl__title {
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1;
+}
 
 /* ============================================================
    HERO — new branding: dark #091620 stage with the full-bleed portrait
@@ -229,7 +261,7 @@
   grid-template-columns: minmax(320px, 1fr) minmax(420px, 1.15fr);
   gap: 80px;
   align-items: start;
-  padding: 56px 60px;
+  padding: 80px 60px;
 }
 .funnel-2026 .moves3__intro {
   display: flex;
@@ -331,7 +363,7 @@
   .funnel-2026 .moves3 {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 40px 24px;
+    padding: 50px 16px;
   }
   .funnel-2026 .moves3__intro {
     position: static;
@@ -410,6 +442,22 @@
 }
 .funnel-2026 .cta__title {
   color: var(--white);
+}
+/* Desktop: "Your smile. Our signature." on one line (Figma); Comparison
+   heading "…Three very different bills." drops to a second line. */
+@media (min-width: 641px) {
+  .funnel-2026 .cta__inner {
+    max-width: 540px;
+  }
+  .funnel-2026 .cta__title {
+    white-space: nowrap;
+    font-size: 48px;
+    line-height: 48px;
+    letter-spacing: -0.0417em;
+  }
+  .funnel-2026 .f-cmp__head .h-section .c {
+    display: block;
+  }
 }
 .funnel-2026 .cta__title .c {
   color: var(--coral);
@@ -566,9 +614,10 @@
 .funnel-2026 .lp26-dentists__title {
   margin: 0 0 14px;
   font-family: var(--f-head);
-  font-weight: 500;
-  font-size: clamp(30px, 3.2vw, 48px);
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.0417em;
   color: var(--lp-navy);
 }
 .funnel-2026 .lp26-dentists__sub {
@@ -704,9 +753,10 @@
 .funnel-2026 .f26-incl__title {
   margin: 0 0 16px;
   font-family: var(--f-head);
-  font-weight: 500;
-  font-size: clamp(30px, 3.2vw, 48px);
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.0417em;
   color: var(--navy);
 }
 .funnel-2026 .f26-incl__title .c { color: var(--coral); }
@@ -723,6 +773,13 @@
   width: 100%;
   height: auto;
   margin: 0 auto 48px;
+}
+/* Desktop: the kit sits right on top of the cards (near-zero gap, Figma).
+   Mobile keeps its own spacing (unchanged). */
+@media (min-width: 641px) {
+  .funnel-2026 .f26-incl__product {
+    margin-bottom: 0;
+  }
 }
 .funnel-2026 .f26-incl__grid {
   display: grid;
@@ -800,7 +857,8 @@
   .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
-  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; }
+  /* Figma mobile keeps two cards per row */
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
 }
 
 /* ============================================================
@@ -887,22 +945,77 @@
     order: -1;
     width: 100%;
     height: 340px;
-    background: url('/images/funnel2026-hero.png') 72% center / cover no-repeat;
+    /* image fades into the navy hero at the bottom (Figma mobile) */
+    background:
+      linear-gradient(to bottom, rgba(9, 22, 32, 0) 55%, #091620 100%),
+      url('/images/funnel2026-hero.png') 72% center / cover no-repeat;
   }
   .funnel-2026 .f-hero .hero__media img { display: none; }
   .funnel-2026 .f-hero .hero__left {
     padding: 28px 16px 40px;
   }
-  /* CTA: product kit below the copy on mobile (was a right-side background) */
+  /* CTA: product kit sits below the copy/button on mobile (Figma) */
   .funnel-2026 .cta { padding-inline: 16px; }
   .funnel-2026 .cta .cta__banner {
     flex-direction: column;
     aspect-ratio: auto;
-    background-image: none;
-    background-color: #091620;
-    padding: 40px 16px;
+    background: #091620 url('/images/funnel2026-kit.png') center bottom 24px / 86% auto no-repeat;
+    padding: 40px 16px 250px;
     text-align: left;
   }
   .funnel-2026 .cta__inner { max-width: none; }
   .funnel-2026 .cta__badge { width: 96px; height: 96px; top: 16px; right: 16px; }
+}
+
+/* ============================================================
+   MOBILE TYPE SCALE (Figma mobile 451:247). The desktop sizes above aren't
+   media-scoped, so restate the smaller mobile values here.
+   • hero 40/48 · section headings 32/35 · body 16/22 · CTA 16/22
+   • pricing tier 18/21 · price 26/26
+   ============================================================ */
+@media (max-width: 640px) {
+  .funnel-2026 .f-hero .h-hero { font-size: 40px; line-height: 48px; }
+  .funnel-2026 .h-section,
+  .funnel-2026 .moves3__title,
+  .funnel-2026 .lp26-dentists__title,
+  .funnel-2026 .f26-incl__title,
+  .funnel-2026 .proof__title,
+  .funnel-2026 .faqs__title {
+    font-size: 32px;
+    line-height: 35px;
+  }
+  .funnel-2026 .fb-coral__title {
+    width: 90%;
+    font-size: 32px;
+    line-height: 35px;
+  }
+  .funnel-2026 .lead,
+  .funnel-2026 .fpcard__best,
+  .funnel-2026 .fpcard__treat,
+  .funnel-2026 .f-cand__item,
+  .funnel-2026 .faq__answer,
+  .funnel-2026 .faq__q {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .funnel-2026 .fpcard__title { font-size: 18px; line-height: 21px; }
+  .funnel-2026 .fpcard__price { font-size: 26px; line-height: 26px; }
+  .funnel-2026 .btn { font-size: 16px; line-height: 22px; }
+}
+
+/* ============================================================
+   UNIFORM SECTION GAP — 80px desktop / 50px mobile between every section.
+   Sections butt (page gap 0). Colored-bg sections (CoralBand, DentistNames)
+   keep 80/80 internal padding — one side sits inside their bg so the visible
+   gap to a neighbour is a single 80. The transparent sections that sit between
+   other transparent sections drop one side to 0 so their boundaries don't
+   double: ThreeMoves top, Comparison top+bottom, What's-included top.
+   ============================================================ */
+.funnel-2026 .moves3,
+.funnel-2026 .f-cmp,
+.funnel-2026 .f26-incl {
+  padding-top: 0;
+}
+.funnel-2026 .f-cmp {
+  padding-bottom: 0;
 }
