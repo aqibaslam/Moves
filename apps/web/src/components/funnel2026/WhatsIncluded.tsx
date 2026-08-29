@@ -4,25 +4,20 @@ import { BOOKING_PATH } from '@/lib/booking/links';
    4×2 grid of feature cards, then a CTA. New-branding colours come from the
    .funnel-2026 scope. */
 
-const FEATURES = [
-  { title: 'Moves Aligners', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Moves Whitening', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Moves Retainers', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Moves App/Tracking', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Dentist appointments', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Smile finishing', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'Moves Guarantee', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-  { title: 'aftercare', body: 'Custom clear aligners designed to gently move teeth into their ideal position.' },
-];
+const BODY = 'Custom clear aligners designed to gently move teeth into their ideal position.';
 
-function DotIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="11" cy="11" r="2.4" fill="currentColor" />
-    </svg>
-  );
-}
+/* Icons extracted from the Figma "What's included" cards (white glyphs on the
+   navy badge). */
+const FEATURES = [
+  { title: 'Moves Aligners', body: BODY, icon: '/images/f26-incl-aligners.svg' },
+  { title: 'Moves Whitening', body: BODY, icon: '/images/f26-incl-whitening.svg' },
+  { title: 'Moves Retainers', body: BODY, icon: '/images/f26-incl-retainers.svg' },
+  { title: 'Moves App/Tracking', body: BODY, icon: '/images/f26-incl-app.svg' },
+  { title: 'Dentist appointments', body: BODY, icon: '/images/f26-incl-dentist.svg' },
+  { title: 'Smile finishing', body: BODY, icon: '/images/f26-incl-finishing.svg' },
+  { title: 'Moves Guarantee', body: BODY, icon: '/images/f26-incl-guarantee.svg' },
+  { title: 'aftercare', body: BODY, icon: '/images/f26-incl-aftercare.svg' },
+];
 
 export function WhatsIncluded() {
   return (
@@ -44,7 +39,8 @@ export function WhatsIncluded() {
         {FEATURES.map((f) => (
           <article className="f26-incl__card" key={f.title}>
             <span className="f26-incl__icon" aria-hidden="true">
-              <DotIcon />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="f26-incl__glyph" src={f.icon} alt="" />
             </span>
             <h3 className="f26-incl__ctitle">{f.title}</h3>
             <p className="f26-incl__cbody">{f.body}</p>
