@@ -5,7 +5,7 @@ import { BOOKING_PATH } from '@/lib/booking/links';
    Layered composition: centred eyebrow + heading, woman in a coral arch,
    a hand-drawn white arrow pointing at her, and a "Why we're called MOVES"
    text block + CTA pinned to the right. */
-export function CoralBand() {
+export function CoralBand({ variant }: { variant?: '2026' } = {}) {
   return (
     <section className="fb-coral">
       <div className="fb-coral__bg" aria-hidden="true">
@@ -20,12 +20,25 @@ export function CoralBand() {
           <ScrollRevealText text="A Straighter Smile Is The Outcome. Confidence Is The Move." />
         </h2>
 
-        {/* centred image: coral arch + woman + glow */}
+        {/* centred image: the 2026 branding uses a single pre-composited figure
+            (navy dome + portrait + soft ground shadow, straight from Figma);
+            the original funnel builds it from an arch + woman + glow. */}
         <div className="fb-coral__figure">
-          <span className="fb-coral__arch" aria-hidden="true" />
-          <span className="fb-coral__glow" aria-hidden="true" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="fb-coral__woman" src="/images/funnel/coral-woman.png" alt="A person smiling" />
+          {variant === '2026' ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              className="fb-coral__composite"
+              src="/images/funnel2026-coral-figure.png"
+              alt="A person smiling"
+            />
+          ) : (
+            <>
+              <span className="fb-coral__arch" aria-hidden="true" />
+              <span className="fb-coral__glow" aria-hidden="true" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="fb-coral__woman" src="/images/funnel/coral-woman.png" alt="A person smiling" />
+            </>
+          )}
         </div>
 
         {/* white hand-drawn arrow pointing at the portrait */}

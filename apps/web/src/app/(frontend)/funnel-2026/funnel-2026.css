@@ -347,34 +347,26 @@
 .funnel-2026 .fb-coral__bg {
   display: none;
 }
-/* arch → blue dome gradient (Figma: #091620 → #6174A5) */
-.funnel-2026 .fb-coral__arch {
-  background: linear-gradient(180deg, #091620 0%, #6174a5 100%);
-}
-/* soft ground shadow at the base of the portrait */
+/* 2026 uses a single pre-composited figure image (navy dome + portrait +
+   ground shadow, baked in from Figma) — the CSS arch/glow parts aren't used. */
+.funnel-2026 .fb-coral__arch,
 .funnel-2026 .fb-coral__glow {
-  left: -8%;
-  width: 116%;
-  top: 95%;
-  height: 12%;
-  background: rgba(0, 0, 0, 0.28);
-  filter: blur(28px);
-  opacity: 0.85;
+  display: none;
 }
-/* Bottom of the portrait dissolves into the navy stage — a longer, softer fade
-   (same treatment as the "your smile in motion" image). The image itself fades
-   to transparent (mask) and a navy scrim blurs the last stretch into the bg. */
-.funnel-2026 .fb-coral__woman {
-  -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+/* sit the figure lower than the old arch box so the portrait's head clears the
+   heading, with the ground shadow resting near the section base (2026 Figma) */
+.funnel-2026 .fb-coral__figure {
+  top: 37%;
+  height: 60%;
 }
-.funnel-2026 .fb-coral__figure::after {
-  content: '';
+.funnel-2026 .fb-coral__composite {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(9, 22, 32, 0) 62%, #091620 100%);
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
 }
 /* text stays white on the navy ground (bright→dim reveal, as the funnel base);
    no dark/red overrides needed — the funnel defaults are already white. */

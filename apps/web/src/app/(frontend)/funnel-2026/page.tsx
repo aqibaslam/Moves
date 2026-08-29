@@ -36,7 +36,7 @@ export default function Funnel2026Page() {
     <div className="moves-page funnel-page funnel-2026">
       <FunnelHero />
       <BeforeAfters />
-      <CoralBand />
+      <CoralBand variant="2026" />
       <FunnelPricing />
       <ThreeMoves />
       <Comparison />
