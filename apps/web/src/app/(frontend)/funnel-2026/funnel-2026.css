@@ -437,15 +437,29 @@
 }
 .funnel-2026 .lp26-dentists__creds {
   display: flex;
-  gap: 48px;
+  align-items: stretch;
+  gap: 24px; /* Figma: block · divider · block */
   margin-bottom: 28px;
   flex-wrap: wrap;
 }
+.funnel-2026 .lp26-dentists__cred {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Figma: title → logo row */
+}
+/* vertical divider between the two credential blocks (Figma Line 368) */
+.funnel-2026 .lp26-dentists__creds-div {
+  flex: 0 0 1px;
+  align-self: stretch;
+  background: rgba(239, 234, 230, 0.2);
+}
 .funnel-2026 .lp26-dentists__creds-title {
-  margin: 0 0 12px;
+  margin: 0;
   font-family: var(--f-body);
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
   color: var(--white);
 }
 .funnel-2026 .lp26-dentists__logos {
@@ -453,11 +467,17 @@
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 8px 16px;
-  font-family: var(--f-body);
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  gap: 25px; /* Figma logo-row itemSpacing */
+}
+.funnel-2026 .lp26-dentists__logos li {
+  display: flex;
+}
+.funnel-2026 .lp26-dentists__logos img {
+  display: block;
+  height: 40px;
+  width: auto;
 }
 
 /* ============================================================
@@ -559,6 +579,9 @@
   }
   .funnel-2026 .lp26-dentists__photo { max-width: 240px; margin: 0 auto; height: auto; }
   .funnel-2026 .lp26-dentists__creds { justify-content: center; gap: 28px; }
+  /* stacked columns on mobile — the vertical rule doesn't apply */
+  .funnel-2026 .lp26-dentists__creds-div { display: none; }
+  .funnel-2026 .lp26-dentists__logos { justify-content: center; }
   .funnel-2026 .f26-incl { padding: 50px 16px; }
   .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
 }

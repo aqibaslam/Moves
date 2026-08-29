@@ -554,15 +554,29 @@
 }
 .lp26-dentists__creds {
   display: flex;
-  gap: 48px;
+  align-items: stretch;
+  gap: 24px; /* Figma: block · divider · block */
   margin-bottom: 28px;
   flex-wrap: wrap;
 }
+.lp26-dentists__cred {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Figma: title → logo row */
+}
+/* vertical divider between the two credential blocks (Figma Line 368) */
+.lp26-dentists__creds-div {
+  flex: 0 0 1px;
+  align-self: stretch;
+  background: rgba(239, 234, 230, 0.2);
+}
 .lp26-dentists__creds-title {
-  margin: 0 0 12px;
+  margin: 0;
   font-family: var(--f-body);
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
   color: var(--white);
 }
 .lp26-dentists__logos {
@@ -570,11 +584,17 @@
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 8px 16px;
-  font-family: var(--f-body);
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  gap: 25px; /* Figma logo-row itemSpacing */
+}
+.lp26-dentists__logos li {
+  display: flex;
+}
+.lp26-dentists__logos img {
+  display: block;
+  height: 40px;
+  width: auto;
 }
 
 /* ============================================================
@@ -955,6 +975,8 @@
   .lp26-dentists__card { grid-template-columns: 1fr; padding: 28px; text-align: center; }
   .lp26-dentists__photo { max-width: 240px; margin: 0 auto; }
   .lp26-dentists__creds { justify-content: center; gap: 28px; }
+  .lp26-dentists__creds-div { display: none; }
+  .lp26-dentists__logos { justify-content: center; }
   /* Mobile hero (Figma): drop the giant wordmark; headline + CTA on top,
      portrait below (no overlay). */
   .lp26-hero {

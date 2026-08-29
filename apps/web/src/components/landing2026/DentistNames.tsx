@@ -38,12 +38,24 @@ const DENTISTS: Dentist[] = [
   },
 ];
 
-const CREDS = [
-  { label: 'University of Leicester', logo: null },
-  { label: 'Royal College of Surgeons', logo: null },
-  { label: 'King’s College London', logo: null },
+interface Logo {
+  label: string;
+  src: string;
+  w: number;
+  h: number;
+}
+
+/* Credential + membership logos (extracted from the Figma "names behind the
+   smiles" section — white marks that sit on the dark dentist card). */
+const CREDS: Logo[] = [
+  { label: 'University of Leicester', src: '/images/f26-edu-leicester.svg', w: 126, h: 40 },
+  { label: 'Royal College of Surgeons', src: '/images/f26-edu-rcs.svg', w: 117, h: 40 },
+  { label: 'King’s College London', src: '/images/f26-edu-kcl.svg', w: 54, h: 40 },
 ];
-const MEMBERSHIPS = ['General Medical Council', 'BAHRS'];
+const MEMBERSHIPS: Logo[] = [
+  { label: 'General Medical Council', src: '/images/f26-mem-gmc.svg', w: 53, h: 41 },
+  { label: 'BAHRS', src: '/images/f26-mem-bahrs.svg', w: 58, h: 41 },
+];
 
 export function DentistNames() {
   const [active, setActive] = useState(0);
@@ -86,19 +98,26 @@ export function DentistNames() {
           <p className="lp26-dentists__bio">{d.bio}</p>
 
           <div className="lp26-dentists__creds">
-            <div>
+            <div className="lp26-dentists__cred">
               <p className="lp26-dentists__creds-title">Educational and Medical experience</p>
               <ul className="lp26-dentists__logos">
                 {CREDS.map((c) => (
-                  <li key={c.label}>{c.label}</li>
+                  <li key={c.label}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={c.src} alt={c.label} width={c.w} height={c.h} />
+                  </li>
                 ))}
               </ul>
             </div>
-            <div>
+            <span className="lp26-dentists__creds-div" aria-hidden="true" />
+            <div className="lp26-dentists__cred">
               <p className="lp26-dentists__creds-title">Professional memberships</p>
               <ul className="lp26-dentists__logos">
                 {MEMBERSHIPS.map((m) => (
-                  <li key={m}>{m}</li>
+                  <li key={m.label}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={m.src} alt={m.label} width={m.w} height={m.h} />
+                  </li>
                 ))}
               </ul>
             </div>
