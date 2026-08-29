@@ -1,4 +1,4 @@
-import { Caveat, DM_Sans, Inter, Jost } from 'next/font/google';
+import { Caveat, DM_Sans, Inter, Jost, Public_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 
 /**
@@ -49,6 +49,25 @@ export const dmSans = DM_Sans({
   weight: ['400', '500'],
   display: 'swap',
   variable: '--font-dm-sans',
+});
+
+// Public Sans — body + UI text on the 2026 funnel (Figma "New Moves Dental 2.0").
+export const publicSans = Public_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-public-sans',
+});
+
+// Glacial Indifference — all display headings on the 2026 funnel (Figma).
+// Not on Google Fonts; self-hosted (free for commercial use).
+export const glacialIndifference = localFont({
+  src: [
+    { path: '../../../public/fonts/GlacialIndifference-Regular.woff', weight: '400', style: 'normal' },
+    { path: '../../../public/fonts/GlacialIndifference-Bold.woff', weight: '700', style: 'normal' },
+  ],
+  display: 'swap',
+  variable: '--font-glacial',
 });
 
 export const aeonik = localFont({
