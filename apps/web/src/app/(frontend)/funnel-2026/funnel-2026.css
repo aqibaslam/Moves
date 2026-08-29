@@ -10,6 +10,8 @@
   /* sections butt (Figma frame itemSpacing 0); spacing comes from each
      section's own padding — same model as the landing (.landing-2 gap:0). */
   gap: 0;
+  /* pure white page background (Figma) — not the default light-blue #f2f6fe */
+  --bg: #fff;
   --coral: #ed3b44;
   --f-body: var(--font-inter), -apple-system, system-ui, sans-serif;
   --f-head: 'Google Sans', var(--font-inter), -apple-system, system-ui, sans-serif;
@@ -358,6 +360,21 @@
   background: rgba(0, 0, 0, 0.28);
   filter: blur(28px);
   opacity: 0.85;
+}
+/* Bottom of the portrait dissolves into the navy stage — a longer, softer fade
+   (same treatment as the "your smile in motion" image). The image itself fades
+   to transparent (mask) and a navy scrim blurs the last stretch into the bg. */
+.funnel-2026 .fb-coral__woman {
+  -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+}
+.funnel-2026 .fb-coral__figure::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(9, 22, 32, 0) 62%, #091620 100%);
 }
 /* text stays white on the navy ground (bright→dim reveal, as the funnel base);
    no dark/red overrides needed — the funnel defaults are already white. */
