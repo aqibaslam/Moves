@@ -28,6 +28,12 @@
    • Body / content   → Public Sans, Regular (400)   [via --f-body]
    • Buttons / CTAs   → Public Sans, Medium (500), 17/24/-0.34
    ============================================================ */
+/* Base family for the whole page: Public Sans. globals.css sets the <body>
+   font to Silka, which every element without its own font-family inherits —
+   this override makes Public Sans the funnel-2026 default instead. */
+.moves-page.funnel-2026 {
+  font-family: var(--f-body);
+}
 .funnel-2026 :is(
   .h-hero,
   .h-section,
@@ -37,7 +43,8 @@
   .faqs__title,
   .moves3__title,
   .lp26-dentists__title,
-  .f26-incl__title
+  .f26-incl__title,
+  .bacard__name
 ) {
   font-family: var(--f-head);
   font-weight: 400;
@@ -56,6 +63,64 @@
 /* buttons: Public Sans Medium at the Figma metrics (17 / 24 / -0.34) */
 .funnel-2026 .btn {
   font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+}
+
+/* ---- Figma sizes / weights / colours per role ---- */
+/* hero headline — Glacial 64/70/-1.61 (base was 72) */
+.funnel-2026 .h-hero {
+  font-size: 64px;
+  line-height: 70px;
+  letter-spacing: -1.61px;
+}
+/* section headings — Glacial 48/48/-2 (tight leading) */
+.funnel-2026 .h-section {
+  font-size: 48px;
+  line-height: 48px;
+  letter-spacing: -2px;
+}
+/* primary body copy — Public Sans 17/24/-0.34, ink #091620 */
+.funnel-2026 :is(.lead, .fpcard__best, .fpcard__treat, .f-cand__item, .faq__answer) {
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: var(--lp-dark);
+}
+/* pricing tier title — Public Sans Medium 32/50/-2 */
+.funnel-2026 .fpcard__title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 50px;
+  letter-spacing: -2px;
+  color: var(--lp-dark);
+}
+/* price — Public Sans Medium 46/46/-1.84 (base was 700) */
+.funnel-2026 .fpcard__price {
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 46px;
+  letter-spacing: -1.84px;
+  color: var(--lp-dark);
+}
+/* step title — Public Sans Medium 20/28/-0.40 (base was 600) */
+.funnel-2026 .moves3__step-title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+}
+/* candidacy card headers ("What we treat" / "May not suit") — Medium 32/50/-2 */
+.funnel-2026 .f-cand__title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 50px;
+  letter-spacing: -2px;
+}
+/* FAQ questions — Public Sans Medium 17/24/-0.34 */
+.funnel-2026 .faq__q {
   font-weight: 500;
   font-size: 17px;
   line-height: 24px;
@@ -184,18 +249,20 @@
   gap: 6px;
 }
 .funnel-2026 .moves3__step-num {
-  font-family: var(--f-mono);
+  font-family: var(--f-body);
   font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: -0.28px;
   color: var(--coral);
 }
 .funnel-2026 .moves3__step-title {
   font-family: var(--f-body);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
-  letter-spacing: -0.02em;
-  color: var(--navy);
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: var(--lp-dark);
   margin: 0;
 }
 .funnel-2026 .moves3__step-text {
