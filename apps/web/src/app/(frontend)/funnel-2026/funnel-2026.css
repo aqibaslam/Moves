@@ -611,21 +611,11 @@
     scale 1800ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 3200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* HOVER — the portrait drifts slowly to the right (with a touch of zoom for
-   life): a gentle left→right pan over ~3.2s. The figure sits on matching navy,
-   so the drift just slides the person across without revealing any edge. */
-.funnel-2026 .fb-coral__figure:hover .fb-coral__composite {
-  transform: translateX(5%) scale(1.04);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .funnel-2026 .fb-coral__composite,
   .funnel-2026 .fb-coral.reveal-init.reveal-in .fb-coral__composite {
     scale: none;
     transition: none;
-  }
-  .funnel-2026 .fb-coral__figure:hover .fb-coral__composite {
-    transform: none;
   }
 }
 /* text stays white on the navy ground (bright→dim reveal, as the funnel base);
@@ -909,6 +899,12 @@
   flex: 0 0 38%;
   text-align: left;
   align-items: flex-start;
+  /* left column sticks in view while you scroll the questions, releasing when
+     the section ends (natural sticky). Desktop only — reset to static on mobile
+     where the layout stacks. */
+  position: sticky;
+  top: 40px;
+  align-self: flex-start;
 }
 .funnel-2026 .faqs__list {
   flex: 1;
@@ -959,7 +955,7 @@
 
 @media (max-width: 900px) {
   .funnel-2026 .faqs { flex-direction: column; gap: 28px; }
-  .funnel-2026 .faqs__head { flex-basis: auto; width: 100%; }
+  .funnel-2026 .faqs__head { flex-basis: auto; width: 100%; position: static; }
   .funnel-2026 .faqs__desc { max-width: none; }
 }
 
@@ -1159,6 +1155,29 @@
     scale 760ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* HERO HEADLINE — TYPEWRITER: characters appear one after another, left→right,
+   as if being written. Words stay unbreakable (`.tw-w` inline-block) so the
+   heading still wraps naturally; the near-instant per-char transition + a
+   `--tw-i`-based delay produces the typing rhythm (~55ms/char). */
+.funnel-2026 .reveal-tw .tw-w {
+  display: inline-block;
+}
+.funnel-2026 .reveal-tw .tw-c {
+  opacity: 0;
+}
+.funnel-2026 .reveal-tw.reveal-in .tw-c {
+  opacity: 1;
+  transition: opacity 1ms linear;
+  transition-delay: calc(var(--tw-i, 0) * 55ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .reveal-tw .tw-c,
+  .funnel-2026 .reveal-tw.reveal-in .tw-c {
+    opacity: 1;
+    transition: none;
+  }
+}
+
 /* 4 — CTA: held back the longest, then arrives SLOWLY — a gentle, drawn-out
    fade + rise that pulls the eye to the call-to-action last. */
 .funnel-2026 .reveal-cta {
@@ -1189,61 +1208,59 @@
   }
 }
 
-/* ============================================================
-   BEFORE & AFTER cards — graceful hover: the card grows a few pixels from the
-   TOP and BOTTOM only (a subtle vertical scale), never wider. `transform-origin:
-   center` makes it expand equally up and down; scaleY(1.02) ≈ 4px each edge on
-   the ~437px cards.
-   ============================================================ */
-.funnel-2026 .ba__cards {
-  /* Room so a hovered card can grow past the track without the horizontal
-     scroller (overflow-x:auto forces overflow-y:auto) clipping its rounded
-     top/bottom. The matching negative margin keeps the section's spacing
-     exactly as before. */
-  padding-block: 8px;
-  margin-block: -8px;
-}
-.funnel-2026 .bacard {
-  transform-origin: center center;
-  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.funnel-2026 .bacard:hover {
-  transform: scaleY(1.02);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .funnel-2026 .bacard {
-    transition: none;
-  }
-  .funnel-2026 .bacard:hover {
-    transform: none;
-  }
-}
+/* Before & After slider cards have NO hover effect (user removed it). They keep
+   only their sequential scale-in reveal. */
 
 /* ============================================================
-   PRICING cards — hover.
-   • The card scales the BOTTOM only: scaleY anchored at the top, so it grows
-     DOWNWARD and never sideways into its neighbours (a uniform scale overlapped
-     the adjacent cards, which looked wrong).
-   • The title + price BOUNCE in (spring pop). Leaving the card returns
-     everything to its previous state. (`.fpcard__btn` keeps its colour hover.)
+   CARD HOVER.
+   • CANDIDACY + WHAT'S-INCLUDED: the card PANEL grows a little from the TOP and
+     BOTTOM while the CONTENT stays exactly in place — a background layer
+     (`::after`) extends via top/bottom insets (corners stay round, no scale).
+   • PRICING: a small LIFT instead (the card moves up a touch, no scale/grow).
+   Smooth, quiet, no bounce.
    ============================================================ */
-.funnel-2026 .fpcard {
-  transform-origin: top center;
-  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+.funnel-2026 .f26-incl__card {
+  position: relative;
+  isolation: isolate;
 }
-.funnel-2026 .fpcard:hover {
-  transform: scaleY(1.03);
+.funnel-2026 .f26-incl__card::after {
+  content: '';
+  position: absolute;
+  /* explicit edges (not a scale) so the corners stay perfectly round and the
+     panel only ever moves top/bottom — no horizontal or corner artefacts */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+  z-index: -1;
+  transition:
+    top 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    bottom 360ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-/* title + price bounce on hover; anchored left so the text stays put */
-.funnel-2026 .fpcard__title,
-.funnel-2026 .fpcard__price {
-  transform-origin: left center;
+.funnel-2026 .f26-incl__card:hover::after {
+  top: -7px;
+  bottom: -7px;
 }
-.funnel-2026 .fpcard:hover .fpcard__title,
-.funnel-2026 .fpcard:hover .fpcard__price {
-  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+/* PRICING + CANDIDACY cards: a small upward lift on hover (moves up, no scale),
+   with a soft shadow so it reads as lifting off the page. Content moves with the
+   card as one piece — no stretching. */
+.funnel-2026 .fpcard,
+.funnel-2026 .f-cand__card {
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+.funnel-2026 .fpcard:hover,
+.funnel-2026 .f-cand__card:hover {
+  transform: translateY(-8px);
+  /* negative spread == blur → the shadow has ~no horizontal reach, so the gaps
+     between cards stay clean; it only casts a soft, light shadow BELOW. */
+  box-shadow: 0 9px 18px -18px rgba(4, 20, 58, 0.28);
+}
+/* fpcard-pop kept — reused by the What's-included heading REVEAL (not hover) */
 @keyframes fpcard-pop {
   0% {
     transform: scale(1);
@@ -1263,32 +1280,14 @@
   .funnel-2026 .fpcard:hover {
     transform: none;
   }
-  .funnel-2026 .fpcard:hover .fpcard__title,
-  .funnel-2026 .fpcard:hover .fpcard__price {
-    animation: none;
-  }
 }
 
 /* ============================================================
    CANDIDACY cards ("What we treat" / "May not suit").
-   • Hover: the card scales the BOTTOM only (scaleY from the top, so it never
-     overlaps its neighbour) and the title bounces (same spring pop as pricing).
+   • Hover: a small upward lift + soft shadow (same as pricing — see above).
    • Reveal: the coral "What we treat" brand mark bobs up/down a few times as
      the section arrives, to catch the eye.
    ============================================================ */
-.funnel-2026 .f-cand__card {
-  transform-origin: top center;
-  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.funnel-2026 .f-cand__card:hover {
-  transform: scaleY(1.03);
-}
-.funnel-2026 .f-cand__title {
-  transform-origin: left center;
-}
-.funnel-2026 .f-cand__card:hover .f-cand__title {
-  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
 /* coral mark bobs up/down 3 times (settling) ~0.9s after the section reveals */
 .funnel-2026 .f-cand.reveal-in .f-cand__card--treat .f-cand__cardhead svg {
   animation: cand-mark-bounce 1500ms cubic-bezier(0.3, 0.8, 0.4, 1) 900ms both;
@@ -1313,14 +1312,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .f26-incl__card::after,
+  .funnel-2026 .fpcard,
   .funnel-2026 .f-cand__card {
     transition: none;
   }
+  .funnel-2026 .f26-incl__card:hover::after {
+    top: 0;
+    bottom: 0;
+  }
+  .funnel-2026 .fpcard:hover,
   .funnel-2026 .f-cand__card:hover {
     transform: none;
-  }
-  .funnel-2026 .f-cand__card:hover .f-cand__title {
-    animation: none;
+    box-shadow: none;
   }
   .funnel-2026 .f-cand.reveal-in .f-cand__card--treat .f-cand__cardhead svg {
     animation: none;
@@ -1369,73 +1373,15 @@
     transform: translateX(-2px);
   }
 }
-/* product image — hover wobble (rotate left↔right) */
-.funnel-2026 .f26-incl__product:hover {
-  animation: incl-product-wobble 750ms ease;
-}
-@keyframes incl-product-wobble {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-2.5deg);
-  }
-  50% {
-    transform: rotate(1.8deg);
-  }
-  75% {
-    transform: rotate(-1deg);
-  }
-}
+/* (product image hover wobble removed — only the arrival sway remains) */
 
-/* feature card hover: scale up (pops above neighbours) + title & icon bounce */
-.funnel-2026 .f26-incl__card {
-  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.funnel-2026 .f26-incl__card:hover {
-  transform: scale(1.04);
-  position: relative;
-  z-index: 1;
-}
-.funnel-2026 .f26-incl__card:hover .f26-incl__ctitle {
-  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.funnel-2026 .f26-incl__card:hover .f26-incl__glyph {
-  animation: incl-icon-bounce 620ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes incl-icon-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-7px);
-  }
-  55% {
-    transform: translateY(0);
-  }
-  78% {
-    transform: translateY(-3px);
-  }
-  92% {
-    transform: translateY(0);
-  }
-}
+/* feature card hover: panel grows top+bottom (shared `::after` grow above),
+   content stays put. No title/icon bounce. */
 
 @media (prefers-reduced-motion: reduce) {
   .funnel-2026 .f26-incl__card.reveal-in .f26-incl__ctitle,
-  .funnel-2026 .f26-incl__product.is-sway,
-  .funnel-2026 .f26-incl__product:hover,
-  .funnel-2026 .f26-incl__card:hover .f26-incl__ctitle,
-  .funnel-2026 .f26-incl__card:hover .f26-incl__glyph {
+  .funnel-2026 .f26-incl__product.is-sway {
     animation: none;
-  }
-  .funnel-2026 .f26-incl__card {
-    transition: none;
-  }
-  .funnel-2026 .f26-incl__card:hover {
-    transform: none;
   }
 }
 
@@ -1470,25 +1416,24 @@
     transform: rotate(-4deg);
   }
 }
-/* hover: the play button pops (keeps its centring translate in every frame) */
-.funnel-2026 .proof .ptile:hover .ptile__play {
-  animation: proof-play-pop 620ms cubic-bezier(0.34, 1.56, 0.64, 1);
+/* hover: the tile scales smoothly (scaleY from centre — top + bottom, no
+   sideways overlap with the neighbouring tile). No play-button bounce. */
+.funnel-2026 .proof .ptile {
+  transform-origin: center;
+  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-@keyframes proof-play-pop {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  55% {
-    transform: translate(-50%, -50%) scale(1.16);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.06);
-  }
+.funnel-2026 .proof .ptile:hover {
+  transform: scaleY(1.02);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .funnel-2026 .proof .ptile.reveal-in .ptile__play svg,
-  .funnel-2026 .proof .ptile:hover .ptile__play {
+  .funnel-2026 .proof .ptile.reveal-in .ptile__play svg {
     animation: none;
+  }
+  .funnel-2026 .proof .ptile {
+    transition: none;
+  }
+  .funnel-2026 .proof .ptile:hover {
+    transform: none;
   }
 }

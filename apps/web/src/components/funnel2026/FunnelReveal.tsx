@@ -40,6 +40,48 @@ const BODY_SELECTOR = 'p,img,picture,figure,blockquote,ul,ol';
 // each element inside them.
 const CARD_SELECTOR =
   '.bacard, .fpcard, .f-cand__card, .f26-incl__card, .ptile';
+
+/**
+ * Split a heading's text into per-character spans for a typewriter reveal, while
+ * keeping whole words unbreakable (inline-block `.tw-w`) so the heading still
+ * wraps naturally, and recursing through inline markup so a colour span (the
+ * coral "The smile") is preserved. Each character span gets a running `--tw-i`
+ * index; CSS reveals them one after another.
+ */
+function splitTypewriter(el: Element, state: { i: number }) {
+  for (const node of Array.from(el.childNodes)) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent ?? '';
+      if (!text) continue;
+      const frag = document.createDocumentFragment();
+      for (const part of text.split(/(\s+)/)) {
+        if (!part) continue;
+        if (/^\s+$/.test(part)) {
+          // whitespace stays a plain text node → a natural line-wrap point
+          frag.appendChild(document.createTextNode(part));
+          continue;
+        }
+        const word = document.createElement('span');
+        word.className = 'tw-w';
+        for (const ch of part) {
+          const c = document.createElement('span');
+          c.className = 'tw-c';
+          c.style.setProperty('--tw-i', String(state.i));
+          c.textContent = ch;
+          word.appendChild(c);
+          state.i += 1;
+        }
+        frag.appendChild(word);
+      }
+      el.replaceChild(frag, node);
+    } else if (
+      node.nodeType === Node.ELEMENT_NODE &&
+      !(node as Element).classList.contains('tw-w')
+    ) {
+      splitTypewriter(node as Element, state);
+    }
+  }
+}
 // Cap the body stagger so dense sections (the gallery) settle as a group rather
 // than dribbling in one-by-one.
 const MAX_STEPS = 8;
@@ -74,8 +116,15 @@ export function FunnelReveal() {
         section.querySelectorAll<HTMLElement>(HEADING_SELECTOR),
       ).find(isVisible);
       if (lead) {
-        lead.classList.add('reveal-head');
-        lead.style.transitionDelay = '240ms';
+        if (lead.classList.contains('h-hero')) {
+          // hero headline: TYPEWRITER — split into characters (once) and reveal
+          // them one by one instead of the bounce.
+          if (!lead.querySelector('.tw-c')) splitTypewriter(lead, { i: 0 });
+          lead.classList.add('reveal-tw');
+        } else {
+          lead.classList.add('reveal-head');
+          lead.style.transitionDelay = '240ms';
+        }
       }
 
       // CTA(s) ease in slowly, last — but skip any button inside a card (it
@@ -168,14 +217,17 @@ export function FunnelReveal() {
       }
       section
         .querySelectorAll<HTMLElement>(
-          '.reveal-head, .reveal-c, .reveal-cta, .reveal-open',
+          '.reveal-head, .reveal-tw, .reveal-c, .reveal-cta, .reveal-open',
         )
         .forEach((el) => {
           el.classList.add('reveal-in');
           // Once a body / CTA / card element has landed, strip its reveal
           // classes so its own styles (button hover/press, etc.) take back over
-          // cleanly. Headings keep theirs (no hover, nothing to restore).
-          if (!el.classList.contains('reveal-head')) {
+          // cleanly. Headings (bounce + typewriter) keep theirs.
+          if (
+            !el.classList.contains('reveal-head') &&
+            !el.classList.contains('reveal-tw')
+          ) {
             el.addEventListener('transitionend', function done(e) {
               // Fire once the element's own reveal ends. Animated property is
               // `translate`/`scale` for body/CTA/cards and `clip-path` for the
