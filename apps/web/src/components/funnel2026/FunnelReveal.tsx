@@ -13,16 +13,18 @@ import { useEffect, useRef } from 'react';
  *      heading,
  *   4. the CTA eases in SLOWLY — last, for emphasis.
  *
+ * Each section reveals ONCE, the first time it scrolls into view (the observer
+ * unobserves it afterwards — no replay, no work on further scrolling).
+ *
  * Mechanics — classes go on the EXISTING section element and its content
  * elements, never on wrapper <div>s (the page layout relies on
  * `.moves-page > X` direct-child selectors, which wrapping would break). The
- * section is hidden with `.reveal-init` (OPACITY only — a section transform
- * would shift its scroll-snap point); its heading / body / CTA are held back
- * with `.reveal-head` / `.reveal-c` / `.reveal-cta` and their own inline delay.
- * Those transforms live on descendants, so they don't affect the section's snap
- * box. Everything fires when the section's IntersectionObserver entry turns
- * visible (`.reveal-in`). A missing IntersectionObserver or
- * `prefers-reduced-motion` both short-circuit to "just show everything".
+ * section is hidden with `.reveal-init` (opacity only); its heading / body / CTA
+ * are held back with `.reveal-head` / `.reveal-c` / `.reveal-cta` and their own
+ * inline delay (those transforms live on descendants). Everything fires when the
+ * section's IntersectionObserver entry turns visible (`.reveal-in`). A missing
+ * IntersectionObserver or `prefers-reduced-motion` both short-circuit to "just
+ * show everything".
  */
 
 const HEADING_SELECTOR = 'h1,h2,h3,h4';
@@ -56,17 +58,6 @@ export function FunnelReveal() {
       (el): el is HTMLElement =>
         el instanceof HTMLElement && el !== marker.current,
     );
-
-    // Section scroll-snap: each section clicks to the top of the viewport as you
-    // scroll to it. Enabled here (not in global CSS) so it's scoped to this page
-    // and removed on leave. `proximity`, not `mandatory` — several sections are
-    // taller than the viewport (the Before & After gallery is ~2× tall), and
-    // mandatory would trap the reader mid-section. `.snap-on` gates the per-
-    // section `scroll-snap-align` in CSS.
-    const docEl = document.documentElement;
-    const prevSnapType = docEl.style.scrollSnapType;
-    docEl.style.scrollSnapType = 'y proximity';
-    root.classList.add('snap-on');
 
     const isVisible = (el: HTMLElement) => {
       const r = el.getBoundingClientRect();
@@ -189,9 +180,6 @@ export function FunnelReveal() {
               // Fire once the element's own reveal ends. Animated property is
               // `translate`/`scale` for body/CTA/cards and `clip-path` for the
               // pricing open-wipe — any, on the element itself, is a safe point.
-              // Guard on reveal-in: if the section scrolled out mid-reveal and
-              // was reset (reveal-in already stripped), this is the reverse
-              // transition — don't clean up (that would un-hide the element).
               if (e.target !== el || !el.classList.contains('reveal-in')) return;
               el.classList.remove(
                 'reveal-c',
@@ -207,36 +195,14 @@ export function FunnelReveal() {
         });
     };
 
-    // Reset a section back to its hidden state so it can replay next time it
-    // scrolls into view: strip every `.reveal-in` (and any transient animation
-    // class), then re-prime the hidden classes (cards/CTAs/body were cleaned up
-    // when they settled, so re-priming re-hides them). Runs while the section is
-    // OFF-screen, so the re-hide is never visible.
-    const resetSection = (section: HTMLElement) => {
-      section.classList.remove('reveal-in');
-      section
-        .querySelectorAll('.reveal-in')
-        .forEach((el) => el.classList.remove('reveal-in'));
-      section
-        .querySelectorAll('.is-sway')
-        .forEach((el) => el.classList.remove('is-sway'));
-      prime(section);
-    };
-
-    // Re-arm on every scroll (no unobserve): reveal on entry, reset on exit, so
-    // the animations play again each time you scroll a section back into view.
+    // Reveal each section once, the first time it scrolls into view, then stop
+    // observing it (one-shot — no replay, no work on further scrolling).
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          const section = entry.target as HTMLElement;
           if (entry.isIntersecting) {
-            if (section.dataset.rvShown !== '1') {
-              section.dataset.rvShown = '1';
-              reveal(section);
-            }
-          } else if (section.dataset.rvShown === '1') {
-            section.dataset.rvShown = '';
-            resetSection(section);
+            reveal(entry.target);
+            io.unobserve(entry.target);
           }
         }
       },
@@ -248,11 +214,7 @@ export function FunnelReveal() {
       io.observe(section);
     }
 
-    return () => {
-      io.disconnect();
-      docEl.style.scrollSnapType = prevSnapType;
-      root.classList.remove('snap-on');
-    };
+    return () => io.disconnect();
   }, []);
 
   return <div ref={marker} aria-hidden style={{ display: 'none' }} />;

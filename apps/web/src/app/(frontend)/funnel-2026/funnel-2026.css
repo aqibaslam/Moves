@@ -1068,15 +1068,6 @@
    missing IntersectionObserver) fall back to showing everything, in JS.
    ============================================================ */
 
-/* SECTION SNAP — each section clicks to the top of the viewport as you scroll
-   (scroll-snap-type is set on <html> by <FunnelReveal>, scoped to this page).
-   `proximity` snap: it settles a section to the top when your scroll comes to
-   rest near it, but never traps you inside a section taller than the screen. */
-.funnel-2026.snap-on > * {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-}
-
 /* 1 — the WHOLE section reveals together: one clean fade. Everything not held
    back (paragraphs, images, lists…) arrives in this single move. Opacity only —
    NO transform: scroll-snap measures the transformed box, so a section rise
