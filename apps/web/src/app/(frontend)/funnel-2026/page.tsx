@@ -11,6 +11,7 @@ import { Comparison } from '@/components/funnel/Comparison';
 import { Candidacy } from '@/components/funnel/Candidacy';
 import { ThreeMoves } from '@/components/landing/ThreeMoves';
 import { WhatsIncluded } from '@/components/funnel2026/WhatsIncluded';
+import { FunnelReveal } from '@/components/funnel2026/FunnelReveal';
 import { DentistNames } from '@/components/landing2026/DentistNames';
 
 // Reused landing sections (render their built-in fallback content)
@@ -60,6 +61,8 @@ export default function Funnel2026Page() {
         }}
       />
       <FooterDark />
+      {/* drives the scroll-reveal entrance of each section above (client-only) */}
+      <FunnelReveal />
     </div>
   );
 }

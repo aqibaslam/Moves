@@ -593,6 +593,40 @@
   max-width: none;
   object-fit: contain;
   object-position: center bottom;
+  /* hover pan (see below) transitions `transform`; arrival zoom transitions the
+     individual `scale` — kept on separate properties so they compose, never
+     override each other */
+  transition: transform 3200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* ARRIVAL — as the section reveals, the portrait eases from a soft zoom down to
+   its resting size (a slow "settle"). Primed (below the fold) it jumps to the
+   zoomed size with no transition; only the reveal animates it. */
+.funnel-2026 .fb-coral.reveal-init .fb-coral__composite {
+  scale: 1.06;
+  transition: none;
+}
+.funnel-2026 .fb-coral.reveal-init.reveal-in .fb-coral__composite {
+  scale: none;
+  transition:
+    scale 1800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 3200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* HOVER — the portrait drifts slowly to the right (with a touch of zoom for
+   life): a gentle left→right pan over ~3.2s. The figure sits on matching navy,
+   so the drift just slides the person across without revealing any edge. */
+.funnel-2026 .fb-coral__figure:hover .fb-coral__composite {
+  transform: translateX(5%) scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .fb-coral__composite,
+  .funnel-2026 .fb-coral.reveal-init.reveal-in .fb-coral__composite {
+    scale: none;
+    transition: none;
+  }
+  .funnel-2026 .fb-coral__figure:hover .fb-coral__composite {
+    transform: none;
+  }
 }
 /* text stays white on the navy ground (bright→dim reveal, as the funnel base);
    no dark/red overrides needed — the funnel defaults are already white. */
@@ -1018,4 +1052,452 @@
 }
 .funnel-2026 .f-cmp {
   padding-bottom: 0;
+}
+
+/* ============================================================
+   SCROLL REVEAL — a staged reveal plays as each section scrolls in (driven by
+   <FunnelReveal>):
+     1. the WHOLE section reveals together as one complete unit (fade + rise),
+     2. then the heading BOUNCES in (spring overshoot),
+     3. then the CTA eases in SLOWLY — last, for emphasis.
+
+   The section body lands first and reads as complete; the heading and CTA are
+   held back a beat and given their own accent entrances. Classes are toggled by
+   JS (heading / CTA delay set inline). Only below-the-fold sections ever start
+   hidden, so nothing above the fold flashes. prefers-reduced-motion (and a
+   missing IntersectionObserver) fall back to showing everything, in JS.
+   ============================================================ */
+
+/* SECTION SNAP — each section clicks to the top of the viewport as you scroll
+   (scroll-snap-type is set on <html> by <FunnelReveal>, scoped to this page).
+   `proximity` snap: it settles a section to the top when your scroll comes to
+   rest near it, but never traps you inside a section taller than the screen. */
+.funnel-2026.snap-on > * {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* 1 — the WHOLE section reveals together: one clean fade. Everything not held
+   back (paragraphs, images, lists…) arrives in this single move. Opacity only —
+   NO transform: scroll-snap measures the transformed box, so a section rise
+   here would shift its snap point (and even block reaching the very top). The
+   heading bounce + slow CTA carry the motion instead. */
+.funnel-2026 .reveal-init {
+  opacity: 0;
+}
+.funnel-2026 .reveal-init.reveal-in {
+  opacity: 1;
+  transition: opacity 560ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* NOTE — these reveals animate the INDIVIDUAL `translate` / `scale` properties,
+   NOT the `transform` shorthand. Some targets are centered with their own
+   `transform: translateX(-50%)` (e.g. `.fb-coral__title`); `transform` here
+   would clobber that and shove them off-centre. `translate`/`scale` compose
+   with an existing `transform` instead, so centring is preserved. */
+
+/* 2 — BODY CONTENT (paragraphs, images, lists, quotes): a small, subtle lift so
+   the supporting content moves too — not just the heading + CTA. Short travel,
+   light stagger. On descendants of the section, so it doesn't shift the section's
+   scroll-snap point. */
+.funnel-2026 .reveal-c {
+  opacity: 0;
+  translate: 0 12px;
+}
+.funnel-2026 .reveal-c.reveal-in {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Before & After CARDS: a slower, more graceful reveal than generic body
+   content. It uses a gentle SCALE-in (not a translate) on purpose — the slider
+   clips vertically (overflow-x:auto forces overflow-y:auto), so a card lifting
+   up from below would have its bottom cut off mid-reveal. A card scaling from
+   0.96 is always smaller than its box, so it never reaches the clip edge.
+   Paired with the wide per-card stagger in JS, the cards ease in unhurriedly. */
+.funnel-2026 .reveal-card {
+  translate: none;
+  scale: 0.96;
+}
+.funnel-2026 .reveal-card.reveal-in {
+  scale: none;
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* PRICING CARDS — a clean "open wipe": a clip-path smoothly wipes each card
+   open from the top down, in sequence (staggered via `--rv-delay`). No glow
+   overlay — the earlier pink light-line left an ugly bloom pooling at the
+   bottom. `round 24px` keeps the card's rounded corners while it's clipped. */
+.funnel-2026 .reveal-open {
+  clip-path: inset(0 0 100% 0 round 24px);
+}
+.funnel-2026 .reveal-open.reveal-in {
+  clip-path: inset(0 0 0 0 round 24px);
+  transition: clip-path 950ms cubic-bezier(0.33, 1, 0.68, 1);
+  transition-delay: var(--rv-delay, 0ms);
+  will-change: clip-path;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .reveal-open,
+  .funnel-2026 .reveal-open.reveal-in {
+    clip-path: none;
+    transition: none;
+  }
+}
+
+/* 3 — HEADING: held back, then bounces in a beat after the section (spring
+   overshoot curve). Starts slightly small + low and springs into place. */
+.funnel-2026 .reveal-head {
+  opacity: 0;
+  translate: 0 26px;
+  scale: 0.96;
+}
+.funnel-2026 .reveal-head.reveal-in {
+  opacity: 1;
+  translate: none;
+  scale: none;
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 760ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    scale 760ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 4 — CTA: held back the longest, then arrives SLOWLY — a gentle, drawn-out
+   fade + rise that pulls the eye to the call-to-action last. */
+.funnel-2026 .reveal-cta {
+  opacity: 0;
+  translate: 0 20px;
+}
+.funnel-2026 .reveal-cta.reveal-in {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .reveal-init,
+  .funnel-2026 .reveal-init.reveal-in,
+  .funnel-2026 .reveal-c,
+  .funnel-2026 .reveal-c.reveal-in,
+  .funnel-2026 .reveal-head,
+  .funnel-2026 .reveal-head.reveal-in,
+  .funnel-2026 .reveal-cta,
+  .funnel-2026 .reveal-cta.reveal-in {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   BEFORE & AFTER cards — graceful hover: the card grows a few pixels from the
+   TOP and BOTTOM only (a subtle vertical scale), never wider. `transform-origin:
+   center` makes it expand equally up and down; scaleY(1.02) ≈ 4px each edge on
+   the ~437px cards.
+   ============================================================ */
+.funnel-2026 .ba__cards {
+  /* Room so a hovered card can grow past the track without the horizontal
+     scroller (overflow-x:auto forces overflow-y:auto) clipping its rounded
+     top/bottom. The matching negative margin keeps the section's spacing
+     exactly as before. */
+  padding-block: 8px;
+  margin-block: -8px;
+}
+.funnel-2026 .bacard {
+  transform-origin: center center;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.funnel-2026 .bacard:hover {
+  transform: scaleY(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .bacard {
+    transition: none;
+  }
+  .funnel-2026 .bacard:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   PRICING cards — hover.
+   • The card scales the BOTTOM only: scaleY anchored at the top, so it grows
+     DOWNWARD and never sideways into its neighbours (a uniform scale overlapped
+     the adjacent cards, which looked wrong).
+   • The title + price BOUNCE in (spring pop). Leaving the card returns
+     everything to its previous state. (`.fpcard__btn` keeps its colour hover.)
+   ============================================================ */
+.funnel-2026 .fpcard {
+  transform-origin: top center;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.funnel-2026 .fpcard:hover {
+  transform: scaleY(1.03);
+}
+/* title + price bounce on hover; anchored left so the text stays put */
+.funnel-2026 .fpcard__title,
+.funnel-2026 .fpcard__price {
+  transform-origin: left center;
+}
+.funnel-2026 .fpcard:hover .fpcard__title,
+.funnel-2026 .fpcard:hover .fpcard__price {
+  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes fpcard-pop {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .fpcard {
+    transition: none;
+  }
+  .funnel-2026 .fpcard:hover {
+    transform: none;
+  }
+  .funnel-2026 .fpcard:hover .fpcard__title,
+  .funnel-2026 .fpcard:hover .fpcard__price {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   CANDIDACY cards ("What we treat" / "May not suit").
+   • Hover: the card scales the BOTTOM only (scaleY from the top, so it never
+     overlaps its neighbour) and the title bounces (same spring pop as pricing).
+   • Reveal: the coral "What we treat" brand mark bobs up/down a few times as
+     the section arrives, to catch the eye.
+   ============================================================ */
+.funnel-2026 .f-cand__card {
+  transform-origin: top center;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.funnel-2026 .f-cand__card:hover {
+  transform: scaleY(1.03);
+}
+.funnel-2026 .f-cand__title {
+  transform-origin: left center;
+}
+.funnel-2026 .f-cand__card:hover .f-cand__title {
+  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* coral mark bobs up/down 3 times (settling) ~0.9s after the section reveals */
+.funnel-2026 .f-cand.reveal-in .f-cand__card--treat .f-cand__cardhead svg {
+  animation: cand-mark-bounce 1500ms cubic-bezier(0.3, 0.8, 0.4, 1) 900ms both;
+}
+@keyframes cand-mark-bounce {
+  0%,
+  24%,
+  52%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  12% {
+    transform: translateY(-7px);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  68% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .f-cand__card {
+    transition: none;
+  }
+  .funnel-2026 .f-cand__card:hover {
+    transform: none;
+  }
+  .funnel-2026 .f-cand__card:hover .f-cand__title {
+    animation: none;
+  }
+  .funnel-2026 .f-cand.reveal-in .f-cand__card--treat .f-cand__cardhead svg {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   WHAT'S INCLUDED — the product image and the 8 feature cards.
+   • Cards reveal 1→8 (scale-in via CARD_SELECTOR); each card's HEADING bounces
+     in, staggered to the card's own `--rv-delay`.
+   • The product image sways left↔right a few times on arrival (`.is-sway`) and
+     wobble-rotates on hover.
+   • Card hover: the card scales, and the title + icon bounce.
+   ============================================================ */
+
+/* heading bounces in as its card reveals (card `.reveal-in` is transient — the
+   reveal cleanup removes it — so this never conflicts with the hover bounce) */
+.funnel-2026 .f26-incl__card.reveal-in .f26-incl__ctitle {
+  animation: fpcard-pop 550ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--rv-delay, 300ms) + 250ms);
+}
+
+/* product image — arrival sway (transient class) */
+.funnel-2026 .f26-incl__product.is-sway {
+  animation: incl-product-sway 1500ms cubic-bezier(0.3, 0.8, 0.4, 1) 300ms both;
+}
+@keyframes incl-product-sway {
+  0%,
+  84%,
+  100% {
+    transform: translateX(0);
+  }
+  14% {
+    transform: translateX(-13px);
+  }
+  28% {
+    transform: translateX(9px);
+  }
+  42% {
+    transform: translateX(-6px);
+  }
+  56% {
+    transform: translateX(4px);
+  }
+  70% {
+    transform: translateX(-2px);
+  }
+}
+/* product image — hover wobble (rotate left↔right) */
+.funnel-2026 .f26-incl__product:hover {
+  animation: incl-product-wobble 750ms ease;
+}
+@keyframes incl-product-wobble {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(1.8deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+}
+
+/* feature card hover: scale up (pops above neighbours) + title & icon bounce */
+.funnel-2026 .f26-incl__card {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.funnel-2026 .f26-incl__card:hover {
+  transform: scale(1.04);
+  position: relative;
+  z-index: 1;
+}
+.funnel-2026 .f26-incl__card:hover .f26-incl__ctitle {
+  animation: fpcard-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.funnel-2026 .f26-incl__card:hover .f26-incl__glyph {
+  animation: incl-icon-bounce 620ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes incl-icon-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-7px);
+  }
+  55% {
+    transform: translateY(0);
+  }
+  78% {
+    transform: translateY(-3px);
+  }
+  92% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .f26-incl__card.reveal-in .f26-incl__ctitle,
+  .funnel-2026 .f26-incl__product.is-sway,
+  .funnel-2026 .f26-incl__product:hover,
+  .funnel-2026 .f26-incl__card:hover .f26-incl__ctitle,
+  .funnel-2026 .f26-incl__card:hover .f26-incl__glyph {
+    animation: none;
+  }
+  .funnel-2026 .f26-incl__card {
+    transition: none;
+  }
+  .funnel-2026 .f26-incl__card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   PROOF IN MOTION — video tiles.
+   • Tiles reveal 1→5 (scale-in via CARD_SELECTOR).
+   • As each tile arrives, its play icon wiggles (rotates right↔left ~twice).
+     The wiggle is on the <Play> SVG, NOT the button — the button is centred with
+     `transform: translate(-50%,-50%)` and animating it would break centring.
+     Triggered by the tile's TRANSIENT reveal-in so it can't replay on un-hover.
+   • Hover a tile: the play button pops (spring scale bounce).
+   ============================================================ */
+.funnel-2026 .proof .ptile.reveal-in .ptile__play svg {
+  animation: proof-play-wiggle 900ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--rv-delay, 300ms) + 300ms);
+}
+@keyframes proof-play-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  45% {
+    transform: rotate(-18deg);
+  }
+  70% {
+    transform: rotate(9deg);
+  }
+  88% {
+    transform: rotate(-4deg);
+  }
+}
+/* hover: the play button pops (keeps its centring translate in every frame) */
+.funnel-2026 .proof .ptile:hover .ptile__play {
+  animation: proof-play-pop 620ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes proof-play-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  55% {
+    transform: translate(-50%, -50%) scale(1.16);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-2026 .proof .ptile.reveal-in .ptile__play svg,
+  .funnel-2026 .proof .ptile:hover .ptile__play {
+    animation: none;
+  }
 }
