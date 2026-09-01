@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
+import { stripeEnabled } from '@/lib/stripe';
 import { CheckoutClient } from './CheckoutClient';
 
 export const metadata: Metadata = { title: 'Checkout' };
+export const dynamic = 'force-dynamic';
 
 export default function CheckoutPage() {
   return (
     <div className="co">
-      <h1 className="co__title">Checkout</h1>
-      <CheckoutClient />
+      <CheckoutClient
+        stripeEnabled={stripeEnabled()}
+        publishableKey={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''}
+      />
     </div>
   );
 }
