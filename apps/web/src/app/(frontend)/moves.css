@@ -1765,6 +1765,11 @@
   height: 100%;
   overflow: visible;
 }
+/* Alternate star badge is off by default — only the funnel-2026 mobile view
+   opts in (see funnel-2026.css). */
+.cta__starbadge {
+  display: none;
+}
 .cta__seal-shape {
   fill: var(--coral);
 }

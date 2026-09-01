@@ -85,6 +85,18 @@ export function CtaBanner({ data, variant }: { data?: CtaData; variant?: 'v2' })
               {(data?.badge?.bottomLabel ?? 'days').toUpperCase()}
             </text>
           </svg>
+          {/* Alternate star badge — only rendered on the funnel-2026 mobile view
+              (hidden everywhere else via CSS). Straight two-line label + big
+              number, over the new coral star shape. */}
+          <span className="cta__starbadge">
+            <span className="cta__starbadge-lbl">
+              Money back
+              <br />
+              Guarantee
+            </span>
+            <span className="cta__starbadge-num">30</span>
+            <span className="cta__starbadge-days">days</span>
+          </span>
         </div>
       </div>
     </section>

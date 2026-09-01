@@ -631,10 +631,56 @@
 }
 /* badge: small + contained in the top-right corner (was 307px, overflowing) */
 .funnel-2026 .cta__badge {
-  width: 120px;
+  width: 128px;
   height: 120px;
   top: 28px;
   right: 40px;
+  transform: rotate(15deg);
+}
+/* Desktop money-back badge (funnel-2026): the new coral star + straight text,
+   replacing the SVG arc-seal (Figma 451:1506). The star shows at all sizes on
+   this page; the mobile block overrides the sizes below. Other funnel pages keep
+   the original seal (the star stays display:none from moves.css). */
+.funnel-2026 .cta__badge .cta__seal {
+  display: none;
+}
+.funnel-2026 .cta__badge .cta__starbadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  height: 100%;
+  padding: 24px 0;
+  background: url('/images/funnel2026-guarantee-star.svg') center / contain no-repeat;
+  color: #fff;
+  text-align: center;
+  line-height: 1;
+}
+.funnel-2026 .cta__starbadge-lbl {
+  font-family: var(--f-body);
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
+  white-space: nowrap; /* keep "Money back" / "Guarantee" to their own two lines */
+}
+.funnel-2026 .cta__starbadge-num {
+  font-family: var(--f-body);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -1.07px;
+  text-transform: capitalize;
+  color: #fff;
+}
+.funnel-2026 .cta__starbadge-days {
+  font-family: var(--f-body);
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 
 /* ============================================================
@@ -1020,10 +1066,30 @@
     text-align: center;
   }
   .funnel-2026 .lp26-dentists__photo { max-width: 240px; margin: 0 auto; height: auto; }
-  .funnel-2026 .lp26-dentists__creds { justify-content: center; gap: 28px; }
+  /* Credentials left-aligned on mobile: titles and logo rows follow the left
+     edge rather than centring. */
+  .funnel-2026 .lp26-dentists__creds { justify-content: flex-start; align-items: flex-start; gap: 28px; }
+  .funnel-2026 .lp26-dentists__cred { align-items: flex-start; }
+  .funnel-2026 .lp26-dentists__creds-title { text-align: left; }
   /* stacked columns on mobile — the vertical rule doesn't apply */
   .funnel-2026 .lp26-dentists__creds-div { display: none; }
-  .funnel-2026 .lp26-dentists__logos { justify-content: center; }
+  /* Keep each logo group on ONE row (Figma): don't wrap, tighten the gap, and
+     let the logos scale down together to fit narrow phones instead of dropping
+     King's College to a second line. */
+  .funnel-2026 .lp26-dentists__logos {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
+  .funnel-2026 .lp26-dentists__logos li {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .funnel-2026 .lp26-dentists__logos img {
+    height: auto;
+    max-height: 40px;
+    max-width: 100%;
+  }
   .funnel-2026 .f26-incl { padding: 50px 16px; }
   .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
 }
@@ -1130,15 +1196,25 @@
     display: block;
     order: -1;
     width: 100%;
-    height: 340px;
+    /* larger portrait on mobile to match the Figma reference */
+    height: 440px;
     /* image fades into the navy hero at the bottom (Figma mobile) */
     background:
-      linear-gradient(to bottom, rgba(9, 22, 32, 0) 55%, #091620 100%),
-      url('/images/funnel2026-hero.webp') 72% center / cover no-repeat;
+      linear-gradient(to bottom, rgba(9, 22, 32, 0) 60%, #091620 100%),
+      url('/images/funnel2026-hero.webp') 72% top / cover no-repeat;
   }
   .funnel-2026 .f-hero .hero__media img { display: none; }
   .funnel-2026 .f-hero .hero__left {
     padding: 28px 16px 40px;
+  }
+  /* Figma mobile keeps the hero paragraph (hidden by the shared funnel rule) */
+  .funnel-2026 .f-hero .hero__sub {
+    display: block;
+    margin-top: 12px;
+  }
+  /* nav "Save over 85%…" is Title Case on mobile (sentence case on desktop) */
+  .funnel-2026 .f-nav__save {
+    text-transform: capitalize;
   }
   /* CTA: product kit sits below the copy/button on mobile (Figma) */
   .funnel-2026 .cta { padding-inline: 16px; }
@@ -1150,7 +1226,64 @@
     text-align: left;
   }
   .funnel-2026 .cta__inner { max-width: none; }
-  .funnel-2026 .cta__badge { width: 96px; height: 96px; top: 16px; right: 16px; }
+  /* Money-back seal (Figma mobile): upright coral seal on top of the product
+     image's top-right corner — no longer tilted or overlapping the heading.
+     Desktop keeps the 35° tilt at top-right of the banner. */
+  .funnel-2026 .cta .cta__badge {
+    /* star icon is 131.5px tall in Figma; 99:93 aspect → ~140px wide */
+    width: 140px;
+    height: 131.5px;
+    top: auto;
+    bottom: 200px;
+    right: 20px;
+    /* gentle clockwise tilt to match the Figma mobile layout */
+    transform: rotate(15deg);
+    z-index: 2;
+  }
+  /* swap the SVG arc-seal for the straight-text star badge on mobile */
+  .funnel-2026 .cta__badge .cta__seal {
+    display: none;
+  }
+  .funnel-2026 .cta__badge .cta__starbadge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    width: 100%;
+    height: 100%;
+    padding: 28px 0; /* top/bottom breathing room inside the star */
+    background: url('/images/funnel2026-guarantee-star.svg') center / contain no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+  }
+  .funnel-2026 .cta__starbadge-lbl {
+    font-family: var(--f-body);
+    font-size: 7.45px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: center;
+  }
+  .funnel-2026 .cta__starbadge-num {
+    font-family: var(--f-body);
+    font-size: 26.3px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.88px;
+    text-transform: capitalize;
+    color: #fff;
+    text-align: center;
+  }
+  .funnel-2026 .cta__starbadge-days {
+    font-family: var(--f-body);
+    font-size: 7.45px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: center;
+  }
 }
 
 /* ============================================================
@@ -1187,6 +1320,41 @@
   .funnel-2026 .fpcard__title { font-size: 18px; line-height: 21px; }
   .funnel-2026 .fpcard__price { font-size: 26px; line-height: 26px; }
   .funnel-2026 .btn { font-size: 16px; line-height: 22px; }
+  /* Pricing heading: drop "costs" to a second line on mobile (desktop stays
+     one line). */
+  .funnel-2026 .f-pricing .h-section .c {
+    display: block;
+  }
+  /* Candidacy list items — unify type on mobile (font on the <li> so the fixed
+     -size icons are untouched; colour on the text <span> so the coral checks /
+     crosses keep their own colour). "What we treat" white, "May not suit" navy. */
+  .funnel-2026 .f-cand__card--treat .f-cand__item,
+  .funnel-2026 .f-cand__card--not .f-cand__item {
+    font-family: var(--f-body);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .funnel-2026 .f-cand__card--treat .f-cand__item span {
+    color: #fff;
+  }
+  .funnel-2026 .f-cand__card--not .f-cand__item span {
+    color: #04143a;
+  }
+  /* Proof video tiles (Figma mobile): one full card + half of the next peeking.
+     With the 4px grid gap, (100% - gap) / 1.5 makes the peek exactly half a card. */
+  .funnel-2026 .proof__grid .ptile {
+    flex: 0 0 calc((100% - 4px) / 1.5);
+  }
+  /* Bleed the carousel to the right screen edge: drop the section's right
+     padding (so the grid fills to the edge, peeking card runs off) and hand that
+     16px back to the head so its text keeps a right margin. */
+  .funnel-2026 .proof {
+    padding-right: 0;
+  }
+  .funnel-2026 .proof__head {
+    padding-right: 16px;
+  }
 }
 
 /* ============================================================
