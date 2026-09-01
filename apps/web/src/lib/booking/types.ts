@@ -10,19 +10,50 @@ import { z } from 'zod';
 /** Consultation length, in minutes. Mirrors the GHL calendar's slot duration. */
 export const CONSULT_MINUTES = 45;
 
-/** UK mobile/landline: 0xxxxxxxxxx or +44xxxxxxxxxx, spaces allowed. */
-const UK_PHONE = /^(?:\+?44\s?|0)(?:\d\s?){9,10}$/;
+/** Names: letters (any script) with internal spaces, hyphens or apostrophes —
+ *  e.g. "O'Brien", "Anne-Marie", "van der Berg". No digits or other symbols.
+ *  Must start and end with a letter (2+ chars enforced separately). */
+const NAME_RE = /^\p{L}(?:[\p{L}'’ \-]*\p{L})?$/u;
+
+/** A validated UK mobile in local form: 07 followed by 9 digits (11 total). */
+const UK_MOBILE = /^07\d{9}$/;
+
+/** Reduce any accepted UK mobile spelling to the canonical 0-prefixed form.
+ *  Handles +44 / 0044 / 44 country codes and strips spaces, dashes, brackets.
+ *  GHL's own normaliser converts this 0-prefix back to +44 before sending. */
+function toUkLocal(raw: string): string {
+  const cleaned = raw.replace(/[^\d+]/g, '');
+  if (/^(?:\+44|0044|44)\d{10}$/.test(cleaned)) return '0' + cleaned.replace(/^(?:\+44|0044|44)/, '');
+  return cleaned.replace(/^\+/, '');
+}
 
 /** Step 1 — the lead's details. */
 export const bookingDetailsSchema = z.object({
-  firstName: z.string().trim().min(1, 'Please enter your first name').max(80),
-  lastName: z.string().trim().min(1, 'Please enter your last name').max(80),
-  email: z.string().trim().min(1, 'Please enter your email').email('Please enter a valid email address').max(200),
+  firstName: z
+    .string()
+    .trim()
+    .min(2, 'Please enter your first name (at least 2 letters)')
+    .max(30, 'Please keep your first name under 30 characters')
+    .regex(NAME_RE, 'Use letters only — hyphens and apostrophes are allowed'),
+  lastName: z
+    .string()
+    .trim()
+    .min(2, 'Please enter your last name (at least 2 letters)')
+    .max(30, 'Please keep your last name under 30 characters')
+    .regex(NAME_RE, 'Use letters only — hyphens and apostrophes are allowed'),
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .min(1, 'Please enter your email')
+    .email('Please enter a valid email address')
+    .max(200),
   phone: z
     .string()
     .trim()
     .min(1, 'Please enter your phone number')
-    .regex(UK_PHONE, 'Please enter a valid UK phone number'),
+    .transform(toUkLocal)
+    .refine((v) => UK_MOBILE.test(v), 'Please enter a valid UK phone number'),
   age: z.coerce
     .number({ invalid_type_error: 'Please enter your age' })
     .int('Please enter your age')

@@ -21,19 +21,19 @@ const DENTISTS: Dentist[] = [
   {
     name: 'Dr. Amelia Hart',
     avatar: '/images/f26-dentist-2.png',
-    photo: '/images/f26-dentist-2.png',
+    photo: '/images/f26-dentist-2-big.svg',
     bio: 'Dr. Amelia Hart focuses on aligner-led orthodontics, planning every case in person and signing off each treatment step so patients always know who is responsible for their smile.',
   },
   {
     name: 'Dr. Daniel Cole',
     avatar: '/images/f26-dentist-3.png',
-    photo: '/images/f26-dentist-3.png',
+    photo: '/images/f26-dentist-3-big.svg',
     bio: 'Dr. Daniel Cole combines cosmetic dentistry with a patient-first approach, guiding each MOVES plan from first scan through to the final reveal with clear, honest expectations.',
   },
   {
     name: 'Dr. Sophie Ellis',
     avatar: '/images/f26-dentist-4.png',
-    photo: '/images/f26-dentist-4.png',
+    photo: '/images/f26-dentist-4-big.svg',
     bio: 'Dr. Sophie Ellis is a GDC-registered dentist who reviews progress at every stage, adjusting treatment when needed so results stay on track and feel natural.',
   },
 ];

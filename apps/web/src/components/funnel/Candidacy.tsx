@@ -43,8 +43,10 @@ export function Candidacy() {
         <div className="f-cand__head-l">
           <p className="eyebrow">Candidacy</p>
           <h2 className="h-section f-cand__title-h">
-            <span className="c">Aligners aren&rsquo;t for everyone.</span> Here&rsquo;s the honest
-            list.
+            <span className="c f-cand__hero">Aligners aren&rsquo;t for everyone.</span>{' '}
+            <span className="f-cand__rest">
+              Here&rsquo;s the <span className="f-cand__accent">honest list.</span>
+            </span>
           </h2>
           <p className="lead">
             Not sure where you sit? That&rsquo;s what the free consultation is for. If aligners

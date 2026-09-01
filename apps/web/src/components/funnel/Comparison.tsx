@@ -104,7 +104,11 @@ export function Comparison() {
       <div className="f-cmp__head">
         <p className="eyebrow">US VS THEM</p>
         <h2 className="h-section">
-          Same straight teeth. <span className="c">Three very different bills.</span>
+          Same straight teeth.{' '}
+          <span className="f-cmp__accent">
+            <span className="c c--lead">Three very </span>
+            <span className="c">different bills.</span>
+          </span>
         </h2>
         <p className="lead">
           Most people reading this have either had an Invisalign quote or assumed braces were the

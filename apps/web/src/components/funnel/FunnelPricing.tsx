@@ -70,7 +70,7 @@ export function FunnelPricing() {
         <div className="f-pricing__intro">
           <p className="eyebrow">PRICING</p>
           <h2 className="h-section">
-            <span className="c">Exactly what</span> Moves costs
+            Exactly what Moves <span className="c">costs</span>
           </h2>
           <p className="lead">
             Some brands make you book a call to learn a price. Ours are published. Every package, in

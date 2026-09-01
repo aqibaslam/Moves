@@ -33,7 +33,7 @@ export function WhatsIncluded() {
       </div>
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="f26-incl__product" src="/images/funnel2026-kit.png" alt="The MOVES kit" />
+      <img className="f26-incl__product" src="/images/funnel2026-kit.webp" alt="The MOVES kit" />
 
       <div className="f26-incl__grid">
         {FEATURES.map((f) => (

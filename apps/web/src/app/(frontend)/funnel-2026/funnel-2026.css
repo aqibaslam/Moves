@@ -42,6 +42,114 @@
 .funnel-2026 .fb-coral__eyebrow {
   display: none;
 }
+/* Right-hand aside: the live reference drops the duplicate "Why we're called
+   MOVES" label (the centred eyebrow already says it) and right-aligns the copy. */
+.funnel-2026 .fb-coral__label {
+  display: none;
+}
+/* Desktop only — the mobile layout (≤1200px) centres this aside, so keep these
+   right-aligned, fixed-width specs out of that breakpoint. */
+@media (min-width: 1201px) {
+  .funnel-2026 .fb-coral__aside {
+    align-items: flex-end;
+  }
+  .funnel-2026 .fb-coral__aside .fb-coral__body {
+    width: 275px;
+    max-width: 100%;
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-align: right;
+  }
+  .funnel-2026 .fb-coral__aside .fb-coral__cta {
+    align-self: flex-end;
+  }
+}
+/* Comparison heading: only "different bills." stays coral here; the reference
+   keeps "Three very" navy (other funnel pages leave the whole phrase coral). */
+.funnel-2026 .f-cmp__head .c--lead {
+  color: inherit;
+}
+/* "The names behind the smiles." — the .ink-red accent is only coloured under
+   .lp26; re-apply it here so "smiles." shows coral on this page too. */
+.funnel-2026 .ink-red {
+  color: var(--coral);
+}
+/* Announcement bar: Figma uses #091620 here, not the shared --navy-2. */
+.funnel-2026 .f-announce {
+  background: #091620;
+}
+/* 2026 nav uses the dark MOVES wordmark at its Figma size (128×29 native) —
+   larger than the shared 163×20 rule, and kept at the SVG's own aspect. */
+.funnel-2026 .f-nav__logo {
+  width: 128px;
+  height: 29px;
+}
+/* ============================================================
+   FOOTER (Figma 451:1506) — minimal centred band: white wordmark,
+   one row of links, copyright. Only on /funnel-2026.
+   ============================================================ */
+.funnel-2026 .f26-footer {
+  background: #091620;
+  padding: 56px 24px;
+}
+.funnel-2026 .f26-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+.funnel-2026 .f26-footer__logo {
+  width: auto;
+  height: 30px;
+}
+.funnel-2026 .f26-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.funnel-2026 .f26-footer__links a {
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-decoration: none;
+}
+.funnel-2026 .f26-footer__links a:hover {
+  text-decoration: underline;
+}
+.funnel-2026 .f26-footer__sep {
+  color: var(--coral);
+}
+.funnel-2026 .f26-footer__copy {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.5);
+}
+/* Candidacy heading (reference): two lines — line 1 "Aligners aren't for
+   everyone." navy, line 2 "Here's the honest list." with only "honest list."
+   coral. Other funnel pages keep the first phrase coral (base .c). */
+.funnel-2026 .f-cand__title-h {
+  /* fill the head column (754px) so "Aligners aren't for everyone." fits on
+     one line instead of wrapping — keeps the heading to two lines. */
+  align-self: stretch;
+}
+.funnel-2026 .f-cand__title-h .f-cand__hero {
+  display: block;
+  color: var(--navy);
+}
+.funnel-2026 .f-cand__title-h .f-cand__accent {
+  color: var(--coral);
+}
 /* Before & After testimonial cards: the base uses var(--bg), which is white on
    this page so the cards vanish — give them the Figma light-grey (#f5f5f5), and
    make the quote's left rule coral (not navy). */
@@ -220,7 +328,7 @@
    bar + header stay square. The white nav strip behind shows through the
    notches, so the corners read white (Figma). */
 .funnel-2026 .f-hero {
-  background: #091620 url('/images/funnel2026-hero.png') center right / cover no-repeat;
+  background: #091620 url('/images/funnel2026-hero.webp') center right / cover no-repeat;
   border-radius: 16px 16px 0 0;
   overflow: clip;
 }
@@ -236,10 +344,18 @@
   color: var(--white);
 }
 .funnel-2026 .f-hero .hero__sub {
-  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--f-body); /* Public Sans */
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 .funnel-2026 .f-hero .hero-feat {
-  color: var(--white);
+  font-family: var(--f-body); /* Public Sans */
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 .funnel-2026 .f-hero .hero-cap {
   color: rgba(255, 255, 255, 0.7);
@@ -250,6 +366,24 @@
 .funnel-2026 .f-hero .tp__count,
 .funnel-2026 .f-hero .tp__brand-name {
   color: var(--white);
+}
+/* Trustpilot text → Figma: Public Sans Regular, 17px, -2% tracking, no underline */
+.funnel-2026 .f-hero .tp__label,
+.funnel-2026 .f-hero .tp__count,
+.funnel-2026 .f-hero .tp__count-num,
+.funnel-2026 .f-hero .tp__brand-name {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+/* Nav "Save over 85% on your first month" → plain sentence case (Figma): the
+   source text is already sentence case, so just drop the base uppercase. */
+.funnel-2026 .f-nav__save {
+  text-transform: none;
+  font-variant-caps: normal;
 }
 
 /* ============================================================
@@ -421,7 +555,7 @@
    product kit on the right, badge top-right (Figma).
    ============================================================ */
 .funnel-2026 .cta .cta__banner {
-  background: #091620 url('/images/funnel2026-kit.png') right 40px center / auto 80% no-repeat;
+  background: #091620 url('/images/funnel2026-kit.webp') right 40px center / auto 80% no-repeat;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -455,7 +589,7 @@
     line-height: 48px;
     letter-spacing: -0.0417em;
   }
-  .funnel-2026 .f-cmp__head .h-section .c {
+  .funnel-2026 .f-cmp__head .h-section .f-cmp__accent {
     display: block;
   }
 }
@@ -645,21 +779,22 @@
   color: var(--lp-navy);
 }
 .funnel-2026 .lp26-dentists__sub {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 546px;
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  color: #091620;
 }
 .funnel-2026 .lp26-dentists__avatars {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 4px;
   margin-bottom: 32px;
 }
 .funnel-2026 .lp26-dentists__avatar {
-  width: 92px;
-  height: 116px;
+  width: 120px;
+  height: 184px;
   padding: 0;
   border: 0;
   border-radius: 60px;
@@ -669,7 +804,7 @@
   opacity: 0.6;
   transition: opacity 160ms ease, outline-color 160ms ease;
   outline: 2px solid transparent;
-  outline-offset: 3px;
+  outline-offset: 0;
 }
 .funnel-2026 .lp26-dentists__avatar img { width: 100%; height: 100%; object-fit: cover; }
 /* active avatar: full opacity + a 2px border ring (Figma stroke #001722);
@@ -698,24 +833,31 @@
   object-position: bottom center;
 }
 .funnel-2026 .lp26-dentists__name {
-  margin: 0 0 6px;
-  font-family: var(--f-head);
+  margin: 0 0 8px;
+  font-family: var(--f-body);
   font-weight: 500;
-  font-size: 26px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -2.5px;
+  color: #fff;
 }
 .funnel-2026 .lp26-dentists__role {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   font-family: var(--f-body);
   font-weight: 500;
-  color: var(--coral);
+  font-size: 16px;
+  line-height: 19.5px;
+  letter-spacing: -0.32px;
+  color: #ed3b44;
 }
 .funnel-2026 .lp26-dentists__bio {
-  margin: 0 0 28px;
+  margin: 0 0 24px;
   max-width: 620px;
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 .funnel-2026 .lp26-dentists__creds {
   display: flex;
@@ -740,8 +882,8 @@
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 17px;
-  line-height: 24px;
-  letter-spacing: -0.34px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
   color: var(--white);
 }
 .funnel-2026 .lp26-dentists__logos {
@@ -952,6 +1094,15 @@
 }
 /* Proof section: no eyebrow (Figma "Real smiles, real stories") */
 .funnel-2026 .proof .eyebrow { display: none; }
+/* Heading colour is flipped here: navy base, only the trailing "stories" coral.
+   Drop the capitalize transform so only the literal capitals ("Real") show. */
+.funnel-2026 .proof__title {
+  color: var(--navy);
+  text-transform: none;
+}
+.funnel-2026 .proof__title .ink {
+  color: var(--coral);
+}
 
 @media (max-width: 900px) {
   .funnel-2026 .faqs { flex-direction: column; gap: 28px; }
@@ -978,7 +1129,7 @@
     /* image fades into the navy hero at the bottom (Figma mobile) */
     background:
       linear-gradient(to bottom, rgba(9, 22, 32, 0) 55%, #091620 100%),
-      url('/images/funnel2026-hero.png') 72% center / cover no-repeat;
+      url('/images/funnel2026-hero.webp') 72% center / cover no-repeat;
   }
   .funnel-2026 .f-hero .hero__media img { display: none; }
   .funnel-2026 .f-hero .hero__left {
@@ -989,7 +1140,7 @@
   .funnel-2026 .cta .cta__banner {
     flex-direction: column;
     aspect-ratio: auto;
-    background: #091620 url('/images/funnel2026-kit.png') center bottom 24px / 86% auto no-repeat;
+    background: #091620 url('/images/funnel2026-kit.webp') center bottom 24px / 86% auto no-repeat;
     padding: 40px 16px 250px;
     text-align: left;
   }
@@ -1211,55 +1362,32 @@
 /* Before & After slider cards have NO hover effect (user removed it). They keep
    only their sequential scale-in reveal. */
 
-/* ============================================================
-   CARD HOVER.
-   • CANDIDACY + WHAT'S-INCLUDED: the card PANEL grows a little from the TOP and
-     BOTTOM while the CONTENT stays exactly in place — a background layer
-     (`::after`) extends via top/bottom insets (corners stay round, no scale).
-   • PRICING: a small LIFT instead (the card moves up a touch, no scale/grow).
-   Smooth, quiet, no bounce.
-   ============================================================ */
-.funnel-2026 .f26-incl__card {
-  position: relative;
-  isolation: isolate;
-}
-.funnel-2026 .f26-incl__card::after {
-  content: '';
-  position: absolute;
-  /* explicit edges (not a scale) so the corners stay perfectly round and the
-     panel only ever moves top/bottom — no horizontal or corner artefacts */
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: inherit;
-  border-radius: inherit;
-  z-index: -1;
-  transition:
-    top 360ms cubic-bezier(0.16, 1, 0.3, 1),
-    bottom 360ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.funnel-2026 .f26-incl__card:hover::after {
-  top: -7px;
-  bottom: -7px;
-}
 
-/* PRICING + CANDIDACY cards: a small upward lift on hover (moves up, no scale),
-   with a soft shadow so it reads as lifting off the page. Content moves with the
-   card as one piece — no stretching. */
+/* ============================================================
+   CARD HOVER — ONE consistent effect for every card: a subtle ZOOM-OUT (the card
+   scales down slightly from its centre; content shrinks with it, position
+   unchanged). Same across pricing, candidacy, What's-included and the video
+   tiles. (Before & After slider intentionally has no hover.)
+
+   Uses a plain 2D `scale()` — NOT `scale3d(…1.01)` — on purpose: a z-value forces
+   the card onto a 3D/GPU layer, so its text becomes a GPU-scaled bitmap that
+   stays blurry the whole hover. A 2D scale (and no will-change) lets the browser
+   paint the text crisply at the settled size.
+   ============================================================ */
 .funnel-2026 .fpcard,
-.funnel-2026 .f-cand__card {
-  transition:
-    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1);
+.funnel-2026 .f-cand__card,
+.funnel-2026 .f26-incl__card,
+.funnel-2026 .proof .ptile {
+  transform-origin: center;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .funnel-2026 .fpcard:hover,
-.funnel-2026 .f-cand__card:hover {
-  transform: translateY(-8px);
-  /* negative spread == blur → the shadow has ~no horizontal reach, so the gaps
-     between cards stay clean; it only casts a soft, light shadow BELOW. */
-  box-shadow: 0 9px 18px -18px rgba(4, 20, 58, 0.28);
+.funnel-2026 .f-cand__card:hover,
+.funnel-2026 .f26-incl__card:hover,
+.funnel-2026 .proof .ptile:hover {
+  transform: scale(0.98);
 }
+
 /* fpcard-pop kept — reused by the What's-included heading REVEAL (not hover) */
 @keyframes fpcard-pop {
   0% {
@@ -1274,11 +1402,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .funnel-2026 .fpcard {
+  .funnel-2026 .fpcard,
+  .funnel-2026 .f-cand__card,
+  .funnel-2026 .f26-incl__card,
+  .funnel-2026 .proof .ptile {
     transition: none;
   }
-  .funnel-2026 .fpcard:hover {
+  .funnel-2026 .fpcard:hover,
+  .funnel-2026 .f-cand__card:hover,
+  .funnel-2026 .f26-incl__card:hover,
+  .funnel-2026 .proof .ptile:hover {
     transform: none;
+    box-shadow: none;
   }
 }
 
@@ -1312,20 +1447,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .funnel-2026 .f26-incl__card::after,
-  .funnel-2026 .fpcard,
-  .funnel-2026 .f-cand__card {
-    transition: none;
-  }
-  .funnel-2026 .f26-incl__card:hover::after {
-    top: 0;
-    bottom: 0;
-  }
-  .funnel-2026 .fpcard:hover,
-  .funnel-2026 .f-cand__card:hover {
-    transform: none;
-    box-shadow: none;
-  }
+  /* card lift is disabled in the shared CARD HOVER block above */
   .funnel-2026 .f-cand.reveal-in .f-cand__card--treat .f-cand__cardhead svg {
     animation: none;
   }
@@ -1416,24 +1538,9 @@
     transform: rotate(-4deg);
   }
 }
-/* hover: the tile scales smoothly (scaleY from centre — top + bottom, no
-   sideways overlap with the neighbouring tile). No play-button bounce. */
-.funnel-2026 .proof .ptile {
-  transform-origin: center;
-  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.funnel-2026 .proof .ptile:hover {
-  transform: scaleY(1.02);
-}
-
+/* the tile hover (upward lift) lives in the shared CARD HOVER block above */
 @media (prefers-reduced-motion: reduce) {
   .funnel-2026 .proof .ptile.reveal-in .ptile__play svg {
     animation: none;
-  }
-  .funnel-2026 .proof .ptile {
-    transition: none;
-  }
-  .funnel-2026 .proof .ptile:hover {
-    transform: none;
   }
 }

@@ -9,12 +9,12 @@ const FEATURES = [
   '30-day money-back guarantee',
 ];
 
-export function FunnelHero() {
+export function FunnelHero({ logoSrc = '/images/moves-logo.svg' }: { logoSrc?: string } = {}) {
   return (
     <div className="hero-unit">
       {/* Announcement bar */}
       <div className="f-announce">
-        Every MOVES® smile is signed by a named, GDC-registered dentist.
+        Every MOVES® smile is signed by a GDC-registered dentist.
       </div>
 
       {/* Minimal nav: logo left, "save" text right (no links, no button) */}
@@ -22,7 +22,7 @@ export function FunnelHero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="f-nav__logo"
-          src="/images/moves-logo.svg"
+          src={logoSrc}
           alt="Moves"
           width={163}
           height={20}
@@ -39,12 +39,12 @@ export function FunnelHero() {
             </div>
 
             <h1 className="h-hero">
-              <span className="c">The smile</span>{' '}you&rsquo;ve been putting off
+              The smile you&rsquo;ve been <span className="c">putting off</span>
             </h1>
 
             <p className="hero__sub">
               Clear aligners planned in person and signed by a named, GDC-registered dentist. Prices
-              published below.
+              published on this page. Aftercare that checks on you before you have to ask.
             </p>
           </div>
 
@@ -61,9 +61,6 @@ export function FunnelHero() {
             <a className="btn btn--navy" href={BOOKING_PATH} style={{ width: 254 }}>
               Book Free Consultation
             </a>
-            <p className="hero-cap">
-              Free, online, no pressure. If aligners aren&rsquo;t right for you, we&rsquo;ll say so.
-            </p>
           </div>
         </div>
 

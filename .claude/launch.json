@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@moves/web", "dev"],
       "port": 3000
+    },
+    {
+      "name": "convertt-site",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d C:\\Users\\DELL\\Documents\\convertt-site-main && npm run dev"],
+      "port": 3010
     }
   ]
 }

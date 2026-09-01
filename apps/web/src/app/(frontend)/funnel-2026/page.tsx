@@ -19,7 +19,8 @@ import { BeforeAfters } from '@/components/landing/BeforeAfters';
 import { CtaBanner } from '@/components/landing/CtaBanner';
 import { ProofInMotion } from '@/components/landing/ProofInMotion';
 import { Faqs } from '@/components/landing/Faqs';
-import { FooterDark } from '@/components/landing2026/FooterDark';
+import { FunnelFooter } from '@/components/funnel2026/FunnelFooter';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 export const metadata: Metadata = {
   title: 'Save over 85% on your first month',
@@ -35,16 +36,16 @@ export const metadata: Metadata = {
 export default function Funnel2026Page() {
   return (
     <div className="moves-page funnel-page funnel-2026">
-      <FunnelHero />
+      <FunnelHero logoSrc="/images/moves-logo-2026.png" />
       <BeforeAfters />
       <CoralBand variant="2026" />
       <FunnelPricing />
-      <ThreeMoves />
+      <ThreeMoves data={{ heading: { pre: 'You move, in three', accent: 'moves' } }} />
       <Comparison />
       <Candidacy />
       <WhatsIncluded />
       <DentistNames />
-      <ProofInMotion />
+      <ProofInMotion data={{ heading: { accent: 'Real smiles, real', rest: 'stories' } }} />
       <CtaBanner
         data={{
           heading: { rest: 'Your smile. ', accent: 'Our signature.' },
@@ -57,10 +58,10 @@ export default function Funnel2026Page() {
           heading: { accent: 'Frequently asked', rest: 'questions' },
           description:
             'Here are some of the most common questions about clear aligners, answered by our experts to help you make an informed decision.',
-          cta: { label: 'Book Free Consultation' },
+          cta: { label: 'Book Free Consultation', href: BOOKING_PATH },
         }}
       />
-      <FooterDark />
+      <FunnelFooter />
       {/* drives the scroll-reveal entrance of each section above (client-only) */}
       <FunnelReveal />
     </div>

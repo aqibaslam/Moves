@@ -24,6 +24,38 @@ const EMPTY: Values = {
 
 type Errors = Partial<Record<keyof Values, string>>;
 
+/** Live name-input filter: allow only letters (any script), spaces, hyphens
+ *  and apostrophes as they type — digits and other symbols never appear. */
+function filterNameInput(raw: string): string {
+  return raw.replace(/[^\p{L}'’ \-]/gu, '');
+}
+
+/** Live phone-input filter: allow only digits and standard formatting
+ *  characters ("+", spaces, dashes, brackets) — never letters — and stop
+ *  accepting digits once the max valid length is reached (11 for a 0-prefixed
+ *  number, 12 for a +44 number, i.e. 10 national digits either way). */
+function filterPhoneInput(raw: string): string {
+  const allowed = raw.replace(/[^\d+\s().-]/g, '');
+  const maxDigits = allowed.trimStart().startsWith('+') ? 12 : 11;
+  let out = '';
+  let digits = 0;
+  let plusUsed = false;
+  for (const ch of allowed) {
+    if (ch === '+') {
+      if (plusUsed || out.replace(/\s/g, '').length > 0) continue; // only a leading +
+      plusUsed = true;
+      out += ch;
+    } else if (ch >= '0' && ch <= '9') {
+      if (digits >= maxDigits) continue; // budget spent — ignore extra digits
+      digits += 1;
+      out += ch;
+    } else {
+      out += ch; // spaces, dashes, brackets pass through
+    }
+  }
+  return out;
+}
+
 export function Step1Details({
   initial,
   onNext,
@@ -78,7 +110,8 @@ export function Step1Details({
           value={values.firstName}
           error={errors.firstName}
           autoComplete="given-name"
-          onChange={(v) => set('firstName', v)}
+          maxLength={30}
+          onChange={(v) => set('firstName', filterNameInput(v))}
         />
         <Field
           id="lastName"
@@ -86,7 +119,8 @@ export function Step1Details({
           value={values.lastName}
           error={errors.lastName}
           autoComplete="family-name"
-          onChange={(v) => set('lastName', v)}
+          maxLength={30}
+          onChange={(v) => set('lastName', filterNameInput(v))}
         />
       </div>
 
@@ -97,7 +131,7 @@ export function Step1Details({
         value={values.email}
         error={errors.email}
         autoComplete="email"
-        onChange={(v) => set('email', v)}
+        onChange={(v) => set('email', v.toLowerCase())}
       />
 
       <div className="bk-grid">
@@ -105,11 +139,13 @@ export function Step1Details({
           id="phone"
           label="Phone number"
           type="tel"
+          inputMode="tel"
           placeholder="07XXX XXXXXX"
           value={values.phone}
           error={errors.phone}
           autoComplete="tel"
-          onChange={(v) => set('phone', v)}
+          maxLength={16}
+          onChange={(v) => set('phone', filterPhoneInput(v))}
         />
         <Field
           id="age"
@@ -151,6 +187,7 @@ function Field({
   inputMode,
   hint,
   optional,
+  maxLength,
 }: {
   id: keyof Values;
   label: string;
@@ -163,6 +200,7 @@ function Field({
   inputMode?: 'numeric' | 'text' | 'tel' | 'email';
   hint?: string;
   optional?: boolean;
+  maxLength?: number;
 }) {
   const errorId = `${id}-error`;
   const hintId = `${id}-hint`;
@@ -181,6 +219,7 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         inputMode={inputMode}
+        maxLength={maxLength}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : hint ? hintId : undefined}
         onChange={(e) => onChange(e.target.value)}

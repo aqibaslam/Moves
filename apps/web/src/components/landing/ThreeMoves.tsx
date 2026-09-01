@@ -24,18 +24,22 @@ const STEPS = [
 ];
 
 export interface ThreeMovesData {
-  heading?: { accent?: string; rest?: string };
+  /* `pre` renders as plain text before the red accent; `rest` after it.
+     Default keeps the original "[You move,] in three moves" (accent first). */
+  heading?: { pre?: string; accent?: string; rest?: string };
   subtext?: string;
   button?: { label?: string; href?: string };
 }
 
 export function ThreeMoves({ data }: { data?: ThreeMovesData }) {
+  const h = data?.heading;
   return (
     <section className="card-section moves3">
       <div className="moves3__intro">
         <h2 className="moves3__title">
-          <span className="c">{data?.heading?.accent ?? 'You move,'}</span>{' '}
-          {data?.heading?.rest ?? 'in three moves'}
+          {h?.pre ? <>{h.pre} </> : null}
+          <span className="c">{h?.accent ?? 'You move,'}</span>
+          {h?.pre ? null : <>{' '}{h?.rest ?? 'in three moves'}</>}
         </h2>
         <p className="moves3__sub">
           {data?.subtext ??

@@ -28,7 +28,7 @@ export function CoralBand({ variant }: { variant?: '2026' } = {}) {
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               className="fb-coral__composite"
-              src="/images/funnel2026-coral-figure.png"
+              src="/images/funnel2026-coral-figure.webp"
               alt="A person smiling"
             />
           ) : (
