@@ -661,12 +661,13 @@
     background-position: right 32px center;
   }
 }
-/* badge: small + contained in the top-right corner (was 307px, overflowing) */
+/* badge (desktop): sized to fit its text (the raw Figma 269.9px was an oversized
+   blob at our banner scale). 99:93 star aspect kept. */
 .funnel-2026 .cta__badge {
-  width: 128px;
-  height: 120px;
-  top: 28px;
-  right: 40px;
+  width: 196px;
+  height: 184px;
+  top: 44px;
+  right: 44px;
   transform: rotate(15deg);
 }
 /* Desktop money-back badge (funnel-2026): the new coral star + straight text,
@@ -681,7 +682,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  gap: 2px;
   width: 100%;
   height: 100%;
   padding: 24px 0;
@@ -692,7 +693,7 @@
 }
 .funnel-2026 .cta__starbadge-lbl {
   font-family: var(--f-body);
-  font-size: 9px;
+  font-size: 15.29px;
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: #fff;
@@ -700,16 +701,16 @@
 }
 .funnel-2026 .cta__starbadge-num {
   font-family: var(--f-body);
-  font-size: 32px;
+  font-size: 53.98px;
   font-weight: 500;
   line-height: 1.1;
-  letter-spacing: -1.07px;
+  letter-spacing: -1.8px;
   text-transform: capitalize;
   color: #fff;
 }
 .funnel-2026 .cta__starbadge-days {
   font-family: var(--f-body);
-  font-size: 9px;
+  font-size: 15.29px;
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: #fff;
@@ -1262,9 +1263,9 @@
      image's top-right corner — no longer tilted or overlapping the heading.
      Desktop keeps the 35° tilt at top-right of the banner. */
   .funnel-2026 .cta .cta__badge {
-    /* star icon is 131.5px tall in Figma; 99:93 aspect → ~140px wide */
-    width: 140px;
-    height: 131.5px;
+    /* sized to fit its text (raw Figma 131.5px was an oversized blob) */
+    width: 100px;
+    height: 94px;
     top: auto;
     bottom: 200px;
     right: 20px;
@@ -1284,7 +1285,7 @@
     gap: 1px;
     width: 100%;
     height: 100%;
-    padding: 28px 0; /* top/bottom breathing room inside the star */
+    padding: 12px 0; /* top/bottom breathing room inside the star */
     background: url('/images/funnel2026-guarantee-star.svg') center / contain no-repeat;
     color: #fff;
     text-align: center;
