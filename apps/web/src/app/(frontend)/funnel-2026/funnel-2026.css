@@ -898,14 +898,18 @@
   cursor: pointer;
   background: #e4e4e4;
   opacity: 0.6;
-  transition: opacity 160ms ease, outline-color 160ms ease;
-  outline: 2px solid transparent;
-  outline-offset: 0;
+  transition: opacity 160ms ease, outline-color 160ms ease, background 160ms ease;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
 }
 .funnel-2026 .lp26-dentists__avatar img { width: 100%; height: 100%; object-fit: cover; }
 /* active avatar: full opacity + a 2px border ring (Figma stroke #001722);
    inactive stay dimmed so the selected one always reads as active */
-.funnel-2026 .lp26-dentists__avatar.is-active { opacity: 1; outline-color: #001722; }
+.funnel-2026 .lp26-dentists__avatar.is-active {
+  opacity: 1;
+  background: #f4f5f7;
+  outline-color: #001722; /* Figma: 1px inside stroke, drawn over the image */
+}
 .funnel-2026 .lp26-dentists__card {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
