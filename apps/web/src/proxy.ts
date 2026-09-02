@@ -14,46 +14,13 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 
-/**
- * Launch gate — everyone hits a password wall (/password) until they enter the
- * shared password, which sets the `moves_gate` cookie. Kept in sync with
- * app/(frontend)/password/actions.ts.
- */
-const GATE_COOKIE = 'moves_gate';
-const GATE_TOKEN = 'unlocked';
-
 /** Payload's default auth cookie (no cookiePrefix is configured). */
 const AUTH_COOKIE = 'payload-token';
-
-function isGateExempt(pathname: string): boolean {
-  return (
-    pathname === '/password' ||
-    pathname.startsWith('/password/') ||
-    pathname === '/lock' || // clears the gate cookie, then redirects to /password
-    pathname.startsWith('/api') || // Payload API (+ server-action posts)
-    pathname.startsWith('/cms') || // Payload admin UI has its own auth
-    pathname === '/login' || // Moves dashboard sign-in
-    pathname.startsWith('/admin') || // Moves staff dashboard has its own auth
-    pathname.startsWith('/_next') ||
-    pathname === '/favicon.ico'
-  );
-}
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Password wall: block everything but the exemptions until unlocked.
-  if (!isGateExempt(pathname)) {
-    const unlocked = request.cookies.get(GATE_COOKIE)?.value === GATE_TOKEN;
-    if (!unlocked) {
-      const to = request.nextUrl.clone();
-      to.pathname = '/password';
-      to.search = '';
-      to.searchParams.set('from', pathname + request.nextUrl.search);
-      return NextResponse.redirect(to);
-    }
-  }
-
+  // Launch gate removed — the site is public. The dashboard keeps its own auth.
   if (pathname.startsWith('/admin') && !request.cookies.get(AUTH_COOKIE)) {
     const to = request.nextUrl.clone();
     to.pathname = '/login';

@@ -22,7 +22,13 @@ const FALLBACK_NAV = [
   { label: 'The movers', href: '#' },
 ];
 
-export function Header({ data }: { data?: HeaderData }) {
+export function Header({
+  data,
+  logoSrc = '/images/moves-logo.svg',
+}: {
+  data?: HeaderData;
+  logoSrc?: string;
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = data?.navLinks?.length ? data.navLinks : FALLBACK_NAV;
@@ -49,7 +55,7 @@ export function Header({ data }: { data?: HeaderData }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="nav__logo"
-          src="/images/moves-logo.svg"
+          src={logoSrc}
           alt="Moves"
           width={163}
           height={20}

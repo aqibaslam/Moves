@@ -6,10 +6,9 @@ import { BOOKING_PATH } from '@/lib/booking/links';
 export function HeroBig() {
   return (
     <section className="lp26-hero">
-      {/* oversized wordmark behind the portrait */}
-      <span className="lp26-hero__mark" aria-hidden="true">
-        MOVES<sup>&reg;</sup>
-      </span>
+      {/* oversized wordmark behind the portrait (Figma "image 2947 [Vectorized]") */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="lp26-hero__mark" src="/images/lp26-hero-wordmark.svg" alt="" aria-hidden="true" />
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="lp26-hero__photo" src="/images/lp26-hero.png" alt="A person holding a clear aligner" />

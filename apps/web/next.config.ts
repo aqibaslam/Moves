@@ -39,6 +39,17 @@ const nextConfig: NextConfig = {
   // Promoted out of `experimental` in Next 16.
   typedRoutes: true,
 
+  // Home page: serve the funnel-2026 page at the root URL (movesuk.com/) while
+  // keeping the clean "/" path. `beforeFiles` runs before the filesystem route,
+  // so it overrides the existing app/(frontend)/page.tsx at "/".
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: '/', destination: '/funnel-2026' }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
+
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });

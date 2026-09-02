@@ -85,26 +85,15 @@
 }
 .lp26-hero__mark {
   position: absolute;
-  top: 8%;
+  top: 6%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 0;
-  font-family: var(--f-head);
-  font-weight: 500;
-  font-size: clamp(120px, 24vw, 360px);
-  line-height: 0.8;
-  letter-spacing: -0.03em;
-  white-space: nowrap;
-  background: linear-gradient(180deg, #e9edf5 0%, #9aa6bd 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  width: 93%; /* Figma wordmark 1341/1440 ≈ 93% of the hero width */
+  max-width: 1341px;
+  height: auto;
   user-select: none;
   pointer-events: none;
-}
-.lp26-hero__mark sup {
-  font-size: 0.2em;
-  vertical-align: super;
 }
 .lp26-hero__photo {
   position: absolute;
@@ -130,12 +119,193 @@
 }
 .lp26-hero__title {
   margin: 0 0 28px;
-  font-family: var(--f-head);
-  font-weight: 500;
-  font-size: clamp(36px, 4vw, 60px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-family: var(--f-head); /* Glacial Indifference */
+  font-weight: 400; /* Figma: Regular */
+  font-size: clamp(36px, 4.6vw, 64px); /* Figma desktop 64px */
+  line-height: 1; /* Figma 64/64 = 100% */
+  letter-spacing: -0.025em; /* Figma -1.61px @ 64px */
   color: var(--white);
+}
+/* Figma hero headline is entirely white (no coral accent on "smile.") */
+.lp26-hero__title .ink-red {
+  color: var(--white);
+}
+/* Header logo: the Figma dark MOVES® wordmark (128×28), not the shared red one.
+   Sized at the logo's own aspect so it isn't stretched by the base 163×20. */
+.lp26 .nav__logo {
+  width: 124px;
+  height: 28px;
+}
+
+/* Headings on landing-2026 use Glacial Indifference (Figma). The base
+   `.moves-page.landing-2` maps --f-head to Google Sans/Inter, so remap it here
+   at higher specificity for the whole page. */
+.moves-page.landing-2.lp26 {
+  --f-head: var(--font-glacial), 'Glacial Indifference', Georgia, serif;
+  /* body/descriptions are Public Sans in Figma (base landing maps this to Inter) */
+  --f-body: var(--font-public-sans), -apple-system, system-ui, sans-serif;
+}
+
+/* ============================================================
+   ALL SECTION HEADINGS — Figma 413:9263: Glacial Indifference 400, 48/48/-2px.
+   Colour is #091620 on light sections, white on the dark ones (NotAligner,
+   SmileInMotion). Scoped to .lp26 so no other page is affected.
+   ============================================================ */
+.lp26 :is(
+  .h-section,
+  .lp26-nac__title,
+  .lp26-alone__title,
+  .lp26-dentists__title,
+  .proof__title,
+  .faqs__title,
+  .lp26-motion__title
+) {
+  font-family: var(--f-head); /* Glacial Indifference */
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 48px;
+  letter-spacing: -2px;
+}
+.lp26 :is(
+  .problem .h-section,
+  .pricing .h-section,
+  .lp26-alone__title,
+  .lp26-dentists__title,
+  .proof__title,
+  .faqs__title
+) {
+  font-weight: 400; /* Figma: Glacial Regular (some base rules force 600) */
+  color: #091620;
+}
+.lp26 .lp26-nac__title,
+.lp26 .lp26-motion__title {
+  color: #fff;
+}
+
+/* ============================================================
+   ALL SECTION DESCRIPTIONS — Figma: Public Sans 400, 17/23.8px, -0.34px.
+   Colour #091620 on light sections, white on the dark ones.
+   ============================================================ */
+.lp26 :is(
+  .lead,
+  .lp26-nac__lead,
+  .lp26-alone__sub,
+  .lp26-dentists__sub,
+  .faqs__desc
+) {
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 23.8px;
+  letter-spacing: -0.34px;
+}
+.lp26 :is(
+  .pricing .lead,
+  .proof .lead,
+  .problem .lead,
+  .lp26-alone__sub,
+  .faqs__desc
+) {
+  font-size: 17px; /* re-assert at higher specificity (some base rules force 16px) */
+  line-height: 23.8px;
+  color: #091620;
+}
+.lp26 .lp26-nac__lead,
+.lp26 .lp26-dentists__sub {
+  color: #fff;
+}
+/* SmileInMotion testimonial quote — Figma 20/28/-0.4, white */
+.lp26 .lp26-motion__quote {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: #fff;
+}
+
+/* ============================================================
+   CTA buttons — Figma: Public Sans 500, 17/23.8px, -0.34px.
+   Nav "Book A Consultation" is larger (18/25.3px, -1px).
+   ============================================================ */
+.lp26 .btn {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 23.8px;
+  letter-spacing: -0.34px;
+}
+.lp26 .nav__cta {
+  font-size: 18px;
+  line-height: 25.3px;
+  letter-spacing: -1px;
+}
+/* FAQ CTA has a base 16px rule at higher specificity — re-assert 17px */
+.lp26 .faqs .faqs__cta {
+  font-size: 17px;
+}
+
+/* ============================================================
+   SECTION 3 — Before & Afters ("Real moves. Signed."). Type matched to
+   Figma 413:9263. Scoped to .lp26 so the shared component is unchanged elsewhere.
+   ============================================================ */
+.lp26 .reviews2__head .eyebrow {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14.5px;
+  letter-spacing: 1px;
+  color: #fc5257;
+}
+/* Figma heading font is "Test National 2" 700 — using Glacial as a placeholder
+   until the licensed file is added, then swap the font-family here. */
+.lp26 .reviews2__head .reviews2__title,
+.lp26 .reviews2__head .reviews2__title .c {
+  font-family: var(--f-head); /* Glacial Indifference */
+  font-weight: 400; /* match the other section headings */
+  font-size: 48px;
+  line-height: 48px;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.lp26 .reviews2__sub {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 23.8px;
+  letter-spacing: -0.34px;
+  color: #091620;
+}
+.lp26 .r2card__tag {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  color: #fff;
+}
+.lp26 .r2card__name {
+  font-family: var(--f-head); /* Glacial Indifference */
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.6px;
+  letter-spacing: -0.38px;
+  color: #091620;
+}
+.lp26 .r2card__quote {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: -0.28px;
+  color: #091620;
+}
+.lp26 .r2card__signed {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: -0.28px;
+  color: rgba(9, 22, 32, 0.4);
 }
 
 /* ============================================================

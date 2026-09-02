@@ -41,7 +41,7 @@ export default async function Home2026() {
   return (
     <div className="moves-page landing-2 lp26">
       <div className="hero-unit lp26-hu">
-        <Header data={site.header as HeaderData} />
+        <Header data={site.header as HeaderData} logoSrc="/images/lp26-logo.png" />
         <div className="lp26-hero-frame">
           <HeroBig />
         </div>
