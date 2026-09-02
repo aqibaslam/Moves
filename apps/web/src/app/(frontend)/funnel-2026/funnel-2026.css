@@ -260,12 +260,38 @@
   font-size: 64px;
   line-height: 70px;
   letter-spacing: -1.61px;
+  /* sentence case (only the first word capital) — override the base
+     .h-hero capitalize which would Title-Case every word */
+  text-transform: none;
 }
 /* section headings — Glacial 48/48/-2 (tight leading) */
 .funnel-2026 .h-section {
   font-size: 48px;
   line-height: 48px;
   letter-spacing: -2px;
+}
+/* Before & After heading "Real moves. Signed." — sentence case, not the base
+   Title-Case (capitalize) which would render "Real Moves. Signed." */
+.funnel-2026 .ba .h-section {
+  text-transform: none;
+}
+/* Pricing heading "Exactly what moves costs" — sentence case, overriding the
+   base f-pricing__intro capitalize. */
+.funnel-2026 .f-pricing__intro .h-section {
+  text-transform: none;
+}
+/* Comparison heading "Same straight teeth. Three very different bills." —
+   sentence case, not Title-Case. */
+.funnel-2026 .f-cmp__head .h-section {
+  text-transform: none;
+}
+/* colour flip here: "Real moves." navy, only "Signed." coral (other pages keep
+   the base — "Real moves." coral). */
+.funnel-2026 .ba .h-section .c {
+  color: var(--navy);
+}
+.funnel-2026 .ba .h-section .ba__rest {
+  color: var(--coral);
 }
 /* primary body copy — Public Sans 17/24/-0.34, ink #091620 */
 .funnel-2026 :is(.lead, .fpcard__best, .fpcard__treat, .f-cand__item, .faq__answer) {
@@ -357,6 +383,7 @@
 }
 .funnel-2026 .f-hero .hero-feat {
   font-family: var(--f-body); /* Public Sans */
+  font-weight: 500;
   font-size: 17px;
   line-height: 1.4; /* 140% */
   letter-spacing: -0.02em;
@@ -389,6 +416,11 @@
 .funnel-2026 .f-nav__save {
   text-transform: none;
   font-variant-caps: normal;
+  font-family: var(--f-body); /* Public Sans */
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em;
+  color: #091620;
 }
 
 /* ============================================================

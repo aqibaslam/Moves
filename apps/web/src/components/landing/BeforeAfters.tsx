@@ -190,7 +190,7 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
         <p className="eyebrow">{data?.eyebrow ?? 'BEFORE AND AFTERS'}</p>
         <h2 className="h-section">
           <span className="c">{data?.heading?.accent ?? 'Real moves.'}</span>{' '}
-          {data?.heading?.rest ?? 'Signed.'}
+          <span className="ba__rest">{data?.heading?.rest ?? 'Signed.'}</span>
         </h2>
         <p className="lead">
           {data?.subtext ??

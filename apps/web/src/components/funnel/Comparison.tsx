@@ -112,7 +112,9 @@ export function Comparison() {
         </h2>
         <p className="lead">
           Most people reading this have either had an Invisalign quote or assumed braces were the
-          only affordable option. Here is how the three compare, side by side.
+          only option. Both work; dentists have straightened millions of smiles with them.
+          Here&rsquo;s what actually differs: the price, what&rsquo;s included, and who&rsquo;s
+          watching between appointments.
         </p>
       </div>
 
