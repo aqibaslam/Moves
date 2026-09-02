@@ -610,9 +610,18 @@
   width: auto;
   max-width: 460px;
   z-index: 1;
+  /* per-element gaps (title→description 20px, description→button 50px) instead
+     of the base uniform 32px */
+  gap: 0;
 }
 .funnel-2026 .cta__title {
   color: var(--white);
+}
+.funnel-2026 .cta__inner .cta__sub {
+  margin-top: 20px;
+}
+.funnel-2026 .cta__inner .btn {
+  margin-top: 50px;
 }
 /* Desktop: "Your smile. Our signature." on one line (Figma); Comparison
    heading "…Three very different bills." drops to a second line. */
@@ -634,7 +643,10 @@
   color: var(--coral);
 }
 .funnel-2026 .cta__sub {
-  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--f-body); /* Public Sans */
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 /* Blue band sits on the 1320 content grid — its edges line up with the video
    and FAQ sections (60px inset each side of the 1440 grid, Figma 451:2638). */
@@ -1145,6 +1157,8 @@
   flex: 0 0 38%;
   text-align: left;
   align-items: flex-start;
+  /* gaps come from the title/desc margins (20px, 40px), not a uniform flex gap */
+  gap: 0;
   /* left column sticks in view while you scroll the questions, releasing when
      the section ends (natural sticky). Desktop only — reset to static on mobile
      where the layout stacks. */
@@ -1160,16 +1174,18 @@
 .funnel-2026 .faqs .eyebrow { display: none; }
 .funnel-2026 .faqs__title {
   color: var(--lp-navy);
-  margin: 0 0 16px;
+  margin: 0 0 20px; /* 20px gap to the description */
+  text-transform: none; /* sentence case, like the other headings */
 }
 .funnel-2026 .faqs__title .ink { color: var(--coral); }
 .funnel-2026 .faqs__desc {
-  margin: 0 0 28px;
+  margin: 0 0 40px; /* 40px gap to the CTA */
   max-width: 420px;
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em;
+  color: #091620;
 }
 .funnel-2026 .faqs__cta {
   background: var(--coral);
@@ -1209,9 +1225,23 @@
 }
 
 @media (max-width: 900px) {
-  .funnel-2026 .faqs { flex-direction: column; gap: 28px; }
-  .funnel-2026 .faqs__head { flex-basis: auto; width: 100%; position: static; }
-  .funnel-2026 .faqs__desc { max-width: none; }
+  .funnel-2026 .faqs { flex-direction: column; gap: 0; }
+  /* Figma mobile order: heading → description → questions → CTA. Flatten the
+     head so its children join the column, then push the CTA below the list. */
+  .funnel-2026 .faqs__head { display: contents; }
+  .funnel-2026 .faqs__title {
+    margin: 0 0 8px;
+    align-self: stretch; /* full width so the centred text actually centres */
+    text-align: center;
+  }
+  .funnel-2026 .faqs__desc {
+    max-width: none;
+    margin: 0 0 24px;
+    align-self: stretch;
+    text-align: center;
+  }
+  .funnel-2026 .faqs__list { margin: 0 0 28px; }
+  .funnel-2026 .faqs__cta { order: 1; align-self: center; }
 }
 
 /* ============================================================
