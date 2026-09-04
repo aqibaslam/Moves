@@ -59,7 +59,18 @@ export default async function Home2026() {
         }}
       />
       <NotAligner />
-      <Pricing data={site.pricing as PricingData} />
+      <Pricing
+        accentLast
+        solidCheck
+        data={{
+          ...(site.pricing as PricingData),
+          // Figma 2026: title-case heading, only "Costs" in coral (accent last),
+          // no "PRICING" eyebrow (hidden via CSS), and the published-pricing blurb.
+          heading: { rest: 'Exactly What Moves', accent: 'Costs' },
+          subtext:
+            'Some brands make you book a call to learn a price. Ours are published. Every package, in full, before you’ve given us so much as an email address. That’s it. That’s the section.',
+        }}
+      />
       <MoveAlone />
       <DentistNames />
       <ProofInMotion data={site.proof as ProofData} />

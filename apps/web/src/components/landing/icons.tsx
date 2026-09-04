@@ -34,6 +34,19 @@ export function Check() {
   );
 }
 
+/** Solid filled tick — Figma pricing feature list (12×8). Uses currentColor
+    so the colour is set in CSS (dark #091620 on landing-2026). */
+export function CheckTick() {
+  return (
+    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+      <path
+        d="M4.00474 8C3.75188 8 3.51166 7.89885 3.33465 7.72185L0.27499 4.66219C-0.0916634 4.29553 -0.0916634 3.68866 0.27499 3.32201C0.641644 2.95535 1.24852 2.95535 1.61517 3.32201L4.00474 5.71158L9.44133 0.27499C9.80798 -0.0916634 10.4149 -0.0916634 10.7815 0.27499C11.1482 0.641644 11.1482 1.24852 10.7815 1.61517L4.67483 7.72185C4.49783 7.89885 4.25761 8 4.00474 8Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export function Play() {
   return (
     <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" aria-hidden="true">

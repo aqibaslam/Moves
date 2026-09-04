@@ -1,4 +1,4 @@
-import { Check } from './icons';
+import { Check, CheckTick } from './icons';
 import { mediaUrl, mediaAlt } from '@/lib/media';
 import { BOOKING_PATH } from '@/lib/booking/links';
 
@@ -31,7 +31,7 @@ interface Plan {
   variant: string;
 }
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({ plan, solidCheck = false }: { plan: Plan; solidCheck?: boolean }) {
   const pink = plan.variant === 'pink';
   const btnClass = pink ? 'btn--coral' : 'btn--navy';
   return (
@@ -54,7 +54,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       <div className="pcard__feats">
         {plan.features.map((f, i) => (
           <span className="feat" key={i}>
-            <Check />
+            {solidCheck ? <CheckTick /> : <Check />}
             {f}
           </span>
         ))}
@@ -92,7 +92,15 @@ const FALLBACK_PLANS: Plan[] = [
   },
 ];
 
-export function Pricing({ data }: { data?: PricingData }) {
+export function Pricing({
+  data,
+  accentLast = false,
+  solidCheck = false,
+}: {
+  data?: PricingData;
+  accentLast?: boolean;
+  solidCheck?: boolean;
+}) {
   const plans: Plan[] = data?.plans?.length
     ? data.plans.map((p) => ({
         title: p.title ?? '',
@@ -113,8 +121,17 @@ export function Pricing({ data }: { data?: PricingData }) {
         <div className="pricing__head">
           <p className="eyebrow">{data?.eyebrow ?? 'PRICING'}</p>
           <h2 className="h-section">
-            <span className="c">{data?.heading?.accent ?? 'Exactly what'}</span>{' '}
-            {data?.heading?.rest ?? 'Moves costs'}
+            {accentLast ? (
+              <>
+                {data?.heading?.rest ?? 'Exactly what moves'}{' '}
+                <span className="c">{data?.heading?.accent ?? 'costs'}</span>
+              </>
+            ) : (
+              <>
+                <span className="c">{data?.heading?.accent ?? 'Exactly what'}</span>{' '}
+                {data?.heading?.rest ?? 'Moves costs'}
+              </>
+            )}
           </h2>
           <p className="lead">
             {data?.subtext ??
@@ -124,7 +141,7 @@ export function Pricing({ data }: { data?: PricingData }) {
 
         <div className="pricing__cards">
           {plans.map((plan, i) => (
-            <PlanCard key={i} plan={plan} />
+            <PlanCard key={i} plan={plan} solidCheck={solidCheck} />
           ))}
         </div>
       </div>
