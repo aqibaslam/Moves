@@ -185,7 +185,7 @@ export function Reviews2({ data }: { data?: Reviews2Data }) {
         <p className="eyebrow">{data?.eyebrow ?? 'BEFORE AND AFTERS'}</p>
         <h2 className="reviews2__title">
           <span className="c">{data?.heading?.accent ?? 'Real moves.'}</span>{' '}
-          {data?.heading?.rest ?? 'Signed.'}
+          <span className="reviews2__rest">{data?.heading?.rest ?? 'Signed.'}</span>
         </h2>
         <p className="reviews2__sub">
           {data?.subtext ??

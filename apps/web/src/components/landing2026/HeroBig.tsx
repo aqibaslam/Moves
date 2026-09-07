@@ -15,7 +15,7 @@ export function HeroBig() {
 
       <div className="lp26-hero__overlay">
         <h1 className="lp26-hero__title">
-          Making moves towards <br />
+          Making moves towards <br className="lp26-hero__desk-br" />
           your perfect <span className="ink-red">smile.</span>
         </h1>
         <a className="btn lp26-btn" href={BOOKING_PATH}>

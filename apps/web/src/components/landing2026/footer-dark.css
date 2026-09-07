@@ -5,7 +5,7 @@
 .lp26-foot {
   background: #091620;
   color: #fff;
-  padding: 64px 60px 48px;
+  padding: 56px 60px; /* 56px top/bottom — matches funnel-2026 footer rhythm */
   border-radius: 30px 30px 0 0;
 }
 .lp26-foot__inner {
@@ -146,8 +146,22 @@
   filter: brightness(0) invert(1);
 }
 @media (max-width: 767px) {
+  /* Figma mobile (node 566:9284): 50px top/bottom, 16px sides */
   .lp26-foot {
-    padding: 40px 16px;
+    padding: 50px 16px;
+  }
+  /* 32px between the stacked blocks (brand → columns → social → copyright) */
+  .lp26-foot__inner {
+    gap: 32px;
+  }
+  /* Figma mobile: the wordmark spans the full content width (~358 × 79) */
+  .lp26-foot__logo {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .lp26-foot__pitch {
+    margin-bottom: 20px;
   }
   .lp26-foot__top {
     flex-direction: column;
@@ -179,10 +193,21 @@
   .lp26-foot__col.is-open .lp26-foot__col-list {
     display: flex;
   }
+  /* Figma mobile has no full-width divider — the per-column lines do the job */
+  .lp26-foot__divider {
+    display: none;
+  }
+  /* Figma order: social block above the copyright line, 32px apart */
   .lp26-foot__bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  /* social: label stacked above the pills (Figma vertical, 16px) */
+  .lp26-foot__social {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 16px;
   }
   .lp26-foot__signup {
     max-width: none;

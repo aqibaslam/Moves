@@ -11,7 +11,7 @@ import { Marquee, type MarqueeData } from '@/components/landing/Marquee';
 import { Reviews2 } from '@/components/landing/Reviews2';
 import { Problem, type ProblemData } from '@/components/landing/Problem';
 import { Pricing, type PricingData } from '@/components/landing/Pricing';
-import { ProofInMotion, type ProofData } from '@/components/landing/ProofInMotion';
+import { ProofInMotion } from '@/components/landing/ProofInMotion';
 import { Faqs, type FaqsData } from '@/components/landing/Faqs';
 
 // New 2026 sections
@@ -73,7 +73,8 @@ export default async function Home2026() {
       />
       <MoveAlone />
       <DentistNames />
-      <ProofInMotion data={site.proof as ProofData} />
+      {/* Match funnel-2026: fixed heading, hidden eyebrow (CSS), built-in fallback clips */}
+      <ProofInMotion data={{ heading: { accent: 'Real smiles, real', rest: 'stories' } }} />
       <Faqs
         data={{
           ...(site.faqs as FaqsData),

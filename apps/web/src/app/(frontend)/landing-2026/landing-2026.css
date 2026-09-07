@@ -130,6 +130,11 @@
 .lp26-hero__title .ink-red {
   color: var(--white);
 }
+/* the desktop hard break ("…towards" / "your perfect smile.") is dropped on
+   phones, where the width is capped instead so the headline wraps to 3 lines. */
+.lp26-hero__desk-br {
+  display: inline;
+}
 /* Header logo: the Figma dark MOVES® wordmark (128×28), not the shared red one.
    Sized at the logo's own aspect so it isn't stretched by the base 163×20. */
 .lp26 .nav__logo {
@@ -260,6 +265,13 @@
   margin-left: auto;
   margin-right: auto;
 }
+/* Inverted fill: white section, grey cards (opposite of the default). */
+.lp26 .pricing {
+  background: var(--white);
+}
+.lp26 .pricing .pcard {
+  background: var(--lp-grey);
+}
 
 /* Pricing cards — Figma 2026 spec. Scoped `.lp26 .pricing .pcard__*` (0,3,0) to
    beat the 2.0 base + the `@media(min-width:641px)` line-height:1 overrides. */
@@ -346,32 +358,35 @@
    SECTION 3 — Before & Afters ("Real moves. Signed."). Type matched to
    Figma 413:9263. Scoped to .lp26 so the shared component is unchanged elsewhere.
    ============================================================ */
-.lp26 .reviews2__head .eyebrow {
-  font-family: var(--font-inter);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14.5px;
-  letter-spacing: 1px;
-  color: #fc5257;
+/* Breathing room below the marquee before the first section */
+.lp26 .marquee {
+  padding-bottom: 40px;
 }
-/* Figma heading font is "Test National 2" 700 — using Glacial as a placeholder
-   until the licensed file is added, then swap the font-family here. */
+/* "BEFORE AND AFTERS" eyebrow hidden per request */
+.lp26 .reviews2__head .eyebrow {
+  display: none;
+}
+/* Heading "Real moves. Signed." — matches funnel-2026: Glacial 48/48/-2, sentence
+   case, with "Real moves." navy and "Signed." coral. */
 .lp26 .reviews2__head .reviews2__title,
-.lp26 .reviews2__head .reviews2__title .c {
+.lp26 .reviews2__head .reviews2__title .c,
+.lp26 .reviews2__head .reviews2__title .reviews2__rest {
   font-family: var(--f-head); /* Glacial Indifference */
-  font-weight: 400; /* match the other section headings */
+  font-weight: 400;
   font-size: 48px;
   line-height: 48px;
   letter-spacing: -2px;
-  color: #091620;
+  text-transform: none;
 }
+.lp26 .reviews2__head .reviews2__title .c {
+  color: #04143a; /* "Real moves." navy */
+}
+.lp26 .reviews2__head .reviews2__title .reviews2__rest {
+  color: #ed3b44; /* "Signed." coral */
+}
+/* funnel-2026 doesn't use the subtitle in this section */
 .lp26 .reviews2__sub {
-  font-family: var(--f-body);
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 23.8px;
-  letter-spacing: -0.34px;
-  color: #091620;
+  display: none;
 }
 /* Before/After badge — Figma: translucent black pill, 4/9 padding, 12/13 text. */
 .lp26 .r2card__tag {
@@ -392,9 +407,9 @@
   font-family: var(--f-head); /* Glacial Indifference */
   font-weight: 400;
   font-size: 18px;
-  line-height: 21.6px;
+  line-height: 18px;
   letter-spacing: -0.38px;
-  color: #091620;
+  color: #04143a; /* match funnel-2026 navy */
 }
 .lp26 .r2card__quote {
   font-family: var(--f-body);
@@ -402,7 +417,7 @@
   font-size: 14px;
   line-height: 19.6px;
   letter-spacing: -0.28px;
-  color: #091620;
+  color: #04143a; /* match funnel-2026 navy */
 }
 .lp26 .r2card__signed {
   font-family: var(--f-body);
@@ -411,6 +426,38 @@
   line-height: 19.6px;
   letter-spacing: -0.28px;
   color: rgba(9, 22, 32, 0.4);
+}
+
+/* ============================================================
+   PROOF IN MOTION — matched to funnel-2026's video section.
+   Eyebrow hidden, heading navy with only "stories" coral, no capitalize.
+   ============================================================ */
+.lp26 .proof .eyebrow {
+  display: none;
+}
+/* .lp26 .proof .proof__title = 0,3,0 to beat the shared heading :is() block */
+.lp26 .proof .proof__title {
+  color: #04143a; /* navy base — matches funnel-2026 */
+  text-transform: none; /* drop capitalize so only literal capitals show */
+}
+.lp26 .proof .proof__title .ink {
+  color: #ed3b44; /* only "stories" coral */
+}
+/* The 2.0 (.landing-2) carousel makes these tiles a 4-up desktop grid + a single
+   87vw mobile card. Funnel-2026 instead grows all 5 tiles to fill the row and
+   peeks 1.5 on mobile. Cancel the .landing-2 model and adopt funnel's. */
+.lp26 .proof__grid {
+  width: 100%;
+  max-width: none;
+  align-self: stretch;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+}
+.lp26 .proof__grid .ptile {
+  flex: 1 1 0%; /* grow to fill — 5 across on desktop */
+  aspect-ratio: auto; /* drop the .landing-2 270/420 ratio */
+  height: 420px; /* base .ptile height (video is absolutely positioned) */
 }
 
 /* ============================================================
@@ -423,6 +470,10 @@
   overflow: clip;
   /* rounded dark card (Figma) — background is full-bleed */
   border-radius: 30px;
+}
+/* Match the dentists card: 16px radius (float margin is desktop-only, added below) */
+.lp26 .lp26-nac {
+  border-radius: 16px;
 }
 /* Content frame: 1440 max, centred, with the 60px side gutters (Figma).
    Everything (portrait, dome, pills, copy) lives inside this frame. */
@@ -1359,18 +1410,24 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* full-width track, 16px left inset, peek of the next card. Trailing
-       space lets the last card snap to the start (so its dot can activate). */
+    /* full-width track, 16px inset both sides, peek of the neighbouring card.
+       The last card snaps to the END (right-aligned) so there's no empty gap on
+       the final slide — see .lp26-alone__card:last-child below. */
     margin-inline: -16px;
     padding-left: 16px;
-    padding-right: 20vw;
+    padding-right: 16px;
     scroll-padding-left: 16px;
+    scroll-padding-right: 16px;
   }
   .lp26-alone__grid::-webkit-scrollbar { display: none; }
   .lp26-alone__card {
     flex: 0 0 82vw;
     scroll-snap-align: start;
     height: auto; /* the 531px desktop height doesn't apply to the mobile carousel */
+  }
+  /* last card snaps right-aligned so the final slide has no empty right gap */
+  .lp26-alone__card:last-child {
+    scroll-snap-align: end;
   }
   /* card 1: show the FULL phone composite at natural height (no cover-crop of
      the chat bubbles on the narrow mobile card). */
@@ -1412,7 +1469,7 @@
   .lp26-nac__body {
     width: 100%;
     margin-left: 0;
-    padding: 0 0 40px;
+    padding: 0 0 16px; /* was 40px — Figma: tighter gap to the portrait on mobile */
     min-height: 0;
     order: 1;
   }
@@ -1422,7 +1479,7 @@
     bottom: auto;
     left: auto;
     width: 100%;
-    height: 420px;
+    height: 360px;
     order: 2;
   }
   .lp26-nac__photo,
@@ -1460,7 +1517,12 @@
     order: 1;
     padding: 40px 20px 24px;
   }
-  .lp26-hero__title { font-size: 34px; }
+  /* hero headline — Figma mobile: Glacial 40/40/-1.61 (wraps to 3 lines) */
+  .lp26-hero__title {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.61px;
+  }
   .lp26-hero__photo {
     position: static;
     order: 2;
@@ -1786,6 +1848,18 @@
     line-height: 35px;
     letter-spacing: -1.5px;
   }
+  /* "Real moves. Signed." — Figma mobile: Jost 32/35 w500 (desktop uses a
+     different display font + size). 0,3,0 to beat the desktop reviews2 rule. */
+  /* matches funnel-2026: Glacial 32/35, "Real moves." navy + "Signed." coral */
+  .lp26 .reviews2__head .reviews2__title,
+  .lp26 .reviews2__head .reviews2__title .c,
+  .lp26 .reviews2__head .reviews2__title .reviews2__rest {
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 35px;
+    letter-spacing: -1.5px;
+  }
   /* ALL body / descriptions — Figma mobile: Public Sans 16/22, -0.32px.
      Uses :is() with a compound arg (0,3,0) to beat the desktop 17px rule. */
   .lp26 :is(
@@ -1804,6 +1878,22 @@
     font-size: 16px;
     line-height: 22px;
     letter-spacing: -0.32px;
+  }
+
+  /* hero headline → 3 lines on phones: drop the desktop break and cap the width
+     so "Making moves towards your perfect smile." wraps to three lines. */
+  .lp26-hero__desk-br {
+    display: none;
+  }
+  .lp26-hero__title {
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  /* PROBLEM section heading — Figma mobile: left-aligned (not centred) */
+  .lp26 .problem__head {
+    text-align: left;
+    align-items: flex-start;
   }
 
   /* PROBLEM "wrong moves" list — Figma mobile: Glacial 20/24/-0.4, SAME size for
@@ -1878,6 +1968,85 @@
      (nac/motion keep their own mobile layout: inner padding / full-bleed). */
   .lp26 .card-section {
     padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ============================================================
+   SECTION RHYTHM — match funnel-2026: uniform 80px top/bottom on desktop,
+   50px on mobile, so the gaps between sections are consistent. Normalises the
+   sections that drifted (reviews2 bottom 64, faqs top 0) and bumps the mobile
+   card-sections from 25px to 50px. Top/bottom only — side gutters unchanged.
+   Full-bleed sections (nac, motion) keep their inner-wrapper spacing.
+   ============================================================ */
+@media (min-width: 641px) {
+  .lp26 :is(
+    .reviews2,
+    .problem,
+    .pricing,
+    .proof,
+    .faqs,
+    .lp26-alone
+  ) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  /* Dentists section: funnel-2026 padding (80px) */
+  .lp26 .lp26-dentists {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  /* Desktop only: the dark/grey cards float with a 40px gap. On mobile they butt
+     with plain 50px padding like funnel-2026 (no float). */
+  .lp26 .lp26-nac,
+  .lp26 .lp26-dentists {
+    margin: 40px 0;
+  }
+}
+@media (max-width: 640px) {
+  .lp26 :is(
+    .reviews2,
+    .problem,
+    .pricing,
+    .proof,
+    .faqs,
+    .lp26-alone,
+    .lp26-dentists
+  ) {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  /* Dark card sections (nac, motion) float with a 25px margin so the gap to the
+     card edge matches the 50px rhythm (25px neighbour padding + 25px margin).
+     nac's portrait bleeds to its bottom edge (pb:0), so it also needs 25px bottom. */
+  .lp26 .lp26-nac {
+    padding-top: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .lp26 .lp26-motion {
+    margin-top: 25px;
+  }
+  /* Dentists grey card floats with a 25px gap on mobile (like the nac card) */
+  .lp26 .lp26-dentists {
+    margin: 25px 0;
+  }
+}
+
+/* PROOF IN MOTION mobile — match funnel-2026: one full tile + half the next
+   peeking, and bleed the carousel to the right screen edge. */
+@media (max-width: 640px) {
+  .lp26 .proof__grid {
+    scroll-snap-type: none;
+  }
+  .lp26 .proof__grid .ptile {
+    flex: 0 0 calc((100% - 4px) / 1.5);
+    border-radius: 16px;
+  }
+  .lp26 .proof {
+    padding-right: 0;
+  }
+  .lp26 .proof__head {
     padding-right: 16px;
   }
 }
