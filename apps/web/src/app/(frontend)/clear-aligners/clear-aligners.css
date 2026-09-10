@@ -150,7 +150,7 @@
   font-size: 12px;
   line-height: 14px;
   letter-spacing: -0.24px;
-  color: #04143a;
+  color: #091620;
 }
 /* dome + portrait */
 .ca26 .ca-hero__media {
@@ -457,7 +457,7 @@
   justify-content: center;
   text-align: center;
   background: #f5f5f5;
-  color: #04143a;
+  color: #091620;
 }
 /* internal row separators — white 1px, same as the MOVES column (Figma) */
 .ca26 .ca-cmp .f-cmp__cell--val,
@@ -465,7 +465,7 @@
   border-top: 1px solid #ffffff;
 }
 /* Mail-Order + Traditional columns text (Figma): Public Sans 400, 140%, -2%,
-   centred, #04143A. 16px desktop / 14px mobile (mobile trims to cap height). */
+   centred, #091620. 16px desktop / 14px mobile (mobile trims to cap height). */
 .ca26 .ca-cmp .f-cmp__cell--val {
   font-family: var(--f-body);
   font-weight: 400;
@@ -473,7 +473,7 @@
   line-height: 140%;
   letter-spacing: -0.02em;
   text-align: center;
-  color: #04143a;
+  color: #091620;
 }
 /* MOVES column (Figma): navy #091620, white 1px row separators, centred text —
    Public Sans, 16px desktop / 14px mobile; 400, 140%, -2%, #fff. */

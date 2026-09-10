@@ -5,22 +5,26 @@
    file only adds the NEW sections and the dark-hero overrides. Scoped to
    `.lp26` so nothing leaks to /landing or any other page.
 
-   Palette: navy #04143a (dark grounds), coral #ff0003 (accent/CTA),
+   Palette: navy #091620 (dark grounds), coral #ff0003 (accent/CTA),
    grey #f5f5f5 (light sections). Fonts inherit the 2.0 Inter/Google Sans.
    ============================================================ */
 
 .lp26 {
-  --lp-navy: #04143a; /* dark text on light sections */
+  --lp-navy: #091620; /* dark text on light sections */
   --lp-dark: #091620; /* dark section/card backgrounds (Figma) */
   --lp-hero-bg: #091620;
   --lp-grey: #f5f5f5;
   background: var(--white);
+  /* base text colour → #091620 (globals.css sets body to the old #04143a, which
+     is inherited as a fixed value; re-assert it here from --navy for these pages) */
+  color: var(--navy);
 }
 /* Figma 2026 accent is a coral-pink (#ed3b44), not the landing's pure red.
    Overrides --coral for the whole page, so every CTA + text accent (new AND
    reused sections) picks it up. Higher specificity than `.moves-page.landing-2`. */
 .moves-page.landing-2.lp26 {
   --coral: #ed3b44;
+  --navy: #091620; /* match funnel-2026: navy #04143a → #091620 across all sections */
 }
 
 /* red accent helper for the two-tone headings */
@@ -48,6 +52,20 @@
 .lp26 .lp26-btn:hover {
   background: transparent;
   color: var(--coral);
+}
+
+/* Slider bullets — match funnel-2026 (dark navy #091620 instead of coral) across
+   every carousel on the .lp26 pages (Reviews2, ProofInMotion, MoveAlone). */
+.lp26 .reviews2__dot,
+.lp26 .proof__dot,
+.lp26 .lp26-alone__dot {
+  border-color: #091620;
+}
+.lp26 .reviews2__dot.is-active,
+.lp26 .proof__dot.is-active,
+.lp26 .lp26-alone__dot.is-active {
+  background: #091620;
+  border-color: #091620;
 }
 
 /* Hero-unit backing is dark, so the NAV's rounded top corners (from moves.css,
@@ -126,9 +144,9 @@
   letter-spacing: -0.025em; /* Figma -1.61px @ 64px */
   color: var(--white);
 }
-/* Figma hero headline is entirely white (no coral accent on "smile.") */
+/* "smile." picks up the coral accent, like the other section headings */
 .lp26-hero__title .ink-red {
-  color: var(--white);
+  color: var(--coral);
 }
 /* the desktop hard break ("…towards" / "your perfect smile.") is dropped on
    phones, where the width is capped instead so the headline wraps to 3 lines. */
@@ -236,7 +254,7 @@
 
 /* ============================================================
    PROBLEM section "wrong moves" list — Figma: Glacial Indifference 400.
-   Active item 40/48/-0.8 solid #04143a; inactive 32/38.4/-0.64 at 20% opacity.
+   Active item 40/48/-0.8 solid #091620; inactive 32/38.4/-0.64 at 20% opacity.
    ============================================================ */
 .lp26 .problem__item {
   font-family: var(--f-head); /* Glacial Indifference */
@@ -244,13 +262,13 @@
   font-size: 32px;
   line-height: 38.4px;
   letter-spacing: -0.64px;
-  color: rgba(4, 20, 58, 0.2);
+  color: rgba(9, 22, 32, 0.2);
 }
 .lp26 .problem__item.active {
   font-size: 40px;
   line-height: 48px;
   letter-spacing: -0.8px;
-  color: #04143a;
+  color: #091620;
 }
 
 /* ============================================================
@@ -293,7 +311,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 1.34; /* 134% */
-  color: rgba(4, 20, 58, 0.5);
+  color: rgba(9, 22, 32, 0.5);
 }
 /* Price value "£16.30" (.div) */
 .lp26 .pricing .pcard__price b {
@@ -384,7 +402,7 @@
   text-transform: none;
 }
 .lp26 .reviews2__head .reviews2__title .c {
-  color: #04143a; /* "Real moves." navy */
+  color: #091620; /* "Real moves." navy */
 }
 .lp26 .reviews2__head .reviews2__title .reviews2__rest {
   color: #ed3b44; /* "Signed." coral */
@@ -420,7 +438,7 @@
   font-size: 18px;
   line-height: 18px;
   letter-spacing: -0.38px;
-  color: #04143a; /* match funnel-2026 navy */
+  color: #091620; /* match funnel-2026 navy */
 }
 .lp26 .r2card__quote {
   font-family: var(--f-body);
@@ -428,7 +446,7 @@
   font-size: 14px;
   line-height: 19.6px;
   letter-spacing: -0.28px;
-  color: #04143a; /* match funnel-2026 navy */
+  color: #091620; /* match funnel-2026 navy */
 }
 .lp26 .r2card__signed {
   font-family: var(--f-body);
@@ -457,7 +475,7 @@
 }
 /* .lp26 .proof .proof__title = 0,3,0 to beat the shared heading :is() block */
 .lp26 .proof .proof__title {
-  color: #04143a; /* navy base — matches funnel-2026 */
+  color: #091620; /* navy base — matches funnel-2026 */
   text-transform: none; /* drop capitalize so only literal capitals show */
 }
 .lp26 .proof .proof__title .ink {
@@ -651,7 +669,7 @@
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  color: rgba(9, 22, 32, 0.7);
 }
 .lp26-alone__grid {
   display: grid;
@@ -982,7 +1000,7 @@
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  color: rgba(9, 22, 32, 0.7);
 }
 .lp26-dentists__avatars {
   display: flex;
@@ -1111,6 +1129,7 @@
 .lp26-motion {
   position: relative;
   min-height: 726px;
+  margin-top: 40px; /* gap to the previous section (25px on mobile) */
   display: flex;
   justify-content: center;
   overflow: clip;
@@ -1124,6 +1143,12 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+}
+/* Desktop: anchor the portrait to the top so the face stays in frame */
+@media (min-width: 641px) {
+  .lp26-motion__photo {
+    object-position: top center;
+  }
 }
 /* Figma scrim (linear-gradient #000 0 → 0.5) for text visibility. Sits ABOVE
    the photo (z-1) but below the content (z-2) — the earlier version painted
@@ -1157,9 +1182,9 @@
   margin-top: auto;
   display: inline-flex;
   align-items: center;
-  /* Figma: 22px gap between label and button */
-  gap: 22px;
-  padding: 8px 8px 8px 28px;
+  /* Figma: 20px gap between label and button, 14/19 pill padding */
+  gap: 20px;
+  padding: 14px 19px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 100px;
   background: rgba(255, 255, 255, 0.06);
@@ -1167,16 +1192,24 @@
 }
 .lp26-motion__label {
   font-family: var(--f-head);
-  font-weight: 500;
-  font-size: 22px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1; /* 100% */
+  letter-spacing: -2px;
   color: var(--white);
 }
-/* button matches the Figma pill button (~239×55) */
+/* button matches the Figma pill button — 240×56, 90px radius, 16/32 padding */
 .lp26-motion__pill .lp26-btn {
-  padding: 19px 30px;
+  width: 240px;
+  height: 56px;
+  border-radius: 90px;
+  padding: 16px 32px;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
 }
 .lp26-motion__quote {
-  margin: 18px 0 0;
+  margin: 16px 0 0;
   max-width: 460px;
   font-family: var(--f-body);
   font-size: 17px;
@@ -1354,7 +1387,7 @@
   font-family: var(--f-body);
   font-size: 16px;
   line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  color: rgba(9, 22, 32, 0.7);
 }
 .lp26 .faqs__cta {
   background: var(--coral);
@@ -1679,7 +1712,7 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 1.2;
-  letter-spacing: -2.5px;
+  letter-spacing: -2px;
   color: #fff;
 }
 .lp26 .lp26-dentists__role {
@@ -1983,7 +2016,28 @@
     line-height: 24px;
     letter-spacing: -0.34px;
   }
-  .lp26 .lp26-motion__quote { font-size: 17px; line-height: 24px; letter-spacing: -0.34px; }
+  /* SmileInMotion — Figma mobile spec */
+  .lp26 .lp26-motion { margin-top: 25px; }
+  .lp26 .lp26-motion__pill { gap: 20px; padding: 8px 10px; }
+  .lp26 .lp26-motion__title { line-height: 1.1; } /* 110% (32px → 35.2px) */
+  .lp26 .lp26-motion__label {
+    font-family: var(--f-head);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1; /* 100% */
+    letter-spacing: -0.38px;
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+  .lp26 .lp26-motion__pill .lp26-btn {
+    width: 205px;
+    height: 46px;
+    padding: 16px 32px;
+    font-size: 16px;
+    line-height: 1.4; /* 140% */
+    letter-spacing: -0.02em; /* -2% */
+  }
+  .lp26 .lp26-motion__quote { font-size: 17px; line-height: 1.4; letter-spacing: -0.34px; max-width: 332px; }
 
   /* FooterDark pitch + inputs — Figma mobile */
   .lp26 .lp26-foot__pitch { font-size: 17px; line-height: 24px; letter-spacing: -0.34px; }
@@ -2291,7 +2345,7 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 1.2;
-  letter-spacing: -2.5px;
+  letter-spacing: -2px;
   color: #fff;
 }
 

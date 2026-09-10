@@ -102,8 +102,11 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     gdc: 'GDC: 251837',
   }));
   const DOTS = cards.length;
-  // render the set twice so auto-play can wrap seamlessly (infinite loop)
-  const loop = [...cards, ...cards];
+  // render the set THREE times so scrolling loops seamlessly in BOTH directions:
+  // the user rides the middle copy, with an identical copy on each side to slide
+  // into. When they drift into a side copy we jump back by one set-width — the
+  // copies are identical, so the loop is invisible.
+  const loop = [...cards, ...cards, ...cards];
 
   // width of one card + gap — the amount to move per step
   const cardStep = () => {
@@ -111,9 +114,26 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     const card = el?.querySelector<HTMLElement>('.bacard');
     return card ? card.offsetWidth + 4 : 0;
   };
-  const maxScroll = () => {
+  const setWidth = () => cardStep() * DOTS;
+
+  // Keep the scroll position inside the MIDDLE copy so there's always a full set
+  // to scroll into on either side (this is what makes manual scrolling loop
+  // forever, not just twice). Skipped mid-drag — the drag owns scrollLeft then.
+  const recenter = () => {
     const el = trackRef.current;
-    return el ? el.scrollWidth - el.clientWidth : 0;
+    if (!el || el.classList.contains('dragging')) return;
+    const w = setWidth();
+    if (w <= 0) return;
+    let delta = 0;
+    if (el.scrollLeft < w * 0.5) delta = w;
+    else if (el.scrollLeft > w * 2.5) delta = -w;
+    if (!delta) return;
+    // The jump MUST be instant — the CSS `scroll-behavior: smooth` animates
+    // (and snap reverts) a scrollLeft change, so the wrap silently fails.
+    const prev = el.style.scrollBehavior;
+    el.style.scrollBehavior = 'auto';
+    el.scrollLeft += delta;
+    el.style.scrollBehavior = prev;
   };
 
   const syncActive = useCallback(() => {
@@ -125,40 +145,69 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     setActive(((idx % DOTS) + DOTS) % DOTS);
   }, [DOTS]);
 
+  // Recenter only AFTER scrolling settles — jumping mid-scroll fights the
+  // browser's snap/momentum. `syncActive` (dots) can update live.
+  const settle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const onScroll = useCallback(() => {
+    syncActive();
+    if (settle.current) clearTimeout(settle.current);
+    settle.current = setTimeout(() => recenter(), 140);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [syncActive]);
+
   const goToDot = (i: number) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollTo({ left: Math.min(i * cardStep(), maxScroll()), behavior: 'smooth' });
+    // scroll to card i within the middle copy
+    el.scrollTo({ left: setWidth() + i * cardStep(), behavior: 'smooth' });
   };
+
+  // Start in the middle copy once the cards have a measurable width.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    let raf = 0;
+    const init = () => {
+      const w = setWidth();
+      if (w > 0) {
+        const prev = el.style.scrollBehavior;
+        el.style.scrollBehavior = 'auto';
+        el.scrollLeft = w; // start in the middle copy (instant; smooth reverts it)
+        el.style.scrollBehavior = prev;
+      } else {
+        raf = requestAnimationFrame(init);
+      }
+    };
+    init();
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    el.addEventListener('scroll', syncActive, { passive: true });
-    window.addEventListener('resize', syncActive);
-    syncActive();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     return () => {
-      el.removeEventListener('scroll', syncActive);
-      window.removeEventListener('resize', syncActive);
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
     };
-  }, [syncActive]);
+  }, [onScroll]);
 
-  // Auto-play: advance one card at a time and loop back at the end. Pauses while
-  // the user is interacting (hover / drag) and for reduced-motion users.
+  // Auto-play: advance one card at a time; the recenter loop above keeps it
+  // seamless. Pauses while the user interacts (hover / drag) and for
+  // reduced-motion users.
   useEffect(() => {
     if (paused) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = window.setInterval(() => {
       const el = trackRef.current;
       if (!el) return;
-      const step = cardStep();
-      const setWidth = step * cards.length;
-      // once we've scrolled a full set into the duplicate, jump back by one set
-      // instantly — the cards are identical, so the loop is seamless
-      if (el.scrollLeft >= setWidth - 2) el.scrollLeft -= setWidth;
-      el.scrollBy({ left: step, behavior: 'smooth' });
+      recenter();
+      el.scrollBy({ left: cardStep(), behavior: 'smooth' });
     }, AUTOPLAY_MS);
     return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paused]);
 
   // drag-to-scroll (refs so dragging doesn't re-render on every move)
@@ -169,19 +218,41 @@ export function BeforeAfters({ data }: { data?: BeforeAftersData }) {
     setPaused(true);
     drag.current = { down: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
     el.classList.add('dragging');
+    // Capture the pointer so we still get move/up even if the cursor leaves the
+    // slider mid-drag. Without this, a drag that ends outside never fires
+    // pointerup → `down` stays true and every later mouse move hijacks the
+    // scroll, so the slider only "works once".
+    try {
+      el.setPointerCapture(e.pointerId);
+    } catch {
+      /* not all pointers are capturable */
+    }
   };
   const onPointerMove = (e: React.PointerEvent) => {
     const el = trackRef.current;
     if (!el || !drag.current.down) return;
+    // if the button was released off-element (no capture), stop dragging
+    if (e.buttons === 0) {
+      endDrag(e);
+      return;
+    }
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 3) drag.current.moved = true;
     el.scrollLeft = drag.current.startLeft - dx;
   };
-  const endDrag = () => {
+  const endDrag = (e?: React.PointerEvent) => {
     const el = trackRef.current;
     if (!el) return;
+    if (!drag.current.down) return;
     drag.current.down = false;
     el.classList.remove('dragging');
+    if (e) {
+      try {
+        if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
   };
 
   return (

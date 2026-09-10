@@ -1001,8 +1001,10 @@
   /* horizontal slider */
   overflow-x: auto;
   scroll-behavior: smooth;
-  /* mandatory so a scroll always settles on the next card, not mid-slide */
-  scroll-snap-type: x mandatory;
+  /* proximity (not mandatory): still settles on a card, but doesn't force a
+     programmatic scrollLeft jump to snap back to the first card — which is what
+     let the infinite-loop recenter (see BeforeAfters.tsx) fail after two sets */
+  scroll-snap-type: x proximity;
   scroll-padding-inline: 0;
   cursor: grab;
   scrollbar-width: none;
