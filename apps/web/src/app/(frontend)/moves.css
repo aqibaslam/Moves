@@ -1060,6 +1060,9 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  /* sits above the card image (which is absolutely positioned + fills the box,
+     so it would otherwise paint over the label) */
+  z-index: 2;
   padding: 4px 9px;
   border-radius: 16px;
   background: rgba(0, 0, 0, 0.25);
