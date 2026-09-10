@@ -84,6 +84,7 @@
 .lp26 .announce {
   background: var(--lp-hero-bg);
   color: var(--white);
+  line-height: 1; /* 100% — note + link (Figma) */
 }
 
 /* ============================================================
@@ -103,7 +104,7 @@
 }
 .lp26-hero__mark {
   position: absolute;
-  top: 6%;
+  top: 111px; /* Figma: wordmark top spacing */
   left: 50%;
   transform: translateX(-50%);
   z-index: 0;
@@ -113,13 +114,18 @@
   user-select: none;
   pointer-events: none;
 }
+/* the <picture> wrapper is transparent to layout, so the img keeps its own
+   absolute positioning (desktop) and flex order (mobile) inside .lp26-hero */
+.lp26-hero__pic {
+  display: contents;
+}
 .lp26-hero__photo {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  height: 92%;
+  height: 100%;
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -379,6 +385,20 @@
 /* Breathing room below the marquee before the first section */
 .lp26 .marquee {
   padding-bottom: 40px;
+}
+/* Marquee text — Figma: Public Sans 500, 16.77/15.07px, 100% line-height,
+   uppercase, +2.13/1.91px tracking (from the em base), colour #09162099.
+   (font-size + letter-spacing come from the shared moves.css base.) */
+.lp26 .marquee__group span {
+  line-height: 1; /* 100% */
+  color: rgba(9, 22, 32, 0.6); /* #09162099 */
+}
+/* the flower mark (Figma "Subtract 2") replaces the base clip-path star */
+.lp26 .marquee__group span::before {
+  width: 12px;
+  height: 11px;
+  background: url('/images/marquee-mark.svg') center / contain no-repeat;
+  clip-path: none;
 }
 /* "BEFORE AND AFTERS" eyebrow hidden per request */
 .lp26 .reviews2__head .eyebrow {
@@ -1581,10 +1601,15 @@
     order: 2;
     transform: none;
     left: auto;
-    width: 100%;
+    /* Figma mobile: the portrait bleeds past the card edges and fills the lower
+       hero, reaching the bottom (its transparent top reads as the dark gap under
+       the CTA). Wider than the card → the soft glow edges clip cleanly. */
+    width: 132%;
+    margin-inline: -16%;
     height: auto;
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom center;
   }
   .lp26-motion { min-height: 560px; }
   .lp26-motion__inner { padding: 40px 16px; }

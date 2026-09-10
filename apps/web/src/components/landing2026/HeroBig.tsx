@@ -10,8 +10,12 @@ export function HeroBig() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="lp26-hero__mark" src="/images/lp26-hero-wordmark.svg" alt="" aria-hidden="true" />
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="lp26-hero__photo" src="/images/lp26-hero.png" alt="A person holding a clear aligner" />
+      <picture className="lp26-hero__pic">
+        {/* mobile portrait ≤900px (matches the stacked mobile hero layout) */}
+        <source media="(max-width: 900px)" srcSet="/images/lp26-hero-mobile.png" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="lp26-hero__photo" src="/images/lp26-hero.png" alt="A person holding a clear aligner" />
+      </picture>
 
       <div className="lp26-hero__overlay">
         <h1 className="lp26-hero__title">
