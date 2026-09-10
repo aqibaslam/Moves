@@ -1195,6 +1195,8 @@
 
 @media (max-width: 900px) {
   .funnel-2026 .lp26-dentists { padding: 50px 16px; }
+  /* subtitle drops to 16px on mobile (Figma) */
+  .funnel-2026 .lp26-dentists__sub { font-size: 16px; }
   /* Mobile (Figma): small portrait top-LEFT with the name + role beside it,
      then the bio, credentials and CTA full-width below. `display: contents`
      promotes the info block's children into the card grid so they can be

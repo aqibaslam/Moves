@@ -2182,3 +2182,305 @@
     transition: none !important;
   }
 }
+
+/* ===== DentistNames card — matched to funnel-2026 (shared across .lp26 pages) ===== */
+.lp26 .lp26-dentists__title {
+  font-family: var(--f-head);
+  font-weight: 400;
+}
+
+.lp26 .lp26-dentists__name {
+  font-family: var(--f-body);
+  font-weight: 400;
+}
+
+.lp26 .lp26-dentists__title {
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1;
+}
+
+.lp26 .lp26-dentists__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+.lp26 .lp26-dentists__title {
+  margin: 0 0 14px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.0417em;
+  color: var(--lp-navy);
+}
+
+.lp26 .lp26-dentists__sub {
+  margin: 0 auto;
+  max-width: 546px;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.4;
+  color: #091620;
+}
+
+.lp26 .lp26-dentists__avatars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+
+.lp26 .lp26-dentists__avatar {
+  width: 120px;
+  height: 184px;
+  padding: 0;
+  border: 0;
+  border-radius: 60px;
+  overflow: clip;
+  cursor: pointer;
+  background: #e4e4e4;
+  opacity: 0.6;
+  transition: opacity 160ms ease, outline-color 160ms ease, background 160ms ease;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+}
+
+.lp26 .lp26-dentists__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lp26 .lp26-dentists__avatar.is-active {
+  opacity: 1;
+  background: #f4f5f7;
+  outline-color: #001722;
+}
+
+.lp26 .lp26-dentists__card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: stretch;
+  background: var(--lp-dark);
+  border-radius: 30px;
+  padding: 48px;
+  color: var(--white);
+  overflow: clip;
+}
+
+.lp26 .lp26-dentists__info {
+  align-self: center;
+}
+
+.lp26 .lp26-dentists__photo {
+  align-self: end;
+  justify-self: center;
+  width: auto;
+  max-width: 100%;
+  height: calc(100% + 48px);
+  margin-bottom: -48px;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.lp26 .lp26-dentists__name {
+  margin: 0 0 8px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -2.5px;
+  color: #fff;
+}
+
+.lp26 .lp26-dentists__role {
+  margin: 0 0 24px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.5px;
+  letter-spacing: -0.32px;
+  color: #ed3b44;
+}
+
+.lp26 .lp26-dentists__bio {
+  margin: 0 0 24px;
+  max-width: 620px;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.lp26 .lp26-dentists__creds {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.lp26 .lp26-dentists__cred {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lp26 .lp26-dentists__creds-div {
+  flex: 0 0 1px;
+  align-self: stretch;
+  background: rgba(239, 234, 230, 0.2);
+}
+
+.lp26 .lp26-dentists__creds-title {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.lp26 .lp26-dentists__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.lp26 .lp26-dentists__logos li {
+  display: flex;
+}
+
+.lp26 .lp26-dentists__logos img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  /* subtitle drops to 16px on mobile (Figma) */
+  .lp26 .lp26-dentists__sub {
+    font-size: 16px;
+  }
+
+  .lp26 .lp26-dentists__card {
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "photo name"
+        "photo role"
+        "bio   bio"
+        "creds creds"
+        "cta   cta";
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: center;
+    padding: 28px;
+    text-align: left;
+  }
+
+  .lp26 .lp26-dentists__info {
+    display: contents;
+  }
+
+  .lp26 .lp26-dentists__photo {
+    grid-area: photo;
+    align-self: center;
+    justify-self: start;
+    width: 76px;
+    max-width: 76px;
+    height: 77px;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .lp26 .lp26-dentists__name {
+    grid-area: name;
+    align-self: end;
+    margin: 0;
+    font-family: var(--f-body);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+  }
+
+  .lp26 .lp26-dentists__role {
+    grid-area: role;
+    align-self: start;
+    margin: 8px 0 0;
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+  }
+
+  .lp26 .lp26-dentists__bio {
+    grid-area: bio;
+    margin: 16px 0 24px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+
+  .lp26 .lp26-dentists__creds {
+    grid-area: creds;
+  }
+
+  .lp26 .lp26-dentists__creds {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .lp26 .lp26-dentists__cred {
+    align-items: flex-start;
+  }
+
+  .lp26 .lp26-dentists__creds-title {
+    text-align: left;
+  }
+
+  .lp26 .lp26-dentists__creds-div {
+    display: none;
+  }
+
+  .lp26 .lp26-dentists__logos {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
+
+  .lp26 .lp26-dentists__logos li {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .lp26 .lp26-dentists__logos img {
+    height: auto;
+    max-height: 40px;
+    max-width: 100%;
+  }
+
+  .lp26 .lp26-dentists__card .lp26-btn {
+    grid-area: cta;
+  }
+}
+
+@media (max-width: 640px) {
+  .lp26 .lp26-dentists__title {
+    font-size: 32px;
+    line-height: 35px;
+  }
+}
