@@ -677,6 +677,11 @@
 }
 .funnel-2026 .cta__title {
   color: var(--white);
+  /* Mobile (base): Glacial 400, 32px / 100% / -2px (font-family + weight from the
+     shared heading group rule above). Desktop overrides to 48px below. */
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -2px;
 }
 .funnel-2026 .cta__inner .cta__sub {
   margin-top: 20px;
@@ -693,8 +698,8 @@
   .funnel-2026 .cta__title {
     white-space: nowrap;
     font-size: 48px;
-    line-height: 48px;
-    letter-spacing: -0.0417em;
+    line-height: 48px; /* 100% */
+    letter-spacing: -2px;
   }
   .funnel-2026 .f-cmp__head .h-section .f-cmp__accent {
     display: block;
@@ -705,7 +710,9 @@
 }
 .funnel-2026 .cta__sub {
   font-family: var(--f-body); /* Public Sans */
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 17px; /* desktop; mobile drops to 16px in the max-width:640 block */
+  line-height: 1.4; /* 140% */
   letter-spacing: -0.02em;
   color: #fff;
 }
@@ -951,7 +958,7 @@
   max-width: 546px;
   font-family: var(--f-body);
   font-size: 17px;
-  line-height: 1.5;
+  line-height: 1.4; /* 140% */
   color: #091620;
 }
 .funnel-2026 .lp26-dentists__avatars {
@@ -1239,7 +1246,16 @@
     line-height: 140%;
     letter-spacing: -0.02em;
   }
-  .funnel-2026 .lp26-dentists__bio { grid-area: bio; margin: 16px 0 24px; }
+  .funnel-2026 .lp26-dentists__bio {
+    grid-area: bio;
+    margin: 16px 0 24px;
+    /* Figma mobile: Public Sans 400, 16px / 140% / -2%, left-aligned */
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4; /* 140% */
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
   .funnel-2026 .lp26-dentists__creds { grid-area: creds; }
   .funnel-2026 .lp26-btn { grid-area: cta; }
   /* Credentials left-aligned on mobile: titles and logo rows follow the left
@@ -1373,6 +1389,9 @@
     margin: 0 0 24px;
     align-self: stretch;
     text-align: center;
+    /* Figma mobile: Public Sans 400, 16px / 140% / -2% */
+    font-weight: 400;
+    font-size: 16px;
   }
   .funnel-2026 .faqs__list { margin: 0 0 28px; }
   .funnel-2026 .faqs__cta { order: 1; align-self: center; }
@@ -1538,6 +1557,10 @@
     width: 90%;
     font-size: 32px;
     line-height: 35px;
+  }
+  /* CTA description drops to 16px on mobile (Figma) */
+  .funnel-2026 .cta__sub {
+    font-size: 16px;
   }
   .funnel-2026 .lead,
   .funnel-2026 .fpcard__best,
