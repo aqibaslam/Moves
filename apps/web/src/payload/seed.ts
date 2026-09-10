@@ -215,7 +215,7 @@ const seed = async () => {
     slug: 'pricing',
     data: {
       eyebrow: 'PRICING',
-      heading: { accent: 'Exactly what', rest: 'Moves costs' },
+      heading: { accent: 'Exactly what', rest: 'moves costs' },
       subtext:
         'Some brands make you book a call to learn a price. Ours are published. Every package, in full, before you’ve given us so much as an email address. That’s it. That’s the section.',
       plans: [

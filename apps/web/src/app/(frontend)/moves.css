@@ -1175,7 +1175,8 @@
   text-align: center;
 }
 .pricing .h-section {
-  text-transform: capitalize;
+  /* sentence case — respect the source text (no forced word-caps) */
+  text-transform: none;
 }
 .pricing__cards {
   display: flex;

@@ -183,7 +183,11 @@ export function FunnelReveal() {
           el.classList.contains('reveal-cta') ||
           el.closest(CARD_SELECTOR) ||
           el.closest('.fb-coral__figure') ||
-          el.classList.contains('f26-incl__product')
+          el.classList.contains('f26-incl__product') ||
+          // the dentist portrait is a small (76px) headshot — animating it with a
+          // translate/scale leaves it soft on mobile; let it appear cleanly with
+          // its card instead.
+          el.classList.contains('lp26-dentists__photo')
         ) {
           continue;
         }

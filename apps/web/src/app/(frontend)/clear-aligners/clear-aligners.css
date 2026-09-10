@@ -1,0 +1,714 @@
+/* ============================================================
+   Clear aligners — 2026 (Figma 413:16796). Only the three page-specific
+   sections (hero, care, assessment) are styled here; every reused section is
+   styled by landing-2026.css via the shared `.lp26` scope. Everything is
+   scoped to `.ca26`. Type/colour use the same tokens as the rest of 2026.
+   ============================================================ */
+
+/* ---- Hero (413:16797) : rounded navy card, copy left + dome/portrait right */
+.ca26 .ca-hero {
+  position: relative;
+  background: var(--lp-dark);
+  color: var(--white);
+  overflow: clip;
+  border-radius: 24px;
+}
+.ca26 .ca-hero__inner {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  min-height: 620px;
+  /* keep the content within the same 1440 container as the header + sections:
+     the column's left and the media's right both align with the other sections. */
+  padding-left: max(0px, calc((100% - 1440px) / 2));
+  padding-right: max(60px, calc((100% - 1440px) / 2 + 60px));
+}
+.ca26 .ca-hero__col {
+  flex: 0 0 auto;
+  width: 607px; /* Figma left column (60px left padding → ~547px content) */
+  max-width: 52%;
+  padding: 56px 0 56px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+}
+/* Trustpilot chip */
+.ca26 .ca-hero__trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: #fff;
+}
+.ca26 .ca-hero__trust-label {
+  font-weight: 400;
+}
+.ca26 .ca-hero__stars {
+  display: inline-flex;
+  gap: 3px;
+}
+.ca26 .ca-hero__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: #00b67a; /* Trustpilot green */
+}
+.ca26 .ca-hero__trust-count {
+  color: rgba(255, 255, 255, 0.85);
+}
+.ca26 .ca-hero__trust-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.32px;
+}
+.ca26 .ca-hero__title {
+  margin: 0;
+  font-family: var(--f-head); /* Glacial Indifference */
+  font-weight: 400;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -1.6px;
+  color: var(--white);
+}
+.ca26 .ca-hero__accent {
+  color: var(--coral, #ed3b44);
+}
+.ca26 .ca-hero__lead {
+  margin: 0;
+  max-width: 547px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ca26 .ca-hero__actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ca26 .ca-hero__cta {
+  width: 240px;
+  min-height: 56px;
+}
+.ca26 .ca-hero__link {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* Signed chip */
+.ca26 .ca-hero__sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--white);
+  border-radius: 8px;
+}
+.ca26 .ca-hero__sign-name {
+  font-family: var(--font-caveat), 'Caveat', cursive;
+  font-size: 28px;
+  line-height: 1;
+  color: #05143b;
+}
+/* vertical divider between the signature and its meta (Figma Line 236) */
+.ca26 .ca-hero__sign-div {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 41px;
+  background: #dcdcdc;
+}
+.ca26 .ca-hero__sign-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ca26 .ca-hero__sign-line {
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: -0.24px;
+  color: #04143a;
+}
+/* dome + portrait */
+.ca26 .ca-hero__media {
+  flex: 1 1 auto;
+  align-self: stretch;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: clip;
+  padding-top: 46px;
+}
+.ca26 .ca-hero__dome {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 683px;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 0;
+}
+.ca26 .ca-hero__portrait {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  max-height: 660px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* ---- Clear Aligner Care (413:17044) : white card, 4 grey icon cards ------ */
+.ca26 .ca-care {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 80px 60px;
+}
+.ca26 .ca-care__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.ca26 .ca-care__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 780px;
+}
+.ca26 .ca-care__title {
+  margin: 0;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #091620;
+}
+/* coral accent on "moves with you" (matches the other section headings) */
+.ca26 .ca-care__accent {
+  color: var(--coral, #ed3b44);
+}
+.ca26 .ca-care__lead {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: #091620;
+}
+.ca26 .ca-care__cta {
+  flex: 0 0 auto;
+  width: 240px;
+  min-height: 56px;
+}
+.ca26 .ca-care__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.ca26 .ca-care__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--lp-grey);
+  border-radius: 16px;
+}
+.ca26 .ca-care__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 51px;
+  height: 51px;
+  border-radius: 100px;
+  background: #091620;
+  color: var(--white);
+}
+.ca26 .ca-care__card-title {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: #091620;
+}
+.ca26 .ca-care__card-body {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  color: rgba(9, 22, 32, 0.72);
+}
+
+/* ---- Free Smile Assessment (413:17402) : full-bleed navy card. The aligner-case
+   photo is baked into the section background (Figma image fill); copy + CTA + three
+   badge chips sit overlaid on the left. */
+.ca26 .ca-assess {
+  color: var(--white);
+  border-radius: 16px;
+  overflow: clip;
+  background-color: var(--lp-dark);
+  background-image: url('/images/ca-assess-bg.png');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.ca26 .ca-assess__inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 120px 60px;
+}
+.ca26 .ca-assess__col {
+  width: 631px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+  align-items: flex-start;
+}
+.ca26 .ca-assess__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 571px;
+}
+.ca26 .ca-assess__title {
+  margin: 0;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--white);
+}
+.ca26 .ca-assess__accent {
+  color: var(--coral, #ed3b44);
+}
+.ca26 .ca-assess__lead {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  letter-spacing: -0.34px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ca26 .ca-assess__cta {
+  width: 240px;
+  min-height: 56px;
+}
+/* three badge chips in one row, dividers between them */
+.ca26 .ca-assess__pills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 15px;
+}
+.ca26 .ca-assess__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+/* white disc badge with a dark icon (Figma: 45px ellipse, #091620 icon stroke) */
+.ca26 .ca-assess__pill-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  color: #091620;
+}
+.ca26 .ca-assess__pill-label {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.32px;
+  color: var(--white);
+  max-width: 140px;
+}
+.ca26 .ca-assess__pill-div {
+  flex: none;
+  width: 1px;
+  height: 44px;
+  margin-left: 5px;
+  background: rgba(255, 255, 255, 0.28);
+}
+/* the aligner-case photo shows only on mobile (desktop uses the section bg image) */
+.ca26 .ca-assess__photo {
+  display: none;
+}
+
+/* ---- ThreeMoves ("You move, in three moves") : the section reuses the
+   funnel-2026 `.funnel-2026` design, but landing.css `.moves-page.landing-2
+   .moves3__title` (0,3,0) is more specific than `.funnel-2026 .moves3__title`
+   and forces weight 600 + the Google Sans fallback here. Match funnel exactly:
+   Glacial Indifference, weight 400. -------------------------------------------- */
+.ca26 .funnel-2026 .moves3__title {
+  font-family: var(--f-head);
+  font-weight: 400;
+}
+/* constrain the section to the same 1440 container as the hero + other sections
+   (content edges land at ~293/1613 at 1920, not the funnel full-width 60px). */
+.ca26 .funnel-2026 .moves3 {
+  padding-left: max(60px, calc((100% - 1440px) / 2 + 60px));
+  padding-right: max(60px, calc((100% - 1440px) / 2 + 60px));
+}
+
+/* ---- Pricing "Exactly what moves costs" (413:17193) : Figma inverts the greys
+   vs the landing default — the SECTION is grey (#f5f5f5) and the CARDS are white
+   (#fff). Scoped to .ca26 so landing-2026 keeps its own scheme. --------------- */
+.ca26 .pricing {
+  background: #f5f5f5;
+  /* align the content to the same 1440 container as the hero + other sections
+     (cards span the full container instead of a 1000px centred block). */
+  padding-inline: max(60px, calc((100% - 1440px) / 2 + 60px));
+}
+.ca26 .pricing .pricing__inner {
+  width: 100%;
+  max-width: none;
+}
+/* sentence case (not the shared .pricing capitalize) — matches other headings */
+.ca26 .pricing .h-section {
+  text-transform: none;
+}
+.ca26 .pricing .pcard {
+  background: #fff;
+  /* keep all three columns equal width — the nowrap card titles differ in length
+     ("Composite Bonding" is wider), and min-width:auto would let that card grow. */
+  min-width: 0;
+}
+
+/* ---- Comparison "See how move compares" (413:17435) : reuses the funnel .f-cmp
+   markup (desktop grid + mobile scroll slides) but restyled to the Figma design —
+   three rounded column blocks (navy MOVES + two grey #f5f5f5) and a transparent
+   label column. Overrides the funnel bordered pale-blue grid. ---------------- */
+/* section vertical rhythm — 40px desktop / 25px mobile (see media queries) */
+.ca26 .ca-cmp {
+  padding-block: 40px;
+}
+.ca26 .ca-cmp .f-cmp__head {
+  text-align: center;
+  align-items: center;
+}
+/* heading matches the other sections: Glacial Indifference 400 (not the landing
+   Google Sans 600 default) */
+.ca26 .ca-cmp .f-cmp__head .h-section {
+  margin-inline: auto;
+  font-family: var(--f-head);
+  font-weight: 400;
+}
+/* table (Figma 930px frame): value columns fixed at 166px with a 12px gap; the
+   label column fills the remaining ~396px. Capped at 930px and centred, matching
+   the Figma comparison frame. */
+.ca26 .ca-cmp .f-cmp__table {
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  grid-template-columns: minmax(0, 1fr) 166px 166px 166px;
+  column-gap: 12px;
+  row-gap: 0;
+  max-width: 930px;
+  margin-inline: auto;
+}
+/* base value cell: light grey block, navy text, centred */
+.ca26 .ca-cmp .f-cmp__cell {
+  border: 0;
+  min-height: 72px;
+  justify-content: center;
+  text-align: center;
+  background: #f5f5f5;
+  color: #04143a;
+}
+/* internal row separators — white 1px, same as the MOVES column (Figma) */
+.ca26 .ca-cmp .f-cmp__cell--val,
+.ca26 .ca-cmp .f-cmp__cell:not(.f-cmp__cell--head):not(.f-cmp__cell--label):not(.f-cmp__cell--moves) {
+  border-top: 1px solid #ffffff;
+}
+/* Mail-Order + Traditional columns text (Figma): Public Sans 400, 140%, -2%,
+   centred, #04143A. 16px desktop / 14px mobile (mobile trims to cap height). */
+.ca26 .ca-cmp .f-cmp__cell--val {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #04143a;
+}
+/* MOVES column (Figma): navy #091620, white 1px row separators, centred text —
+   Public Sans, 16px desktop / 14px mobile; 400, 140%, -2%, #fff. */
+.ca26 .ca-cmp .f-cmp__cell--moves {
+  background: #091620; /* dark navy MOVES column */
+  color: #ffffff;
+  border-top: 1px solid #ffffff;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+/* label column: transparent, dark, left-aligned row titles.
+   Type (Figma): Public Sans 400, 140% line-height, -2% tracking, #091620.
+   font-size 17px desktop / 14px mobile. */
+.ca26 .ca-cmp .f-cmp__cell--label {
+  background: transparent;
+  justify-content: flex-start;
+  text-align: left;
+  color: #091620;
+  padding-left: 0;
+  border-top: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+}
+/* desktop: cap the label text at 252px (Figma) so titles wrap within the column
+   (the column itself stays wide to hold the 930px table). Mobile scroll-slides
+   (≤640px) keep their own full-width label. */
+@media (min-width: 641px) {
+  .ca26 .ca-cmp .f-cmp__cell--label {
+    max-width: 252px;
+  }
+}
+@media (max-width: 640px) {
+  /* section vertical rhythm on mobile */
+  .ca26 .ca-cmp {
+    padding-block: 25px;
+  }
+  /* mobile: the desktop grid (166px fixed value cols + max-width 930) squishes the
+     label to nothing — use a scrollable mobile grid (label wider, value cols narrow) */
+  .ca26 .ca-cmp .f-cmp__table {
+    grid-template-columns: 145px 140px 140px 140px;
+    min-width: 565px;
+    max-width: none;
+    margin-inline: 0;
+  }
+  /* scroll progress thumb — dark navy active part (matches Figma) */
+  .ca26 .ca-cmp .f-cmp__scroll-fill {
+    background: #091620;
+  }
+  /* the desktop 1440-container padding (max(60px,…)) stays ≥60px, so on mobile it
+     over-insets these sections — pull them back to the 16px mobile gutter. */
+  .ca26 .pricing {
+    padding-inline: 16px;
+  }
+  .ca26 .funnel-2026 .moves3 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .ca26 .ca-cmp .f-cmp__cell--label {
+    font-size: 14px;
+  }
+  /* MOVES column text switches to Public Sans 14px on mobile */
+  .ca26 .ca-cmp .f-cmp__cell--moves {
+    font-family: var(--f-body);
+    font-size: 14px;
+  }
+  /* Mail-Order + Traditional columns: 14px, trimmed to cap height (Figma) */
+  .ca26 .ca-cmp .f-cmp__cell--val {
+    font-size: 14px;
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+}
+/* header row: grey (mail/braces) or navy (MOVES); no top separator */
+.ca26 .ca-cmp .f-cmp__cell--head {
+  border-top: 0;
+}
+.ca26 .ca-cmp .f-cmp__cell--head:not(.f-cmp__cell--label) {
+  border-radius: 6px 6px 0 0; /* round the top of each column block */
+}
+/* round the bottom of each column block (last data row: moves, mail, braces) */
+.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(1),
+.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(2),
+.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(3) {
+  border-radius: 0 0 6px 6px;
+}
+.ca26 .ca-cmp .f-cmp__tick {
+  display: inline-block;
+}
+
+/* ---- section rhythm — match the 2026 pages (desktop 40px, dark cards float) */
+@media (min-width: 641px) {
+  .ca26 .ca-care {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .ca26 .ca-assess {
+    margin: 40px 0;
+  }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 900px) {
+  .ca26 .ca-hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-height: 0;
+    /* reset the desktop 1440-container padding so the stacked column is full width */
+    padding-inline: 0;
+  }
+  .ca26 .ca-hero__col {
+    width: 100%;
+    max-width: none;
+    padding: 40px 16px 32px;
+    gap: 24px;
+  }
+  .ca26 .ca-hero__media {
+    justify-content: center;
+  }
+  .ca26 .ca-care {
+    padding: 50px 16px;
+    /* stack: intro → cards → CTA (CTA at the end of the section) */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  /* head becomes contents so its intro + CTA join the section's flex flow and can
+     be reordered (CTA to the end) */
+  .ca26 .ca-care__head {
+    display: contents;
+  }
+  .ca26 .ca-care__intro {
+    order: 1;
+  }
+  .ca26 .ca-care__grid {
+    order: 2;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .ca26 .ca-care__cta {
+    order: 3;
+    width: 100%;
+  }
+  /* icon on the LEFT of each card, title + body stacked on the right */
+  .ca26 .ca-care__card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
+    row-gap: 6px;
+    align-items: start;
+  }
+  .ca26 .ca-care__icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+  .ca26 .ca-care__card-title {
+    grid-column: 2;
+  }
+  .ca26 .ca-care__card-body {
+    grid-column: 2;
+  }
+  .ca26 .ca-assess__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 50px 16px;
+    gap: 32px;
+  }
+  .ca26 .ca-assess__col {
+    width: 100%;
+    /* 28px above and below the CTA (gap between intro → CTA → pills) */
+    gap: 28px;
+  }
+  /* heading → description gap */
+  .ca26 .ca-assess__intro {
+    gap: 16px;
+  }
+  .ca26 .ca-assess__cta {
+    width: 100%;
+  }
+  /* the landscape aligner-case photo can't sit behind a narrow portrait card —
+     fall back to the solid navy and show the photo as a cropped block below the
+     copy instead */
+  .ca26 .ca-assess {
+    background-image: none;
+    /* 50px navy gap above the photo (Figma) */
+    padding-top: 50px;
+  }
+  .ca26 .ca-assess__photo {
+    display: block;
+    width: 100%; /* full-bleed width, 50px below the card top */
+    height: 397px;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* let the three badge chips wrap instead of overflowing the viewport */
+  .ca26 .ca-assess__pills {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+  .ca26 .ca-assess__pill-div {
+    display: none;
+  }
+  .ca26 .ca-assess__pill-label {
+    max-width: none;
+  }
+}
+@media (max-width: 640px) {
+  .ca26 .ca-hero__title {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+  .ca26 .ca-care__title,
+  .ca26 .ca-assess__title {
+    font-size: 32px;
+    line-height: 35px;
+    letter-spacing: -1.5px;
+  }
+  .ca26 .ca-care__lead,
+  .ca26 .ca-assess__lead {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .ca26 .ca-assess {
+    margin: 25px 0;
+  }
+}

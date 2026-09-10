@@ -366,6 +366,11 @@
 .lp26 .reviews2__head .eyebrow {
   display: none;
 }
+/* eyebrow is hidden, so this gap is the title → subtitle spacing (20px). The
+   subtitle → cards gap is the section's own 40px gap. */
+.lp26 .reviews2__head {
+  gap: 20px;
+}
 /* Heading "Real moves. Signed." — matches funnel-2026: Glacial 48/48/-2, sentence
    case, with "Real moves." navy and "Signed." coral. */
 .lp26 .reviews2__head .reviews2__title,
@@ -384,15 +389,21 @@
 .lp26 .reviews2__head .reviews2__title .reviews2__rest {
   color: #ed3b44; /* "Signed." coral */
 }
-/* funnel-2026 doesn't use the subtitle in this section */
+/* subtitle under the heading — "Every case unretouched, originals on file,
+   signed by the dentist responsible." (shown, matching funnel-2026's BeforeAfters) */
 .lp26 .reviews2__sub {
-  display: none;
+  display: block;
+  text-align: center;
+  max-width: 373px;
 }
-/* Before/After badge — Figma: translucent black pill, 4/9 padding, 12/13 text. */
+/* Before/After badge — Figma: translucent black pill, 4/9 padding, 12/13 text.
+   Inset 10px from the image's top-left corner (desktop + mobile). */
 .lp26 .r2card__tag {
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 10px;
+  left: 10px;
   padding: 4px 9px;
   border-radius: 50px;
   background: rgba(0, 0, 0, 0.25);
@@ -426,6 +437,15 @@
   line-height: 19.6px;
   letter-spacing: -0.28px;
   color: rgba(9, 22, 32, 0.4);
+}
+/* Mobile: full-width swiper. The section keeps its 16px side padding for the
+   heading/subtitle, but the carousel row breaks out of it with negative margins
+   so the first card still aligns at 16px (row padding-left) while the peek bleeds
+   to the right edge (row padding-right 0). Desktop is untouched. */
+@media (max-width: 767px) {
+  .lp26 .reviews2__row {
+    margin-inline: -16px;
+  }
 }
 
 /* ============================================================
@@ -1860,6 +1880,10 @@
     line-height: 35px;
     letter-spacing: -1.5px;
   }
+  /* mobile: title → subtitle 16px (bottom 28px comes from the section gap) */
+  .lp26 .reviews2__head {
+    gap: 16px;
+  }
   /* ALL body / descriptions — Figma mobile: Public Sans 16/22, -0.32px.
      Uses :is() with a compound arg (0,3,0) to beat the desktop 17px rule. */
   .lp26 :is(
@@ -2048,5 +2072,113 @@
   }
   .lp26 .proof__head {
     padding-right: 16px;
+  }
+}
+
+/* ============================================================
+   SECTION SCROLL-REVEAL — mirrors funnel-2026. Driven by <LandingReveal/>,
+   which tags each section (.reveal-init) and its lead heading / body / cards /
+   CTA, then adds .reveal-in as the section scrolls into view. Opacity-only on
+   the section (no transform) so nothing shifts layout; motion lives on the
+   descendants. prefers-reduced-motion short-circuits to "just show everything".
+   ============================================================ */
+.lp26 .reveal-init {
+  opacity: 0;
+}
+.lp26 .reveal-init.reveal-in {
+  opacity: 1;
+  transition: opacity 560ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* body content: a small, subtle lift (individual `translate`, not `transform`,
+   so it composes with any existing centring transform). */
+.lp26 .reveal-c {
+  opacity: 0;
+  translate: 0 12px;
+}
+.lp26 .reveal-c.reveal-in {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* cards: a graceful scale-in (never clipped by a carousel's overflow). */
+.lp26 .reveal-card {
+  translate: none;
+  scale: 0.96;
+}
+.lp26 .reveal-card.reveal-in {
+  scale: none;
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* heading: held back, then bounces in a beat after the section (spring). */
+.lp26 .reveal-head {
+  opacity: 0;
+  translate: 0 26px;
+  scale: 0.96;
+}
+.lp26 .reveal-head.reveal-in {
+  opacity: 1;
+  translate: none;
+  scale: none;
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 760ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    scale 760ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* hero headline: typewriter — characters appear left→right (~55ms/char). */
+.lp26 .reveal-tw .tw-w {
+  display: inline-block;
+}
+.lp26 .reveal-tw .tw-c {
+  opacity: 0;
+}
+.lp26 .reveal-tw.reveal-in .tw-c {
+  opacity: 1;
+  transition: opacity 1ms linear;
+  transition-delay: calc(var(--tw-i, 0) * 55ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp26 .reveal-tw .tw-c,
+  .lp26 .reveal-tw.reveal-in .tw-c {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* CTA: held back the longest, then arrives slowly — pulls the eye last. */
+.lp26 .reveal-cta {
+  opacity: 0;
+  translate: 0 20px;
+}
+.lp26 .reveal-cta.reveal-in {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp26 .reveal-init,
+  .lp26 .reveal-init.reveal-in,
+  .lp26 .reveal-c,
+  .lp26 .reveal-c.reveal-in,
+  .lp26 .reveal-card,
+  .lp26 .reveal-card.reveal-in,
+  .lp26 .reveal-head,
+  .lp26 .reveal-head.reveal-in,
+  .lp26 .reveal-cta,
+  .lp26 .reveal-cta.reveal-in {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    transition: none !important;
   }
 }

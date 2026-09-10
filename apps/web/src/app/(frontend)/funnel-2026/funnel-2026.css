@@ -13,12 +13,14 @@
   /* pure white page background (Figma) — not the default light-blue #f2f6fe */
   --bg: #fff;
   --coral: #ed3b44;
+  /* navy across the whole page → #091620 (Figma) */
+  --navy: #091620;
   /* Figma type system: headings = Glacial Indifference, body/UI = Public Sans */
   --f-body: var(--font-public-sans), -apple-system, system-ui, sans-serif;
   --f-head: var(--font-glacial), var(--font-jost), -apple-system, system-ui, sans-serif;
   /* tokens used by the reused DentistNames section */
   --lp-dark: #091620;
-  --lp-navy: #04143a;
+  --lp-navy: #091620;
   --lp-grey: #f5f5f5;
 }
 
@@ -219,6 +221,18 @@
     align-items: flex-end;
   }
 }
+/* mobile: centre the heading + copy, with a 16px gap between them */
+@media (max-width: 767px) {
+  .funnel-2026 .f-cand__head-l,
+  .funnel-2026 .f-cand__head-l .h-section,
+  .funnel-2026 .f-cand__head-l .lead {
+    text-align: center;
+  }
+  .funnel-2026 .f-cand__head-l {
+    align-items: center;
+    gap: 16px;
+  }
+}
 .funnel-2026 :is(
   .h-hero,
   .h-section,
@@ -279,6 +293,36 @@
    base f-pricing__intro capitalize. */
 .funnel-2026 .f-pricing__intro .h-section {
   text-transform: none;
+}
+/* APR / finance note — navy at 60% (#09162099), 140% line-height */
+.funnel-2026 .f-pricing__note {
+  color: #09162099;
+  line-height: 140%;
+}
+/* pricing description — 140% line-height, -2% tracking */
+.funnel-2026 .f-pricing__intro .lead {
+  line-height: 140%;
+  letter-spacing: -0.02em;
+}
+/* mobile: full-width pricing slider — first card stays at the 16px gutter, the
+   track bleeds off the right edge (like the "Real moves. Signed." slider). */
+@media (max-width: 640px) {
+  .funnel-2026 .f-pricing__cards {
+    margin-right: -16px;
+  }
+  /* card inner padding → 16px (Figma) */
+  .funnel-2026 .fpcard {
+    padding: 16px;
+  }
+  /* hero CTA — fixed 224×46 (overrides the base full-width !important);
+     Public Sans 500, 16px, 140% line-height, -2% tracking */
+  .funnel-2026 .f-hero .hero-ctagroup .btn {
+    width: 224px !important;
+    height: 46px;
+    min-height: 46px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+  }
 }
 /* Comparison heading "Same straight teeth. Three very different bills." —
    sentence case, not Title-Case. */
@@ -383,7 +427,7 @@
 }
 .funnel-2026 .f-hero .hero-feat {
   font-family: var(--f-body); /* Public Sans */
-  font-weight: 500;
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.4; /* 140% */
   letter-spacing: -0.02em;
@@ -417,6 +461,7 @@
   text-transform: none;
   font-variant-caps: normal;
   font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
   font-size: 17px;
   line-height: 1.4; /* 140% */
   letter-spacing: -0.02em;
@@ -520,6 +565,7 @@
   letter-spacing: -0.4px;
   color: var(--lp-dark);
   margin: 0;
+  text-transform: capitalize; /* Scan Day / The Signed Plan / In Motion */
 }
 .funnel-2026 .moves3__step-text {
   font-family: var(--f-body);
@@ -539,9 +585,24 @@
   .funnel-2026 .moves3__intro {
     position: static;
   }
+  /* title → description 16px, description → CTA 28px */
+  .funnel-2026 .moves3__sub {
+    margin-top: 16px;
+  }
   .funnel-2026 .moves3__cta {
     width: 100%;
     max-width: 320px;
+    margin-top: 28px;
+  }
+  /* icon sits at the top of the step (in front of the title), not the bottom;
+     no divider between rows on mobile */
+  .funnel-2026 .moves3__step {
+    align-items: flex-start;
+    border-top: none;
+  }
+  /* nudge the icon down 20px so it lines up with the title */
+  .funnel-2026 .moves3__icon {
+    padding-top: 20px;
   }
 }
 
@@ -767,6 +828,15 @@
 .funnel-2026 .f-cmp__cell--head.f-cmp__cell--moves img {
   filter: brightness(0) invert(1);
 }
+/* comparison scroll thumb — active #091620, inactive track #091620 @ 10%.
+   Page-scoped (.moves-page.funnel-2026) so the clear-aligners comparison, which
+   also lives in a .funnel-2026 wrapper, keeps its own colours. */
+.moves-page.funnel-2026 .f-cmp__scroll {
+  background: #0916201a;
+}
+.moves-page.funnel-2026 .f-cmp__scroll-fill {
+  background: #091620;
+}
 
 /* Primary CTAs: navy → coral-pink (new branding). */
 .funnel-2026 .btn--navy {
@@ -799,9 +869,11 @@
 .funnel-2026 .fb-coral__title {
   top: 9.76%;
   width: 58.54%; /* Figma text box 843px → wraps to two lines */
+  max-width: 843px; /* cap at the Figma text-box width on wide screens */
   font-size: clamp(28px, 3.333cqw, 48px);
   line-height: 1;
   letter-spacing: -0.0417em;
+  text-transform: none; /* sentence case, like the other headings */
 }
 /* 2026 uses a single pre-composited figure image (navy dome + portrait +
    ground shadow, baked in from Figma) — the CSS arch/glow parts aren't used. */
@@ -1030,15 +1102,16 @@
   margin: 0;
   font-family: var(--f-body);
   font-size: 17px;
-  line-height: 1.5;
-  color: rgba(4, 20, 58, 0.7);
+  line-height: 140%;
+  color: #091620;
 }
 .funnel-2026 .f26-incl__product {
   display: block;
   max-width: 640px;
   width: 100%;
   height: auto;
-  margin: 0 auto 48px;
+  /* no bottom margin — desktop overrides to 0 below; mobile now 0 too */
+  margin: 0 auto;
 }
 /* Desktop: the kit sits right on top of the cards (near-zero gap, Figma).
    Mobile keeps its own spacing (unchanged). */
@@ -1050,7 +1123,7 @@
 .funnel-2026 .f26-incl__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 4px; /* Figma column gap */
   margin-bottom: 40px;
 }
 .funnel-2026 .f26-incl__card {
@@ -1069,7 +1142,7 @@
   width: 48px;
   height: 48px;
   border-radius: 100px;
-  background: var(--navy);
+  background: #091620; /* Figma icon badge */
   color: var(--white);
 }
 .funnel-2026 .f26-incl__glyph {
@@ -1078,19 +1151,25 @@
   display: block;
 }
 .funnel-2026 .f26-incl__ctitle {
-  margin: 0;
-  font-family: var(--f-body);
-  font-weight: 600;
-  font-size: 18px;
+  /* card gap is 12px (title → body); +8 makes the icon → title gap 20px on desktop */
+  margin: 8px 0 0;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
   letter-spacing: -0.02em;
-  color: var(--navy);
+  text-align: center;
+  color: #091620;
 }
 .funnel-2026 .f26-incl__cbody {
   margin: 0;
-  font-family: var(--f-body);
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
   font-size: 14px;
-  line-height: 1.45;
-  color: rgba(4, 20, 58, 0.65);
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #091620;
 }
 .funnel-2026 .f26-incl__cta {
   background: var(--coral);
@@ -1109,12 +1188,60 @@
 
 @media (max-width: 900px) {
   .funnel-2026 .lp26-dentists { padding: 50px 16px; }
+  /* Mobile (Figma): small portrait top-LEFT with the name + role beside it,
+     then the bio, credentials and CTA full-width below. `display: contents`
+     promotes the info block's children into the card grid so they can be
+     placed independently via grid-template-areas. */
   .funnel-2026 .lp26-dentists__card {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "photo name"
+      "photo role"
+      "bio   bio"
+      "creds creds"
+      "cta   cta";
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: center;
     padding: 28px;
-    text-align: center;
+    text-align: left;
   }
-  .funnel-2026 .lp26-dentists__photo { max-width: 240px; margin: 0 auto; height: auto; }
+  .funnel-2026 .lp26-dentists__info { display: contents; }
+  .funnel-2026 .lp26-dentists__photo {
+    grid-area: photo;
+    align-self: center;
+    justify-self: start;
+    width: 76px;
+    max-width: 76px;
+    height: 77px;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+  .funnel-2026 .lp26-dentists__name {
+    grid-area: name;
+    align-self: end;
+    margin: 0;
+    font-family: var(--f-body);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+  }
+  .funnel-2026 .lp26-dentists__role {
+    grid-area: role;
+    align-self: start;
+    margin: 8px 0 0;
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+  }
+  .funnel-2026 .lp26-dentists__bio { grid-area: bio; margin: 16px 0 24px; }
+  .funnel-2026 .lp26-dentists__creds { grid-area: creds; }
+  .funnel-2026 .lp26-btn { grid-area: cta; }
   /* Credentials left-aligned on mobile: titles and logo rows follow the left
      edge rather than centring. */
   .funnel-2026 .lp26-dentists__creds { justify-content: flex-start; align-items: flex-start; gap: 28px; }
@@ -1141,6 +1268,9 @@
   }
   .funnel-2026 .f26-incl { padding: 50px 16px; }
   .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
+  .funnel-2026 .f26-incl__sub { font-size: 16px; }
+  /* mobile: icon → title also 12px (drop the desktop +8), title → body stays 12px */
+  .funnel-2026 .f26-incl__ctitle { font-size: 16px; margin-top: 0; }
 }
 @media (max-width: 560px) {
   /* Figma mobile keeps two cards per row */
@@ -1261,6 +1391,7 @@
   }
   .funnel-2026 .f-hero .hero__media {
     display: block;
+    position: relative;
     order: -1;
     width: 100%;
     /* larger portrait on mobile to match the Figma reference */
@@ -1270,6 +1401,20 @@
       linear-gradient(to bottom, rgba(9, 22, 32, 0) 60%, #091620 100%),
       url('/images/funnel2026-hero.webp') 72% top / cover no-repeat;
   }
+  /* Frosted shadow at the bottom (Figma mobile): a blurred band that darkens the
+     base of the portrait into the navy hero body. */
+  .funnel-2026 .f-hero .hero__media::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 110px;
+    background: linear-gradient(to bottom, rgba(9, 22, 32, 0) 0%, #091620 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+  }
   .funnel-2026 .f-hero .hero__media img { display: none; }
   .funnel-2026 .f-hero .hero__left {
     padding: 28px 16px 40px;
@@ -1278,9 +1423,28 @@
   .funnel-2026 .f-hero .hero__sub {
     display: block;
     margin-top: 12px;
+    font-size: 16px;
   }
-  /* nav "Save over 85%…" is Title Case on mobile (sentence case on desktop) */
+  /* Hero paragraph + feature list drop to 16px on mobile (Figma) */
+  .funnel-2026 .f-hero .hero-feat {
+    font-size: 16px;
+  }
+  /* nav "Save over 85%…" — Figma mobile: Public Sans 400, 12/13px, 0 tracking, Title Case */
   .funnel-2026 .f-nav__save {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+  /* Trustpilot chip text — Figma mobile: Public Sans 400, 12/13px, 0 tracking, capitalize */
+  .funnel-2026 .f-hero .tp__label,
+  .funnel-2026 .f-hero .tp__count,
+  .funnel-2026 .f-hero .tp__count-num,
+  .funnel-2026 .f-hero .tp__brand-name {
+    font-size: 12px;
+    line-height: 13px;
+    letter-spacing: 0;
     text-transform: capitalize;
   }
   /* CTA: product kit sits below the copy/button on mobile (Figma) */
@@ -1384,7 +1548,14 @@
     font-size: 16px;
     line-height: 22px;
   }
-  .funnel-2026 .fpcard__title { font-size: 18px; line-height: 21px; }
+  .funnel-2026 .fpcard__title {
+    font-family: var(--f-body); /* Public Sans */
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+  }
   .funnel-2026 .fpcard__price { font-size: 26px; line-height: 26px; }
   .funnel-2026 .btn { font-size: 16px; line-height: 22px; }
   /* Pricing heading: drop "costs" to a second line on mobile (desktop stays
@@ -1398,15 +1569,25 @@
   .funnel-2026 .f-cand__card--treat .f-cand__item,
   .funnel-2026 .f-cand__card--not .f-cand__item {
     font-family: var(--f-body);
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: -0.02em;
   }
   .funnel-2026 .f-cand__card--treat .f-cand__item span {
     color: #fff;
   }
   .funnel-2026 .f-cand__card--not .f-cand__item span {
-    color: #04143a;
+    color: #091620;
+  }
+  /* Card headings ("What we treat" / "May not suit") — Public Sans Medium
+     18/100%/-2%, capitalize (Figma mobile). */
+  .funnel-2026 .f-cand__title {
+    font-family: var(--f-body);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
   }
   /* Proof video tiles (Figma mobile): one full card + half of the next peeking.
      With the 4px grid gap, (100% - gap) / 1.5 makes the peek exactly half a card. */

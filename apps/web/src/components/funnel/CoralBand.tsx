@@ -17,7 +17,7 @@ export function CoralBand({ variant }: { variant?: '2026' } = {}) {
         <p className="fb-coral__eyebrow">WHY WE&rsquo;RE CALLED MOVES</p>
 
         <h2 className="fb-coral__title">
-          <ScrollRevealText text="A Straighter Smile Is The Outcome. Confidence Is The Move." />
+          <ScrollRevealText text="A straighter smile is the outcome. Confidence is the move." />
         </h2>
 
         {/* centred image: the 2026 branding uses a single pre-composited figure

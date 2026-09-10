@@ -21,6 +21,7 @@ import { MoveAlone } from '@/components/landing2026/MoveAlone';
 import { DentistNames } from '@/components/landing2026/DentistNames';
 import { SmileInMotion } from '@/components/landing2026/SmileInMotion';
 import { FooterDark } from '@/components/landing2026/FooterDark';
+import { LandingReveal } from '@/components/landing2026/LandingReveal';
 
 export const metadata: Metadata = {
   title: 'Making moves towards your perfect smile',
@@ -66,7 +67,7 @@ export default async function Home2026() {
           ...(site.pricing as PricingData),
           // Figma 2026: title-case heading, only "Costs" in coral (accent last),
           // no "PRICING" eyebrow (hidden via CSS), and the published-pricing blurb.
-          heading: { rest: 'Exactly What Moves', accent: 'Costs' },
+          heading: { rest: 'Exactly what moves', accent: 'costs' },
           subtext:
             'Some brands make you book a call to learn a price. Ours are published. Every package, in full, before you’ve given us so much as an email address. That’s it. That’s the section.',
         }}
@@ -86,6 +87,9 @@ export default async function Home2026() {
       />
       <SmileInMotion />
       <FooterDark />
+
+      {/* drives the scroll-reveal entrance of each section above (client-only) */}
+      <LandingReveal />
     </div>
   );
 }

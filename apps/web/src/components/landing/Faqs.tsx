@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Plus } from './icons';
+import { BOOKING_PATH } from '@/lib/booking/links';
 
 export interface FaqsData {
   eyebrow?: string;
@@ -70,7 +71,7 @@ export function Faqs({ data }: { data?: FaqsData }) {
         </h2>
         {data?.description ? <p className="faqs__desc">{data.description}</p> : null}
         {data?.cta ? (
-          <a className="btn faqs__cta" href={data.cta.href ?? '#'}>
+          <a className="btn faqs__cta" href={data.cta.href ?? BOOKING_PATH}>
             {data.cta.label ?? 'Book Free Consultation'}
           </a>
         ) : null}
