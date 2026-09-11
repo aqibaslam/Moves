@@ -8,6 +8,7 @@ import { getSiteData } from '@/lib/cms';
 
 // Shared 2.0 / 2026 building blocks
 import { Header, type HeaderData } from '@/components/landing/Header';
+import { Marquee, type MarqueeData } from '@/components/landing/Marquee';
 import { Reviews2 } from '@/components/landing/Reviews2';
 import { Faqs, type FaqsData } from '@/components/landing/Faqs';
 import { DentistNames } from '@/components/landing2026/DentistNames';
@@ -41,6 +42,7 @@ export default async function AboutUs() {
       <WhoWeAre />
       <Reviews2 />
       <MovesStatement />
+      <Marquee data={site.marquee as MarqueeData} />
       <YourJourney />
       <DentistNames />
       <Faqs

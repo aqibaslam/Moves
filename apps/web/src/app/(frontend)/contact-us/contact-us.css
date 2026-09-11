@@ -1,0 +1,370 @@
+/* ============================================================
+   Contact Us — 2026 (Figma node 533:476). Scoped under .contact26.
+   ============================================================ */
+
+/* the hero-unit wrapper shares the hero's navy bg, which hides the hero's
+   rounded corners (dark-on-dark) — make it white so the border-radius shows. */
+.contact26 .hero-unit {
+  background: var(--white);
+}
+/* extend the dark announce bar down behind the nav's rounded top corners so
+   they read against dark, now that the wrapper is white. */
+.contact26 .announce {
+  position: relative;
+}
+.contact26 .announce::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 20px;
+  background: #091620;
+}
+
+/* ---- Hero: dark navy stage, flanking hands, centred headline ---- */
+.contact26 .contact-hero {
+  position: relative;
+  background: #091620;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  isolation: isolate;
+  border-radius: 16px;
+}
+/* blue glow rising from the bottom-centre */
+.contact26 .contact-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -160px;
+  transform: translateX(-50%);
+  width: 760px;
+  height: 520px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(37, 99, 215, 0.55) 0%, rgba(9, 22, 32, 0) 70%);
+  pointer-events: none;
+}
+.contact26 .contact-hero__hand {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%); /* both hands centred on the same vertical line */
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+.contact26 .contact-hero__hand--l {
+  left: max(0px, calc(50% - 540px));
+  width: clamp(200px, 22vw, 300px);
+}
+.contact26 .contact-hero__hand--r {
+  right: max(-20px, calc(50% - 640px));
+  width: clamp(300px, 32vw, 420px);
+}
+.contact26 .contact-hero__center {
+  position: relative;
+  z-index: 2;
+  max-width: 470px;
+  text-align: center;
+  padding: 48px 20px;
+}
+.contact26 .contact-hero__title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1; /* 100% */
+  letter-spacing: -2px;
+  color: var(--white);
+}
+.contact26 .contact-hero__title .ink-red {
+  color: var(--coral);
+}
+.contact26 .contact-hero__sub {
+  margin: 0 auto;
+  max-width: 340px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+/* ---- Get in touch + 3 contact cards (same style as About-us cards) ---- */
+.contact26 .contact-info {
+  background: var(--white);
+  padding: 80px 60px;
+}
+.contact26 .contact-info__title {
+  margin: 0 auto 48px;
+  text-align: center;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1; /* 100% */
+  letter-spacing: -2px;
+  color: #091620;
+}
+.contact26 .contact-info__title .ink-red {
+  color: var(--coral);
+}
+.contact26 .contact-info__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.contact26 .contact-info__card {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 24px;
+}
+.contact26 .contact-info__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+  background: #091620;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.contact26 .contact-info__icon svg {
+  width: 24px;
+  height: 24px;
+}
+.contact26 .contact-info__card-title {
+  margin: 0 0 12px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.4px; /* -2% */
+  color: #091620;
+}
+.contact26 .contact-info__card-body {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 140%;
+  letter-spacing: -0.34px; /* -2% */
+  color: #091620;
+}
+
+/* ---- Send us a message: photo left + form right ---- */
+.contact26 .contact-form-sec {
+  display: grid;
+  grid-template-columns: 588px 1fr;
+  gap: 4px;
+  align-items: stretch;
+  padding: 0 60px 80px;
+}
+/* media cell contributes no intrinsic height (photo is absolutely positioned),
+   so the row height is driven by the form card — no trailing gap below the CTA. */
+.contact26 .contact-form__media {
+  position: relative;
+  border-radius: 16px;
+  overflow: clip;
+  min-height: 0;
+}
+.contact26 .contact-form__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.contact26 .contact-form {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 24px;
+}
+.contact26 .contact-form__title {
+  margin: 0 0 24px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 50px;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.contact26 .contact-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.contact26 .contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.contact26 .contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contact26 .contact-form__label {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.contact26 .contact-form__input {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid rgba(9, 22, 32, 0.12);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.contact26 .contact-form__input::placeholder {
+  color: rgba(9, 22, 32, 0.4);
+}
+.contact26 .contact-form__input:focus-visible {
+  outline: none;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(237, 59, 68, 0.12);
+}
+.contact26 .contact-form__textarea {
+  min-height: 168px;
+  resize: vertical;
+}
+.contact26 .contact-form__submit {
+  width: 100%;
+  margin-top: 4px;
+  background: var(--coral);
+  color: var(--white);
+  border: 1px solid var(--coral);
+  border-radius: 90px;
+  padding: 16px 32px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.contact26 .contact-form__submit:hover {
+  background: transparent;
+  color: var(--coral);
+}
+
+/* On wide screens keep the form section inside the same 1440 design grid as the
+   card-sections + footer (which get this via the shared `.moves-page > .card-section`
+   rule in moves.css). Without it the form is full-bleed and looks wider than them. */
+@media (min-width: 1441px) {
+  .contact26 .contact-form-sec {
+    padding-inline: calc((100% - 1440px) / 2 + 60px);
+  }
+}
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+@media (max-width: 900px) {
+  .contact26 .contact-hero {
+    min-height: 0;
+  }
+  .contact26 .contact-hero__hand--l {
+    left: -28px;
+    top: 61px;
+    bottom: auto;
+    transform: none;
+    width: 108px;
+  }
+  .contact26 .contact-hero__hand--r {
+    right: -40px;
+    top: 61px;
+    bottom: auto;
+    transform: none;
+    width: 128px;
+  }
+  .contact26 .contact-hero__center {
+    padding: 70px 20px;
+  }
+  .contact26 .contact-hero__sub {
+    max-width: 250px;
+  }
+  .contact26 .contact-info {
+    padding: 25px 16px;
+  }
+  .contact26 .contact-info__cards {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  /* icon on the LEFT, title + body stacked on the right (matches About-us) */
+  .contact26 .contact-info__card {
+    padding: 20px 16px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'icon title'
+      'icon body';
+    column-gap: 16px;
+    row-gap: 8px;
+    align-items: start;
+  }
+  .contact26 .contact-info__icon {
+    grid-area: icon;
+    margin-bottom: 0;
+  }
+  .contact26 .contact-info__card-title {
+    grid-area: title;
+    margin: 0;
+    font-size: 16px;
+  }
+  .contact26 .contact-info__card-body {
+    grid-area: body;
+    font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+  .contact26 .contact-form-sec {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 0 16px 25px;
+  }
+  .contact26 .contact-form__media {
+    height: 320px;
+  }
+  .contact26 .contact-form {
+    padding: 24px 16px;
+  }
+  .contact26 .contact-form__title {
+    font-size: 24px;
+    line-height: 1; /* 100% */
+    letter-spacing: -0.02em; /* -2% */
+  }
+  .contact26 .contact-form__label {
+    font-size: 18px;
+    line-height: 1; /* 100% */
+    text-transform: capitalize;
+  }
+  .contact26 .contact-form__row {
+    grid-template-columns: 1fr;
+  }
+  .contact26 .contact-form__submit {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact26 .contact-info__title {
+    font-size: 32px;
+    line-height: 35px;
+    letter-spacing: -1.5px;
+  }
+}
