@@ -42,25 +42,24 @@
   font-family: var(--f-body); /* Public Sans */
   font-weight: 400;
   font-size: 17px;
-  line-height: 24px;
-  letter-spacing: -0.34px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
   color: #fff;
 }
 .ca26 .ca-hero__trust-label {
   font-weight: 400;
 }
 .ca26 .ca-hero__stars {
-  display: inline-flex;
-  gap: 3px;
-}
-.ca26 .ca-hero__star {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
+  display: inline-block;
   height: 20px;
-  border-radius: 3px;
-  background: #00b67a; /* Trustpilot green */
+  width: auto;
+  vertical-align: middle;
+}
+.ca26 .ca-hero__trust-star {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
 }
 .ca26 .ca-hero__trust-count {
   color: rgba(255, 255, 255, 0.85);
@@ -69,11 +68,11 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.32px;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
 }
 .ca26 .ca-hero__title {
   margin: 0;
@@ -696,6 +695,21 @@
     font-size: 40px;
     line-height: 40px;
     letter-spacing: -1.6px;
+  }
+  /* Trustpilot widget — mobile type (Public Sans 12/13, 0 tracking, capitalize) */
+  .ca26 .ca-hero__trust,
+  .ca26 .ca-hero__trust-logo {
+    font-size: 12px;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+  .ca26 .ca-hero__stars {
+    height: 15px;
+  }
+  .ca26 .ca-hero__trust-star {
+    width: 13px;
+    height: 13px;
   }
   .ca26 .ca-care__title,
   .ca26 .ca-assess__title {

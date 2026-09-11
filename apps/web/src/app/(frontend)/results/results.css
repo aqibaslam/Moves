@@ -1,0 +1,242 @@
+/* ============================================================
+   Results — 2026 (Figma node 984:13404). Scoped under .results26.
+   The page is assembled from already-designed 2026 sections (marquee,
+   BeforeAfters, ProofInMotion, Faqs, SmileInMotion, FooterDark), so it
+   inherits their styling from landing.css + landing-2026.css.
+
+   The hero mirrors the clear-aligners hero (`.ca-hero`, Figma 984:13522);
+   its rules are re-scoped to `.results26` here so the page stays
+   self-contained (no cross-page CSS import).
+   ============================================================ */
+
+.results26 .ca-hero {
+  position: relative;
+  background: var(--lp-dark);
+  color: var(--white);
+  overflow: clip;
+  border-radius: 24px;
+}
+.results26 .ca-hero__inner {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  min-height: 620px;
+  /* keep the content within the same 1440 container as the header + sections */
+  padding-left: max(0px, calc((100% - 1440px) / 2));
+  padding-right: max(60px, calc((100% - 1440px) / 2 + 60px));
+}
+.results26 .ca-hero__col {
+  flex: 0 0 auto;
+  width: 607px;
+  max-width: 52%;
+  padding: 56px 0 56px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+}
+/* Trustpilot chip */
+.results26 .ca-hero__trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #fff;
+}
+.results26 .ca-hero__trust-label {
+  font-weight: 400;
+}
+.results26 .ca-hero__stars {
+  display: inline-block;
+  height: 20px;
+  width: auto;
+  vertical-align: middle;
+}
+.results26 .ca-hero__trust-star {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+.results26 .ca-hero__trust-count {
+  color: rgba(255, 255, 255, 0.85);
+}
+.results26 .ca-hero__trust-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+}
+.results26 .ca-hero__title {
+  margin: 0;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -1.6px;
+  color: var(--white);
+}
+.results26 .ca-hero__accent {
+  color: var(--coral, #ed3b44);
+}
+.results26 .ca-hero__lead {
+  margin: 0;
+  max-width: 547px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: rgba(255, 255, 255, 0.85);
+}
+.results26 .ca-hero__actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.results26 .ca-hero__cta {
+  width: 240px;
+  min-height: 56px;
+  border-radius: 90px;
+  padding: 16px 32px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+}
+.results26 .ca-hero__link {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* dome + portrait */
+.results26 .ca-hero__media {
+  flex: 1 1 auto;
+  align-self: stretch;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: clip;
+  padding-top: 46px;
+}
+/* soft blue glow behind the portrait — Figma Ellipse 1356 (blurred blue disc). */
+.results26 .ca-hero__dome {
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  pointer-events: none;
+}
+.results26 .ca-hero__portrait {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  max-height: 660px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* "Real moves. Signed." uses the landing-2026 <Reviews2> component, styled by
+   `.lp26 .reviews2*` in landing-2026.css (imported here) — no page overrides needed. */
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 900px) {
+  .results26 .ca-hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-height: 0;
+    padding-inline: 0;
+  }
+  .results26 .ca-hero__col {
+    width: 100%;
+    max-width: none;
+    padding: 40px 16px 32px;
+    gap: 24px;
+  }
+  /* Figma mobile media 390×340 — cap the height so the whole head-and-shoulders
+     fits (contain) instead of the oversized full-height portrait. */
+  .results26 .ca-hero__media {
+    justify-content: center;
+    height: 340px;
+    padding-top: 0;
+  }
+  .results26 .ca-hero__portrait {
+    width: auto;
+    height: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+  /* Mobile actions stack: text link above a full-width CTA (Figma 984:14006) */
+  .results26 .ca-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+  }
+  .results26 .ca-hero__link {
+    order: -1;
+    align-self: flex-start;
+    font-weight: 500; /* Medium on mobile */
+    font-size: 14px;
+    line-height: 1; /* 100% */
+  }
+  .results26 .ca-hero__cta {
+    width: 224px;
+    min-height: 46px;
+    font-size: 16px;
+  }
+  .results26 .ca-hero__lead {
+    font-size: 16px;
+    line-height: 1.4; /* 140% */
+  }
+}
+@media (max-width: 640px) {
+  .results26 .ca-hero__title {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+  /* Trustpilot widget — mobile type (Public Sans 12/13, 0 tracking, capitalize) */
+  .results26 .ca-hero__trust,
+  .results26 .ca-hero__trust-logo {
+    font-size: 12px;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+  .results26 .ca-hero__stars {
+    height: 15px;
+  }
+  .results26 .ca-hero__trust-star {
+    width: 13px;
+    height: 13px;
+  }
+}

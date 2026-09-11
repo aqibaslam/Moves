@@ -1,11 +1,11 @@
 import { BOOKING_PATH } from '@/lib/booking/links';
 
-/* Clear-aligners hero (Figma 413:16797) — a rounded navy card: Trustpilot chip,
-   headline (coral "putting off"), lead, a coral CTA + text link, and a signed
-   "Amelia Hart" chip on the left; portrait on a navy dome on the right. */
-export function ClearHero() {
+/* Results hero (Figma 984:13522 desktop / 984:14006 mobile) — same rounded navy
+   card as the clear-aligners hero: Trustpilot chip, headline (coral "look
+   like."), lead, a coral CTA + text link, and the portrait on a navy dome. */
+export function ResultsHero() {
   return (
-    <section className="ca-hero">
+    <section className="ca-hero rh-hero">
       <div className="ca-hero__inner">
         <div className="ca-hero__col">
           <div className="ca-hero__trust">
@@ -21,12 +21,12 @@ export function ClearHero() {
           </div>
 
           <h1 className="ca-hero__title">
-            The smile you’ve been <span className="ca-hero__accent">putting off</span>
+            See what a moves smile can <span className="ca-hero__accent">look like.</span>
           </h1>
           <p className="ca-hero__lead">
-            MOVES is the movement behind modern smiles. Planned in person, signed by a named
-            GDC-registered dentist, at a price we publish. The smile is yours, the signature means
-            you never move alone.
+            Every smile here started with an in-person scan, a dentist-signed plan, and a clear
+            aligner journey built around real movement. Browse results by concern, package, and
+            treatment time.
           </p>
 
           <div className="ca-hero__actions">
@@ -37,25 +37,17 @@ export function ClearHero() {
               See exactly what it costs
             </a>
           </div>
-
-          <div className="ca-hero__sign">
-            <span className="ca-hero__sign-name">Amelia Hart</span>
-            <span className="ca-hero__sign-div" aria-hidden="true" />
-            <span className="ca-hero__sign-meta">
-              <span className="ca-hero__sign-line">SIGNED · GDC No. 123456</span>
-              <span className="ca-hero__sign-line">ON THE PLAN. IN YOUR ACCOUNT. ON THE BOX.</span>
-            </span>
-          </div>
         </div>
 
         <div className="ca-hero__media">
+          {/* soft blue glow behind the portrait (Figma Ellipse 1356) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="ca-hero__dome" src="/images/ca-hero-dome.png" alt="" aria-hidden="true" />
+          <img className="ca-hero__dome" src="/images/results-hero-glow.png" alt="" aria-hidden="true" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="ca-hero__portrait"
-            src="/images/ca-hero-portrait.png"
-            alt="A person holding a clear aligner"
+            src="/images/results-hero-portrait.png"
+            alt="A person with a MOVES smile"
           />
         </div>
       </div>
