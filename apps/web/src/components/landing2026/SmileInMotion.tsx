@@ -6,7 +6,10 @@ export function SmileInMotion() {
   return (
     <section className="lp26-motion">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="lp26-motion__photo" src="/images/lp26-motion.png" alt="A person smiling" />
+      <img className="lp26-motion__photo lp26-motion__photo--desktop" src="/images/lp26-motion.png" alt="A person smiling" />
+      {/* mobile-only portrait (Figma mobile crop) */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="lp26-motion__photo lp26-motion__photo--mobile" src="/images/lp26-motion-mobile.png" alt="" aria-hidden="true" />
       <div className="lp26-motion__inner">
         <h2 className="lp26-motion__title">
           Your smile. In <span className="ink-red">motion.</span>

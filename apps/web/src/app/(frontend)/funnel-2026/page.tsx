@@ -41,7 +41,7 @@ export default function Funnel2026Page() {
       <CoralBand variant="2026" />
       <FunnelPricing />
       <ThreeMoves data={{ heading: { pre: 'You move, in three', accent: 'moves' } }} />
-      <Comparison />
+      <Comparison logoSrc="/images/funnel-cmp-moves.svg" />
       <Candidacy />
       <WhatsIncluded />
       <DentistNames />

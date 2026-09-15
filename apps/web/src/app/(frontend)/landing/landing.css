@@ -499,13 +499,19 @@
 }
 .landing-2 .reviews2__sub {
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: var(--navy);
-  opacity: 0.85;
+  font-weight: 400;
+  font-size: 17px; /* desktop; 16px on mobile */
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  text-align: center;
+  color: #091620;
   margin: 0;
   max-width: 46ch;
+}
+@media (max-width: 640px) {
+  .landing-2 .reviews2__sub {
+    font-size: 16px;
+  }
 }
 
 .landing-2 .reviews2__row {

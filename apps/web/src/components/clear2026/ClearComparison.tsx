@@ -89,7 +89,7 @@ export function ClearComparison() {
           <div className="f-cmp__cell f-cmp__cell--head f-cmp__cell--label" role="columnheader" />
           <div className="f-cmp__cell f-cmp__cell--head f-cmp__cell--moves" role="columnheader">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/moves-logo.svg" alt="Moves" />
+            <img src="/images/f26-foot-logo.png" alt="Moves" />
           </div>
           <div className="f-cmp__cell f-cmp__cell--head" role="columnheader">
             Mail-Order Aligners

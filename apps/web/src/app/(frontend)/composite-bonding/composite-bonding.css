@@ -1,0 +1,84 @@
+/* ============================================================
+   Composite Bonding — 2026 (Figma node 984:7282). The page reuses the
+   clear-aligners section designs (imported clear-aligners.css, scoped to
+   `.ca26`); this file only overrides the page-specific imagery via the
+   `.cb26` hook. Everything else — type, colour, spacing — is inherited.
+   ============================================================ */
+
+/* Hero media (Figma 984:7438): replace the navy dome with a soft blue radial
+   glow behind the portrait (two #145480 @ 70% ellipses in Figma → one gradient).
+   The portrait sits toward the right of the media (Figma: ~93px left / ~41px right
+   gutter within the 733px media), not centred. */
+.cb26 .ca-hero__dome {
+  display: none;
+}
+/* Portrait bleeds to the card's right edge at every width (drop the right gutter);
+   the left column keeps its own 1440-grid padding-left. */
+.cb26 .ca-hero__inner {
+  padding-right: 0;
+}
+/* Desktop hero: fill the whole right-half media box like the funnel hero
+   (object-fit cover, absolutely positioned) instead of a contained cutout. Match
+   funnel's taller hero (800px) so `cover` shows the woman fully without cropping
+   her shoulders off the bottom. Scoped ≥901px so the mobile stacked hero (where an
+   absolutely-positioned image would collapse the media) keeps the base behaviour. */
+@media (min-width: 901px) {
+  .cb26 .ca-hero__inner {
+    min-height: 800px;
+  }
+  .cb26 .ca-hero__media::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    /* the Figma glow ellipse (984:7441 — #145480 @ 70%, 215px blur), exported */
+    top: 50%;
+    right: 0;
+    transform: translate(16%, -50%);
+    width: 92%;
+    max-width: 820px;
+    aspect-ratio: 1 / 1;
+    background: url('/images/composite-hero-glow.png') center / contain no-repeat;
+  }
+  .cb26 .ca-hero__portrait {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    /* contain (never crop the woman) + bottom-right anchor: full portrait shows,
+       flush to the right/bottom, and the glow fills the space to her left */
+    object-fit: contain;
+    object-position: right bottom;
+  }
+}
+
+/* Assessment section (desktop): swap the baked navy scene for the composite one.
+   Scoped ≥901px so it does NOT override the mobile `background-image: none` (the
+   base falls back to solid navy + a photo block below the copy on mobile). */
+@media (min-width: 901px) {
+  .cb26 .ca-assess {
+    background-image: url('/images/composite-assess-bg.png');
+  }
+}
+/* Mobile (Figma 984:9129): navy copy block on top, photo below it. */
+@media (max-width: 900px) {
+  .cb26 .ca-assess {
+    display: flex;
+    flex-direction: column;
+  }
+  .cb26 .ca-assess__photo {
+    order: 1; /* photo after the copy block */
+    height: 340px;
+  }
+}
+
+/* Pricing section (984:7814): white section with grey cards (the .lp26 default).
+   clear-aligners.css flips this to a grey section with white cards; restore it
+   here — loads after clear-aligners.css so it wins at equal specificity. */
+.cb26 .pricing {
+  background: var(--white);
+}
+.cb26 .pricing .pcard {
+  background: var(--lp-grey);
+}

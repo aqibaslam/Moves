@@ -121,15 +121,18 @@
   display: inline-flex;
   align-items: center;
   gap: 16px;
-  padding: 12px 20px;
+  padding: 13.5px 16px;
   background: var(--white);
   border-radius: 8px;
 }
 .ca26 .ca-hero__sign-name {
+  white-space: nowrap; /* keep "Amelia Hart" on one line */
   font-family: var(--font-caveat), 'Caveat', cursive;
+  font-weight: 400;
   font-size: 28px;
-  line-height: 1;
-  color: #05143b;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #091620;
 }
 /* vertical divider between the signature and its meta (Figma Line 236) */
 .ca26 .ca-hero__sign-div {
@@ -147,9 +150,15 @@
   font-family: var(--f-body); /* Public Sans */
   font-weight: 500;
   font-size: 12px;
-  line-height: 14px;
-  letter-spacing: -0.24px;
+  line-height: 1.2; /* 120% */
+  letter-spacing: -0.02em; /* -2% */
   color: #091620;
+}
+.ca26 .ca-hero__sign-line:first-child {
+  color: #091620b2; /* SIGNED · GDC — navy 70% */
+}
+.ca26 .ca-hero__sign-line:last-child {
+  color: #091620; /* ON THE PLAN… — full navy */
 }
 /* dome + portrait */
 .ca26 .ca-hero__media {
@@ -269,7 +278,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: -0.28px;
-  color: rgba(9, 22, 32, 0.72);
+  color: #091620;
 }
 
 /* ---- Free Smile Assessment (413:17402) : full-bleed navy card. The aligner-case
@@ -440,13 +449,16 @@
    label column fills the remaining ~396px. Capped at 930px and centred, matching
    the Figma comparison frame. */
 .ca26 .ca-cmp .f-cmp__table {
-  border: 0;
-  border-radius: 0;
-  overflow: visible;
-  grid-template-columns: minmax(0, 1fr) 166px 166px 166px;
-  column-gap: 12px;
+  /* Figma 1155:4293: one bordered table — flush columns (no gap), 24px rounded
+     border, and thin dividers between every column and row. */
+  border: 1px solid rgba(9, 22, 32, 0.1);
+  border-radius: 24px;
+  overflow: clip;
+  background: #ffffff;
+  grid-template-columns: minmax(0, 1fr) 200px 200px 200px;
+  column-gap: 0;
   row-gap: 0;
-  max-width: 930px;
+  max-width: 888px;
   margin-inline: auto;
 }
 /* base value cell: light grey block, navy text, centred */
@@ -458,10 +470,14 @@
   background: #f5f5f5;
   color: #091620;
 }
-/* internal row separators — white 1px, same as the MOVES column (Figma) */
-.ca26 .ca-cmp .f-cmp__cell--val,
-.ca26 .ca-cmp .f-cmp__cell:not(.f-cmp__cell--head):not(.f-cmp__cell--label):not(.f-cmp__cell--moves) {
-  border-top: 1px solid #ffffff;
+/* grid dividers — thin navy-tint lines between every row and column. Navy @10%
+   is invisible on the dark MOVES column and reads as light grey on the white/
+   grey columns, matching the Figma render. */
+.ca26 .ca-cmp .f-cmp__cell:not(.f-cmp__cell--head) {
+  border-top: 1px solid rgba(9, 22, 32, 0.1);
+}
+.ca26 .ca-cmp .f-cmp__cell:not(.f-cmp__cell--label) {
+  border-left: 1px solid rgba(9, 22, 32, 0.1);
 }
 /* Mail-Order + Traditional columns text (Figma): Public Sans 400, 140%, -2%,
    centred, #091620. 16px desktop / 14px mobile (mobile trims to cap height). */
@@ -479,7 +495,6 @@
 .ca26 .ca-cmp .f-cmp__cell--moves {
   background: #091620; /* dark navy MOVES column */
   color: #ffffff;
-  border-top: 1px solid #ffffff;
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 16px;
@@ -503,12 +518,13 @@
   line-height: 140%;
   letter-spacing: -0.02em;
 }
-/* desktop: cap the label text at 252px (Figma) so titles wrap within the column
-   (the column itself stays wide to hold the 930px table). Mobile scroll-slides
-   (≤640px) keep their own full-width label. */
+/* desktop: the label cell fills its column right up to the divider (no trailing
+   gap before the MOVES column) and the text gets left/right padding so it sits
+   off the table border. Mobile scroll-slides (≤640px) keep their own layout. */
 @media (min-width: 641px) {
   .ca26 .ca-cmp .f-cmp__cell--label {
-    max-width: 252px;
+    padding-left: 24px;
+    padding-right: 16px;
   }
 }
 @media (max-width: 640px) {
@@ -516,15 +532,22 @@
   .ca26 .ca-cmp {
     padding-block: 25px;
   }
-  /* mobile: the desktop grid (166px fixed value cols + max-width 930) squishes the
-     label to nothing — use a scrollable mobile grid (label wider, value cols narrow) */
+  /* mobile scrollable table — Figma 1191:4273: ~119px columns (3 fit at a time),
+     16px corner radius. */
   .ca26 .ca-cmp .f-cmp__table {
-    grid-template-columns: 145px 140px 140px 140px;
-    min-width: 565px;
+    grid-template-columns: 119px 119px 112px 119px;
+    min-width: 469px;
     max-width: none;
     margin-inline: 0;
+    border-radius: 16px;
   }
-  /* scroll progress thumb — dark navy active part (matches Figma) */
+  /* scroll progress — inactive track navy @10%, active thumb dark navy (Figma).
+     The base funnel track is pink; the funnel-2026 override is scoped to
+     `.moves-page.funnel-2026` which doesn't match this page's nested wrapper, so
+     re-assert it here. */
+  .ca26 .ca-cmp .f-cmp__scroll {
+    background: #0916201a;
+  }
   .ca26 .ca-cmp .f-cmp__scroll-fill {
     background: #091620;
   }
@@ -539,6 +562,8 @@
   }
   .ca26 .ca-cmp .f-cmp__cell--label {
     font-size: 14px;
+    padding-left: 16px; /* Figma mobile label padding */
+    padding-right: 12px;
   }
   /* MOVES column text switches to Public Sans 14px on mobile */
   .ca26 .ca-cmp .f-cmp__cell--moves {
@@ -556,15 +581,6 @@
 .ca26 .ca-cmp .f-cmp__cell--head {
   border-top: 0;
 }
-.ca26 .ca-cmp .f-cmp__cell--head:not(.f-cmp__cell--label) {
-  border-radius: 6px 6px 0 0; /* round the top of each column block */
-}
-/* round the bottom of each column block (last data row: moves, mail, braces) */
-.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(1),
-.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(2),
-.ca26 .ca-cmp .f-cmp__table > .f-cmp__cell:nth-last-child(3) {
-  border-radius: 0 0 6px 6px;
-}
 .ca26 .ca-cmp .f-cmp__tick {
   display: inline-block;
 }
@@ -573,7 +589,7 @@
 @media (min-width: 641px) {
   .ca26 .ca-care {
     padding-top: 40px;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
   }
   .ca26 .ca-assess {
     margin: 40px 0;
@@ -596,7 +612,26 @@
     width: 100%;
     max-width: none;
     padding: 40px 16px 32px;
-    gap: 24px;
+    gap: 0; /* explicit per-element gaps below — matches pricing hero */
+  }
+  /* mobile hero gaps + stacked actions (link above CTA) — matches pricing */
+  .ca26 .ca-hero__trust {
+    margin-bottom: 16px; /* Trustpilot → heading */
+  }
+  .ca26 .ca-hero__title {
+    margin-bottom: 16px; /* heading → desc */
+  }
+  .ca26 .ca-hero__lead {
+    margin-bottom: 28px; /* desc → actions */
+  }
+  .ca26 .ca-hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px; /* "See exactly" ↔ CTA */
+    margin-bottom: 28px; /* CTA → signature */
+  }
+  .ca26 .ca-hero__link {
+    order: -1; /* "See exactly what it costs" above the CTA */
   }
   .ca26 .ca-hero__media {
     justify-content: center;
@@ -606,7 +641,7 @@
     /* stack: intro → cards → CTA (CTA at the end of the section) */
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px; /* desc → columns, and columns → CTA */
   }
   /* head becomes contents so its intro + CTA join the section's flex flow and can
      be reordered (CTA to the end) */
@@ -615,11 +650,12 @@
   }
   .ca26 .ca-care__intro {
     order: 1;
+    gap: 16px; /* heading → desc */
   }
   .ca26 .ca-care__grid {
     order: 2;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 4px; /* between cards */
   }
   .ca26 .ca-care__cta {
     order: 3;
@@ -629,9 +665,16 @@
   .ca26 .ca-care__card {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: 14px;
-    row-gap: 6px;
+    column-gap: 16px; /* icon → title/desc column */
+    row-gap: 12px; /* heading → desc */
     align-items: start;
+    padding: 20px 16px;
+  }
+  /* card heading mobile type (Public Sans 500, 16/140%/-2%) */
+  .ca26 .ca-care__card-title {
+    font-size: 16px;
+    line-height: 1.4; /* 140% */
+    letter-spacing: -0.02em; /* -2% */
   }
   .ca26 .ca-care__icon {
     grid-column: 1;
@@ -724,5 +767,16 @@
   }
   .ca26 .ca-assess {
     margin: 25px 0;
+  }
+  /* signature chip mobile — match pricing */
+  .ca26 .ca-hero__sign {
+    padding: 8.5px 12px;
+  }
+  .ca26 .ca-hero__sign-name {
+    font-size: 20px;
+    line-height: 1; /* 100% */
+  }
+  .ca26 .ca-hero__sign-line:first-child {
+    font-weight: 400; /* SIGNED · GDC — Regular on mobile */
   }
 }

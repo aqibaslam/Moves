@@ -1,0 +1,566 @@
+/* ============================================================
+   MOVES Pricing — 2026 (Figma node 984:10947). Scoped under .pricing26.
+   The hero, pricing cards and comparison reuse the .ca26 clear-aligners
+   styling (imported); this file adds the pricing-specific sections.
+   ============================================================ */
+
+/* ---- Marquee: 10px top/bottom padding (5.5px on mobile). Overrides the
+   landing-2026 `.lp26 .marquee { padding-bottom: 40px }`. */
+.pricing26 .marquee {
+  padding-block: 10px;
+}
+/* landing.css hides `.landing-2 > .marquee` below 767px — keep it visible here. */
+.pricing26.landing-2 > .marquee {
+  display: block;
+}
+@media (max-width: 640px) {
+  .pricing26 .marquee {
+    padding-block: 5.5px;
+  }
+}
+
+/* ---- Hero feature checklist (replaces the clear-aligners Trustpilot chip) --- */
+.pricing26 .ph-hero__features {
+  list-style: none;
+  margin: 0 0 40px; /* list → CTA */
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px 0; /* 11px row, no column gap */
+  max-width: 547px;
+}
+/* Hero left column — explicit per-element gaps (Figma). */
+.pricing26 .ca-hero__col {
+  gap: 0;
+}
+.pricing26 .ca-hero__title {
+  margin-bottom: 24px; /* heading → desc */
+}
+.pricing26 .ca-hero__lead {
+  margin-bottom: 24px; /* desc → list */
+}
+.pricing26 .ca-hero__actions {
+  margin-bottom: 40px; /* CTA row → signature */
+}
+/* Signature chip (Figma). */
+.pricing26 .ca-hero__sign {
+  padding: 13.5px 16px;
+}
+.pricing26 .ca-hero__sign-name {
+  white-space: nowrap; /* keep "Amelia Hart" on one line */
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #091620;
+}
+.pricing26 .ca-hero__sign-line {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2; /* 120% */
+  letter-spacing: -0.02em; /* -2% */
+}
+.pricing26 .ca-hero__sign-line:first-child {
+  color: #091620b2; /* SIGNED · GDC — navy 70% */
+}
+.pricing26 .ca-hero__sign-line:last-child {
+  color: #091620; /* ON THE PLAN… — full navy */
+}
+.pricing26 .ph-hero__feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.pricing26 .ph-hero__check {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #fff; /* white disc, navy tick (set in the SVG) */
+}
+
+/* ============================================================
+   Pricing cards (984:11200)
+   ============================================================ */
+.pricing26 .ph-plans {
+  background: #f5f5f5;
+  border-radius: 24px; /* Figma 984:11200 — rounded grey card */
+  padding: 80px 60px;
+  margin-bottom: 40px; /* 25px on mobile */
+}
+.pricing26 .ph-plans__head {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pricing26 .ph-plans__title {
+  margin: 0;
+  color: #091620;
+}
+.pricing26 .ph-plans__title .c {
+  color: var(--coral);
+}
+.pricing26 .ph-plans__sub {
+  margin: 0;
+  max-width: 680px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(9, 22, 32, 0.75);
+}
+.pricing26 .ph-plans__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+.pricing26 .ph-plan {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.pricing26 .ph-plan__name {
+  margin: 0 0 16px;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 50px;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.pricing26 .ph-plan__price {
+  margin: 0 0 20px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pricing26 .ph-plan__from {
+  flex-basis: 100%;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.pricing26 .ph-plan__amount {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 1; /* 100% */
+  letter-spacing: -0.04em; /* -4% */
+  color: #091620;
+}
+.pricing26 .ph-plan__per {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  color: rgba(9, 22, 32, 0.7);
+}
+.pricing26 .ph-plan__rule {
+  border: 0;
+  border-top: 1px solid rgba(9, 22, 32, 0.12);
+  margin: 0 0 20px;
+}
+.pricing26 .ph-plan__label {
+  margin: 0 0 8px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.34; /* 134% */
+  letter-spacing: 0;
+  color: #091620;
+}
+.pricing26 .ph-plan__value {
+  margin: 0 0 20px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1; /* 100% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.pricing26 .ph-plan__incl {
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1; /* 100% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.pricing26 .ph-plan__tick {
+  flex: 0 0 auto;
+  color: var(--coral);
+}
+.pricing26 .ph-plan__cta {
+  margin-top: auto;
+  width: 100%;
+  border-radius: 90px;
+  padding: 16px 24px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================================
+   6 — "Every moves package includes more than aligners" (984:11424)
+   ============================================================ */
+.pricing26 .ph-incl {
+  position: relative;
+  background: #091620;
+  color: #fff;
+  border-radius: 16px;
+  overflow: clip;
+  margin-block: 40px; /* 25px on mobile */
+}
+.pricing26 .ph-incl__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 620px;
+  padding-left: max(60px, calc((100% - 1440px) / 2 + 60px));
+}
+.pricing26 .ph-incl__col {
+  padding: 72px 40px 72px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0; /* explicit per-element gaps below */
+}
+.pricing26 .ph-incl__title {
+  margin: 0 0 20px; /* heading → desc */
+  max-width: 520px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(36px, 3.6vw, 48px);
+  line-height: 1.04;
+  letter-spacing: -2px;
+  color: #fff;
+}
+.pricing26 .ph-incl__title .ink-red {
+  color: var(--coral);
+}
+.pricing26 .ph-incl__lead {
+  margin: 0 0 28px; /* desc → CTA */
+  max-width: 520px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.85);
+}
+.pricing26 .ph-incl__cta {
+  width: 240px;
+  min-height: 56px;
+  border-radius: 90px;
+  margin: 0 0 42px; /* CTA → list */
+}
+.pricing26 .ph-incl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px; /* row 12px, column (centre) 14px */
+  width: 100%;
+  max-width: 560px;
+}
+.pricing26 .ph-incl__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.pricing26 .ph-incl__tick {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #fff;
+}
+.pricing26 .ph-incl__media {
+  position: relative;
+  overflow: clip;
+}
+.pricing26 .ph-incl__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ============================================================
+   7 — "Prefer to spread the cost?" finance section (984:11506)
+   ============================================================ */
+.pricing26 .ph-fin {
+  background: var(--white);
+  padding: 40px 60px;
+}
+.pricing26 .ph-fin__head {
+  text-align: center;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pricing26 .ph-fin__title {
+  margin: 0;
+  color: #091620;
+}
+.pricing26 .ph-fin__title .c {
+  color: var(--coral);
+}
+.pricing26 .ph-fin__sub {
+  margin: 0;
+  max-width: 720px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(9, 22, 32, 0.75);
+}
+.pricing26 .ph-fin__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  max-width: 1320px;
+  margin: 0 auto 48px;
+}
+.pricing26 .ph-fin__card {
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: 24px 24px 67px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.pricing26 .ph-fin__label {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.34; /* 134% */
+  letter-spacing: 0;
+  color: var(--coral);
+}
+.pricing26 .ph-fin__value {
+  margin: 0;
+  font-family: var(--f-body); /* Public Sans */
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 50px;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.pricing26 .ph-fin__caption {
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
+}
+.pricing26 .ph-fin__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-height: 56px;
+  margin-inline: auto;
+  border-radius: 90px;
+  padding: 16px 32px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+/* Section headings: Glacial Indifference 400, 48/100%/-2px. The base landing.css
+   forces "Google Sans" 600 on `.h-section` at desktop (0,3,0), and lp26 only
+   re-asserts Glacial for its own sections — not these — so re-assert here at
+   matching specificity. */
+.pricing26 .ph-plans .ph-plans__title,
+.pricing26 .ph-fin .ph-fin__title {
+  font-family: var(--f-head);
+  font-weight: 400;
+}
+@media (min-width: 641px) {
+  .pricing26 .ph-plans .ph-plans__title,
+  .pricing26 .ph-fin .ph-fin__title {
+    font-size: 48px;
+    line-height: 1; /* 100% */
+    letter-spacing: -2px;
+  }
+}
+/* section descriptions → navy #091620 */
+.pricing26 .ph-plans__sub,
+.pricing26 .ph-fin__sub {
+  color: #091620;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 900px) {
+  .pricing26 .ph-hero__features {
+    grid-template-columns: 1fr;
+    gap: 11px; /* each list item */
+    max-width: none;
+    margin-bottom: 28px; /* list → "See exactly" / actions */
+  }
+  /* mobile hero column gaps + stacked actions (link above CTA) */
+  .pricing26 .ca-hero__title {
+    margin-bottom: 16px; /* heading → desc */
+  }
+  .pricing26 .ca-hero__lead {
+    margin-bottom: 16px; /* desc → list */
+  }
+  .pricing26 .ca-hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px; /* "See exactly" ↔ CTA */
+    margin-bottom: 28px; /* CTA → signature */
+  }
+  .pricing26 .ca-hero__link {
+    order: -1; /* "See exactly what it costs" above the CTA */
+  }
+  .pricing26 .ph-incl {
+    margin-block: 25px;
+  }
+  .pricing26 .ph-incl__inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-left: 0;
+  }
+  .pricing26 .ph-incl__col {
+    padding: 40px 16px;
+  }
+  /* mobile gaps + order: heading → desc → list → CTA */
+  .pricing26 .ph-incl__title {
+    margin-bottom: 16px; /* heading → desc */
+  }
+  .pricing26 .ph-incl__lead {
+    margin-bottom: 23px; /* desc → list */
+  }
+  .pricing26 .ph-incl__list {
+    grid-template-columns: 1fr;
+    max-width: none;
+    gap: 14px; /* each li */
+    margin-bottom: 23px; /* list → CTA */
+  }
+  .pricing26 .ph-incl__cta {
+    order: 1; /* CTA after the list on mobile */
+    margin-bottom: 0;
+  }
+  .pricing26 .ph-incl__media {
+    height: 340px;
+  }
+  /* plans head: heading→desc 16px (base gap), desc→columns 28px */
+  .pricing26 .ph-plans__head {
+    margin-bottom: 28px;
+  }
+  .pricing26 .ph-plans__grid {
+    grid-template-columns: 1fr;
+    gap: 4px; /* stacked cards */
+  }
+  /* finance cards: 2-up on mobile, 4px gaps; mobile padding + tighter element gap */
+  .pricing26 .ph-fin__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 23px; /* columns → CTA */
+  }
+  .pricing26 .ph-fin__card {
+    padding: 16px 10px 21px;
+    gap: 16px;
+  }
+  /* finance head: heading→desc 16px (base), desc→columns 23px */
+  .pricing26 .ph-fin__head {
+    margin-bottom: 23px;
+  }
+}
+@media (max-width: 640px) {
+  .pricing26 .ph-plans {
+    padding: 50px 16px;
+    margin-bottom: 25px;
+  }
+  .pricing26 .ph-fin {
+    padding: 25px 16px;
+  }
+  .pricing26 .ph-fin__cta,
+  .pricing26 .ph-plan__cta {
+    width: 100%;
+  }
+  /* card title + price mobile type (Figma) */
+  .pricing26 .ph-plan__name {
+    font-size: 18px;
+    line-height: 1; /* 100% */
+    letter-spacing: -0.02em; /* -2% */
+    text-transform: capitalize;
+  }
+  .pricing26 .ph-plan__amount {
+    font-size: 26px;
+  }
+  /* finance card value mobile type (Figma) */
+  .pricing26 .ph-fin__value {
+    font-size: 18px;
+    line-height: 1; /* 100% */
+    letter-spacing: -0.02em; /* -2% */
+    text-transform: capitalize;
+  }
+  /* section headings mobile: Glacial 32/110%/-1.5px */
+  .pricing26 .ph-plans .ph-plans__title,
+  .pricing26 .ph-fin .ph-fin__title {
+    font-size: 32px;
+    line-height: 1.1; /* 110% */
+    letter-spacing: -1.5px;
+  }
+  /* section descriptions mobile: 16px */
+  .pricing26 .ph-plans__sub,
+  .pricing26 .ph-fin__sub {
+    font-size: 16px;
+  }
+  /* signature chip mobile */
+  .pricing26 .ca-hero__sign {
+    padding: 8.5px 12px;
+  }
+  .pricing26 .ca-hero__sign-name {
+    font-size: 20px;
+    line-height: 1; /* 100% */
+  }
+  .pricing26 .ca-hero__sign-line:first-child {
+    font-weight: 400; /* SIGNED · GDC — Regular on mobile */
+  }
+}

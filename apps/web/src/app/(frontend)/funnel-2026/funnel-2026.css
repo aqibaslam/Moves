@@ -831,9 +831,18 @@
 .funnel-2026 .f-cmp__cell--moves {
   background: #091620;
   color: var(--white);
+  padding-inline: 60px; /* MOVES (2nd) column text inset */
 }
 .funnel-2026 .f-cmp__cell--head.f-cmp__cell--moves img {
-  filter: brightness(0) invert(1);
+  width: 115px;
+  max-width: 100%;
+  height: auto;
+}
+/* mobile: MOVES (2nd) column has no horizontal padding (narrow columns) */
+@media (max-width: 640px) {
+  .funnel-2026 .f-cmp__cell--moves {
+    padding-inline: 0;
+  }
 }
 /* comparison scroll thumb — active #091620, inactive track #091620 @ 10%.
    Page-scoped (.moves-page.funnel-2026) so the clear-aligners comparison, which
@@ -992,24 +1001,40 @@
 .funnel-2026 .lp26-dentists__card {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
+  grid-template-rows: minmax(0, 1fr); /* pin the row so the photo bleed can't shift the content */
   gap: 40px;
   align-items: stretch;
   background: var(--lp-dark);
   border-radius: 30px;
-  padding: 48px;
+  padding: 57.2px 80.5px; /* top/bottom 57.2, left/right 80.5 */
   color: var(--white);
   overflow: clip;
+  /* Figma card frame: 1320×481, centred */
+  width: 100%;
+  max-width: 1320px;
+  height: 481px;
+  margin-inline: auto;
 }
-.funnel-2026 .lp26-dentists__info { align-self: center; }
+.funnel-2026 .lp26-dentists__info {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centre the info vertically within the card */
+}
+/* dentist card CTA — Figma frame 240×56 */
+.funnel-2026 .lp26-dentists__card .lp26-btn {
+  width: 240px;
+  height: 56px;
+}
 .funnel-2026 .lp26-dentists__photo {
-  align-self: end;
-  justify-self: center;
+  align-self: stretch;
+  justify-self: start;
   width: auto;
   max-width: 100%;
-  height: calc(100% + 48px);
-  margin-bottom: -48px;
+  height: auto;
+  margin-block: -57.2px; /* bleed to full card height (row is pinned, so no shift) */
   object-fit: contain;
-  object-position: bottom center;
+  object-position: bottom left;
 }
 .funnel-2026 .lp26-dentists__name {
   margin: 0 0 8px;
@@ -1203,6 +1228,7 @@
      placed independently via grid-template-areas. */
   .funnel-2026 .lp26-dentists__card {
     grid-template-columns: auto 1fr;
+    grid-template-rows: none; /* reset the desktop pinned row */
     grid-template-areas:
       "photo name"
       "photo role"
@@ -1214,6 +1240,8 @@
     align-items: center;
     padding: 28px;
     text-align: left;
+    height: auto; /* reset the desktop fixed 481px */
+    max-width: none;
   }
   .funnel-2026 .lp26-dentists__info { display: contents; }
   .funnel-2026 .lp26-dentists__photo {
@@ -1344,7 +1372,9 @@
   color: var(--white);
   border: 1px solid var(--coral);
   border-radius: 100px;
-  padding: 16px 28px;
+  padding: 0 28px;
+  width: 240px; /* Figma frame 240×56 */
+  height: 56px;
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 16px;
@@ -1395,8 +1425,9 @@
     font-weight: 400;
     font-size: 16px;
   }
-  .funnel-2026 .faqs__list { margin: 0 0 28px; }
-  .funnel-2026 .faqs__cta { order: 1; align-self: center; }
+  .funnel-2026 .faqs__list { margin: 0; }
+  /* hide the FAQ CTA on mobile (all 2026 pages) */
+  .funnel-2026 .faqs__cta { display: none; }
 }
 
 /* ============================================================

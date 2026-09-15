@@ -3,6 +3,7 @@
 import config from '@payload-config';
 import { getPayload } from 'payload';
 import { createBooking, getFreeSlots, isLive } from '@/lib/booking/ghl';
+import { sendBookingSms } from '@/lib/booking/sms';
 import {
   bookingSubmitSchema,
   type AvailabilityDay,
@@ -88,7 +89,12 @@ export async function createBookingAction(input: unknown): Promise<CreateBooking
 
   try {
     const confirmation = await createBooking(parsed.data);
-    await recordConsultation(parsed.data, confirmation);
+    // Both best-effort: the slot is already booked, so a DB or SMS hiccup must
+    // never tell the patient their booking failed. Each logs and swallows.
+    await Promise.allSettled([
+      recordConsultation(parsed.data, confirmation),
+      sendBookingSms(parsed.data, confirmation),
+    ]);
     return { ok: true, confirmation };
   } catch (err) {
     console.error('[booking] createBooking failed', err);

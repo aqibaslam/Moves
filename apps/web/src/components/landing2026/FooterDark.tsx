@@ -29,9 +29,7 @@ function Col({ title, links }: { title: string; links: string[] }) {
     <div className={`lp26-foot__col${open ? ' is-open' : ''}`}>
       <button type="button" className="lp26-foot__col-title" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         {title}
-        <svg className="lp26-foot__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <span className="lp26-foot__toggle" aria-hidden="true" />
       </button>
       <ul className="lp26-foot__col-list">
         {links.map((l) => (
@@ -51,7 +49,7 @@ export function FooterDark() {
         <div className="lp26-foot__top">
           <div className="lp26-foot__brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="lp26-foot__logo" src="/images/f26-foot-logo.svg" alt="Moves" />
+            <img className="lp26-foot__logo" src="/images/f26-foot-logo.png" alt="Moves" />
             <p className="lp26-foot__pitch">
               Enter your email for clear aligner tips, treatment guidance, and the latest from MOVES.
             </p>

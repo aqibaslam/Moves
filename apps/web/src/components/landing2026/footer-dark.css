@@ -71,13 +71,15 @@
   text-align: left;
   font-family: var(--f-body);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
   color: #fff;
-  margin: 0 0 18px;
+  margin: 0 0 20px; /* heading → list */
 }
-.lp26-foot__chevron {
+/* accordion plus/minus toggle — hidden on desktop, shown on mobile */
+.lp26-foot__toggle {
   display: none;
-  color: #fff;
 }
 .lp26-foot__col-list {
   list-style: none;
@@ -85,12 +87,15 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px; /* between list items */
 }
 .lp26-foot__col-list a {
   font-family: var(--f-body);
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.75);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #fff;
   text-decoration: none;
   transition: color 140ms ease;
 }
@@ -179,12 +184,33 @@
     padding: 16px 0;
     cursor: pointer;
   }
-  .lp26-foot__chevron {
+  /* plus icon (Plus.svg) → minus when the column is open */
+  .lp26-foot__toggle {
     display: block;
-    transition: transform 200ms ease;
+    position: relative;
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
   }
-  .lp26-foot__col.is-open .lp26-foot__chevron {
-    transform: rotate(180deg);
+  .lp26-foot__toggle::before,
+  .lp26-foot__toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transform: translate(-50%, -50%);
+  }
+  /* vertical bar — hidden when open so the icon reads as a minus */
+  .lp26-foot__toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: opacity 160ms ease;
+  }
+  .lp26-foot__col.is-open .lp26-foot__toggle::after {
+    opacity: 0;
   }
   .lp26-foot__col-list {
     display: none;

@@ -369,9 +369,28 @@
   letter-spacing: -0.34px;
 }
 .lp26 .nav__cta {
+  width: 195px;
+  height: 45px;
+  padding: 0 16px; /* fixed 195×45 (Figma); text centres within */
+  border-radius: 90px;
+  border-width: 1px;
+  font-weight: 500;
   font-size: 18px;
-  line-height: 25.3px;
+  line-height: 25.33px;
   letter-spacing: -1px;
+  color: var(--coral);
+}
+@media (max-width: 640px) {
+  .lp26 .nav__cta {
+    width: 107px;
+    height: 31px;
+    padding: 0 10px; /* fixed 107×31 (Figma); text centres within */
+    border-radius: 50px;
+    font-size: 14px;
+    line-height: 25.33px;
+    letter-spacing: -0.6px;
+    text-transform: capitalize;
+  }
 }
 /* FAQ CTA has a base 16px rule at higher specificity — re-assert 17px */
 .lp26 .faqs .faqs__cta {
@@ -1069,14 +1088,14 @@
 /* portrait bottom-anchored, bleeding to the card's bottom edge (cancels the
    48px bottom padding); sized so the head rises to align with the name. */
 .lp26-dentists__photo {
-  align-self: end;
-  justify-self: center;
+  align-self: stretch;
+  justify-self: start;
   width: auto;
   max-width: 100%;
-  height: calc(100% + 48px);
-  margin-bottom: -48px;
+  height: auto;
+  margin-block: -57.2px; /* bleed to full card height (row is pinned, so no shift) */
   object-fit: contain;
-  object-position: bottom center;
+  object-position: bottom left;
 }
 .lp26-dentists__name {
   margin: 0 0 6px;
@@ -1163,6 +1182,10 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+}
+/* the mobile portrait is swapped in only at the mobile breakpoint */
+.lp26-motion__photo--mobile {
+  display: none;
 }
 /* Desktop: anchor the portrait to the top so the face stays in frame */
 @media (min-width: 641px) {
@@ -1269,8 +1292,6 @@
   height: 34px;
   width: auto;
   margin-bottom: 20px;
-  /* red brand logo → white on the navy ground */
-  filter: brightness(0) invert(1);
 }
 .lp26-foot__pitch {
   margin: 0 0 24px;
@@ -1611,7 +1632,10 @@
     object-fit: contain;
     object-position: bottom center;
   }
-  .lp26-motion { min-height: 560px; }
+  .lp26-motion { min-height: 647px; }
+  /* mobile: swap to the mobile portrait (390×647, full face in frame) */
+  .lp26-motion__photo--desktop { display: none; }
+  .lp26-motion__photo--mobile { display: block; }
   .lp26-motion__inner { padding: 40px 16px; }
   /* FAQ stacks on mobile */
   .lp26 .faqs { flex-direction: column; gap: 28px; }
@@ -1712,24 +1736,30 @@
 .lp26 .lp26-dentists__card {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
+  grid-template-rows: minmax(0, 1fr); /* pin the row so the photo bleed can't shift the content */
   gap: 40px;
   align-items: stretch;
   background: var(--lp-dark);
   border-radius: 30px;
-  padding: 48px;
+  padding: 57.2px 80.5px; /* top/bottom 57.2, left/right 80.5 */
   color: var(--white);
   overflow: clip;
+  /* Figma card frame: 1320×481, centred */
+  width: 100%;
+  max-width: 1320px;
+  height: 481px;
+  margin-inline: auto;
 }
 .lp26 .lp26-dentists__info { align-self: center; }
 .lp26 .lp26-dentists__photo {
-  align-self: end;
-  justify-self: center;
+  align-self: stretch;
+  justify-self: start;
   width: auto;
   max-width: 100%;
-  height: calc(100% + 48px);
-  margin-bottom: -48px;
+  height: auto;
+  margin-block: -57.2px; /* bleed to full card height (row is pinned, so no shift) */
   object-fit: contain;
-  object-position: bottom center;
+  object-position: bottom left;
 }
 .lp26 .lp26-dentists__name {
   margin: 0 0 8px;
@@ -1807,6 +1837,7 @@
     grid-template-columns: 1fr;
     padding: 28px;
     text-align: center;
+    height: auto; /* reset the desktop fixed 481px on mobile */
   }
   .lp26 .lp26-dentists__photo { max-width: 240px; margin: 0 auto; height: auto; }
   .lp26 .lp26-dentists__creds { justify-content: flex-start; align-items: flex-start; gap: 28px; }
@@ -1874,7 +1905,9 @@
   color: var(--white);
   border: 1px solid var(--coral);
   border-radius: 100px;
-  padding: 16px 28px;
+  padding: 0 28px;
+  width: 240px; /* Figma frame 240×56 */
+  height: 56px;
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 16px;
@@ -1908,8 +1941,9 @@
     align-self: stretch;
     text-align: center;
   }
-  .lp26 .faqs__list { margin: 0 0 28px; }
-  .lp26 .faqs__cta { order: 1; align-self: center; }
+  .lp26 .faqs__list { margin: 0; }
+  /* hide the FAQ CTA on mobile (all 2026 pages) */
+  .lp26 .faqs__cta { display: none; }
 }
 @media (max-width: 640px) {
   /* ALL section headings — Figma mobile: Glacial 32/35, -1.5px */
@@ -2340,28 +2374,42 @@
 .lp26 .lp26-dentists__card {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
+  grid-template-rows: minmax(0, 1fr); /* pin the row so the photo bleed can't shift the content */
   gap: 40px;
   align-items: stretch;
   background: var(--lp-dark);
   border-radius: 30px;
-  padding: 48px;
+  padding: 57.2px 80.5px; /* top/bottom 57.2, left/right 80.5 */
   color: var(--white);
   overflow: clip;
+  /* Figma card frame: 1320×481, centred */
+  width: 100%;
+  max-width: 1320px;
+  height: 481px;
+  margin-inline: auto;
 }
 
 .lp26 .lp26-dentists__info {
-  align-self: center;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centre the info vertically within the card */
+}
+/* dentist card CTA — Figma frame 240×56 */
+.lp26 .lp26-dentists__card .lp26-btn {
+  width: 240px;
+  height: 56px;
 }
 
 .lp26 .lp26-dentists__photo {
-  align-self: end;
-  justify-self: center;
+  align-self: stretch;
+  justify-self: start;
   width: auto;
   max-width: 100%;
-  height: calc(100% + 48px);
-  margin-bottom: -48px;
+  height: auto;
+  margin-block: -57.2px; /* bleed to full card height (row is pinned, so no shift) */
   object-fit: contain;
-  object-position: bottom center;
+  object-position: bottom left;
 }
 
 .lp26 .lp26-dentists__name {
@@ -2462,6 +2510,7 @@
     align-items: center;
     padding: 28px;
     text-align: left;
+    height: auto; /* reset the desktop fixed 481px on mobile */
   }
 
   .lp26 .lp26-dentists__info {
