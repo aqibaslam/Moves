@@ -75,9 +75,10 @@
   margin: 0 0 20px;
   font-family: var(--f-head);
   font-weight: 400;
-  font-size: clamp(40px, 4.4vw, 64px);
+  font-size: 64px;
   line-height: 1; /* 100% */
-  letter-spacing: -2px;
+  letter-spacing: -1.61px;
+  text-align: center;
   color: var(--white);
 }
 .contact26 .contact-hero__title .ink-red {
@@ -136,6 +137,11 @@
 .contact26 .contact-info__icon svg {
   width: 24px;
   height: 24px;
+}
+.contact26 .contact-info__icon-img {
+  height: 22px;
+  width: auto;
+  display: block;
 }
 .contact26 .contact-info__card-title {
   margin: 0 0 12px;
@@ -280,24 +286,28 @@
     min-height: 0;
   }
   .contact26 .contact-hero__hand--l {
-    left: -28px;
+    left: -85px;
     top: 61px;
     bottom: auto;
     transform: none;
-    width: 108px;
+    width: 192px;
+    height: 211px;
+    object-fit: contain;
   }
   .contact26 .contact-hero__hand--r {
-    right: -40px;
+    right: -78px;
     top: 61px;
     bottom: auto;
     transform: none;
-    width: 128px;
+    width: 185px;
+    height: 111px;
+    object-fit: contain;
   }
   .contact26 .contact-hero__center {
     padding: 70px 20px;
   }
   .contact26 .contact-hero__sub {
-    max-width: 250px;
+    max-width: 220px;
   }
   .contact26 .contact-info {
     padding: 25px 16px;
@@ -335,7 +345,7 @@
   .contact26 .contact-form-sec {
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 0 16px 25px;
+    padding: 25px 16px; /* top/bottom 25px on mobile */
   }
   .contact26 .contact-form__media {
     height: 320px;
@@ -355,6 +365,14 @@
   }
   .contact26 .contact-form__row {
     grid-template-columns: 1fr;
+    gap: 24px; /* stacked Name/Email match the other field gaps */
+  }
+  /* fields: 15/12 padding; placeholder 70% navy, typed text full navy */
+  .contact26 .contact-form__input {
+    padding: 15px 12px;
+  }
+  .contact26 .contact-form__input::placeholder {
+    color: #091620b2;
   }
   .contact26 .contact-form__submit {
     font-size: 16px;
@@ -362,9 +380,15 @@
 }
 
 @media (max-width: 640px) {
+  .contact26 .contact-hero__title {
+    font-size: 40px;
+    line-height: 1; /* 100% */
+    letter-spacing: -1.61px;
+  }
   .contact26 .contact-info__title {
     font-size: 32px;
     line-height: 35px;
     letter-spacing: -1.5px;
+    margin-bottom: 28px; /* heading → columns gap */
   }
 }

@@ -34,7 +34,6 @@ export function Header({
   const navLinks = data?.navLinks?.length ? data.navLinks : FALLBACK_NAV;
   const noteDesktop =
     data?.announcementNote ?? 'Every MOVES® smile is signed by a named, GDC-registered dentist.';
-  const noteMobile = data?.announcementMobile ?? 'SAVE OVER 85% ON YOUR FIRST MONTH';
   const btnLabel = data?.button?.label ?? 'Book A Consultation';
   const btnLabelMobile = data?.button?.labelMobile ?? 'Consultation';
   const btnHref = bookingHref(data?.button?.href);
@@ -47,8 +46,19 @@ export function Header({
         <a className="announce__link announce--desktop" href="#team">
           {data?.announcementLink ?? 'Meet the dentists who sign →'}
         </a>
-        {/* mobile message */}
-        <span className="announce__mobile announce--mobile">{noteMobile}</span>
+        {/* mobile: the same desktop content scrolling as a marquee */}
+        <div className="announce__marquee announce--mobile" aria-hidden="true">
+          <div className="announce__marquee-track">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span className="announce__marquee-item" key={i}>
+                {noteDesktop}
+                <span className="announce__marquee-link">
+                  {data?.announcementLink ?? 'Meet the dentists who sign →'}
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <nav className="nav" aria-label="Primary">

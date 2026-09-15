@@ -232,6 +232,32 @@
 .announce--mobile {
   display: none;
 }
+/* Mobile announce marquee: same desktop copy, scrolling edge to edge */
+.announce__marquee {
+  width: 100%;
+  overflow: hidden;
+}
+.announce__marquee-track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  will-change: transform;
+  animation: announce-marquee 24s linear infinite;
+}
+.announce__marquee-item {
+  padding-right: 48px;
+}
+.announce__marquee-link {
+  margin-left: 8px;
+  font-weight: 500;
+}
+@keyframes announce-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announce__marquee-track { animation: none; }
+}
 
 .nav {
   position: relative;
@@ -2129,15 +2155,17 @@
 
   /* ---- header + hero: image on top, content below ---- */
   .announce {
-    padding: 10px 16px;
+    padding: 10px 0; /* edge-to-edge so the marquee scrolls the full width */
     font-size: 14px;
+    /* no overflow:hidden here — it would clip the nav's navy corner backing
+       (.announce::after). The marquee clips via .announce__marquee instead. */
   }
-  /* swap desktop copy for the mobile announcement */
+  /* mobile shows the same desktop copy as a scrolling marquee */
   .announce--desktop {
     display: none;
   }
   .announce--mobile {
-    display: inline;
+    display: block;
   }
   /* header keeps its rounded top with navy corners; only the hero-unit bottom
      stays flush (the earlier "card" bottom rounding is what we removed) */

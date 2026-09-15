@@ -79,7 +79,7 @@ export function FooterDark() {
                 <a key={s.name} href="#" aria-label={s.name} className="lp26-foot__pill">
                   <span>{s.name}</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.icon} alt="" width={22} height={22} />
+                  <img src={s.icon} alt="" width={20} height={20} />
                 </a>
               ))}
             </div>
