@@ -1,8 +1,8 @@
 import { BOOKING_PATH } from '@/lib/booking/links';
 
-/* "Three things happen before we call it Signed." (Figma 984:18641) — a heading +
-   lead across the top, then a two-column row: the dentist photo on the left and the
-   three-point standard + CTA on the right. */
+/* "Three things happen before we call it Signed." — a heading + lead across the
+   top, then a two-column row: the dentist photo on the left and the three-point
+   standard + CTA on the right. */
 
 const ITEMS = [
   {
@@ -40,11 +40,17 @@ export function SignedStandard() {
 
           <div className="sg-standard__content">
             <ol className="sg-standard__list">
-              {ITEMS.map((it, i) => (
+              {ITEMS.map((it) => (
                 <li className="sg-standard__item" key={it.title}>
-                  <span className="sg-standard__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="sg-standard__num"
+                    src="/images/signed-check.svg"
+                    alt=""
+                    aria-hidden="true"
+                    width={22}
+                    height={22}
+                  />
                   <div className="sg-standard__text">
                     <h3 className="sg-standard__item-title">{it.title}</h3>
                     <p className="sg-standard__item-body">{it.body}</p>

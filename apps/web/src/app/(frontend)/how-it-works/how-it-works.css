@@ -1,0 +1,404 @@
+/* ============================================================
+   How it works — 2026 (Figma node 984:10311). Page-specific sections scoped to
+   `.hiw26`. Reuses the shared Problem / Reviews2 / Faqs / FooterDark styling.
+   ============================================================ */
+
+/* ---- Hero (984:10312): navy stage, centred headline + lead, photo banner ---- */
+.hiw26 .hiw-hero {
+  position: relative;
+  background: var(--lp-dark, #091620);
+  color: var(--white);
+  overflow: clip;
+  border-radius: 0 0 16px 16px;
+  isolation: isolate;
+}
+.hiw26 .hiw-hero__stage {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 96px 20px 64px;
+  text-align: center;
+}
+/* soft blue glow rising behind the headline (Figma "Ellipse 1356") */
+.hiw26 .hiw-hero__stage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: 552px;
+  aspect-ratio: 1 / 1;
+  max-width: 90vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(20, 84, 128, 0.55) 0%,
+    rgba(20, 84, 128, 0.28) 40%,
+    rgba(20, 84, 128, 0) 72%
+  );
+  pointer-events: none;
+}
+.hiw26 .hiw-hero__title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--white);
+}
+.hiw26 .hiw-hero__accent {
+  color: var(--coral);
+}
+.hiw26 .hiw-hero__lead {
+  margin: 0 auto;
+  max-width: 620px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+.hiw26 .hiw-hero__banner {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   Timeline "Your smile, your timeline" (984:10438)
+   ============================================================ */
+.hiw26 .hiw-tl {
+  background: var(--white);
+}
+.hiw26 .hiw-tl__head {
+  max-width: 760px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+.hiw26 .hiw-tl__title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.hiw26 .hiw-tl__title .c {
+  color: var(--coral);
+}
+.hiw26 .hiw-tl__lead {
+  margin: 0 auto;
+  max-width: 760px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #091620;
+}
+/* tab bar */
+.hiw26 .hiw-tl__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.hiw26 .hiw-tl__tab {
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 8px 18px 12px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgba(9, 22, 32, 0.4);
+  border-bottom: 2px solid rgba(9, 22, 32, 0.12);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.hiw26 .hiw-tl__tab.is-active {
+  color: #091620;
+  font-weight: 700;
+  border-bottom-color: #091620;
+}
+/* card carousel */
+.hiw26 .hiw-tl__cards {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.hiw26 .hiw-tl__cards::-webkit-scrollbar {
+  display: none;
+}
+.hiw26 .hiw-tl__card {
+  flex: 0 0 auto;
+  width: min(660px, 88%);
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--lp-grey, #f5f5f5);
+  border-radius: 16px;
+  overflow: clip;
+}
+.hiw26 .hiw-tl__media {
+  align-self: stretch;
+  overflow: clip;
+}
+.hiw26 .hiw-tl__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hiw26 .hiw-tl__body {
+  padding: 28px 28px 28px 24px;
+}
+.hiw26 .hiw-tl__stage {
+  margin: 0 0 10px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #091620;
+}
+.hiw26 .hiw-tl__time {
+  margin: 0 0 12px;
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--coral);
+}
+.hiw26 .hiw-tl__desc {
+  margin: 0 0 16px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #091620;
+}
+.hiw26 .hiw-tl__bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hiw26 .hiw-tl__bullets li {
+  position: relative;
+  padding-left: 16px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(9, 22, 32, 0.8);
+}
+.hiw26 .hiw-tl__bullets li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+}
+
+/* ============================================================
+   "Your new smile starts here" (984:10537) — two cards
+   ============================================================ */
+.hiw26 .hiw-treat {
+  background: var(--white);
+}
+.hiw26 .hiw-treat__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.hiw26 .hiw-treat__intro {
+  max-width: 780px;
+}
+.hiw26 .hiw-treat__title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #091620;
+}
+.hiw26 .hiw-treat__title .c {
+  color: var(--coral);
+}
+.hiw26 .hiw-treat__lead {
+  margin: 0;
+  max-width: 760px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #091620;
+}
+.hiw26 .hiw-treat__cta {
+  flex: 0 0 auto;
+  width: 240px;
+  align-self: flex-end;
+}
+.hiw26 .hiw-treat__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+.hiw26 .hiw-treat__card {
+  border-radius: 16px;
+  padding: 28px;
+}
+.hiw26 .hiw-treat__card--dark {
+  background: #091620;
+  color: var(--white);
+}
+.hiw26 .hiw-treat__card--light {
+  background: var(--lp-grey, #f5f5f5);
+  color: #091620;
+}
+.hiw26 .hiw-treat__card-title {
+  margin: 0 0 20px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.hiw26 .hiw-treat__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hiw26 .hiw-treat__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+.hiw26 .hiw-treat__ico {
+  flex: 0 0 auto;
+  color: var(--coral);
+  margin-top: 1px;
+}
+
+/* ============================================================
+   "Aligners are not for everyone" statement (984:10596)
+   ============================================================ */
+.hiw26 .hiw-stmt {
+  background: #091620;
+  color: var(--white);
+  border-radius: 16px;
+  overflow: clip;
+  margin: 40px 0;
+}
+.hiw26 .hiw-stmt__inner {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: 120px 60px 96px;
+  text-align: center;
+}
+.hiw26 .hiw-stmt__title {
+  margin: 0 0 40px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  color: var(--white);
+}
+/* scroll-lit words: dim → white as the block scrolls up */
+.hiw26 .hiw-stmt__title .reveal-word {
+  color: rgba(255, 255, 255, calc(0.35 + 0.65 * var(--t, 0)));
+}
+.hiw26 .hiw-stmt__cta {
+  width: 240px;
+}
+/* the marquee sits inside the navy statement band */
+.hiw26 .hiw-stmt .marquee {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hiw26 .hiw-stmt .marquee__group span {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 900px) {
+  .hiw26 .hiw-hero__stage {
+    padding: 64px 16px 40px;
+  }
+  .hiw26 .hiw-tl__card {
+    grid-template-columns: 1fr;
+    width: 86%;
+  }
+  .hiw26 .hiw-tl__media {
+    height: 200px;
+  }
+  .hiw26 .hiw-tl__tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .hiw26 .hiw-tl__tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .hiw26 .hiw-treat__head {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hiw26 .hiw-treat__cta {
+    width: 100%;
+    align-self: stretch;
+  }
+  .hiw26 .hiw-treat__grid {
+    grid-template-columns: 1fr;
+  }
+  .hiw26 .hiw-stmt {
+    margin: 25px 0;
+  }
+  .hiw26 .hiw-stmt__inner {
+    padding: 64px 16px 56px;
+  }
+  .hiw26 .hiw-stmt__cta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hiw26 .hiw-tl__title,
+  .hiw26 .hiw-treat__title {
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+  }
+  .hiw26 .hiw-tl__lead,
+  .hiw26 .hiw-treat__lead {
+    font-size: 16px;
+  }
+}

@@ -316,8 +316,9 @@
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 12px;
-  line-height: 1.34; /* 134% */
-  color: rgba(9, 22, 32, 0.5);
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
 }
 /* Price value "£16.30" (.div) */
 .lp26 .pricing .pcard__price b {
@@ -333,8 +334,8 @@
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 13px;
-  line-height: 13px;
-  text-transform: uppercase;
+  line-height: 2.2em;
+  text-transform: lowercase; /* "/per month" — all lowercase */
   color: #091620;
 }
 /* Feature list rows "Dual Arch", "4—6 months treatment time" … (.vectorParent / .crowdingOn68) */
@@ -1168,7 +1169,7 @@
 .lp26-motion {
   position: relative;
   min-height: 726px;
-  margin-top: 40px; /* gap to the previous section (25px on mobile) */
+  margin-top: 0; /* no gap to the previous section (desktop + mobile) */
   display: flex;
   justify-content: center;
   overflow: clip;
@@ -1424,7 +1425,7 @@
 }
 .lp26 .faqs__desc {
   margin: 0 0 28px;
-  max-width: 420px;
+  max-width: none; /* fill the column width */
   font-family: var(--f-body);
   font-size: 16px;
   line-height: 1.5;
@@ -1669,7 +1670,7 @@
   /* section radii per Figma */
   .lp26 .lp26-nac { border-radius: 16px; }        /* was 30 */
   .lp26 .lp26-dentists { border-radius: 24px; }   /* was 30 */
-  /* FAQ: no top padding (butts the proof section above), 80 bottom */
+  /* FAQ: no top padding here — the section-rhythm block below sets 40/80. */
   .lp26 .faqs { padding-top: 0; }
   /* Reviews2 top padding 80 (Figma) */
   .lp26 .reviews2 { padding-top: 80px; }
@@ -1747,7 +1748,10 @@
   /* Figma card frame: 1320×481, centred */
   width: 100%;
   max-width: 1320px;
-  height: 481px;
+  /* min-height (not a hard height) so that below the 1320px design width — where
+     the copy wraps into more lines — the card grows instead of clipping the CTA.
+     At >=1320px the content fits in 481px, so the look is unchanged there. */
+  min-height: 481px;
   margin-inline: auto;
 }
 .lp26 .lp26-dentists__info { align-self: center; }
@@ -1863,11 +1867,12 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 80px;
+  gap: 40px; /* equal columns, 40px gap */
   text-align: left;
 }
 .lp26 .faqs__head {
-  flex: 0 0 38%;
+  flex: 1 1 0; /* equal width with the questions column */
+  min-width: 0;
   text-align: left;
   align-items: flex-start;
   /* gaps come from the title/desc margins (20px, 40px), not a uniform flex gap */
@@ -1893,7 +1898,7 @@
 .lp26 .faqs__title .ink { color: var(--coral); }
 .lp26 .faqs__desc {
   margin: 0 0 40px; /* 40px gap to the CTA */
-  max-width: 420px;
+  max-width: none; /* fill the column width */
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.4; /* 140% */
@@ -2053,8 +2058,8 @@
   /* PRICING cards — Figma mobile: title 18/21, price 26/26, features 16/19 */
   .lp26 .pricing .pcard__title { font-size: 18px; line-height: 21px; letter-spacing: -0.36px; }
   .lp26 .pricing .pcard__price b { font-size: 26px; line-height: 26px; letter-spacing: -1.04px; }
-  .lp26 .pricing .pcard__price span { font-size: 12px; }
-  .lp26 .pricing .pcard__from { font-size: 16px; line-height: 22px; }
+  .lp26 .pricing .pcard__price span { font-size: 12px; line-height: 1.5em; }
+  .lp26 .pricing .pcard__from { font-size: 12px; line-height: 1.4; }
   .lp26 .pricing .feat { font-size: 16px; line-height: 19px; }
 
   /* REVIEWS2 "Real moves. Signed." — Figma mobile: name 18/22, quote/signed 14/20 */
@@ -2076,7 +2081,7 @@
     letter-spacing: -0.34px;
   }
   /* SmileInMotion — Figma mobile spec */
-  .lp26 .lp26-motion { margin-top: 25px; }
+  .lp26 .lp26-motion { margin-top: 0; }
   .lp26 .lp26-motion__pill { gap: 20px; padding: 8px 10px; }
   .lp26 .lp26-motion__title { line-height: 1.1; } /* 110% (32px → 35.2px) */
   .lp26 .lp26-motion__label {
@@ -2122,11 +2127,15 @@
     .problem,
     .pricing,
     .proof,
-    .faqs,
     .lp26-alone
   ) {
     padding-top: 40px;
     padding-bottom: 40px;
+  }
+  /* FAQ: top 40, bottom 80 (deeper than the other sections) */
+  .lp26 .faqs {
+    padding-top: 40px;
+    padding-bottom: 80px;
   }
   /* Dentists section: funnel-2026 padding (80px) */
   .lp26 .lp26-dentists {
@@ -2146,12 +2155,16 @@
     .problem,
     .pricing,
     .proof,
-    .faqs,
     .lp26-alone,
     .lp26-dentists
   ) {
     padding-top: 25px;
     padding-bottom: 25px;
+  }
+  /* FAQ: top 25, bottom 50 (deeper than the other sections) */
+  .lp26 .faqs {
+    padding-top: 25px;
+    padding-bottom: 50px;
   }
   /* Dark card sections (nac, motion) float with a 25px margin so the gap to the
      card edge matches the 50px rhythm (25px neighbour padding + 25px margin).
@@ -2162,7 +2175,7 @@
     margin-bottom: 25px;
   }
   .lp26 .lp26-motion {
-    margin-top: 25px;
+    margin-top: 0;
   }
   /* Dentists grey card floats with a 25px gap on mobile (like the nac card) */
   .lp26 .lp26-dentists {
@@ -2385,7 +2398,10 @@
   /* Figma card frame: 1320×481, centred */
   width: 100%;
   max-width: 1320px;
-  height: 481px;
+  /* min-height (not a hard height) so that below the 1320px design width — where
+     the copy wraps into more lines — the card grows instead of clipping the CTA.
+     At >=1320px the content fits in 481px, so the look is unchanged there. */
+  min-height: 481px;
   margin-inline: auto;
 }
 
@@ -2610,5 +2626,50 @@
   .lp26 .lp26-dentists__title {
     font-size: 32px;
     line-height: 35px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Dentist card — keep the two credential blocks on ONE line on every
+   desktop width (like the 1320px design), never stacked.
+
+   Two parts:
+   1) At ALL desktop widths (>=901px) force the creds row to stay on one
+      line, with blocks + logos that shrink to fit. This guarantees no
+      desktop width can wrap the blocks onto two lines.
+   2) In the 901-1319px range the 80.5px side padding starves the content
+      column, so trim the padding and give the content column the majority
+      of the width so the logos don't have to shrink much. The large-screen
+      (>=1320px) padding is left untouched.
+   ------------------------------------------------------------ */
+@media (min-width: 901px) {
+  .lp26 .lp26-dentists__creds {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .lp26 .lp26-dentists__cred {
+    min-width: 0;
+  }
+  .lp26 .lp26-dentists__logos {
+    flex-wrap: nowrap;
+    gap: 10px;
+    min-width: 0;
+  }
+  .lp26 .lp26-dentists__logos li {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+  .lp26 .lp26-dentists__logos img {
+    height: auto;
+    max-height: 40px;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+@media (min-width: 901px) and (max-width: 1319px) {
+  .lp26 .lp26-dentists__card {
+    padding: 48px;
+    gap: 32px;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
 }

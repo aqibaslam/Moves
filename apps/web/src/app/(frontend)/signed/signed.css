@@ -15,23 +15,43 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
 }
-/* the hero media: soft blue glow behind a contained portrait (matches composite) */
+/* handwritten "Signed" mark stamped over the portrait (Figma 984:18503) */
+.sg26 .sg-hero__mark {
+  position: absolute;
+  z-index: 2;
+  width: clamp(150px, 17vw, 247px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+/* the hero media: soft blue glow behind a contained portrait */
 @media (min-width: 901px) {
   .sg26 .ca-hero__inner {
     min-height: 800px;
-    padding-right: 0; /* portrait bleeds to the card's right edge */
+    /* give the portrait column room to sit further right: shrink the right gutter
+       so the lady shifts toward the card's right edge and still shows in full
+       (the media clips at its own right edge, so she is never cropped). */
+    padding-right: max(0px, calc((100% - 1440px) / 2));
   }
+  /* Figma "Ellipse": a 496px #145480 (70%) disc, heavily blurred — recreated as a
+     soft blue radial glow behind the lady (no image / no costly blur filter). */
   .sg26 .ca-hero__media::before {
     content: '';
     position: absolute;
     z-index: 0;
     top: 50%;
-    right: 0;
-    transform: translate(16%, -50%);
-    width: 92%;
-    max-width: 820px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(70%, 496px);
     aspect-ratio: 1 / 1;
-    background: url('/images/composite-hero-glow.png') center / contain no-repeat;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(20, 84, 128, 0.7) 0%,
+      rgba(20, 84, 128, 0.34) 40%,
+      rgba(20, 84, 128, 0) 72%
+    );
+    pointer-events: none;
   }
   .sg26 .ca-hero__portrait {
     position: absolute;
@@ -42,6 +62,15 @@
     max-height: none;
     object-fit: contain;
     object-position: right bottom;
+    /* down only — gives breathing room above her head without pushing her past
+       the card's right (overflow: clip) edge, which would crop her right side. */
+    transform: translateY(40px);
+  }
+  /* stamp sits over the portrait's upper-left, beside her face (Figma: ~left 737 /
+     top 217 of the 1440-wide hero). */
+  .sg26 .sg-hero__mark {
+    left: 5%;
+    top: 18%;
   }
 }
 
@@ -89,6 +118,13 @@
 /* ============================================================
    "There is a real person" — reuse .ca-care with a 3-column grid (984:18594)
    ============================================================ */
+.sg26 .sg-person {
+  padding-block: 40px; /* top/bottom 40 (overrides the .ca-care 40/80) */
+}
+/* align the Book CTA to the bottom of the heading + lead (not vertically centred) */
+.sg26 .sg-person .ca-care__cta {
+  align-self: flex-end;
+}
 .sg26 .sg-person__grid {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -98,7 +134,7 @@
    ============================================================ */
 .sg26 .sg-standard {
   background: var(--white);
-  padding: 40px 60px 80px;
+  padding: 40px 60px; /* top/bottom 40 */
 }
 .sg26 .sg-standard__inner {
   max-width: 1320px;
@@ -106,7 +142,8 @@
 }
 .sg26 .sg-standard__head {
   max-width: 900px;
-  margin: 0 0 40px;
+  margin: 0 auto 40px;
+  text-align: center;
 }
 .sg26 .sg-standard__title {
   margin: 0 0 16px;
@@ -121,14 +158,15 @@
   color: var(--coral);
 }
 .sg26 .sg-standard__lead {
-  margin: 0;
+  margin: 0 auto;
   max-width: 620px;
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 17px;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: rgba(9, 22, 32, 0.7);
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  text-align: center;
+  color: #091620;
 }
 .sg26 .sg-standard__row {
   display: grid;
@@ -152,20 +190,20 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 .sg26 .sg-standard__item {
   display: flex;
   gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(9, 22, 32, 0.12);
 }
 .sg26 .sg-standard__num {
   flex: 0 0 auto;
-  font-family: var(--f-head);
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: var(--coral);
+  width: 22px;
+  height: 22px;
+  margin-top: 3px; /* nudge the check to sit level with the item title */
+  display: block;
 }
 .sg26 .sg-standard__item-title {
   margin: 0 0 6px;
@@ -180,10 +218,10 @@
   margin: 0;
   font-family: var(--f-body);
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: rgba(9, 22, 32, 0.7);
+  font-size: 17px;
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #091620;
 }
 .sg26 .sg-standard__cta {
   width: 240px;
@@ -201,41 +239,91 @@
   margin: 40px 0;
 }
 .sg26 .sg-anon__inner {
-  max-width: 1440px;
+  /* 1320 content, centred with margin-inline auto, 60px gutter below 1440 —
+     aligns with the other sections' content edge. */
+  width: min(1320px, calc(100% - 120px));
   margin-inline: auto;
-  padding: 120px max(60px, calc((100% - 1320px) / 2));
+  padding-block: 120px;
   display: grid;
   grid-template-columns: 302px 1fr;
-  gap: 100px;
+  gap: 101px; /* Figma: lady → text gap */
   align-items: center;
 }
+/* cut-out portrait grounded by a soft shadow (not a rounded photo box) */
 .sg26 .sg-anon__media {
-  border-radius: 16px;
-  overflow: clip;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
 }
-.sg26 .sg-anon__media img {
+.sg26 .sg-anon__photo {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
 }
+/* ground shadow sitting at the BASE of the cut-out (subtle, behind her) */
+.sg26 .sg-anon__shadow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -28px;
+  transform: translateX(-50%);
+  width: 120%;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+/* bottom gradient (Figma: blurred bar, backdrop-filter blur(64px)) — melts the
+   hard bottom edge of the cut-out into the navy so she fades out from the base. */
+.sg26 .sg-anon__media::after {
+  content: '';
+  position: absolute;
+  z-index: 2; /* above the photo */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 110px;
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 22, 32, 0) 0%,
+    rgba(9, 22, 32, 0.75) 55%,
+    #091620 100%
+  );
+  backdrop-filter: blur(64px);
+  -webkit-backdrop-filter: blur(64px);
+  pointer-events: none;
+}
+.sg26 .sg-anon__copy {
+  max-width: 821px; /* Figma: right column text max-width */
+}
 .sg26 .sg-anon__title {
-  margin: 0 0 20px;
+  margin: 0 0 40px; /* heading → description gap */
   font-family: var(--f-head);
   font-weight: 400;
-  font-size: clamp(30px, 3.2vw, 42px);
-  line-height: 1.1;
-  letter-spacing: -1.5px;
+  font-size: 72px;
+  line-height: 1.1; /* 110% */
+  letter-spacing: -2px;
+  text-transform: none; /* sentence case: only the first word is capitalised */
   color: var(--white);
+}
+/* scroll-linked word brightness reveal (same as funnel-2026's "A straighter
+   smile…" heading): each word lifts from dim → white as the block scrolls up. */
+.sg26 .sg-anon__title .reveal-word {
+  color: rgba(255, 255, 255, calc(0.4 + 0.6 * var(--t, 0)));
 }
 .sg26 .sg-anon__lead {
   margin: 0;
-  max-width: 690px;
+  max-width: 689px; /* description width */
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 17px;
-  line-height: 1.5;
-  letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.02em; /* -2% */
+  color: #fff;
 }
 
 /* ============================================================
@@ -246,7 +334,21 @@
     padding: 50px 16px;
   }
   .sg26 .sg-standard {
-    padding: 25px 16px 50px;
+    padding: 25px 16px; /* mobile: top/bottom 25 */
+  }
+  /* Figma mobile section rhythm (50px vertical, 16px sides) for the shared
+     sections on this page — scoped to .sg26 so other pages are unaffected. */
+  .sg26 .problem {
+    padding: 50px 16px;
+  }
+  .sg26 .faqs {
+    padding: 25px 16px 50px; /* mobile: top 25, bottom 50 */
+  }
+  .sg26 .lp26-dentists {
+    padding: 0 16px 50px; /* Figma mobile: top 0, bottom 50 */
+  }
+  .sg26 .sg-person {
+    padding-block: 25px; /* mobile top/bottom 25 */
   }
   .sg26 .sg-person__grid {
     grid-template-columns: 1fr;
@@ -262,26 +364,79 @@
     margin-bottom: 28px;
     gap: 20px;
   }
+  .sg26 .sg-standard__lead {
+    font-size: 16px; /* mobile: Public Sans 400 16/140% -2% centred */
+  }
+  .sg26 .sg-standard__item-title {
+    font-size: 18px;
+    line-height: 1; /* 100% */
+  }
+  .sg26 .sg-standard__item-body {
+    font-size: 16px;
+  }
   .sg26 .sg-standard__cta {
     width: 100%;
+  }
+  /* no gap between the hero text column and the lady image below it */
+  .sg26 .ca-hero__col {
+    padding-bottom: 0;
+  }
+  /* Mobile hero (Figma 984:19160): the lady sits at 280×335 on the RIGHT, the
+     signature stamp on the LEFT — same arrangement as desktop, no glow/tint. */
+  .sg26 .ca-hero__media {
+    position: relative;
+    display: block;
+    height: 335px;
+    padding: 0;
+    justify-content: initial;
+  }
+  .sg26 .ca-hero__portrait {
+    position: absolute;
+    inset: auto 16px 0 auto; /* pinned to the right, bottom-aligned */
+    width: 280px;
+    height: 335px;
+    max-height: none;
+    object-fit: cover;
+    object-position: top center;
+    transform: none;
+  }
+  /* signature on the left, overlapping the lady's upper-left (like desktop) */
+  .sg26 .sg-hero__mark {
+    top: 16px;
+    left: 16px;
+    width: 133px;
   }
   .sg26 .sg-anon {
     margin: 25px 0;
   }
   .sg26 .sg-anon__inner {
+    width: auto; /* full-width on mobile; padding provides the 16px gutter */
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 16px; /* Figma mobile: image → copy 16px */
     padding: 50px 16px;
   }
   .sg26 .sg-anon__media {
     max-width: 302px;
+    margin-inline: auto; /* centre the image */
+  }
+  .sg26 .sg-anon__lead {
+    font-size: 16px; /* Figma mobile: Public Sans 400 16 / 140% / -2%, centred */
+    line-height: 1.4;
+    text-align: center;
   }
 }
 @media (max-width: 640px) {
-  .sg26 .sg-statement__title,
+  /* Figma mobile section headings: Glacial 400 · 32 / 110% / -1.5 */
   .sg26 .sg-standard__title,
   .sg26 .sg-anon__title {
-    font-size: 28px;
-    letter-spacing: -1px;
+    font-size: 32px;
+    line-height: 1.1; /* 110% */
+    letter-spacing: -1.5px;
+  }
+  /* anon heading centres on mobile (max 272px), tighter heading → desc gap 16px */
+  .sg26 .sg-anon__title {
+    max-width: 272px;
+    margin: 0 auto 16px;
+    text-align: center;
   }
 }

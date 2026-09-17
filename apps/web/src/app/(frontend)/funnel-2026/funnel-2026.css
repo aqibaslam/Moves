@@ -501,16 +501,17 @@
 }
 .funnel-2026 .moves3__sub {
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px; /* desktop — Public Sans 400 17/140%/-2% */
+  line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--navy);
-  opacity: 0.85;
+  color: #091620;
+  opacity: 1;
   margin: 20px 0 0;
   max-width: 42ch;
 }
 .funnel-2026 .moves3__cta {
-  width: 250px;
+  width: 240px;
+  height: 56px;
   margin-top: 42px;
 }
 .funnel-2026 .moves3__list {
@@ -553,8 +554,8 @@
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 14px;
-  line-height: 16px;
-  letter-spacing: -0.28px;
+  line-height: 1; /* 100% */
+  letter-spacing: -0.28px; /* -2% */
   color: var(--coral);
 }
 .funnel-2026 .moves3__step-title {
@@ -569,11 +570,11 @@
 }
 .funnel-2026 .moves3__step-text {
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px; /* desktop — Public Sans 400 17/140%/-2% */
+  line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--navy);
-  opacity: 0.82;
+  color: #091620;
+  opacity: 1;
   margin: 0;
 }
 @media (max-width: 900px) {
@@ -588,11 +589,16 @@
   /* title → description 16px, description → CTA 28px */
   .funnel-2026 .moves3__sub {
     margin-top: 16px;
+    font-size: 16px; /* mobile — Public Sans 400 16/140%/-2% */
   }
   .funnel-2026 .moves3__cta {
-    width: 100%;
-    max-width: 320px;
+    width: 224px;
+    height: 46px;
+    max-width: none;
     margin-top: 28px;
+  }
+  .funnel-2026 .moves3__step-text {
+    font-size: 16px; /* mobile — Public Sans 400 16/140%/-2% */
   }
   /* icon sits at the top of the step (in front of the title), not the bottom;
      no divider between rows on mobile */
@@ -1012,7 +1018,9 @@
   /* Figma card frame: 1320×481, centred */
   width: 100%;
   max-width: 1320px;
-  height: 481px;
+  /* min-height (not a hard height) so below the 1320px design width the card
+     grows to fit the wrapped copy instead of clipping the CTA. */
+  min-height: 481px;
   margin-inline: auto;
 }
 .funnel-2026 .lp26-dentists__info {
@@ -1330,11 +1338,12 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 80px;
+  gap: 40px; /* equal columns, 40px gap */
   text-align: left;
 }
 .funnel-2026 .faqs__head {
-  flex: 0 0 38%;
+  flex: 1 1 0; /* equal width with the questions column */
+  min-width: 0;
   text-align: left;
   align-items: flex-start;
   /* gaps come from the title/desc margins (20px, 40px), not a uniform flex gap */
@@ -1360,7 +1369,7 @@
 .funnel-2026 .faqs__title .ink { color: var(--coral); }
 .funnel-2026 .faqs__desc {
   margin: 0 0 40px; /* 40px gap to the CTA */
-  max-width: 420px;
+  max-width: none; /* fill the column width */
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.4; /* 140% */
@@ -2019,5 +2028,44 @@
 @media (prefers-reduced-motion: reduce) {
   .funnel-2026 .proof .ptile.reveal-in .ptile__play svg {
     animation: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Dentist card — keep the two credential blocks on ONE line on every
+   desktop width (like the 1320px design), never stacked. Mirrors the
+   .lp26 rule: nowrap + shrinkable logos at all desktop widths, plus a
+   padding/column trim in the 901-1319px range so the logos keep their
+   size. Large-screen (>=1320px) padding is left untouched.
+   ------------------------------------------------------------ */
+@media (min-width: 901px) {
+  .funnel-2026 .lp26-dentists__creds {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .funnel-2026 .lp26-dentists__cred {
+    min-width: 0;
+  }
+  .funnel-2026 .lp26-dentists__logos {
+    flex-wrap: nowrap;
+    gap: 10px;
+    min-width: 0;
+  }
+  .funnel-2026 .lp26-dentists__logos li {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+  .funnel-2026 .lp26-dentists__logos img {
+    height: auto;
+    max-height: 40px;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+@media (min-width: 901px) and (max-width: 1319px) {
+  .funnel-2026 .lp26-dentists__card {
+    padding: 48px;
+    gap: 32px;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
 }

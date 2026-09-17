@@ -142,6 +142,20 @@
 .btn:active {
   transform: scale(0.97);
 }
+/* Uniform button height across the whole site — 56px desktop, 46px mobile —
+   EXCEPT the header nav CTAs and any button inside a hero section (containers
+   whose class contains "hero": .ca-hero, .hero, .hero-unit, .contact-hero, …),
+   which keep their own sizing. */
+.btn:not([class*='hero'] *):not(.nav__cta):not(.nav__menu-cta) {
+  height: 56px;
+  min-height: 0; /* beat per-button min-height so the height is exact */
+}
+@media (max-width: 900px) {
+  .btn:not([class*='hero'] *):not(.nav__cta):not(.nav__menu-cta) {
+    height: 46px;
+    min-height: 0;
+  }
+}
 .btn--navy {
   background: var(--navy);
   color: var(--white);
@@ -1227,6 +1241,7 @@
 /* button pinned to the bottom of the card */
 .pcard > .btn {
   margin-top: auto;
+  height: 56px; /* desktop pricing CTA height */
 }
 .pcard--pink {
   background: var(--pink-bg);
@@ -1833,7 +1848,7 @@
    ============================================================ */
 
 .faqs {
-  padding: 80px 60px;
+  padding: 40px 60px 80px; /* top 40, bottom 80 (sides overridden by card-section) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1887,7 +1902,7 @@
 .faq__q > span:first-child {
   font-family: var(--f-body);
   font-weight: 500;
-  font-size: 16px;
+  font-size: 17px; /* desktop question — Public Sans 500 17/140%/-2% */
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--navy);
@@ -1919,10 +1934,10 @@
   padding: 0 32px;
   font-family: var(--f-body);
   font-weight: 400;
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 17px; /* desktop answer — Public Sans 400 17/140%/-2% */
+  line-height: 1.4;
   letter-spacing: -0.02em;
-  color: rgba(4, 20, 58, 0.7);
+  color: #091620;
 }
 /* pad the answer only when open so collapsed state stays flush */
 .faq--open .faq__answer {
@@ -2129,9 +2144,11 @@
   .team,
   .proof,
   .movers,
-  .faqs,
   .footer {
     padding: 50px 16px;
+  }
+  .faqs {
+    padding: 25px 16px 50px; /* mobile: top 25, bottom 50 */
   }
 
   /* ---- shared type scale ---- */
@@ -2424,6 +2441,7 @@
   .pcard .btn {
     width: 100%;
     padding: 0 24px;
+    height: 46px; /* mobile pricing CTA height */
     /* fixed 24px above the CTA (overrides the desktop margin-top:auto pin) */
     margin-top: 24px;
   }
@@ -2593,11 +2611,15 @@
   .faq__q {
     padding: 20px 12px;
   }
+  .faq__q > span:first-child {
+    font-size: 16px; /* mobile question — Public Sans 500 16/140%/-2% */
+  }
   /* match the answer's side padding to the question so it left-aligns
      with the question text (as it does on desktop, where both are 32px) */
   .faq__answer {
     padding-left: 12px;
     padding-right: 12px;
+    font-size: 16px; /* mobile answer — Public Sans 400 16/140%/-2% */
   }
 
   /* ---- footer: stacked ---- */

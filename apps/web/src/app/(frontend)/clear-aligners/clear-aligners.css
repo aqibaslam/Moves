@@ -92,9 +92,9 @@
   font-family: var(--f-body);
   font-weight: 400;
   font-size: 17px;
-  line-height: 24px;
-  letter-spacing: -0.34px;
-  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4; /* 140% */
+  letter-spacing: -0.34px; /* -2% */
+  color: #ffffff;
 }
 .ca26 .ca-hero__actions {
   display: flex;
@@ -120,7 +120,7 @@
 .ca26 .ca-hero__sign {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
   padding: 13.5px 16px;
   background: var(--white);
   border-radius: 8px;
@@ -144,7 +144,7 @@
 .ca26 .ca-hero__sign-meta {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 7px;
 }
 .ca26 .ca-hero__sign-line {
   font-family: var(--f-body); /* Public Sans */
@@ -238,6 +238,7 @@
   flex: 0 0 auto;
   width: 240px;
   min-height: 56px;
+  align-self: flex-end; /* align the CTA to the bottom of the heading + lead */
 }
 .ca26 .ca-care__grid {
   display: grid;
@@ -501,6 +502,7 @@
   line-height: 140%;
   letter-spacing: -0.02em;
   text-align: center;
+  padding-inline: 18px; /* MOVES (2nd) column left/right padding */
 }
 /* label column: transparent, dark, left-aligned row titles.
    Type (Figma): Public Sans 400, 140% line-height, -2% tracking, #091620.
@@ -569,6 +571,7 @@
   .ca26 .ca-cmp .f-cmp__cell--moves {
     font-family: var(--f-body);
     font-size: 14px;
+    padding-inline: 10px; /* mobile MOVES column left/right padding */
   }
   /* Mail-Order + Traditional columns: 14px, trimmed to cap height (Figma) */
   .ca26 .ca-cmp .f-cmp__cell--val {
@@ -623,6 +626,7 @@
   }
   .ca26 .ca-hero__lead {
     margin-bottom: 28px; /* desc → actions */
+    font-size: 16px; /* mobile — Public Sans 400 16/140%/-2% */
   }
   .ca26 .ca-hero__actions {
     flex-direction: column;
@@ -659,7 +663,8 @@
   }
   .ca26 .ca-care__cta {
     order: 3;
-    width: 100%;
+    width: 224px; /* mobile: 224×46, centred */
+    align-self: center;
   }
   /* icon on the LEFT of each card, title + body stacked on the right */
   .ca26 .ca-care__card {
@@ -704,7 +709,9 @@
     gap: 16px;
   }
   .ca26 .ca-assess__cta {
-    width: 100%;
+    width: 224px; /* mobile: 224×46 (height from the global button rule), left-aligned */
+    align-self: flex-start;
+    margin-inline: 0;
   }
   /* the landscape aligner-case photo can't sit behind a narrow portrait card —
      fall back to the solid navy and show the photo as a cropped block below the
@@ -771,6 +778,7 @@
   /* signature chip mobile — match pricing */
   .ca26 .ca-hero__sign {
     padding: 8.5px 12px;
+    gap: 16px; /* mobile signature gap */
   }
   .ca26 .ca-hero__sign-name {
     font-size: 20px;

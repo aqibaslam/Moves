@@ -893,18 +893,19 @@
 }
 .landing-2 .moves3__sub {
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px; /* desktop — Public Sans 400 17/140%/-2% */
+  line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--navy);
-  opacity: 0.85;
+  color: #091620;
+  opacity: 1;
   margin: 0;
   max-width: 42ch;
   /* gap between heading and description */
   margin-top: 20px;
 }
 .landing-2 .moves3__cta {
-  width: 250px;
+  width: 240px;
+  height: 56px;
   /* gap between description and CTA */
   margin-top: 42px;
 }
@@ -948,10 +949,11 @@
   gap: 6px;
 }
 .landing-2 .moves3__step-num {
-  font-family: var(--f-mono);
+  font-family: var(--f-body);
   font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  font-size: 14px;
+  line-height: 1; /* 100% */
+  letter-spacing: -0.02em; /* -2% */
   color: var(--coral);
 }
 .landing-2 .moves3__step-title {
@@ -964,11 +966,11 @@
 }
 .landing-2 .moves3__step-text {
   font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 17px; /* desktop — Public Sans 400 17/140%/-2% */
+  line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--navy);
-  opacity: 0.82;
+  color: #091620;
+  opacity: 1;
   margin: 0;
 }
 
@@ -982,8 +984,12 @@
     position: static;
   }
   .landing-2 .moves3__cta {
-    width: 100%;
-    max-width: 320px;
+    width: 224px;
+    height: 46px;
+    max-width: none;
+  }
+  .landing-2 .moves3__step-text {
+    font-size: 16px; /* mobile — Public Sans 400 16/140%/-2% */
   }
 }
 @media (max-width: 767px) {
@@ -1114,9 +1120,11 @@
   .landing-2 .problem,
   .landing-2 .pricing,
   .landing-2 .proof,
-  .landing-2 .team,
-  .landing-2 .faqs {
+  .landing-2 .team {
     padding-block: 25px;
+  }
+  .landing-2 .faqs {
+    padding-block: 25px 50px; /* mobile: top 25, bottom 50 */
   }
   /* Full-width slider track: no side margins (edge to edge); only a left inset
      so the first card aligns at 16px and the peek reaches the right edge. */
@@ -1158,6 +1166,7 @@
   /* You move: heading→subtext 28 */
   .landing-2 .moves3__sub {
     margin-top: 28px;
+    font-size: 16px; /* mobile — Public Sans 400 16/140%/-2% */
   }
   /* Pricing / Proof: heading→lead 16 */
   .landing-2 .pricing__head {
