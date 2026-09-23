@@ -35,5 +35,25 @@ export const Customers: CollectionConfig = {
       ],
     },
     { name: 'notes', type: 'textarea' },
+    {
+      name: 'verified',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { position: 'sidebar', description: 'Email confirmed via the one-time link.' },
+    },
+    {
+      name: 'signupSource',
+      type: 'select',
+      admin: { position: 'sidebar' },
+      options: [
+        { label: 'Email link', value: 'email' },
+        { label: 'Google', value: 'google' },
+        { label: 'Order', value: 'order' },
+        { label: 'Added by staff', value: 'manual' },
+      ],
+    },
+    // one-time sign-up link (cleared once used)
+    { name: 'signupToken', type: 'text', index: true, admin: { hidden: true } },
+    { name: 'signupTokenExpiry', type: 'date', admin: { hidden: true } },
   ],
 };

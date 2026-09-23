@@ -424,6 +424,13 @@ export interface Customer {
     country?: string | null;
   };
   notes?: string | null;
+  /**
+   * Email confirmed via the one-time link.
+   */
+  verified?: boolean | null;
+  signupSource?: ('email' | 'google' | 'order' | 'manual') | null;
+  signupToken?: string | null;
+  signupTokenExpiry?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -737,6 +744,10 @@ export interface CustomersSelect<T extends boolean = true> {
         country?: T;
       };
   notes?: T;
+  verified?: T;
+  signupSource?: T;
+  signupToken?: T;
+  signupTokenExpiry?: T;
   updatedAt?: T;
   createdAt?: T;
 }
