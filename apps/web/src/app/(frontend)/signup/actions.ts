@@ -3,19 +3,34 @@
 import { randomBytes } from 'node:crypto';
 import config from '@payload-config';
 import { headers } from 'next/headers';
-import { getPayload } from 'payload';
+import { getPayload, ValidationError } from 'payload';
 import { emailEnabled, magicLinkHtml, sendEmail } from '@/lib/email';
 
 export type SignupResult =
   | { ok: true; emailed: boolean; devLink?: string }
   | { ok: false; error: string };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const INVALID_EMAIL = 'Please enter a valid email address.';
+
+/**
+ * Mirrors Payload's `email` field validation so malformed addresses are caught
+ * here with a clear message instead of failing inside `payload.create` and
+ * surfacing as a generic error. Rejects: a leading/trailing dot or consecutive
+ * dots in the local part, quotes, spaces, domain labels that start/end with a
+ * hyphen, and a TLD shorter than two letters.
+ */
+const EMAIL_RE =
+  /^(?!.*\.\.)[\w!#$%&'*+/=?^`{|}~-](?:[\w!#$%&'*+/=?^`{|}~.-]*[\w!#$%&'*+/=?^`{|}~-])?@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$/i;
+
+/** True when a Payload ValidationError was raised for the `email` field. */
+function isEmailValidationError(err: unknown): boolean {
+  return err instanceof ValidationError && err.data.errors.some((e) => e.path === 'email');
+}
 
 /** Start a passwordless sign-up: create/find the customer, email a one-time link. */
 export async function requestSignupLink(emailRaw: string): Promise<SignupResult> {
   const email = emailRaw?.trim().toLowerCase();
-  if (!email || !EMAIL_RE.test(email)) return { ok: false, error: 'Enter a valid email address.' };
+  if (!email || !EMAIL_RE.test(email)) return { ok: false, error: INVALID_EMAIL };
 
   const payload = await getPayload({ config });
   const token = randomBytes(24).toString('hex');
@@ -45,6 +60,7 @@ export async function requestSignupLink(emailRaw: string): Promise<SignupResult>
       });
     }
   } catch (err) {
+    if (isEmailValidationError(err)) return { ok: false, error: INVALID_EMAIL };
     console.error('[signup] could not create customer', err);
     return { ok: false, error: 'Something went wrong. Please try again.' };
   }

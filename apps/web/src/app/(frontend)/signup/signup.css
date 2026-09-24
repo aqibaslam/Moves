@@ -15,7 +15,7 @@
   height: 100dvh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 752px 688px;
+  grid-template-columns: 706px 734px; /* Figma: content frame starts at x=706 */
   background: #fff;
   font-family: var(--font-public-sans), system-ui, sans-serif;
   color: #091620;
@@ -28,7 +28,7 @@
 
 .su__title {
   font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-weight: 600; font-size: 48px; line-height: 1.1; color: #091620;
+  font-weight: 600; font-size: 48px; line-height: 56px; color: #091620;
   margin-bottom: 36px;
 }
 
@@ -56,23 +56,23 @@
 
 .su__account {
   font-family: var(--font-poppins), system-ui, sans-serif;
-  font-weight: 400; font-size: 18px; color: #091620;
-  margin: 34px 0 24px;
+  font-weight: 400; font-size: 18px; line-height: 27px; color: #091620;
+  margin: 24px 0 29px; /* Figma: 21px text box + 34 gap → OR lands at y=560 */
 }
 .su__signin { color: #ed3b44; font-weight: 500; }
 .su__signin:hover { text-decoration: underline; }
 
 .su__or {
   font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-weight: 500; font-size: 24px; color: #091620; margin-bottom: 24px;
+  font-weight: 500; font-size: 20px; line-height: 24px; color: #091620; margin-bottom: 24px;
 }
 
 .su__google {
   display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  width: 100%; max-width: 288px; margin: 0 auto; height: 56px;
+  width: 100%; max-width: 280px; margin: 0 auto; height: 52px; padding: 0 36px;
   border: 1.4px solid #d2d2d2; border-radius: 10px; background: #fff;
   font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-size: 16px; font-weight: 500; color: #091620;
+  font-size: 17px; font-weight: 400; color: #091620; white-space: nowrap;
   transition: background-color 140ms, border-color 140ms;
 }
 .su__google:hover:not(.is-disabled) { background: #fafafa; border-color: #b9b9b9; }
@@ -117,8 +117,8 @@
   .su__input  { height: clamp(48px, 7.6dvh, 62px); font-size: 16px; padding: 0 16px; }
   .su__submit { height: clamp(46px, 6.8dvh, 56px); font-size: 16px; }
   .su__account { font-size: clamp(14px, 2.2dvh, 17px); margin: clamp(14px, 3dvh, 28px) 0 clamp(10px, 2dvh, 18px); }
-  .su__or     { font-size: clamp(16px, 2.6dvh, 22px); margin-bottom: clamp(10px, 2dvh, 18px); }
-  .su__google { max-width: 100%; height: clamp(46px, 6.8dvh, 56px); font-size: 15px; }
+  .su__or     { font-size: clamp(16px, 2.4dvh, 20px); margin-bottom: clamp(10px, 2dvh, 18px); }
+  .su__google { max-width: 100%; height: clamp(46px, 6.4dvh, 52px); font-size: 16px; padding: 0 16px; }
   .su__note   { margin-top: 8px; }
 
   .su__mailicon { font-size: clamp(30px, 5dvh, 44px); }
