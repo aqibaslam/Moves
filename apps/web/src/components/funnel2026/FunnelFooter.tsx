@@ -20,6 +20,8 @@ export function FunnelFooter() {
           <span className="f26-footer__sep" aria-hidden="true">·</span>
           <a href="/terms">Terms</a>
           <span className="f26-footer__sep" aria-hidden="true">·</span>
+          <a href="/signup">Sign up</a>
+          <span className="f26-footer__sep" aria-hidden="true">·</span>
           <a href="mailto:support@movesuk.com">support@movesuk.com</a>
         </nav>
 
