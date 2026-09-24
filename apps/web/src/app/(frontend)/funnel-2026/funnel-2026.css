@@ -939,6 +939,7 @@
   background: #091620;
   color: var(--white);
   padding-inline: 60px; /* MOVES (2nd) column text inset */
+  line-height: 1.4; /* 140% — desktop + mobile (Figma) */
 }
 .funnel-2026 .f-cmp__cell--head.f-cmp__cell--moves img {
   width: 115px;
