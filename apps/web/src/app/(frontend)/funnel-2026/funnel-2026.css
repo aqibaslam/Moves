@@ -1612,6 +1612,7 @@
      header reads as a rounded card cut into the top bar, like other sections. */
   .funnel-2026 .f-announce {
     position: relative;
+    font-size: 14px; /* top bar copy at 14px on mobile (Figma) */
   }
   .funnel-2026 .f-announce::after {
     content: '';
