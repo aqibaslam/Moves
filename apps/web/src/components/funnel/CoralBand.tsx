@@ -25,12 +25,22 @@ export function CoralBand({ variant }: { variant?: '2026' } = {}) {
             the original funnel builds it from an arch + woman + glow. */}
         <div className="fb-coral__figure">
           {variant === '2026' ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              className="fb-coral__composite"
-              src="/images/funnel2026-coral-figure.webp"
-              alt="A person smiling"
-            />
+            <>
+              {/* soft ground shadow that sits under the base of the portrait */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="fb-coral__ground"
+                src="/images/funnel2026-coral-shadow.png"
+                alt=""
+                aria-hidden="true"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="fb-coral__composite"
+                src="/images/funnel2026-coral-lady.png"
+                alt="A person smiling"
+              />
+            </>
           ) : (
             <>
               <span className="fb-coral__arch" aria-hidden="true" />

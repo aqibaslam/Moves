@@ -1,22 +1,27 @@
 import { BOOKING_PATH } from '@/lib/booking/links';
 
-/* "What's included" (Figma funnel 2026) — heading + product-kit image, then a
-   4×2 grid of feature cards, then a CTA. New-branding colours come from the
+/* "What's included" (Figma node 1745:6888) — heading + product-kit image, then
+   three feature cards, then a CTA. New-branding colours come from the
    .funnel-2026 scope. */
-
-const BODY = 'Custom clear aligners designed to gently move teeth into their ideal position.';
 
 /* Icons extracted from the Figma "What's included" cards (white glyphs on the
    navy badge). */
 const FEATURES = [
-  { title: 'Moves Aligners', body: BODY, icon: '/images/f26-incl-aligners.svg' },
-  { title: 'Moves Whitening', body: BODY, icon: '/images/f26-incl-whitening.svg' },
-  { title: 'Moves Retainers', body: BODY, icon: '/images/f26-incl-retainers.svg' },
-  { title: 'Moves App/Tracking', body: BODY, icon: '/images/f26-incl-app.svg' },
-  { title: 'Dentist appointments', body: BODY, icon: '/images/f26-incl-dentist.svg' },
-  { title: 'Smile finishing', body: BODY, icon: '/images/f26-incl-finishing.svg' },
-  { title: 'Moves Guarantee', body: BODY, icon: '/images/f26-incl-guarantee.svg' },
-  { title: 'aftercare', body: BODY, icon: '/images/f26-incl-aftercare.svg' },
+  {
+    title: 'Custom Aligner Case',
+    body: 'Your personalised aligners stored safely in a premium MOVES case.',
+    icon: '/images/funnel2026-incl-case.svg',
+  },
+  {
+    title: 'Care Accessories Kit',
+    body: 'Chewies, aligner file and IPR strips included for a smoother treatment experience.',
+    icon: '/images/funnel2026-incl-kit-icon.svg',
+  },
+  {
+    title: 'Patient Guide',
+    body: 'A complete instruction sheet to help you confidently start your smile journey.',
+    icon: '/images/funnel2026-incl-guide.svg',
+  },
 ];
 
 export function WhatsIncluded() {
@@ -33,7 +38,7 @@ export function WhatsIncluded() {
       </div>
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="f26-incl__product" src="/images/funnel2026-kit.webp" alt="The MOVES kit" />
+      <img className="f26-incl__product" src="/images/funnel2026-incl-kit.svg" alt="The MOVES kit" />
 
       <div className="f26-incl__grid">
         {FEATURES.map((f) => (

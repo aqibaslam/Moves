@@ -44,6 +44,15 @@ const TIERS: Tier[] = [
   },
 ];
 
+/* 2026 branding (Figma node 1745:6556) — the funnel-ads / funnel-2026 pages use
+   the "Move one / core / complete" tier names and comma-free prices. */
+export const MOVES_TIERS: Tier[] = [
+  // upfront totals; monthly = total ÷ 60 (0% APR), rounded to the nearest £
+  { ...TIERS[0], title: 'Move one', monthly: '£32', upfront: '£1895' },
+  { ...TIERS[1], title: 'Move core', monthly: '£39', upfront: '£2350' },
+  { ...TIERS[2], title: 'Move complete', monthly: '£53', upfront: '£3200' },
+];
+
 const INCLUDES = [
   'In-person dentist appointments (scan, fitting, finish)',
   'Mid-course corrections if your dentist calls for them',
@@ -61,7 +70,11 @@ const DECIDES = [
 
 type Mode = 'monthly' | 'upfront';
 
-export function FunnelPricing() {
+export function FunnelPricing({
+  tiers = TIERS,
+  movesCaps = false,
+  hideTreatment = false,
+}: { tiers?: Tier[]; movesCaps?: boolean; hideTreatment?: boolean } = {}) {
   const [mode, setMode] = useState<Mode>('upfront');
 
   return (
@@ -69,8 +82,16 @@ export function FunnelPricing() {
       <div className="f-pricing__head">
         <div className="f-pricing__intro">
           <p className="eyebrow">PRICING</p>
-          <h2 className="h-section">
-            Exactly what moves <span className="c">costs</span>
+          <h2 className={`h-section${movesCaps ? ' fp-head--caps' : ''}`}>
+            {movesCaps ? (
+              <>
+                Exactly what MOVES <span className="c">costs</span>
+              </>
+            ) : (
+              <>
+                Exactly what moves <span className="c">costs</span>
+              </>
+            )}
           </h2>
           <p className="lead">
             Some brands make you book a call to learn a price. Ours are published. Every package, in
@@ -107,7 +128,7 @@ export function FunnelPricing() {
       </div>
 
       <div className="f-pricing__cards">
-        {TIERS.map((t) => (
+        {tiers.map((t) => (
           <div className="fpcard" key={t.title} style={{ ['--tier' as string]: t.accent }}>
             <div className="fpcard__top">
               <h3 className="fpcard__title">{t.title}</h3>
@@ -119,7 +140,9 @@ export function FunnelPricing() {
                 <span className="fpcard__per">{mode === 'monthly' ? '/per month' : '/One - time'}</span>
               </div>
               <p className="fpcard__best">{t.best}</p>
-              <p className="fpcard__treat">Treatment time: {t.treatment}</p>
+              {!hideTreatment && (
+                <p className="fpcard__treat">Treatment time: {t.treatment}</p>
+              )}
             </div>
 
             <a className="btn fpcard__btn" style={{ ['--btn-c' as string]: t.btnBg }} href={BOOKING_PATH}>

@@ -96,3 +96,96 @@
   filter: brightness(0);
   opacity: 0.5;
 }
+
+/* ============================================================
+   Hero — navy full-bleed stage (Figma Ads frame 1745:6353),
+   matching /funnel-2026. The photo is a full-bleed BACKGROUND that,
+   like the Figma fill, COVERS the whole 1440 stage (its blurred
+   backdrop fills the left, then a left→navy gradient scrim dissolves
+   it into the navy where the copy sits — no flat strip, no seam).
+   Size is pinned to the 1440 design (1440px wide) so it's pixel-
+   perfect at 1440 and never grows on larger monitors — the extra
+   space on the left is just more navy, which matches seamlessly.
+   All hero copy is white and the headline is a single colour.
+   ============================================================ */
+.funnel-ads .f-hero {
+  background:
+    linear-gradient(270deg, rgba(9, 22, 32, 0) 49.87%, #091620 79.81%) 0 0 / 100% 100% no-repeat,
+    url('/images/funnel-ads-hero.png') right center / 1440px auto no-repeat,
+    #091620;
+  border-radius: 16px 16px 0 0;
+  overflow: clip;
+}
+/* the photo is the hero background now — drop the separate media column */
+.funnel-ads .f-hero .hero__media {
+  display: none;
+}
+/* Hero copy → white on the navy stage; headline is a single colour. */
+.funnel-ads .f-hero .h-hero,
+.funnel-ads .f-hero .h-hero .c,
+.funnel-ads .f-hero .hero__sub,
+.funnel-ads .f-hero .hero-feat,
+.funnel-ads .f-hero .rating {
+  color: #fff;
+}
+/* Trustpilot widget sets its own navy text — force its labels white so the
+   rating reads on the navy stage (the green stars use `fill`, not `color`). */
+.funnel-ads .f-hero .rating [class*='tp__'] {
+  color: #fff;
+}
+
+/* Mobile: image on top, copy below on navy (matches /funnel-2026). */
+@media (max-width: 767px) {
+  .funnel-ads .f-hero {
+    background: #091620;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border-radius: 16px 16px 0 0;
+  }
+  .funnel-ads .f-hero .hero__media {
+    display: block;
+    position: relative;
+    order: -1;
+    width: 100%;
+    height: 440px;
+    background:
+      linear-gradient(to bottom, rgba(9, 22, 32, 0) 60%, #091620 100%),
+      url('/images/funnel-ads-hero.png') 60% top / cover no-repeat;
+  }
+  /* frosted band that fades the base of the portrait into the navy body */
+  .funnel-ads .f-hero .hero__media::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 110px;
+    background: linear-gradient(to bottom, rgba(9, 22, 32, 0) 0%, #091620 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+  }
+  .funnel-ads .f-hero .hero__media img {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Headings stay one colour — no red accent inside any heading
+   (the Figma Ads hero renders the headline entirely in one colour,
+   not the coral-accent scheme). Neutralise every heading accent.
+   ============================================================ */
+.funnel-ads .h-hero .c,
+.funnel-ads .h-section .c,
+.funnel-ads .reviews__title .c,
+.funnel-ads .proof__title .c,
+.funnel-ads .faqs__title .c,
+.funnel-ads .cta__title .c,
+.funnel-ads :is(h1, h2, h3, h4) .c {
+  color: inherit;
+}
+/* CoralBand headline: drop the red on its first two words too. */
+.funnel-ads .fb-coral__title .reveal-word:nth-child(-n + 2) {
+  color: rgba(4, 20, 58, calc(0.28 + 0.42 * var(--t, 0)));
+}

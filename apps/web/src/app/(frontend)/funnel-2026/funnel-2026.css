@@ -155,7 +155,8 @@
   color: var(--navy);
 }
 .funnel-2026 .f-cand__title-h .f-cand__accent {
-  color: var(--coral);
+  /* single-colour heading (no coral accent) — matches the other 2026 headings */
+  color: var(--navy);
 }
 /* Before & After testimonial cards: the base uses var(--bg), which is white on
    this page so the cards vanish — give them the Figma light-grey (#f5f5f5), and
@@ -163,8 +164,13 @@
 .funnel-2026 .bacard {
   background: #f5f5f5;
 }
+/* no GDC number pill on the testimonials (funnel-2026) */
+.funnel-2026 .bacard .gdc-pill {
+  display: none;
+}
 .funnel-2026 .bacard__quote {
-  border-left-color: var(--coral);
+  /* navy quote rule, matching the same section on the other pages */
+  border-left-color: var(--navy);
 }
 /* CTA buttons (dentist card + footer newsletter Submit) → coral. The base
    .lp26-btn coral is scoped to .lp26 (landing); re-apply it here. */
@@ -304,6 +310,25 @@
   line-height: 140%;
   letter-spacing: -0.02em;
 }
+/* Pricing card gaps (Figma): explicit margins so the title→From gap and the
+   pricing→description gap can differ on mobile. */
+.funnel-2026 .fpcard__top {
+  gap: 0;
+}
+.funnel-2026 .fpcard__title {
+  margin-bottom: 20px; /* title ("Move one") → "From" — desktop */
+}
+.funnel-2026 .fpcard__pricerow {
+  margin-bottom: 20px; /* pricing → description */
+}
+.funnel-2026 .fpcard__pricecol {
+  gap: 8px; /* "From" → price — desktop */
+}
+/* "From" and the "/per month" · "/One-time" suffix → solid navy #091620 */
+.funnel-2026 .fpcard__from,
+.funnel-2026 .fpcard__per {
+  color: #091620;
+}
 /* mobile: full-width pricing slider — first card stays at the 16px gutter, the
    track bleeds off the right edge (like the "Real moves. Signed." slider). */
 @media (max-width: 640px) {
@@ -313,6 +338,16 @@
   /* card inner padding → 16px (Figma) */
   .funnel-2026 .fpcard {
     padding: 16px;
+  }
+  /* mobile pricing-card gaps */
+  .funnel-2026 .fpcard__title {
+    margin-bottom: 10px; /* title → "From" */
+  }
+  .funnel-2026 .fpcard__pricecol {
+    gap: 4.33px; /* "From" → price */
+  }
+  .funnel-2026 .fpcard__pricerow {
+    margin-bottom: 20px; /* pricing → description */
   }
   /* hero CTA — fixed 224×46 (overrides the base full-width !important);
      Public Sans 500, 16px, 140% line-height, -2% tracking */
@@ -329,13 +364,13 @@
 .funnel-2026 .f-cmp__head .h-section {
   text-transform: none;
 }
-/* colour flip here: "Real moves." navy, only "Signed." coral (other pages keep
-   the base — "Real moves." coral). */
+/* Heading is a single navy colour — matching the same section on the other
+   pages (and the single-colour heading treatment used across funnel-2026). */
 .funnel-2026 .ba .h-section .c {
   color: var(--navy);
 }
 .funnel-2026 .ba .h-section .ba__rest {
-  color: var(--coral);
+  color: var(--navy);
 }
 /* primary body copy — Public Sans 17/24/-0.34, ink #091620 */
 .funnel-2026 :is(.lead, .fpcard__best, .fpcard__treat, .f-cand__item, .faq__answer) {
@@ -403,7 +438,17 @@
    bar + header stay square. The white nav strip behind shows through the
    notches, so the corners read white (Figma). */
 .funnel-2026 .f-hero {
-  background: #091620 url('/images/funnel2026-hero.webp') center right / cover no-repeat;
+  /* Hero photo (same image as /funnel-ads: the Figma pool-woman shot). Like
+     the Figma fill it COVERS the whole 1440 stage — its blurred backdrop fills
+     the left, then a left→navy gradient scrim blends it into the navy where the
+     copy sits (no flat strip, no seam). Size is pinned to the 1440 design
+     (1440px wide) so it's pixel-perfect at 1440 and never grows on larger
+     monitors; the extra left space is just more navy, which matches seamlessly.
+     (Mobile ≤767px overrides this with its own stacked treatment.) */
+  background:
+    linear-gradient(270deg, rgba(9, 22, 32, 0) 49.87%, #091620 79.81%) 0 0 / 100% 100% no-repeat,
+    url('/images/funnel-ads-hero.png') right center / 1440px auto no-repeat,
+    #091620;
   border-radius: 16px 16px 0 0;
   overflow: clip;
 }
@@ -466,6 +511,59 @@
   line-height: 1.4; /* 140% */
   letter-spacing: -0.02em;
   color: #091620;
+}
+/* Nav CTA — the "Book A Consultation" outline button that replaces the
+   "Save over 85%…" text, matching the landing-2026 header button (coral
+   outline, 195×45, rounded). */
+.funnel-2026 .f-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 195px;
+  height: 45px;
+  padding: 0 16px;
+  border: 1px solid var(--coral);
+  border-radius: 90px;
+  background: transparent;
+  color: var(--coral);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease;
+}
+.funnel-2026 .f-nav__cta:hover {
+  background: var(--coral);
+  color: var(--white);
+}
+/* desktop shows the full label; the short one is mobile-only */
+.funnel-2026 .f-nav__cta-short {
+  display: none;
+}
+@media (max-width: 640px) {
+  /* header on one row: logo left, CTA right */
+  .funnel-2026 .f-nav {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .funnel-2026 .f-nav__cta {
+    width: auto;
+    height: 40px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+  /* mobile CTA label → just "Consultation" */
+  .funnel-2026 .f-nav__cta-full {
+    display: none;
+  }
+  .funnel-2026 .f-nav__cta-short {
+    display: inline;
+  }
 }
 
 /* ============================================================
@@ -640,9 +738,12 @@
   background: transparent;
   color: var(--coral);
 }
-/* toggle active pill: navy → coral */
+/* toggle: active pill + border both #091620 */
+.funnel-2026 .fp-toggle {
+  border-color: #091620;
+}
 .funnel-2026 .fp-toggle__opt--active {
-  background: var(--coral);
+  background: #091620;
 }
 /* Figma: a thin divider sits between the price and the "Best for…" copy */
 .funnel-2026 .fpcard__best {
@@ -659,7 +760,7 @@
    product kit on the right, badge top-right (Figma).
    ============================================================ */
 .funnel-2026 .cta .cta__banner {
-  background: #091620 url('/images/funnel2026-kit.webp') right 40px center / auto 80% no-repeat;
+  background: #091620 url('/images/funnel2026-cta-case.png') right bottom / auto 88% no-repeat;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -726,6 +827,7 @@
    and FAQ sections (60px inset each side of the 1440 grid, Figma 451:2638). */
 .funnel-2026 .cta {
   padding-inline: 60px;
+  margin-bottom: 40px;
 }
 .funnel-2026 .cta .cta__banner {
   max-width: none;
@@ -743,18 +845,17 @@
     aspect-ratio: 1320 / 600;
     min-height: 0;
     padding: 60px;
-    background-size: 56% auto;
-    background-position: right 32px center;
+    /* 60px gap at the top only; the product runs flush to the right and bottom
+       edges of the band (Figma 1745:7390: right −1px, bottom bleed) */
+    background-size: auto calc(100% - 60px);
+    background-position: right bottom;
   }
 }
 /* badge (desktop): sized to fit its text (the raw Figma 269.9px was an oversized
    blob at our banner scale). 99:93 star aspect kept. */
 .funnel-2026 .cta__badge {
-  width: 196px;
-  height: 184px;
-  top: 44px;
-  right: 44px;
-  transform: rotate(15deg);
+  /* money-back guarantee badge removed on funnel-2026 (Figma 1745:7390) */
+  display: none;
 }
 /* Desktop money-back badge (funnel-2026): the new coral star + straight text,
    replacing the SVG arc-seal (Figma 451:1506). The star shows at all sizes on
@@ -844,10 +945,10 @@
   max-width: 100%;
   height: auto;
 }
-/* mobile: MOVES (2nd) column has no horizontal padding (narrow columns) */
+/* mobile: MOVES (2nd) column has a small 6px horizontal inset (Figma) */
 @media (max-width: 640px) {
   .funnel-2026 .f-cmp__cell--moves {
-    padding-inline: 0;
+    padding-inline: 6px;
   }
 }
 /* comparison scroll thumb — active #091620, inactive track #091620 @ 10%.
@@ -909,12 +1010,30 @@
   top: 23.04%;
   height: 73.1%;
 }
+/* soft shadow band at the base of the portrait (Figma: a separate wide, blurred
+   band). The lady is a waist-up cut-out, so this sits IN FRONT of her and over
+   her bottom edge, dissolving her hard cut-off into the navy stage. */
+.funnel-2026 .fb-coral__ground {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 150%;
+  max-width: none;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
 .funnel-2026 .fb-coral__composite {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   max-width: none;
+  /* c.png is a clean portrait cut-out (no baked shadow); CONTAIN fills the box
+     by height so the woman is large and sits right under the heading, resting on
+     the separate ground shadow (Figma 1745:6539) */
   object-fit: contain;
   object-position: center bottom;
   /* hover pan (see below) transitions `transform`; arrival zoom transitions the
@@ -944,6 +1063,18 @@
 }
 /* text stays white on the navy ground (bright→dim reveal, as the funnel base);
    no dark/red overrides needed — the funnel defaults are already white. */
+
+/* Mobile (Figma 1745:5206): no hand-drawn arrow, and the lady runs near
+   full-width (centred, waist-up) instead of the narrow 274px portrait. */
+@media (max-width: 900px) {
+  .funnel-2026 .fb-coral__arrow {
+    display: none;
+  }
+  .funnel-2026 .fb-coral__figure {
+    width: 100%;
+    max-width: 360px;
+  }
+}
 
 /* ============================================================
    "The names behind the smiles" (DentistNames) — styles copied from
@@ -1162,8 +1293,9 @@
 }
 .funnel-2026 .f26-incl__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* three cards (Figma 1745:6888) */
   gap: 4px; /* Figma column gap */
+  margin-top: -40px; /* pull the cards up under the product image (Figma) */
   margin-bottom: 40px;
 }
 .funnel-2026 .f26-incl__card {
@@ -1211,6 +1343,14 @@
   text-align: center;
   color: #091620;
 }
+/* desktop: cap the card title + copy to a 255px centred column (Figma) */
+@media (min-width: 641px) {
+  .funnel-2026 .f26-incl__ctitle,
+  .funnel-2026 .f26-incl__cbody {
+    max-width: 255px;
+    margin-inline: auto;
+  }
+}
 .funnel-2026 .f26-incl__cta {
   background: var(--coral);
   color: var(--white);
@@ -1225,6 +1365,14 @@
   transition: background 160ms ease, color 160ms ease;
 }
 .funnel-2026 .f26-incl__cta:hover { background: transparent; color: var(--coral); }
+/* Mobile (Figma 1745:5579): the CTA runs full-width under the cards */
+@media (max-width: 640px) {
+  .funnel-2026 .f26-incl__cta {
+    width: 100%;
+    align-self: stretch;
+    justify-content: center;
+  }
+}
 
 @media (max-width: 900px) {
   .funnel-2026 .lp26-dentists { padding: 50px 16px; }
@@ -1321,14 +1469,14 @@
     max-width: 100%;
   }
   .funnel-2026 .f26-incl { padding: 50px 16px; }
-  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; margin-top: -35px; }
   .funnel-2026 .f26-incl__sub { font-size: 16px; }
   /* mobile: icon → title also 12px (drop the desktop +8), title → body stays 12px */
   .funnel-2026 .f26-incl__ctitle { font-size: 16px; margin-top: 0; }
 }
 @media (max-width: 560px) {
-  /* Figma mobile keeps two cards per row */
-  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr 1fr; }
+  /* three cards stack on mobile */
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
@@ -1366,10 +1514,11 @@
   margin: 0 0 20px; /* 20px gap to the description */
   text-transform: none; /* sentence case, like the other headings */
 }
-.funnel-2026 .faqs__title .ink { color: var(--coral); }
+/* single-colour heading (no coral accent) — matches the other 2026 headings */
+.funnel-2026 .faqs__title .ink { color: inherit; }
 .funnel-2026 .faqs__desc {
   margin: 0 0 40px; /* 40px gap to the CTA */
-  max-width: none; /* fill the column width */
+  max-width: 409px; /* Figma desktop description width */
   font-family: var(--f-body);
   font-size: 17px;
   line-height: 1.4; /* 140% */
@@ -1440,7 +1589,7 @@
 }
 
 /* ============================================================
-   MOBILE (Figma 451:247) — hero: image on top, copy below on navy.
+   MOBILE (Figma 1745:5018) — hero: copy on top, image at the END on navy.
    ============================================================ */
 @media (max-width: 767px) {
   .funnel-2026 .f-hero {
@@ -1448,37 +1597,67 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-    border-radius: 16px 16px 0 0;
+    /* rounded on all corners on mobile (the image runs to the bottom) */
+    border-radius: 16px;
   }
-  .funnel-2026 .f-hero .hero__media {
-    display: block;
+  /* the hero-unit navy backing would show through the hero's rounded corners;
+     make it transparent so the corners read white (the page background) */
+  .funnel-2026 .hero-unit {
+    background: transparent;
+  }
+  /* the header (nav) has rounded top corners, but with a transparent hero-unit
+     they'd read white and the rounding disappears. Extend the announce bar's
+     navy down behind the nav's top corners so the notches read navy — the
+     header reads as a rounded card cut into the top bar, like other sections. */
+  .funnel-2026 .f-announce {
     position: relative;
-    order: -1;
-    width: 100%;
-    /* larger portrait on mobile to match the Figma reference */
-    height: 440px;
-    /* image fades into the navy hero at the bottom (Figma mobile) */
-    background:
-      linear-gradient(to bottom, rgba(9, 22, 32, 0) 60%, #091620 100%),
-      url('/images/funnel2026-hero.webp') 72% top / cover no-repeat;
   }
-  /* Frosted shadow at the bottom (Figma mobile): a blurred band that darkens the
-     base of the portrait into the navy hero body. */
-  .funnel-2026 .f-hero .hero__media::after {
+  .funnel-2026 .f-announce::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 110px;
-    background: linear-gradient(to bottom, rgba(9, 22, 32, 0) 0%, #091620 100%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    top: 100%;
+    height: 12px;
+    background: #091620;
+  }
+  .funnel-2026 .f-nav {
+    position: relative;
+    z-index: 1;
+  }
+  .funnel-2026 .f-hero .hero__media {
+    /* exact Figma values (mobile) */
+    z-index: 0;
+    background:
+      linear-gradient(#091620 -69.29%, #09162000 12.67%),
+      url('/images/funnel-ads-hero.png') 100% 0 / auto 108% no-repeat;
+    order: 1;
+    width: 100%;
+    height: 509px;
+    margin-top: -58px;
+    display: block;
+    position: relative;
+  }
+  .funnel-2026 .f-hero .hero__left {
+    position: relative;
+    z-index: 1;
+  }
+  /* navy shadow down from the top of the image, blending it under the CTA */
+  .funnel-2026 .f-hero .hero__media::after {
+    content: '';
     pointer-events: none;
+    background: linear-gradient(#091620 0% -6%, #09162000 73%);
+    height: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
   }
   .funnel-2026 .f-hero .hero__media img { display: none; }
   .funnel-2026 .f-hero .hero__left {
-    padding: 28px 16px 40px;
+    /* no bottom gap — the image (navy-topped gradient) starts right after the CTA */
+    padding: 28px 16px 0;
   }
   /* Figma mobile keeps the hero paragraph (hidden by the shared funnel rule) */
   .funnel-2026 .f-hero .hero__sub {
@@ -1509,12 +1688,16 @@
     text-transform: capitalize;
   }
   /* CTA: product kit sits below the copy/button on mobile (Figma) */
-  .funnel-2026 .cta { padding-inline: 16px; }
+  .funnel-2026 .cta { padding-inline: 16px; margin-bottom: 25px; }
   .funnel-2026 .cta .cta__banner {
     flex-direction: column;
     aspect-ratio: auto;
-    background: #091620 url('/images/funnel2026-kit.webp') center bottom 24px / 86% auto no-repeat;
-    padding: 40px 16px 250px;
+    /* Figma mobile (1745:6090): 571px tall, large product anchored bottom-right,
+       bleeding off the right + bottom edges */
+    height: 571px;
+    min-height: 0;
+    background: #091620 url('/images/funnel2026-cta-case.png') right -16px bottom -8px / 92% auto no-repeat;
+    padding: 40px 16px 231px;
     text-align: left;
   }
   .funnel-2026 .cta__inner { max-width: none; }
@@ -2068,4 +2251,37 @@
     gap: 32px;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
+}
+
+/* ============================================================
+   Headings — one colour per heading (no coral accent). Every
+   heading accent (.c) inherits its heading's own colour: white on
+   the dark hero ("putting off" no longer red), navy on the light
+   sections. Placed last so it overrides the section accent rules.
+   ============================================================ */
+.funnel-2026 .h-hero .c,
+.funnel-2026 .h-section .c,
+.funnel-2026 .ba .h-section .c,
+.funnel-2026 .f-pricing .h-section .c,
+.funnel-2026 .moves3__title .c,
+.funnel-2026 .cta__title .c,
+.funnel-2026 .f26-incl__title .c,
+.funnel-2026 .reviews__title .c,
+.funnel-2026 .proof__title .c,
+.funnel-2026 .faqs__title .c,
+.funnel-2026 .f-cand__accent,
+.funnel-2026 :is(h1, h2, h3, h4) .c {
+  color: inherit;
+}
+
+/* ============================================================
+   Hero tweaks (funnel-2026 only):
+   • no Trustpilot rating widget in the hero
+   • feature-list tick icons are white (not coral) on the navy stage
+   ============================================================ */
+.funnel-2026 .f-hero .rating {
+  display: none;
+}
+.funnel-2026 .f-hero .hero-feat svg {
+  color: #fff;
 }

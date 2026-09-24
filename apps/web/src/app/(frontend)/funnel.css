@@ -60,6 +60,9 @@
   height: 20px;
 }
 .funnel-page .f-nav__save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--f-body);
   font-weight: 500;
   font-size: 16px;
@@ -67,6 +70,9 @@
   letter-spacing: -0.32px;
   text-transform: uppercase;
   color: var(--navy);
+}
+.funnel-page .f-nav__save-ico {
+  flex: none;
 }
 
 /* Hero left rating row — count first, then stars, then Trustpilot */
@@ -141,6 +147,11 @@
 }
 .funnel-page .f-pricing__intro .h-section {
   text-transform: capitalize;
+}
+/* 2026 pages render the heading in sentence case with MOVES in caps
+   ("Exactly what MOVES costs", Figma 1745:6556) — not title case. */
+.funnel-page .f-pricing__intro .h-section.fp-head--caps {
+  text-transform: none;
 }
 .funnel-page .f-pricing__intro .lead {
   max-width: 809px;

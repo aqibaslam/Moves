@@ -16,11 +16,11 @@ export function FunnelFooter() {
         />
 
         <nav className="f26-footer__links" aria-label="Footer">
-          <a href="/privacy">Privacy Policy</a>
+          <a href="/privacy-policy">Privacy Policy</a>
           <span className="f26-footer__sep" aria-hidden="true">·</span>
           <a href="/terms">Terms</a>
           <span className="f26-footer__sep" aria-hidden="true">·</span>
-          <a href="mailto:support@move.com">support@move.com</a>
+          <a href="mailto:support@movesuk.com">support@movesuk.com</a>
         </nav>
 
         <p className="f26-footer__copy">&copy; Copyright 2026, Moves. All rights reserved.</p>

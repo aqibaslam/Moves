@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 // NEW funnel sections
 import { FunnelHero } from '@/components/funnel/FunnelHero';
 import { CoralBand } from '@/components/funnel/CoralBand';
-import { FunnelPricing } from '@/components/funnel/FunnelPricing';
+import { FunnelPricing, MOVES_TIERS } from '@/components/funnel/FunnelPricing';
 import { Comparison } from '@/components/funnel/Comparison';
 import { Process } from '@/components/funnel/Process';
 import { Candidacy } from '@/components/funnel/Candidacy';
@@ -37,11 +37,14 @@ export const metadata: Metadata = {
 export default function FunnelAdsPage() {
   return (
     <div className="moves-page funnel-page funnel-ads">
-      <FunnelHero />
+      <FunnelHero
+        heroImgDesktop="/images/funnel-ads-hero.png"
+        heroImgMobile="/images/funnel-ads-hero.png"
+      />
       <Marquee />
       <BeforeAfters />
       <CoralBand />
-      <FunnelPricing />
+      <FunnelPricing tiers={MOVES_TIERS} movesCaps hideTreatment />
       <Comparison />
       <Process />
       <Candidacy />

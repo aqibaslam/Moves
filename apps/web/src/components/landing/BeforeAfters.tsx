@@ -69,14 +69,6 @@ const BASE: BaCard[] = [
     signed: 'Signed by Dr. Amelia Hart',
   },
   {
-    before: 'ba-aisha-before',
-    after: 'ba-aisha-after',
-    name: 'Aisha R.',
-    quote:
-      '“The changes were gradual, but every new tray brought me closer. Seeing the final comparison made it completely worth it.”',
-    signed: 'Signed by Dr. Amelia Hart',
-  },
-  {
     before: 'ba-emily-before',
     after: 'ba-emily-after',
     name: 'Emily R.',

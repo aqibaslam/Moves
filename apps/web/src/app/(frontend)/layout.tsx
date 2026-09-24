@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   },
   description:
     'MOVES is the movement behind modern smiles. Planned in person, signed by a named GDC-registered dentist, at a price we publish.',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 export const viewport: Viewport = {
