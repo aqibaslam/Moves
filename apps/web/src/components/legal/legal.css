@@ -1,0 +1,186 @@
+/* ============================================================
+   Legal pages (Privacy Policy / Terms of Service) — Figma
+   "New Moves Dental 2.0", node 1824:5838. Mobile-first; the 1440
+   desktop frame lands at ≥900px. Self-contained colours (same
+   convention as footer-dark.css) so the page works standalone.
+   ============================================================ */
+
+.legal {
+  --legal-navy: #091620;
+  --legal-coral: #ed3b44;
+  --legal-muted: rgba(255, 255, 255, 0.7);
+  --legal-line: rgba(9, 22, 32, 0.12);
+  --f-head: var(--font-jost), Georgia, serif;
+  --f-body: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: var(--legal-navy);
+  font-family: var(--f-body);
+}
+
+/* --- announcement bar ---------------------------------------- */
+.legal__announce {
+  margin: 0;
+  padding: 10px 20px;
+  background: var(--legal-navy);
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* --- header --------------------------------------------------- */
+.legal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+.legal__logo-link { display: inline-flex; line-height: 0; }
+.legal__logo { height: 18px; width: auto; }
+
+.legal__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--legal-coral);
+  border-radius: 100px;
+  color: var(--legal-coral);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 140ms, color 140ms;
+}
+.legal__cta:hover { background: var(--legal-coral); color: #fff; }
+.legal__cta-full { display: none; }
+.legal__cta-short { display: inline; }
+
+/* --- article -------------------------------------------------- */
+.legal__main { flex: 1; }
+.legal__article {
+  max-width: 880px;
+  padding: 32px 20px 56px;
+  margin-inline: auto;
+}
+
+.legal__title {
+  margin: 0 0 24px;
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.legal__intro p,
+.legal__body p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.legal__intro { display: flex; flex-direction: column; gap: 20px; margin-bottom: 28px; }
+
+.legal__sections {
+  list-style: none;
+  counter-reset: legal;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.legal__section {
+  counter-increment: legal;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 6px;
+}
+.legal__section::before {
+  content: counter(legal) '.';
+  font-size: 17px;
+  line-height: 1.45;
+}
+.legal__heading {
+  grid-column: 2;
+  margin: 0;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.legal__body {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.legal__body ul {
+  margin: 0;
+  padding-left: 26px;
+  list-style: '•  ';
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.legal__group { display: flex; flex-direction: column; gap: 2px; }
+.legal__group-title { font-weight: 600; }
+.legal__group + .legal__group { margin-top: -12px; }
+
+/* --- footer --------------------------------------------------- */
+.legal__footer {
+  background: var(--legal-navy);
+  color: #fff;
+  padding: 36px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.legal__footer-logo { height: 36px; width: auto; }
+.legal__footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+  font-size: 17px;
+  line-height: 1.4;
+}
+.legal__footer-links a { color: #fff; text-decoration: none; }
+.legal__footer-links a:hover { text-decoration: underline; }
+.legal__footer-links span { color: var(--legal-muted); }
+.legal__copy { margin: 0; font-size: 16px; color: var(--legal-muted); }
+
+/* --- desktop (Figma 1440 frame) ------------------------------- */
+@media (min-width: 900px) {
+  .legal__announce { font-size: 14px; padding: 12px 40px; }
+
+  .legal__header {
+    max-width: 1320px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 26px 60px;
+  }
+  .legal__logo { height: 22px; }
+  .legal__cta { min-height: 40px; padding: 0 22px; font-size: 14px; }
+  .legal__cta-full { display: inline; }
+  .legal__cta-short { display: none; }
+
+  .legal__article { padding: 72px 60px 96px; }
+  .legal__title { margin-bottom: 36px; }
+  .legal__intro { margin-bottom: 36px; }
+  .legal__sections { gap: 32px; }
+
+  .legal__footer { padding: 48px 60px 52px; gap: 20px; }
+  .legal__footer-logo { height: 40px; }
+}

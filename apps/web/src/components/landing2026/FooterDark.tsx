@@ -18,6 +18,12 @@ const COLUMNS: { title: string; links: string[] }[] = [
   { title: 'Support', links: ['Terms & Conditions', 'Privacy Policy', 'Refund Policy'] },
 ];
 
+/* Footer labels that have a real page; everything else stays a placeholder. */
+const LINK_HREFS: Record<string, string> = {
+  'Terms & Conditions': '/terms',
+  'Privacy Policy': '/privacy-policy',
+};
+
 const SOCIALS = [
   { name: 'Facebook', icon: '/images/social-facebook.svg' },
   { name: 'Instagram', icon: '/images/social-instagram.svg' },
@@ -34,7 +40,7 @@ function Col({ title, links }: { title: string; links: string[] }) {
       <ul className="lp26-foot__col-list">
         {links.map((l) => (
           <li key={l}>
-            <a href="#">{l}</a>
+            <a href={LINK_HREFS[l] ?? '#'}>{l}</a>
           </li>
         ))}
       </ul>
