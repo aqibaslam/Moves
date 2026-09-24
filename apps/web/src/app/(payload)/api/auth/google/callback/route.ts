@@ -1,6 +1,7 @@
 import config from '@payload-config';
 import { NextResponse, type NextRequest } from 'next/server';
 import { getPayload } from 'payload';
+import { sessionCookieOptions, sessionValue, CUSTOMER_COOKIE } from '@/lib/customer-session';
 
 /** Google redirects here with ?code. Exchange it, upsert the customer, done. */
 export async function GET(request: NextRequest) {
@@ -50,8 +51,10 @@ export async function GET(request: NextRequest) {
       await payload.create({ collection: 'customers', overrideAccess: true, data: { name: profile.name || email.split('@')[0], email, verified: true, signupSource: 'google' } });
     }
 
-    const res = NextResponse.redirect(`${origin}/signup/verify?google=1`);
+    const cid = (existing.docs[0]?.id ?? (await payload.find({ collection: 'customers', where: { email: { equals: email } }, limit: 1, overrideAccess: true })).docs[0]?.id) as number;
+    const res = NextResponse.redirect(`${origin}/?welcome=1`);
     res.cookies.delete('moves_g_state');
+    if (cid) res.cookies.set(CUSTOMER_COOKIE, sessionValue(cid), sessionCookieOptions());
     return res;
   } catch (err) {
     console.error('[google-oauth] callback failed', err);
