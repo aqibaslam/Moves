@@ -1843,9 +1843,9 @@
     letter-spacing: -0.02em;
     text-transform: none;
   }
-  /* list-item text wraps within a fixed 256px content width (Figma mobile) */
+  /* list-item text wraps within a fixed 226px content width (Figma mobile) */
   .funnel-2026 .f-cand__item span {
-    max-width: 256px;
+    max-width: 226px;
   }
   /* Proof video tiles (Figma mobile): one full card + half of the next peeking.
      With the 4px grid gap, (100% - gap) / 1.5 makes the peek exactly half a card. */
