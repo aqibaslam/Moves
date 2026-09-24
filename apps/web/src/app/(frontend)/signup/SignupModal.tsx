@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import { requestSignupLink } from './actions';
 
@@ -68,10 +67,6 @@ export function SignupModal({ googleEnabled }: { googleEnabled: boolean }) {
           {busy ? 'Sending…' : 'Submit'}
         </button>
       </form>
-
-      <p className="su__account">
-        Do not have an account? <Link href="/signup" className="su__signin">Sign in</Link>
-      </p>
 
       <div className="su__or">OR</div>
 
