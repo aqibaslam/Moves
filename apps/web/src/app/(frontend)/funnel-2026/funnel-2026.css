@@ -1829,14 +1829,18 @@
     color: #091620;
   }
   /* Card headings ("What we treat" / "May not suit") — Public Sans Medium
-     18/100%/-2%, capitalize (Figma mobile). */
+     18/100%/-2%, sentence case (Figma mobile): only the first word capitalised. */
   .funnel-2026 .f-cand__title {
     font-family: var(--f-body);
     font-weight: 500;
     font-size: 18px;
     line-height: 100%;
     letter-spacing: -0.02em;
-    text-transform: capitalize;
+    text-transform: none;
+  }
+  /* list-item text wraps within a fixed 256px content width (Figma mobile) */
+  .funnel-2026 .f-cand__item span {
+    max-width: 256px;
   }
   /* Proof video tiles (Figma mobile): one full card + half of the next peeking.
      With the 4px grid gap, (100% - gap) / 1.5 makes the peek exactly half a card. */
