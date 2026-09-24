@@ -6,7 +6,6 @@ const FEATURES = [
   'Every treatment plan signed by a named, GDC-registered dentist',
   'Progress checked at every tray change',
   'Every price published below, from £895',
-  '30-day money-back guarantee',
 ];
 
 export function FunnelHero({
