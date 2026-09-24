@@ -1,87 +1,92 @@
 /* ============================================================
-   Sign up — split auth screen. Desktop: image left, form right.
-   Mobile: image fills the screen, a card floats centered over it.
+   Sign up — exact match to Figma "New Move - Signup".
+   Tokens: Public Sans / Poppins, ink #091620, red #ed3b44,
+   image left (52%), form right.
    ============================================================ */
 
 .su {
   min-height: 100dvh;
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 752fr 688fr;
   background: #fff;
-  font-family: var(--font-silka), system-ui, sans-serif;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  color: #091620;
 }
-.su__panel { position: relative; overflow: hidden; background: #04143a; }
+.su__panel { position: relative; overflow: hidden; background: #091620; }
 .su__panel img { width: 100%; height: 100%; object-fit: cover; }
-.su__side { display: flex; align-items: center; justify-content: center; padding: 40px; }
+.su__side { display: flex; align-items: center; justify-content: center; padding: 40px 63px; }
 
-.su__card { width: 100%; max-width: 380px; text-align: center; }
+.su__card { width: 100%; max-width: 562px; text-align: center; }
+
 .su__title {
-  font-family: var(--font-jost), Georgia, serif;
-  font-weight: 600; font-size: 34px; color: #04143a; margin-bottom: 26px;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-weight: 600; font-size: 48px; line-height: 1.1; color: #091620;
+  margin-bottom: 36px;
 }
-.su__form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+
+.su__form { display: flex; flex-direction: column; gap: 24px; text-align: left; }
 .su__input {
-  width: 100%; min-height: 52px; padding: 0 16px;
-  border: 1px solid rgba(4,20,58,.35); border-radius: 10px;
-  font-size: 15px; color: #04143a; background: #fff;
-  transition: border-color 140ms, box-shadow 140ms;
+  width: 100%; height: 68px; padding: 0 21px;
+  border: 1px solid #091620; border-radius: 4px;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-size: 17px; color: #091620; background: #fff;
+  transition: box-shadow 140ms;
 }
-.su__input::placeholder { color: #6b7280; }
-.su__input:focus { outline: none; border-color: #fc5257; box-shadow: 0 0 0 3px rgba(252,82,87,.14); }
+.su__input::placeholder { color: #091620; opacity: .75; }
+.su__input:focus { outline: none; box-shadow: 0 0 0 3px rgba(237,59,68,.18); }
+
 .su__submit {
-  width: 100%; min-height: 52px; border-radius: 999px;
-  background: #ef4650; color: #fff; font-size: 16px; font-weight: 600;
+  width: 100%; height: 56px; border-radius: 90px;
+  background: #ed3b44; color: #fff;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-size: 17px; font-weight: 500;
   transition: background-color 140ms;
 }
-.su__submit:hover:not(:disabled) { background: #e03844; }
+.su__submit:hover:not(:disabled) { background: #e0313a; }
 .su__submit:disabled { opacity: .6; cursor: not-allowed; }
-.su__error { color: #c22a2f; font-size: 13px; margin: -4px 0 0; }
-.su__foot { margin-top: 16px; font-size: 13px; color: #6b7280; }
+.su__error { color: #c22a2f; font-size: 14px; margin: -8px 0 0; }
 
-.su__or { display: flex; align-items: center; justify-content: center; margin: 22px 0; }
-.su__or span { font-size: 13px; font-weight: 700; color: #04143a; }
+.su__account {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-weight: 400; font-size: 18px; color: #091620;
+  margin: 34px 0 24px;
+}
+.su__signin { color: #ed3b44; font-weight: 500; }
+.su__signin:hover { text-decoration: underline; }
+
+.su__or {
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-weight: 500; font-size: 24px; color: #091620; margin-bottom: 24px;
+}
 
 .su__google {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; min-height: 50px; border: 1px solid rgba(4,20,58,.2); border-radius: 10px;
-  background: #fff; color: #04143a; font-size: 15px; font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; max-width: 288px; margin: 0 auto; height: 56px;
+  border: 1.4px solid #d2d2d2; border-radius: 10px; background: #fff;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-size: 16px; font-weight: 500; color: #091620;
   transition: background-color 140ms, border-color 140ms;
 }
-.su__google:hover:not(.is-disabled) { background: #f7f8fa; border-color: rgba(4,20,58,.4); }
+.su__google:hover:not(.is-disabled) { background: #fafafa; border-color: #b9b9b9; }
 .su__google.is-disabled { opacity: .55; cursor: not-allowed; }
-.su__note { margin-top: 10px; font-size: 12px; color: #9aa1ad; }
+.su__note { margin-top: 12px; font-size: 12px; color: #9aa1ad; }
 
-.su__devlink {
-  display: inline-block; margin: 6px 0 16px; padding: 12px 22px;
-  background: #04143a; color: #fff; font-weight: 600; border-radius: 999px;
-}
-.su__link { margin-top: 6px; font-size: 13px; color: #6b7280; text-decoration: underline; }
-.su__sub { font-size: 15px; line-height: 1.6; color: #52525b; margin-bottom: 16px; }
+/* check-your-inbox + dev link */
+.su__mailicon { font-size: 44px; margin-bottom: 12px; }
+.su__inbox { font-size: 16px; line-height: 1.6; color: #52525b; margin-bottom: 18px; }
+.su__devlink { display: inline-block; margin-bottom: 16px; padding: 14px 28px; background: #091620; color: #fff; font-weight: 600; border-radius: 90px; }
+.su__reset { display: block; margin: 6px auto 0; font-size: 14px; color: #6b7280; text-decoration: underline; }
 
-/* verify result screen */
-.su__result { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; background: #f2f6fe; }
-.su__resicon { width: 64px; height: 64px; border-radius: 50%; background: #219653; color: #fff; font-size: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-.su__resicon--bad { background: #fc5257; }
-.su__restitle { font-family: var(--font-jost), Georgia, serif; font-weight: 500; font-size: 30px; color: #04143a; }
-.su__ressub { font-size: 15px; color: #52525b; margin: 10px 0 24px; }
-.su__resbtn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 28px; border-radius: 999px; background: #fc5257; color: #fff; font-weight: 700; }
-
-/* mobile: full-bleed image background with the text/form card on top */
-@media (max-width: 820px) {
+/* mobile: full-bleed image with the form card on top */
+@media (max-width: 900px) {
   .su { display: block; position: relative; min-height: 100dvh; }
   .su__panel { position: fixed; inset: 0; }
-  .su__panel img { width: 100%; height: 100%; object-fit: cover; }
-  .su__panel::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(4,20,58,.30), rgba(4,20,58,.55));
-  }
-  .su__side {
-    position: relative; z-index: 1; min-height: 100dvh;
-    display: flex; align-items: center; justify-content: center; padding: 22px;
-  }
+  .su__panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,22,32,.30), rgba(9,22,32,.55)); }
+  .su__side { position: relative; z-index: 1; min-height: 100dvh; padding: 22px; }
   .su__card {
-    background: #fff; border-radius: 24px; padding: 32px 24px;
-    box-shadow: 0 24px 60px -20px rgba(4,20,58,.5); max-width: 400px;
+    background: #fff; border-radius: 24px; padding: 36px 26px;
+    box-shadow: 0 24px 60px -20px rgba(9,22,32,.5); max-width: 440px;
   }
-  .su__title { font-size: 30px; }
+  .su__title { font-size: 36px; margin-bottom: 28px; }
+  .su__google { max-width: 100%; }
 }
