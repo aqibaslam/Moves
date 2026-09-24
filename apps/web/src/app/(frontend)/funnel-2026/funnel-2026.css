@@ -608,9 +608,8 @@
   max-width: 42ch;
 }
 .funnel-2026 .moves3__cta {
-  width: 240px;
-  height: 56px;
-  margin-top: 42px;
+  /* hidden on funnel-2026 (desktop + mobile) per Figma */
+  display: none;
 }
 .funnel-2026 .moves3__list {
   list-style: none;
