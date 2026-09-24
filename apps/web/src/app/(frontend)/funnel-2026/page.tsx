@@ -56,7 +56,7 @@ export default function Funnel2026Page() {
         data={{
           heading: { accent: 'Frequently asked', rest: 'questions' },
           description:
-            'Here are some of the most common questions about clear aligners, answered by our experts to help you make an informed decision.',
+            'Find answers to common questions about MOVES, answered by our experts.',
           cta: { label: 'Book Free Consultation', href: BOOKING_PATH },
           items: [
             {
