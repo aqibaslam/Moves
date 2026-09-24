@@ -1295,7 +1295,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* three cards (Figma 1745:6888) */
   gap: 4px; /* Figma column gap */
-  margin-top: -40px; /* pull the cards up under the product image (Figma) */
   margin-bottom: 40px;
 }
 .funnel-2026 .f26-incl__card {
@@ -1469,7 +1468,7 @@
     max-width: 100%;
   }
   .funnel-2026 .f26-incl { padding: 50px 16px; }
-  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; margin-top: -35px; }
+  .funnel-2026 .f26-incl__grid { grid-template-columns: 1fr; }
   .funnel-2026 .f26-incl__sub { font-size: 16px; }
   /* mobile: icon → title also 12px (drop the desktop +8), title → body stays 12px */
   .funnel-2026 .f26-incl__ctitle { font-size: 16px; margin-top: 0; }
