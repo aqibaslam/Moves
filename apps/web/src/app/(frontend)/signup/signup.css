@@ -1,19 +1,27 @@
 /* ============================================================
    Sign up — exact match to Figma "New Move - Signup".
-   Tokens: Public Sans / Poppins, ink #091620, red #ed3b44,
-   image left (52%), form right.
+   Tokens: Public Sans / Poppins, ink #091620, red #ed3b44.
+
+   Desktop (>900px): FIXED 1440 × 900 canvas straight from Figma
+     (image 752px left, form 688px right). Not fluid — when the
+     browser is smaller than the canvas the page scrolls.
+   Mobile (≤900px): fills exactly one screen (100dvh), no scroll —
+     full-bleed photo with the form card sitting on top.
    ============================================================ */
 
 .su {
-  min-height: 100dvh;
+  width: 1440px;
+  min-height: 900px;
+  height: 100dvh;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 752fr 688fr;
+  grid-template-columns: 752px 688px;
   background: #fff;
   font-family: var(--font-public-sans), system-ui, sans-serif;
   color: #091620;
 }
 .su__panel { position: relative; overflow: hidden; background: #091620; }
-.su__panel img { width: 100%; height: 100%; object-fit: cover; }
+.su__panel img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .su__side { display: flex; align-items: center; justify-content: center; padding: 40px 63px; }
 
 .su__card { width: 100%; max-width: 562px; text-align: center; }
@@ -77,16 +85,42 @@
 .su__devlink { display: inline-block; margin-bottom: 16px; padding: 14px 28px; background: #091620; color: #fff; font-weight: 600; border-radius: 90px; }
 .su__reset { display: block; margin: 6px auto 0; font-size: 14px; color: #6b7280; text-decoration: underline; }
 
-/* mobile: full-bleed image with the form card on top */
+/* ------------------------------------------------------------
+   Mobile: one screen, no scroll. The photo is the background,
+   the white card floats on top. Everything inside the card is
+   sized with dvh-based clamps so it fits from a 320×568 phone
+   up to the tallest handsets without ever overflowing.
+   ------------------------------------------------------------ */
 @media (max-width: 900px) {
-  .su { display: block; position: relative; min-height: 100dvh; }
-  .su__panel { position: fixed; inset: 0; }
-  .su__panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,22,32,.30), rgba(9,22,32,.55)); }
-  .su__side { position: relative; z-index: 1; min-height: 100dvh; padding: 22px; }
-  .su__card {
-    background: #fff; border-radius: 24px; padding: 36px 26px;
-    box-shadow: 0 24px 60px -20px rgba(9,22,32,.5); max-width: 440px;
+  .su {
+    position: fixed; inset: 0;
+    width: 100%; height: 100dvh; min-height: 0; margin: 0;
+    display: block; overflow: hidden;
   }
-  .su__title { font-size: 36px; margin-bottom: 28px; }
-  .su__google { max-width: 100%; }
+  .su__panel { position: absolute; inset: 0; }
+  .su__panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,22,32,.30), rgba(9,22,32,.55)); }
+
+  .su__side {
+    position: relative; z-index: 1;
+    height: 100dvh; padding: clamp(12px, 3dvh, 24px) 20px;
+  }
+  .su__card {
+    background: #fff; border-radius: 22px;
+    padding: clamp(18px, 4.2dvh, 36px) clamp(18px, 6vw, 26px);
+    box-shadow: 0 24px 60px -20px rgba(9,22,32,.5);
+    max-width: 420px;
+    max-height: 100%; overflow-y: auto; /* safety net only — never expected to kick in */
+  }
+
+  .su__title  { font-size: clamp(28px, 5.4dvh, 40px); margin-bottom: clamp(14px, 3dvh, 28px); }
+  .su__form   { gap: clamp(12px, 2.2dvh, 20px); }
+  .su__input  { height: clamp(48px, 7.6dvh, 62px); font-size: 16px; padding: 0 16px; }
+  .su__submit { height: clamp(46px, 6.8dvh, 56px); font-size: 16px; }
+  .su__account { font-size: clamp(14px, 2.2dvh, 17px); margin: clamp(14px, 3dvh, 28px) 0 clamp(10px, 2dvh, 18px); }
+  .su__or     { font-size: clamp(16px, 2.6dvh, 22px); margin-bottom: clamp(10px, 2dvh, 18px); }
+  .su__google { max-width: 100%; height: clamp(46px, 6.8dvh, 56px); font-size: 15px; }
+  .su__note   { margin-top: 8px; }
+
+  .su__mailicon { font-size: clamp(30px, 5dvh, 44px); }
+  .su__inbox { font-size: 15px; }
 }
