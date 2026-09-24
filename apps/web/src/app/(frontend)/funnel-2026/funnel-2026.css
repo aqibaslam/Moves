@@ -207,6 +207,12 @@
   .funnel-2026 .f-cand {
     padding: 50px 16px;
   }
+  /* keep the comparison table's rounded corners on mobile — the base funnel
+     drops them to 0 for the scroll table, but Figma keeps them (table already
+     has overflow: clip, so the corner cells round cleanly) */
+  .funnel-2026 .f-cmp__table {
+    border-radius: 24px;
+  }
 }
 /* Candidacy head is left-aligned in Figma (heading + copy left, CTA right) */
 .funnel-2026 .f-cand__head-l,
