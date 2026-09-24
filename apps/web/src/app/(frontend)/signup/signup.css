@@ -1,117 +1,487 @@
 /* ============================================================
-   Sign up — exact match to Figma "New Move - Signup".
-   Tokens: Public Sans / Poppins, ink #091620, red #ed3b44.
+   Sign in / Sign up — matches the "MOVES — Sign in" design.
 
-   Desktop (>900px): FIXED 1440 × 900 canvas straight from Figma
-     (image 752px left, form 688px right). Not fluid — when the
-     browser is smaller than the canvas the page scrolls.
-   Mobile (≤900px): fills exactly one screen (100dvh), no scroll —
-     full-bleed photo with the form card sitting on top.
+   Mobile (≤900px): photo band on top (MOVES wordmark + Need help?),
+     a white rounded sheet below holds the form.
+   Desktop (>900px): split — a rounded navy photo panel on the left
+     (headline + checklist over the image), a dotted panel on the
+     right with the floating white sign-in card centred in it.
+
+   Brand colours: navy #091620, coral #ed3b44. Neutral greys are
+   local to this auth surface. Type: Jost.
    ============================================================ */
 
 .su {
-  width: 1440px;
-  min-height: 900px;
-  height: 100dvh;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 706px 734px; /* Figma: content frame starts at x=706 */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: #fff;
-  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-family: var(--font-jost), system-ui, sans-serif;
+  color: #091620;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- photo panel ---------- */
+.su__panel {
+  position: relative;
+  height: 240px;
+  flex-shrink: 0;
+  background: #091620;
+  overflow: hidden;
+}
+.su__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 26%;
+}
+.su__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 22, 32, 0.7) 0%,
+    rgba(9, 22, 32, 0) 36%,
+    rgba(9, 22, 32, 0) 60%,
+    rgba(9, 22, 32, 0.55) 100%
+  );
+}
+
+/* mobile top bar over the photo */
+.su__bar {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  right: 24px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.su__wordmark {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  color: #fff;
+}
+.su__wordmark-mark {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.su__help {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* desktop headline + checklist — hidden on mobile */
+.su__panel-content {
+  display: none;
+}
+
+/* ---------- form side ---------- */
+.su__side {
+  position: relative;
+  flex-grow: 1;
+  margin-top: -28px;
+  z-index: 1;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  padding: 32px 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.su__glow {
+  display: none;
+}
+.su__side-foot {
+  display: none;
+}
+
+/* ---------- card ---------- */
+.su__card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.su__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.su__title {
+  margin: 0;
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   color: #091620;
 }
-.su__panel { position: relative; overflow: hidden; background: #091620; }
-.su__panel img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.su__side { display: flex; align-items: center; justify-content: center; padding: 40px 63px; }
-
-.su__card { width: 100%; max-width: 562px; text-align: center; }
-
-.su__title {
-  font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-weight: 600; font-size: 48px; line-height: 56px; color: #091620;
-  margin-bottom: 36px;
+.su__sub {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #5a6470;
 }
 
-.su__form { display: flex; flex-direction: column; gap: 24px; text-align: left; }
+.su__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.su__form {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.su__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.su__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #091620;
+}
+.su__inputwrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.su__inputicon {
+  position: absolute;
+  left: 18px;
+  display: flex;
+  color: #8a929b;
+}
 .su__input {
-  width: 100%; height: 68px; padding: 0 21px;
-  border: 1px solid #091620; border-radius: 4px;
-  font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-size: 17px; color: #091620; background: #fff;
-  transition: box-shadow 140ms;
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  padding: 0 18px 0 48px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #091620;
+  background: #fff;
+  border: 1px solid #e2e5e9;
+  border-radius: 999px;
+  transition: border-color 140ms, box-shadow 140ms;
 }
-.su__input::placeholder { color: #091620; opacity: .75; }
-.su__input:focus { outline: none; box-shadow: 0 0 0 3px rgba(237,59,68,.18); }
+.su__input::placeholder {
+  color: #98a0a8;
+}
+.su__input:focus {
+  outline: none;
+  border-color: #091620;
+  box-shadow: 0 0 0 4px rgba(9, 22, 32, 0.08);
+}
 
 .su__submit {
-  width: 100%; height: 56px; border-radius: 90px;
-  background: #ed3b44; color: #fff;
-  font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-size: 17px; font-weight: 500;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: #ed3b44;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
   transition: background-color 140ms;
 }
-.su__submit:hover:not(:disabled) { background: #e0313a; }
-.su__submit:disabled { opacity: .6; cursor: not-allowed; }
-.su__error { color: #c22a2f; font-size: 14px; margin: -8px 0 0; }
+.su__submit:hover:not(:disabled) {
+  background: #d8323b;
+}
+.su__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.su__error {
+  margin: -6px 0 0;
+  font-size: 14px;
+  color: #c22a2f;
+}
 
 .su__or {
-  font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-weight: 500; font-size: 20px; line-height: 24px; color: #091620; margin: 32px 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.su__or::before,
+.su__or::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background: #e2e5e9;
+}
+.su__or span {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5a6470;
 }
 
 .su__google {
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  width: 100%; max-width: 280px; margin: 0 auto; height: 52px; padding: 0 36px;
-  border: 1.4px solid #d2d2d2; border-radius: 10px; background: #fff;
-  font-family: var(--font-public-sans), system-ui, sans-serif;
-  font-size: 17px; font-weight: 400; color: #091620; white-space: nowrap;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: #091620;
+  background: #fff;
+  border: 1px solid #e2e5e9;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
   transition: background-color 140ms, border-color 140ms;
 }
-.su__google:hover:not(.is-disabled) { background: #fafafa; border-color: #b9b9b9; }
-.su__google.is-disabled { opacity: .55; cursor: not-allowed; }
-.su__note { margin-top: 12px; font-size: 12px; color: #9aa1ad; }
+.su__google:hover:not(.is-disabled) {
+  background: #fafafa;
+  border-color: #cfd4da;
+}
+.su__google.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.su__note {
+  margin: 0;
+  font-size: 12px;
+  color: #9aa1ad;
+}
 
-/* check-your-inbox + dev link */
-.su__mailicon { font-size: 44px; margin-bottom: 12px; }
-.su__inbox { font-size: 16px; line-height: 1.6; color: #52525b; margin-bottom: 18px; }
-.su__devlink { display: inline-block; margin-bottom: 16px; padding: 14px 28px; background: #091620; color: #fff; font-weight: 600; border-radius: 90px; }
-.su__reset { display: block; margin: 6px auto 0; font-size: 14px; color: #6b7280; text-decoration: underline; }
+.su__terms {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a6470;
+}
+.su__terms a {
+  color: #091620;
+}
 
-/* ------------------------------------------------------------
-   Mobile: one screen, no scroll. The photo is the background,
-   the white card floats on top. Everything inside the card is
-   sized with dvh-based clamps so it fits from a 320×568 phone
-   up to the tallest handsets without ever overflowing.
-   ------------------------------------------------------------ */
-@media (max-width: 900px) {
+/* ---------- check-your-inbox state ---------- */
+.su__mailicon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(9, 22, 32, 0.06);
+  color: #091620;
+  margin-bottom: 4px;
+}
+.su__devlink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 28px;
+  background: #091620;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.su__reset {
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: #5a6470;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Desktop split (>900px)
+   ============================================================ */
+@media (min-width: 901px) {
   .su {
-    position: fixed; inset: 0;
-    width: 100%; height: 100dvh; min-height: 0; margin: 0;
-    display: block; overflow: hidden;
+    /* grid guarantees the two columns are exactly equal width on every screen;
+       min-height (not a fixed height) lets a short viewport scroll instead of
+       clipping the card + footer inside the panels */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    padding: 20px;
+    gap: 20px;
   }
-  .su__panel { position: absolute; inset: 0; }
-  .su__panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,22,32,.30), rgba(9,22,32,.55)); }
+
+  .su__panel {
+    min-width: 0;
+    height: auto;
+    border-radius: 24px;
+  }
+  .su__photo {
+    object-position: 40% 28%;
+  }
+  .su__scrim {
+    background: linear-gradient(
+      0deg,
+      rgba(9, 22, 32, 0.96) 0%,
+      rgba(9, 22, 32, 0.7) 34%,
+      rgba(9, 22, 32, 0) 64%
+    );
+  }
+  .su__bar {
+    display: none;
+  }
+
+  .su__panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    bottom: 44px;
+    z-index: 1;
+  }
+  .su__panel-headline {
+    margin: 0;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .su__panel-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .su__panel-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .su__panel-item > span:last-child {
+    font-size: 15px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .su__panel-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
 
   .su__side {
-    position: relative; z-index: 1;
-    height: 100dvh; padding: clamp(12px, 3dvh, 24px) 20px;
+    min-width: 0;
+    margin-top: 0;
+    /* two rows: the card centres in the flexible top row, the footer sits in
+       its own row pinned to the very bottom of the column (like the reference).
+       They can never overlap, and a short viewport scrolls. NOT on small screens. */
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    justify-items: center;
+    gap: 24px;
+    padding: 48px 40px;
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: #f3f4f6;
+    background-image: radial-gradient(rgba(9, 22, 32, 0.09) 1px, transparent 1.2px);
+    background-size: 22px 22px;
   }
+  .su__glow {
+    display: block;
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .su__glow--coral {
+    top: -180px;
+    right: -160px;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(237, 59, 68, 0.16) 0%, rgba(237, 59, 68, 0) 68%);
+  }
+  .su__glow--navy {
+    bottom: -220px;
+    left: -180px;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(9, 22, 32, 0.1) 0%, rgba(9, 22, 32, 0) 68%);
+  }
+
   .su__card {
-    background: #fff; border-radius: 22px;
-    padding: clamp(18px, 4.2dvh, 36px) clamp(18px, 6vw, 26px);
-    box-shadow: 0 24px 60px -20px rgba(9,22,32,.5);
-    max-width: 420px;
-    max-height: 100%; overflow-y: auto; /* safety net only — never expected to kick in */
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 44px 40px 40px;
+    gap: 30px;
+    background: #fff;
+    border: 1px solid rgba(9, 22, 32, 0.06);
+    border-radius: 28px;
+    box-shadow:
+      0 1px 2px rgba(9, 22, 32, 0.04),
+      0 12px 24px -12px rgba(9, 22, 32, 0.1),
+      0 40px 80px -32px rgba(9, 22, 32, 0.22);
+  }
+  .su__title {
+    font-size: 42px;
+  }
+  .su__body {
+    gap: 20px;
+  }
+  .su__form {
+    gap: 18px;
   }
 
-  .su__title  { font-size: clamp(28px, 5.4dvh, 40px); margin-bottom: clamp(14px, 3dvh, 28px); }
-  .su__form   { gap: clamp(12px, 2.2dvh, 20px); }
-  .su__input  { height: clamp(48px, 7.6dvh, 62px); font-size: 16px; padding: 0 16px; }
-  .su__submit { height: clamp(46px, 6.8dvh, 56px); font-size: 16px; }
-  .su__or     { font-size: clamp(16px, 2.4dvh, 20px); margin: clamp(14px, 3dvh, 28px) 0 clamp(10px, 2dvh, 18px); }
-  .su__google { max-width: 100%; height: clamp(46px, 6.4dvh, 52px); font-size: 16px; padding: 0 16px; }
-  .su__note   { margin-top: 8px; }
+  .su__side-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 13px;
+    color: #5a6470;
+  }
+  .su__secure {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
 
-  .su__mailicon { font-size: clamp(30px, 5dvh, 44px); }
-  .su__inbox { font-size: 15px; }
+@media (prefers-reduced-motion: reduce) {
+  .su__input,
+  .su__submit,
+  .su__google {
+    transition: none;
+  }
 }
