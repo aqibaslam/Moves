@@ -5,7 +5,7 @@ import { sessionCookieOptions, sessionValue, CUSTOMER_COOKIE } from '@/lib/custo
 
 /** Google redirects here with ?code. Exchange it, upsert the customer, done. */
 export async function GET(request: NextRequest) {
-  const origin = request.nextUrl.origin;
+  const origin = (process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin).replace(/\/$/, '');
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
   if (!clientId || !clientSecret) return NextResponse.redirect(`${origin}/signup?google=unconfigured`);

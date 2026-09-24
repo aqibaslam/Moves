@@ -4,7 +4,9 @@ import { NextResponse, type NextRequest } from 'next/server';
 /** Kick off Google OAuth: redirect to Google's consent screen. */
 export function GET(request: NextRequest) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
-  const origin = request.nextUrl.origin;
+  // Pin to the canonical public domain — request.nextUrl.origin can return the
+  // raw *.vercel.app URL behind the alias, which breaks the redirect/cookie pair.
+  const origin = (process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin).replace(/\/$/, '');
   if (!clientId) {
     return NextResponse.redirect(`${origin}/signup?google=unconfigured`);
   }
