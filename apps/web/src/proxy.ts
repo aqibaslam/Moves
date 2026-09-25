@@ -23,15 +23,22 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   /*
-   * Home gate: movesuk.com/ always sends visitors to /signup. The only
-   * exception is a customer who has already signed up (the magic link and
-   * Google callback both set `moves_customer` and land on `/?welcome=1`) —
-   * bouncing them back to /signup would look like the login failed.
+   * Home gate: movesuk.com/ ALWAYS sends visitors to /signup — including
+   * customers who signed up earlier and still carry the session cookie.
+   *
+   * The single pass-through is the post-signup landing: the magic link and
+   * Google callback both set `moves_customer` and redirect to `/?welcome=1`.
+   * Bouncing that request back to /signup would look like the login failed,
+   * so it is allowed through only when the flag AND the cookie are present.
+   * The bare URL (movesuk.com/) never bypasses the gate.
    */
-  if (pathname === '/' && !request.cookies.get(CUSTOMER_COOKIE)) {
-    const to = request.nextUrl.clone();
-    to.pathname = '/signup';
-    return NextResponse.redirect(to);
+  if (pathname === '/') {
+    const justSignedUp = request.nextUrl.searchParams.get('welcome') === '1' && Boolean(request.cookies.get(CUSTOMER_COOKIE));
+    if (!justSignedUp) {
+      const to = request.nextUrl.clone();
+      to.pathname = '/signup'; // query string (e.g. utm_*) is kept
+      return NextResponse.redirect(to);
+    }
   }
 
   if (pathname.startsWith('/admin') && !request.cookies.get(AUTH_COOKIE)) {
