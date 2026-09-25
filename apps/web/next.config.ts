@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
     root: path.join(dirname, '../..'),
   },
 
+  // The webpack build ignores `turbopack.root`. Without this, output file
+  // tracing roots at apps/web and misses the pnpm monorepo's dependencies in
+  // the root node_modules/.pnpm store — so on Vercel the serverless bundle
+  // lacks Payload's modules and every CMS route (getPayload) 500s at runtime,
+  // even though the build passes and `next start` works locally. Point tracing
+  // at the monorepo root, the same as turbopack.root.
+  outputFileTracingRoot: path.join(dirname, '../..'),
+
   // Workspace packages ship raw TS — Next must compile them.
   transpilePackages: ['@moves/ui', '@moves/design-tokens', '@moves/supabase-client'],
 
