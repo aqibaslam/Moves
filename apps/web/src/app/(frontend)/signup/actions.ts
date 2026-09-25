@@ -1,14 +1,10 @@
 'use server';
 
-import { randomBytes } from 'node:crypto';
 import config from '@payload-config';
-import { headers } from 'next/headers';
 import { getPayload, ValidationError } from 'payload';
-import { emailEnabled, magicLinkHtml, sendEmail } from '@/lib/email';
+import { sendEmail, subscribedHtml } from '@/lib/email';
 
-export type SignupResult =
-  | { ok: true; emailed: boolean; devLink?: string }
-  | { ok: false; error: string };
+export type SubscribeResult = { ok: true } | { ok: false; error: string };
 
 const INVALID_EMAIL = 'Please enter a valid email address.';
 
@@ -27,14 +23,16 @@ function isEmailValidationError(err: unknown): boolean {
   return err instanceof ValidationError && err.data.errors.some((e) => e.path === 'email');
 }
 
-/** Start a passwordless sign-up: create/find the customer, email a one-time link. */
-export async function requestSignupLink(emailRaw: string): Promise<SignupResult> {
+/**
+ * Newsletter sign-up: record the subscriber and send a confirmation email.
+ * No magic link — the confirmation email contains no link back to the site,
+ * and the browser shows the "You're subscribed" screen on success.
+ */
+export async function subscribe(emailRaw: string): Promise<SubscribeResult> {
   const email = emailRaw?.trim().toLowerCase();
   if (!email || !EMAIL_RE.test(email)) return { ok: false, error: INVALID_EMAIL };
 
   const payload = await getPayload({ config });
-  const token = randomBytes(24).toString('hex');
-  const expiry = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 min
 
   try {
     const existing = await payload.find({ collection: 'customers', where: { email: { equals: email } }, limit: 1, overrideAccess: true });
@@ -43,7 +41,7 @@ export async function requestSignupLink(emailRaw: string): Promise<SignupResult>
         collection: 'customers',
         id: existing.docs[0].id,
         overrideAccess: true,
-        data: { signupToken: token, signupTokenExpiry: expiry, signupSource: 'email' },
+        data: { signupSource: 'email' },
       });
     } else {
       await payload.create({
@@ -54,27 +52,18 @@ export async function requestSignupLink(emailRaw: string): Promise<SignupResult>
           email,
           verified: false,
           signupSource: 'email',
-          signupToken: token,
-          signupTokenExpiry: expiry,
         },
       });
     }
   } catch (err) {
     if (isEmailValidationError(err)) return { ok: false, error: INVALID_EMAIL };
-    console.error('[signup] could not create customer', err);
+    console.error('[subscribe] could not save subscriber', err);
     return { ok: false, error: 'Something went wrong. Please try again.' };
   }
 
-  const h = await headers();
-  const proto = h.get('x-forwarded-proto') ?? 'https';
-  const host = h.get('host');
-  const link = `${proto}://${host}/signup/verify?token=${token}`;
+  // Fire-and-forget the confirmation; a delivery hiccup shouldn't fail the
+  // subscription itself (the record is already saved above).
+  await sendEmail(email, 'You\'re subscribed · MOVES', subscribedHtml());
 
-  const { sent } = await sendEmail(email, 'Confirm your email · Moves', magicLinkHtml(link));
-
-  if (!sent && !emailEnabled()) {
-    console.log('[signup] dev magic link:', link);
-    return { ok: true, emailed: false, devLink: link };
-  }
-  return { ok: true, emailed: sent };
+  return { ok: true };
 }

@@ -1,13 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { requestSignupLink } from './actions';
+import { subscribe } from './actions';
 
 function MailIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <rect x="3" y="5" width="18" height="14" rx="3" />
       <path d="M4 7l8 6 8-6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12.5l4.5 4.5L19 7.5" />
     </svg>
   );
 }
@@ -25,33 +33,33 @@ export function SignupModal() {
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [sent, setSent] = useState<{ emailed: boolean; devLink?: string } | null>(null);
+  const [subscribed, setSubscribed] = useState<string | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (busy) return;
     setBusy(true);
     setError(null);
-    const res = await requestSignupLink(email);
+    const res = await subscribe(email);
     setBusy(false);
-    if (res.ok) setSent({ emailed: res.emailed, devLink: res.devLink });
+    if (res.ok) setSubscribed(email);
     else setError(res.error);
   }
 
-  if (sent) {
+  if (subscribed) {
     return (
-      <div className="su__card">
-        <div className="su__head">
-          <span className="su__mailicon" aria-hidden="true"><MailIcon /></span>
-          <h1 className="su__title">Check your inbox</h1>
+      <div className="su__card su__card--done">
+        <div className="su__done">
+          <span className="su__check" aria-hidden="true"><CheckIcon /></span>
+          <h1 className="su__title">You&rsquo;re subscribed</h1>
           <p className="su__sub">
-            {sent.emailed
-              ? <>We&apos;ve sent a one-time link to <strong>{email}</strong>. Open it to finish and you&apos;ll be signed in.</>
-              : <>Your account is started. Email isn&apos;t switched on yet — use this one-time link to confirm:</>}
+            Thanks for subscribing to MOVES. We&rsquo;ve sent a confirmation to <strong>{subscribed}</strong>. Look out for launch news, smile tips and member-only offers.
           </p>
         </div>
-        {sent.devLink ? <a className="su__devlink" href={sent.devLink}>Confirm my email <ArrowIcon /></a> : null}
-        <button className="su__reset" type="button" onClick={() => setSent(null)}>Use a different email</button>
+        <div className="su__hint">
+          <span className="su__hint-icon" aria-hidden="true"><MailIcon /></span>
+          Can&rsquo;t see it? Check your spam or promotions folder.
+        </div>
       </div>
     );
   }

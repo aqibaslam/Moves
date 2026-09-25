@@ -32,15 +32,20 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
   }
 }
 
-export function magicLinkHtml(link: string): string {
+/**
+ * Newsletter-style confirmation. Deliberately contains NO link or button back
+ * to the site — it just confirms the subscription. Subscribers land on the
+ * "You're subscribed" screen in the browser instead.
+ */
+export function subscribedHtml(): string {
   return `
-    <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px">
-      <h1 style="color:#04143a;font-size:22px">Welcome to Moves</h1>
-      <p style="color:#3f3f46;font-size:15px;line-height:1.6">
-        Tap the button below to confirm your email and finish signing up. This link works once and expires in 30 minutes.
+    <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;text-align:center">
+      <h1 style="color:#091620;font-size:24px;font-weight:600;margin:0 0 12px">You're subscribed</h1>
+      <p style="color:#3f3f46;font-size:15px;line-height:1.65;margin:0 0 20px">
+        Thanks for subscribing to MOVES. Look out for launch news, smile tips and member-only offers landing in your inbox soon.
       </p>
-      <a href="${link}" style="display:inline-block;margin:16px 0;padding:14px 28px;background:#fc5257;color:#fff;
-         font-weight:700;border-radius:999px;text-decoration:none">Confirm my email</a>
-      <p style="color:#9aa1ad;font-size:12px">If you didn't request this, you can ignore this email.</p>
+      <p style="color:#9aa1ad;font-size:12px;line-height:1.6;margin:0">
+        You're receiving this because you subscribed at movesuk.com. Unsubscribe anytime.
+      </p>
     </div>`;
 }

@@ -228,40 +228,49 @@
 }
 
 /* ---------- check-your-inbox state ---------- */
-.su__mailicon {
-  display: inline-flex;
+/* ---------- success (subscribed) state ---------- */
+.su__card--done {
+  text-align: center;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: rgba(9, 22, 32, 0.06);
-  color: #091620;
-  margin-bottom: 4px;
 }
-.su__devlink {
+.su__done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.su__check {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 56px;
-  padding: 0 28px;
-  background: #091620;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: #ef3e42;
   color: #fff;
-  font-weight: 500;
-  border-radius: 999px;
-  text-decoration: none;
+  box-shadow: 0 0 0 10px rgba(239, 62, 66, 0.12);
 }
-.su__reset {
-  align-self: flex-start;
-  padding: 0;
-  background: none;
-  border: none;
-  font-family: inherit;
+.su__card--done .su__sub {
+  max-width: 42ch;
+}
+.su__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid #e2e5e9;
+  border-radius: 14px;
+  background: #fafbfc;
   font-size: 14px;
   color: #5a6470;
-  text-decoration: underline;
-  cursor: pointer;
+}
+.su__hint-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: #9aa1ad;
 }
 
 /* ============================================================
