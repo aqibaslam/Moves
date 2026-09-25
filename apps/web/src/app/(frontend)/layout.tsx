@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
+  verification: {
+    other: {
+      'facebook-domain-verification': 'idq13hqs5il7ia0k7mm3vh6dmrqyes',
+    },
+  },
 };
 
 export const viewport: Viewport = {
