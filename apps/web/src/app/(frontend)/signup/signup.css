@@ -125,6 +125,14 @@
   letter-spacing: -0.015em;
   color: #091620;
 }
+/* The "MOVES" word in the heading is the brand logo image. Sized in em so it
+   scales with the title on mobile (36px) and desktop (42px). */
+.su__title-logo {
+  display: block;
+  height: 0.82em;
+  width: auto;
+  margin-top: 0.14em;
+}
 .su__sub {
   margin: 0;
   font-size: 16px;
