@@ -8,10 +8,12 @@ import type { CollectionConfig } from 'payload';
 export const Customers: CollectionConfig = {
   slug: 'customers',
   labels: { singular: 'Customer', plural: 'Customers' },
+  // Newest first so fresh newsletter sign-ups land at the top of the list.
+  defaultSort: '-createdAt',
   admin: {
     group: 'Store',
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'email', 'phone', 'updatedAt'],
+    useAsTitle: 'email',
+    defaultColumns: ['email', 'name', 'signupSource', 'verified', 'createdAt'],
   },
   access: {
     read: ({ req: { user } }) => Boolean(user),
