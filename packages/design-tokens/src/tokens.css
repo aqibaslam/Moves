@@ -114,6 +114,73 @@
   --color-danger: #dc2626;
 }
 
+/* ── MOVES brand (Brand Guidelines v1.3) ──────────────── */
+/* Mirrors brandPalette / brandType / brandLayout / brandMotion in index.ts.
+   The display + body families come from next/font variables on <html>. */
+
+:root {
+  --mv-ink: #091620;
+  --mv-ink-raised: #122230;
+  --mv-ink-line: #24323d;
+  --mv-milk: #ffffff;
+  --mv-stone: #edeae6;
+  --mv-stone-line: #dad5ce;
+  --mv-milk-line: #e6e3df;
+  --mv-pulse: #ed3b44;
+  --mv-pulse-strong: #d3303a;
+  --mv-pulse-hover: #bc2831;
+  --mv-blush: #ffe8e9;
+  --mv-text-muted: #56606a;
+  --mv-on-ink-muted: #b3bac0;
+  --mv-on-ink-faint: #8a949c;
+  --mv-scrim: rgb(9 22 32 / 0.72);
+  --mv-scrim-soft: rgb(9 22 32 / 0);
+  --mv-veil: rgb(255 255 255 / 0.08);
+  --mv-veil-strong: rgb(255 255 255 / 0.16);
+  --mv-shadow-lift: 0 24px 48px -24px rgb(9 22 32 / 0.45);
+  --mv-shadow-nav: 0 10px 30px -12px rgb(9 22 32 / 0.28), 0 0 0 1px rgb(9 22 32 / 0.06);
+
+  --mv-font-display: var(--font-glacial), 'Glacial Indifference', ui-sans-serif, system-ui, sans-serif;
+  --mv-font-body: var(--font-public-sans), 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --mv-text-hero: clamp(2.5rem, 1.7rem + 4.2vw, 5.5rem);
+  --mv-text-h2: clamp(2.25rem, 1.7rem + 2.75vw, 4rem);
+  --mv-text-h3: clamp(1.5rem, 1.34rem + 0.8vw, 2rem);
+  --mv-text-price: clamp(2.5rem, 2.1rem + 2vw, 3.5rem);
+  --mv-text-lede: clamp(1.125rem, 1.07rem + 0.3vw, 1.3125rem);
+  --mv-text-body: 1.0625rem;
+  --mv-text-small: 0.9375rem;
+  --mv-text-label: 0.75rem;
+  --mv-tracking-label: 0.14em;
+  --mv-tracking-display: -0.015em;
+  --mv-leading-display: 1.02;
+  --mv-leading-heading: 1.08;
+  --mv-leading-body: 1.6;
+
+  --mv-container: 1320px;
+  --mv-prose: 620px;
+  --mv-gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --mv-section: clamp(4.5rem, 3rem + 7vw, 9.5rem);
+  --mv-gap-xs: 0.5rem;
+  --mv-gap-s: 1rem;
+  --mv-gap-m: 1.5rem;
+  --mv-gap-l: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  --mv-gap-xl: clamp(3rem, 2rem + 4vw, 6rem);
+  --mv-radius: 4px;
+  --mv-radius-card: 8px;
+  --mv-radius-tile: 16px;
+  --mv-radius-panel: 28px;
+  --mv-radius-pill: 999px;
+  --mv-hairline: 1px;
+  --mv-touch: 48px;
+
+  --mv-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --mv-dur-hover: 200ms;
+  --mv-dur-reveal: 720ms;
+  --mv-reveal-shift: 24px;
+  --mv-z-sticky: 20;
+}
+
 /* ── Theme — dark ───────────────────────────────────── */
 /* Follows the OS by default, then an explicit [data-theme] wins in both
    directions so a manual toggle can override the system preference. */

@@ -243,6 +243,61 @@ export const zIndex = {
   toast: 50,
 } as const;
 
+// ── MOVES brand (Brand Guidelines v1.3) ──────────────────────
+// The consumer brand system: Ink + Milk carry ~90% of every layout, Stone is
+// the supporting neutral, Pulse is the single accent, Blush its soft tint.
+// Mirrored as `--mv-*` custom properties in tokens.css.
+
+export const brandPalette = {
+  ink: '#091620',
+  inkRaised: '#122230', // cards / panels sitting on Ink
+  inkLine: '#24323D', // hairlines on Ink
+  milk: '#ffffff',
+  stone: '#EDEAE6',
+  stoneLine: '#DAD5CE', // hairlines on Stone
+  milkLine: '#E6E3DF', // hairlines on Milk
+  pulse: '#ED3B44', // accent — large type, marks, details (3.95:1 on Milk)
+  // Pulse deepened just enough to carry white text: 4.94:1 (WCAG AA).
+  // Every filled CTA uses this, never raw Pulse.
+  pulseStrong: '#D3303A',
+  pulseHover: '#BC2831',
+  blush: '#FFE8E9',
+  textMuted: '#56606A', // on Milk 6.4:1, on Stone 5.3:1
+  onInkMuted: '#B3BAC0', // on Ink 9.3:1
+  onInkFaint: '#8A949C', // on Ink 5.9:1 — captions only
+} as const;
+
+/** Fluid type — rem at the 320px floor, rem at the ceiling. */
+export const brandType = {
+  display: 'Glacial Indifference',
+  body: 'Public Sans',
+  // [min rem, max rem]
+  hero: [2.5, 5.5],
+  h2: [2.25, 4],
+  h3: [1.5, 2],
+  lede: [1.125, 1.3125],
+  body: 1.0625, // 17px — brand body size
+  small: 0.9375,
+  label: 0.75, // uppercase, tracked
+  labelTracking: 0.14, // em
+  displayTracking: -0.015, // em
+} as const;
+
+export const brandLayout = {
+  container: 1320,
+  prose: 620, // ≈ 68ch at 17px — the brand's max line length
+  radius: 4, // photographs + panels: crisp, not bubbly
+  radiusCard: 8,
+  radiusTile: 16,
+  radiusPanel: 28, // hero colour panel
+} as const;
+
+export const brandMotion = {
+  reveal: 720, // ms — section entrances
+  hover: 200,
+  easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
+} as const;
+
 export const tokens = {
   palette,
   lightTheme,
@@ -260,4 +315,8 @@ export const tokens = {
   breakpoint,
   maxWidth,
   zIndex,
+  brandPalette,
+  brandType,
+  brandLayout,
+  brandMotion,
 } as const;

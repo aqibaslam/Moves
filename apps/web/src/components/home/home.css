@@ -1,0 +1,472 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   MOVES home — navigation + hero.
+   Brand Guidelines v1.3: Ink + Milk carry the page, Stone supports, Pulse is
+   the single accent. Every value is a --mv-* token from @moves/design-tokens.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.mv {
+  background: var(--mv-milk);
+  color: var(--mv-ink);
+  font-family: var(--mv-font-body);
+  font-size: var(--mv-text-body);
+  line-height: var(--mv-leading-body);
+}
+
+.mv :focus-visible {
+  outline: 2px solid var(--mv-pulse);
+  outline-offset: 3px;
+  border-radius: var(--mv-radius);
+}
+
+:root.mv-lock {
+  overflow: hidden;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+
+.mv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border: var(--mv-hairline) solid transparent;
+  border-radius: var(--mv-radius-pill);
+  font-size: var(--mv-text-small);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--mv-dur-hover) var(--mv-ease-out),
+    border-color var(--mv-dur-hover) var(--mv-ease-out),
+    color var(--mv-dur-hover) var(--mv-ease-out);
+}
+
+.mv-btn .mv-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+  transition: transform var(--mv-dur-hover) var(--mv-ease-out);
+}
+
+.mv-btn:hover .mv-icon {
+  transform: translateX(3px);
+}
+
+.mv-btn--lg {
+  min-height: 56px;
+  padding: 0 1.75rem;
+  font-size: 1rem;
+}
+
+.mv-btn--pulse {
+  background: var(--mv-pulse-strong);
+  color: var(--mv-milk);
+}
+
+.mv-btn--pulse:hover {
+  background: var(--mv-pulse-hover);
+}
+
+.mv-btn--ghost {
+  border-color: var(--mv-stone-line);
+  color: var(--mv-ink);
+}
+
+.mv-btn--ghost:hover {
+  border-color: var(--mv-ink);
+}
+
+.mv-btn--block {
+  width: 100%;
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────── */
+
+/* Same outer width as the hero panel, so logo and CTA line up with its
+   edges. */
+.mv-nav {
+  position: relative;
+  z-index: var(--mv-z-sticky);
+  max-width: calc(var(--mv-container) + var(--mv-gutter) * 2);
+  margin-inline: auto;
+  padding: 0.75rem var(--mv-gutter) 0;
+}
+
+.mv-nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mv-gap-m);
+  min-height: 64px;
+  padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+  background: var(--mv-milk);
+}
+
+.mv-nav__logo {
+  display: inline-flex;
+  flex: none;
+  padding-block: 0.5rem;
+}
+
+.mv-nav__logo img {
+  display: block;
+  width: 108px;
+  height: auto;
+}
+
+.mv-nav__links {
+  display: none;
+}
+
+.mv-nav__links ul {
+  display: flex;
+  gap: clamp(1.25rem, 0.5rem + 1.6vw, 2.25rem);
+  list-style: none;
+}
+
+.mv-nav__links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--mv-text-small);
+  color: var(--mv-ink);
+}
+
+.mv-nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 1px;
+  background: var(--mv-pulse);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--mv-dur-hover) var(--mv-ease-out);
+}
+
+.mv-nav__links a:hover::after {
+  transform: scaleX(1);
+}
+
+.mv-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--mv-gap-xs);
+}
+
+.mv-nav__cta-full {
+  display: none;
+}
+
+.mv-btn--nav {
+  min-height: 48px;
+  padding-inline: 1.375rem;
+}
+
+.mv-btn--nav .mv-icon {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .mv-nav__cta-full {
+    display: inline;
+  }
+
+  .mv-nav__cta-short {
+    display: none;
+  }
+}
+
+@media (min-width: 1080px) {
+  .mv-nav__logo img {
+    width: 120px;
+  }
+
+  .mv-nav__links {
+    display: block;
+  }
+
+  .mv-btn--nav .mv-icon {
+    display: block;
+  }
+}
+
+/* Mobile menu */
+
+.mv-menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--mv-radius-pill);
+}
+
+.mv-menu-toggle__bars,
+.mv-menu-toggle__bars::before {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--mv-ink);
+  transition: transform var(--mv-dur-hover) var(--mv-ease-out);
+}
+
+.mv-menu-toggle__bars {
+  transform: translateY(-3px);
+}
+
+.mv-menu-toggle__bars::before {
+  content: '';
+  transform: translateY(6px);
+}
+
+.mv-menu-toggle[aria-expanded='true'] .mv-menu-toggle__bars {
+  transform: rotate(45deg);
+}
+
+.mv-menu-toggle[aria-expanded='true'] .mv-menu-toggle__bars::before {
+  transform: rotate(-90deg);
+}
+
+.mv-menu {
+  position: fixed;
+  inset: 5.25rem 0 0;
+  z-index: var(--mv-z-sticky);
+  display: grid;
+  align-content: start;
+  gap: var(--mv-gap-l);
+  padding: var(--mv-gap-m) var(--mv-gutter) var(--mv-gap-l);
+  overflow-y: auto;
+  background: var(--mv-milk);
+}
+
+.mv-menu[hidden] {
+  display: none;
+}
+
+.mv-menu__links {
+  list-style: none;
+}
+
+.mv-menu__links a {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  border-bottom: var(--mv-hairline) solid var(--mv-milk-line);
+  font-family: var(--mv-font-display);
+  font-size: 1.75rem;
+}
+
+.mv-menu__note {
+  font-size: var(--mv-text-small);
+  color: var(--mv-text-muted);
+}
+
+@media (min-width: 1080px) {
+  .mv-menu-toggle,
+  .mv-menu {
+    display: none;
+  }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+
+.mv-hero {
+  max-width: calc(var(--mv-container) + var(--mv-gutter) * 2);
+  margin-inline: auto;
+  padding: 0.75rem var(--mv-gutter) var(--mv-gap-l);
+}
+
+/* The Ink panel. Phones: photo on top, copy below, all inside the panel.
+   Desktop: copy left, photo filling the right 58% and fading into Ink. */
+.mv-panel {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  border-radius: var(--mv-radius-panel);
+  background: var(--mv-ink);
+  color: var(--mv-milk);
+}
+
+.mv-panel__media {
+  position: relative;
+  aspect-ratio: 4 / 3.3;
+}
+
+.mv-panel__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, var(--mv-ink) 0%, var(--mv-scrim-soft) 22%);
+}
+
+.mv-panel__img {
+  object-fit: cover;
+  object-position: var(--pos-m, 50% 50%);
+}
+
+.mv-panel__copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: start;
+  padding: 0 var(--mv-gap-m) var(--mv-gap-l);
+  margin-top: -1rem;
+}
+
+.mv-kicker {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--mv-on-ink-muted);
+}
+
+.mv-panel__title {
+  margin: 0.5rem 0 var(--mv-gap-s);
+  font-family: var(--mv-font-display);
+  font-weight: 400;
+  font-size: clamp(3.25rem, 2.3rem + 4.6vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.mv-panel__accent {
+  color: var(--mv-pulse);
+}
+
+/* Three proof points instead of a paragraph: one bright line each, on a
+   Pulse tick. */
+.mv-points {
+  display: grid;
+  gap: 0.875rem;
+  max-width: 30rem;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+.mv-point {
+  display: grid;
+  grid-template-columns: 1.625rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--mv-milk);
+}
+
+@media (min-width: 600px) {
+  .mv-point {
+    font-size: 1.125rem;
+  }
+}
+
+.mv-point__icon {
+  display: grid;
+  place-items: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  margin-top: -0.0625rem;
+  border-radius: var(--mv-radius-pill);
+  background: var(--mv-pulse-strong);
+  color: var(--mv-milk);
+}
+
+.mv-point__icon .mv-icon {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+.mv-btn--hero {
+  width: 100%;
+  min-height: 60px;
+  margin-top: var(--mv-gap-m);
+  font-size: 1.0625rem;
+}
+
+.mv-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--mv-gap-s);
+  font-size: 0.9375rem;
+  color: var(--mv-on-ink-muted);
+}
+
+.mv-rating strong {
+  font-weight: 600;
+  color: var(--mv-milk);
+}
+
+.mv-rating__stars {
+  width: 6rem;
+  height: auto;
+}
+
+.mv-rating__brand {
+  font-weight: 500;
+  color: var(--mv-milk);
+}
+
+.mv-rating__sep {
+  display: none;
+  width: 1px;
+  height: 1rem;
+  margin-inline: 0.375rem;
+  background: var(--mv-ink-line);
+}
+
+/* Entrance: once, on load, transform + opacity only. */
+.mv-rise {
+  animation: mv-rise 800ms var(--mv-ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+}
+
+@keyframes mv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (min-width: 600px) {
+  .mv-rating__sep {
+    display: block;
+  }
+
+  .mv-btn--hero {
+    width: auto;
+    min-width: 22rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .mv-panel {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    min-height: clamp(34rem, calc(100svh - 7.5rem), 50rem);
+  }
+
+  .mv-panel__media {
+    position: absolute;
+    inset: 0 0 0 42%;
+    aspect-ratio: auto;
+  }
+
+  .mv-panel__media::after {
+    background: linear-gradient(90deg, var(--mv-ink) 0%, var(--mv-scrim-soft) 38%);
+  }
+
+  .mv-panel__img {
+    object-position: var(--pos-d, 50% 50%);
+  }
+
+  .mv-panel__copy {
+    max-width: 38rem;
+    margin-top: 0;
+    padding: var(--mv-gap-l) 0 var(--mv-gap-l) clamp(2rem, 1rem + 3vw, 4.5rem);
+  }
+}
