@@ -45,7 +45,6 @@ export default function SignupPage() {
         {/* mobile-only top bar over the photo */}
         <div className="su__bar">
           <span className="su__wordmark">MOVES<span className="su__wordmark-mark">&rsquo;</span></span>
-          <a className="su__help" href="mailto:support@movesuk.com">Need help?</a>
         </div>
 
         {/* desktop-only headline + checklist */}

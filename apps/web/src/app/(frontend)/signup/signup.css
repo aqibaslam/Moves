@@ -71,16 +71,6 @@
   font-weight: 400;
   letter-spacing: 0;
 }
-.su__help {
-  display: inline-flex;
-  align-items: center;
-  height: 44px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-}
-
 /* desktop headline + checklist — hidden on mobile */
 .su__panel-content {
   display: none;
@@ -97,6 +87,16 @@
   padding: 32px 24px 28px;
   display: flex;
   flex-direction: column;
+}
+/* Success state has no footer, so its short card left a long empty tail.
+   Centre it in the sheet instead — no dead space top or bottom.
+   Scoped to mobile so it never overrides the desktop grid layout below. */
+@media (max-width: 900px) {
+  .su__side:has(.su__card--done) {
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
 }
 .su__glow {
   display: none;
