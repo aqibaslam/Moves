@@ -25,7 +25,7 @@ export default function BookingPage() {
         <aside className="book-aside">
           <a className="book-brand" href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/moves-logo.svg" alt="Moves" width={140} height={18} />
+            <img src="/images/lp26-logo.svg" alt="MOVES" width={128} height={29} />
           </a>
 
           <div className="book-aside__intro">

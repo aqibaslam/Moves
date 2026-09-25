@@ -33,7 +33,9 @@
   width: fit-content;
 }
 .book-brand img {
-  height: 20px;
+  /* 2026 wordmark (lp26-logo.svg) is more compact than the old bold mark, so
+     it needs a little more height to read at the same visual weight. */
+  height: 24px;
   width: auto;
 }
 
