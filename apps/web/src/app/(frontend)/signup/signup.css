@@ -60,16 +60,12 @@
   justify-content: space-between;
   align-items: center;
 }
+/* Mobile top-bar brand mark: the white (milk) 2026 wordmark over the photo,
+   the same artwork as the ink logo used in the heading below. */
 .su__wordmark {
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 1;
-  letter-spacing: 0.16em;
-  color: #fff;
-}
-.su__wordmark-mark {
-  font-weight: 400;
-  letter-spacing: 0;
+  display: block;
+  height: 24px;
+  width: auto;
 }
 /* desktop headline + checklist — hidden on mobile */
 .su__panel-content {

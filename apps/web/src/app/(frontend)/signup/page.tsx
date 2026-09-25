@@ -44,7 +44,8 @@ export default function SignupPage() {
 
         {/* mobile-only top bar over the photo */}
         <div className="su__bar">
-          <span className="su__wordmark">MOVES<span className="su__wordmark-mark">&rsquo;</span></span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="su__wordmark" src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="300" height="67" />
         </div>
 
         {/* desktop-only headline + checklist */}
