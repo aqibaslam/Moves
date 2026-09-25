@@ -31,7 +31,6 @@ function CheckIcon() {
 }
 
 export default function SignupPage() {
-  const googleEnabled = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
   return (
     <div className={`su ${jost.variable}`}>
       <div className="su__panel">
@@ -66,7 +65,7 @@ export default function SignupPage() {
       <div className="su__side">
         <span className="su__glow su__glow--coral" aria-hidden="true" />
         <span className="su__glow su__glow--navy" aria-hidden="true" />
-        <SignupModal googleEnabled={googleEnabled} />
+        <SignupModal />
         <div className="su__side-foot" aria-hidden="false">
           <span className="su__secure">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
