@@ -1,6 +1,7 @@
 'use server';
 
 import config from '@payload-config';
+import { after } from 'next/server';
 import { getPayload, ValidationError } from 'payload';
 import { sendEmail, subscribedHtml } from '@/lib/email';
 
@@ -61,9 +62,17 @@ export async function subscribe(emailRaw: string): Promise<SubscribeResult> {
     return { ok: false, error: 'Something went wrong. Please try again.' };
   }
 
-  // Fire-and-forget the confirmation; a delivery hiccup shouldn't fail the
-  // subscription itself (the record is already saved above).
-  await sendEmail(email, 'You\'re subscribed · MOVES', subscribedHtml());
+  // Send the confirmation AFTER the response is flushed. The subscriber is
+  // already saved, so the browser shows "You're subscribed" immediately
+  // instead of waiting on the Resend API round-trip. A delivery hiccup never
+  // blocks or fails the signup.
+  after(async () => {
+    try {
+      await sendEmail(email, 'You\'re subscribed · MOVES', subscribedHtml());
+    } catch (err) {
+      console.error('[subscribe] confirmation email failed', err);
+    }
+  });
 
   return { ok: true };
 }
