@@ -16,9 +16,23 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 /** Payload's default auth cookie (no cookiePrefix is configured). */
 const AUTH_COOKIE = 'payload-token';
+/** Storefront customer session — see lib/customer-session.ts (same name). */
+const CUSTOMER_COOKIE = 'moves_customer';
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  /*
+   * Home gate: movesuk.com/ always sends visitors to /signup. The only
+   * exception is a customer who has already signed up (the magic link and
+   * Google callback both set `moves_customer` and land on `/?welcome=1`) —
+   * bouncing them back to /signup would look like the login failed.
+   */
+  if (pathname === '/' && !request.cookies.get(CUSTOMER_COOKIE)) {
+    const to = request.nextUrl.clone();
+    to.pathname = '/signup';
+    return NextResponse.redirect(to);
+  }
 
   if (pathname.startsWith('/admin') && !request.cookies.get(AUTH_COOKIE)) {
     const to = request.nextUrl.clone();
