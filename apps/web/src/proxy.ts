@@ -2,25 +2,54 @@
  * Next.js 16 renamed the `middleware` file convention to `proxy` — same
  * capability, clearer name. The exported function must be called `proxy`.
  *
- * Job: a cheap signed-out redirect for /admin (the Moves staff dashboard).
+ * Jobs:
+ *   1. the pre-launch password wall on public pages
+ *   2. a cheap signed-out redirect for /admin (the Moves staff dashboard)
  *
  * The dashboard check here only looks for the presence of Payload's auth
  * cookie. It is a fast path to avoid rendering a page we know will bounce —
  * NOT a security boundary. The real verification is payload.auth() in
  * app/(dashboard)/dashboard/layout.tsx, which validates the token against the
  * database. Never rely on this cookie check alone.
- *
- * (The pre-launch password wall has been removed — the site is public.)
  */
 import { NextResponse, type NextRequest } from 'next/server';
+
+/** Shared with app/(frontend)/password/gate.ts. */
+const GATE_COOKIE = 'moves_gate';
+const GATE_TOKEN = 'unlocked';
 
 /** Payload's default auth cookie (no cookiePrefix is configured). */
 const AUTH_COOKIE = 'payload-token';
 /** Storefront customer session — see lib/customer-session.ts (same name). */
 const CUSTOMER_COOKIE = 'moves_customer';
 
+function isGateExempt(pathname: string): boolean {
+  return (
+    pathname === '/password' ||
+    pathname.startsWith('/password/') ||
+    pathname === '/lock' ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/cms') ||
+    pathname === '/login' ||
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/_next') ||
+    pathname === '/favicon.ico'
+  );
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (!isGateExempt(pathname)) {
+    const unlocked = request.cookies.get(GATE_COOKIE)?.value === GATE_TOKEN;
+    if (!unlocked) {
+      const to = request.nextUrl.clone();
+      to.pathname = '/password';
+      to.search = '';
+      to.searchParams.set('from', pathname + request.nextUrl.search);
+      return NextResponse.redirect(to);
+    }
+  }
 
   /*
    * Home gate: movesuk.com/ ALWAYS sends visitors to /signup — including

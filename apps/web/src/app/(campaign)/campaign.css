@@ -1,0 +1,39 @@
+/* This root layout deliberately loads only the two MOVES brand typefaces. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+.campaign-body {
+  margin: var(--space-0);
+  background: var(--mc-canvas);
+  color: var(--mc-ink);
+  font-family: var(--mc-font-body);
+  font-size: var(--mc-body-type);
+  -webkit-font-smoothing: antialiased;
+}
+
+.campaign-body :where(a) { color: inherit; text-decoration: none; }
+.campaign-body img, .campaign-body svg { display: block; max-width: var(--mc-full); }
+.campaign-body :focus-visible {
+  outline: var(--mc-focus-width) solid var(--mc-focus-color, var(--mc-ink));
+  outline-offset: var(--mc-focus-offset);
+}
+
+.campaign-skip {
+  position: fixed;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  z-index: var(--z-toast);
+  padding: var(--space-3) var(--space-5);
+  background: var(--mc-canvas);
+  transform: translateY(-200%);
+}
+.campaign-skip:focus { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-body *, .campaign-body *::before, .campaign-body *::after {
+    transition: none;
+    animation: none;
+    scroll-behavior: auto;
+  }
+}
