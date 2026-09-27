@@ -5,8 +5,8 @@ import './signup.css';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
-  title: 'Sign up',
-  description: 'Sign up to be among the first to try MOVES — launch news, smile tips and member-only offers.',
+  title: 'Join MOVES',
+  description: 'Make your Move. Be first to hear when MOVES launches.',
 };
 
 export default function SignupPage() {
@@ -29,7 +29,7 @@ export default function SignupPage() {
 
         {/* desktop-only headline + checklist */}
         <div className="su__panel-content">
-          <p className="su__panel-headline">The smile you&rsquo;ve been putting off starts here.</p>
+          <p className="su__panel-headline">Your smile.<br />Your story.<br />Your move.</p>
         </div>
         <span className="su__photo-accent" aria-hidden="true" />
       </section>

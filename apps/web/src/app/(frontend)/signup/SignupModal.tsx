@@ -51,9 +51,9 @@ export function SignupModal() {
       <div className="su__card su__card--done">
         <div className="su__done">
           <span className="su__check" aria-hidden="true"><CheckIcon /></span>
-          <h1 className="su__title">You&rsquo;re subscribed</h1>
+          <h1 className="su__title">You&rsquo;re in<span className="su__title-dot">.</span></h1>
           <p className="su__sub">
-            Thanks for subscribing to MOVES. We&rsquo;ve sent a confirmation to <strong>{subscribed}</strong>. Look out for launch news, smile tips and member-only offers.
+            Welcome to MOVES. We&rsquo;ve sent a confirmation to <strong>{subscribed}</strong>.
           </p>
         </div>
         <div className="su__hint">
@@ -67,12 +67,8 @@ export function SignupModal() {
   return (
     <div className="su__card">
       <div className="su__head">
-        <h1 className="su__title">
-          Sign up to<br />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="su__title-logo" src="/images/brand/moves-logo-ink.svg" alt="MOVES" width="300" height="67" />
-        </h1>
-        <p className="su__sub">Sign up to be among the first to try MOVES. We&rsquo;ll keep you posted with launch news, smile tips and member-only offers.</p>
+        <h1 className="su__title">Make your Move<span className="su__title-dot">.</span></h1>
+        <p className="su__sub">Be first to hear when MOVES launches, with smile advice and member-only offers.</p>
       </div>
 
       <div className="su__body">
@@ -95,14 +91,14 @@ export function SignupModal() {
           </div>
           {error ? <p className="su__error" role="alert">{error}</p> : null}
           <button className="su__submit" type="submit" disabled={busy}>
-            {busy ? 'Sending…' : 'Sign up'}
+            {busy ? 'Sending…' : 'Join MOVES'}
             {busy ? null : <ArrowIcon />}
           </button>
         </form>
       </div>
 
       <p className="su__terms">
-        By signing up, you agree to the MOVES <a href="/terms">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>. Unsubscribe anytime.
+        By joining, you agree to the MOVES <a href="/terms">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>. Unsubscribe anytime.
       </p>
     </div>
   );
