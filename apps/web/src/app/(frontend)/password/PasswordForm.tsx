@@ -12,19 +12,22 @@ export function PasswordForm({ from }: { from: string }) {
   return (
     <form className="pw__form" action={action}>
       <input type="hidden" name="from" value={from} />
+      <label className="pw__field-label" htmlFor="review-password">
+        Review password
+      </label>
       <div className="pw__row">
         <input
+          id="review-password"
           className="pw__input"
           type="password"
           name="password"
           placeholder="Enter password"
-          aria-label="Password"
           autoComplete="off"
           autoFocus
           required
         />
         <button className="pw__btn" type="submit" disabled={pending}>
-          {pending ? 'Checking…' : 'Enter'}
+          {pending ? 'Checking…' : 'View the review'}
         </button>
       </div>
       {state.error ? (
