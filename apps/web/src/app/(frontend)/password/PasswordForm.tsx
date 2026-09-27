@@ -13,7 +13,7 @@ export function PasswordForm({ from }: { from: string }) {
     <form className="pw__form" action={action}>
       <input type="hidden" name="from" value={from} />
       <label className="pw__field-label" htmlFor="review-password">
-        Review password
+        Password
       </label>
       <div className="pw__row">
         <input
@@ -27,7 +27,7 @@ export function PasswordForm({ from }: { from: string }) {
           required
         />
         <button className="pw__btn" type="submit" disabled={pending}>
-          {pending ? 'Checking…' : 'View the review'}
+          {pending ? 'Checking…' : 'Open review'}
         </button>
       </div>
       {state.error ? (
