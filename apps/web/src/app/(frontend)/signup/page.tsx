@@ -9,20 +9,6 @@ export const metadata: Metadata = {
   description: 'Sign up to be among the first to try MOVES — launch news, smile tips and member-only offers.',
 };
 
-const PANEL_POINTS = [
-  'Every treatment plan signed by a named, GDC-registered dentist',
-  'Progress checked at every tray change',
-  '30-day money-back guarantee',
-];
-
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12.5l4.5 4.5L19 7.5" />
-    </svg>
-  );
-}
-
 export default function SignupPage() {
   return (
     <main className="su" id="main">
@@ -43,16 +29,9 @@ export default function SignupPage() {
 
         {/* desktop-only headline + checklist */}
         <div className="su__panel-content">
-          <p className="su__panel-headline">The smile you&rsquo;ve been<br />putting off starts here.</p>
-          <ul className="su__panel-list">
-            {PANEL_POINTS.map((point) => (
-              <li className="su__panel-item" key={point}>
-                <span className="su__panel-check" aria-hidden="true"><CheckIcon /></span>
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
+          <p className="su__panel-headline">The smile you&rsquo;ve been putting off starts here.</p>
         </div>
+        <span className="su__photo-accent" aria-hidden="true" />
       </section>
 
       <section className="su__side" aria-label="Email signup">
