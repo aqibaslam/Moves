@@ -70,7 +70,7 @@ export function SignupModal() {
         <h1 className="su__title">
           Sign up to<br />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="su__title-logo" src="/images/lp26-logo.svg" alt="MOVES" width="128" height="29" />
+          <img className="su__title-logo" src="/images/brand/moves-logo-ink.svg" alt="MOVES" width="300" height="67" />
         </h1>
         <p className="su__sub">Sign up to be among the first to try MOVES. We&rsquo;ll keep you posted with launch news, smile tips and member-only offers.</p>
       </div>
@@ -90,7 +90,6 @@ export function SignupModal() {
                 placeholder="you@example.com"
                 autoComplete="email"
                 required
-                autoFocus
               />
             </div>
           </div>

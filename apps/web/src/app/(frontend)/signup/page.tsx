@@ -1,14 +1,7 @@
 import type { Metadata } from 'next';
-import { Jost } from 'next/font/google';
+import '@moves/design-tokens/css';
 import { SignupModal } from './SignupModal';
 import './signup.css';
-
-const jost = Jost({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-jost',
-  display: 'swap',
-});
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
@@ -32,8 +25,8 @@ function CheckIcon() {
 
 export default function SignupPage() {
   return (
-    <div className={`su ${jost.variable}`}>
-      <div className="su__panel">
+    <main className="su" id="main">
+      <section className="su__panel" aria-label="MOVES clear aligners">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="su__photo"
@@ -60,11 +53,9 @@ export default function SignupPage() {
             ))}
           </ul>
         </div>
-      </div>
+      </section>
 
-      <div className="su__side">
-        <span className="su__glow su__glow--coral" aria-hidden="true" />
-        <span className="su__glow su__glow--navy" aria-hidden="true" />
+      <section className="su__side" aria-label="Email signup">
         <SignupModal />
         <div className="su__side-foot" aria-hidden="false">
           <span className="su__secure">
@@ -76,7 +67,7 @@ export default function SignupPage() {
           </span>
           <span>&copy; 2026 MOVES</span>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
