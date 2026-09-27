@@ -34,11 +34,6 @@ export default function SignupPage() {
         <span className="su__photo-accent" aria-hidden="true" />
       </section>
 
-      <div className="su__product" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/funnel2026-cta-case.png" alt="" />
-      </div>
-
       <section className="su__side" aria-label="Email signup">
         <SignupModal />
         <div className="su__side-foot" aria-hidden="false">
