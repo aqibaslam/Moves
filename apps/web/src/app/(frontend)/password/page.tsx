@@ -7,7 +7,7 @@ import '@moves/design-tokens/css';
 import './password.css';
 
 export const metadata: Metadata = {
-  title: 'Password required',
+  title: 'Password protected',
   robots: { index: false, follow: false },
 };
 
