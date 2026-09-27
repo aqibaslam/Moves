@@ -27,6 +27,8 @@ function isGateExempt(pathname: string): boolean {
   return (
     pathname === '/password' ||
     pathname.startsWith('/password/') ||
+    pathname === '/signup' ||
+    pathname.startsWith('/signup/') ||
     pathname === '/lock' ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/cms') ||
@@ -40,6 +42,26 @@ function isGateExempt(pathname: string): boolean {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  /*
+   * The public home entry sends visitors straight to /signup before the
+   * password gate runs. This keeps both the bare domain and campaign query
+   * strings public while every other storefront route remains protected.
+   *
+   * The single pass-through is the post-signup landing: the magic link and
+   * Google callback both set `moves_customer` and redirect to `/?welcome=1`.
+   * Bouncing that request back to /signup would look like the login failed,
+   * so it is allowed through only when the flag AND the cookie are present.
+   * The bare URL (movesuk.com/) always goes to the public signup page.
+   */
+  if (pathname === '/') {
+    const justSignedUp = request.nextUrl.searchParams.get('welcome') === '1' && Boolean(request.cookies.get(CUSTOMER_COOKIE));
+    if (!justSignedUp) {
+      const to = request.nextUrl.clone();
+      to.pathname = '/signup'; // query string (e.g. utm_*) is kept
+      return NextResponse.redirect(to);
+    }
+  }
+
   if (!isGateExempt(pathname)) {
     const unlocked = request.cookies.get(GATE_COOKIE)?.value === GATE_TOKEN;
     if (!unlocked) {
@@ -47,25 +69,6 @@ export function proxy(request: NextRequest) {
       to.pathname = '/password';
       to.search = '';
       to.searchParams.set('from', pathname + request.nextUrl.search);
-      return NextResponse.redirect(to);
-    }
-  }
-
-  /*
-   * Home gate: movesuk.com/ ALWAYS sends visitors to /signup — including
-   * customers who signed up earlier and still carry the session cookie.
-   *
-   * The single pass-through is the post-signup landing: the magic link and
-   * Google callback both set `moves_customer` and redirect to `/?welcome=1`.
-   * Bouncing that request back to /signup would look like the login failed,
-   * so it is allowed through only when the flag AND the cookie are present.
-   * The bare URL (movesuk.com/) never bypasses the gate.
-   */
-  if (pathname === '/') {
-    const justSignedUp = request.nextUrl.searchParams.get('welcome') === '1' && Boolean(request.cookies.get(CUSTOMER_COOKIE));
-    if (!justSignedUp) {
-      const to = request.nextUrl.clone();
-      to.pathname = '/signup'; // query string (e.g. utm_*) is kept
       return NextResponse.redirect(to);
     }
   }
