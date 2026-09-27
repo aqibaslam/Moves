@@ -20,15 +20,6 @@ function CheckIcon() {
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12h14" />
-      <path d="M13 6l6 6-6 6" />
-    </svg>
-  );
-}
-
 export function SignupModal() {
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
@@ -75,25 +66,25 @@ export function SignupModal() {
         <form className="su__form" onSubmit={submit}>
           <div className="su__field">
             <label className="su__label" htmlFor="email">Email address</label>
-            <div className="su__inputwrap">
-              <span className="su__inputicon" aria-hidden="true"><MailIcon /></span>
-              <input
-                id="email"
-                className="su__input"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                autoComplete="email"
-                required
-              />
+            <div className="su__control">
+              <div className="su__inputwrap">
+                <input
+                  id="email"
+                  className="su__input"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+              <button className="su__submit" type="submit" disabled={busy}>
+                {busy ? 'Sending…' : 'Join MOVES'}
+              </button>
             </div>
           </div>
           {error ? <p className="su__error" role="alert">{error}</p> : null}
-          <button className="su__submit" type="submit" disabled={busy}>
-            {busy ? 'Sending…' : 'Join MOVES'}
-            {busy ? null : <ArrowIcon />}
-          </button>
         </form>
       </div>
 
