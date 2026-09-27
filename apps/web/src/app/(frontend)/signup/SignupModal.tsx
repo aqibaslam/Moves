@@ -89,7 +89,7 @@ export function SignupModal() {
       </div>
 
       <p className="su__terms">
-        By joining, you agree to the MOVES <a href="/terms">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>. Unsubscribe anytime.
+        Occasional MOVES updates. Unsubscribe anytime.
       </p>
     </div>
   );
