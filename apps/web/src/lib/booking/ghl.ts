@@ -26,7 +26,7 @@ const CLINIC_TZ = 'Europe/London';
 
 /** How far ahead to offer slots, and the earliest notice we require. */
 const WINDOW_DAYS = 21;
-const MIN_NOTICE_HOURS = 24;
+const MIN_NOTICE_MINUTES = 90;
 
 interface GhlConfig {
   token?: string;
@@ -47,13 +47,24 @@ export function isLive(): boolean {
   return config().live;
 }
 
+export class BookingConflictError extends Error {
+  constructor() {
+    super('The selected time is no longer available.');
+    this.name = 'BookingConflictError';
+  }
+}
+
+export function isBookingConflict(error: unknown): error is BookingConflictError {
+  return error instanceof BookingConflictError;
+}
+
 // ── Label formatting (always in clinic tz) ───────────────────────────────────
 
 const timeFmt = new Intl.DateTimeFormat('en-GB', {
   timeZone: CLINIC_TZ,
-  hour: 'numeric',
+  hour: '2-digit',
   minute: '2-digit',
-  hour12: true,
+  hourCycle: 'h23',
 });
 const weekdayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLINIC_TZ, weekday: 'short' });
 const dayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLINIC_TZ, day: 'numeric', month: 'short' });
@@ -65,8 +76,7 @@ const longFmt = new Intl.DateTimeFormat('en-GB', {
 });
 
 function timeLabel(d: Date): string {
-  // en-GB gives "9:00 am" — normalise the am/pm casing.
-  return timeFmt.format(d).replace(/\s?([ap])\.?m\.?/i, (_m, p) => ` ${p.toLowerCase()}m`);
+  return timeFmt.format(d);
 }
 
 /** "YYYY-MM-DD" for a given instant, in clinic tz. */
@@ -75,7 +85,7 @@ function dateKey(d: Date): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: CLINIC_TZ }).format(d);
 }
 
-/** Human summary, e.g. "Wednesday 12 August at 9:00 am". */
+/** Human summary, e.g. "Wednesday 12 August at 09:00". */
 export function describeWhen(startISO: string): string {
   const d = new Date(startISO);
   return `${longFmt.format(d)} at ${timeLabel(d)}`;
@@ -89,12 +99,12 @@ export function describeWhen(startISO: string): string {
  */
 export async function getFreeSlots(): Promise<AvailabilityDay[]> {
   const now = new Date();
-  const start = new Date(now.getTime() + MIN_NOTICE_HOURS * 60 * 60 * 1000);
+  const start = new Date(now.getTime() + MIN_NOTICE_MINUTES * 60 * 1000);
   const end = new Date(now.getTime() + WINDOW_DAYS * 24 * 60 * 60 * 1000);
 
   const { live } = config();
   const instants = live ? await fetchLiveSlots(start, end) : buildStubSlots(start, end);
-  return groupByDay(instants);
+  return groupByDay(instants).slice(0, 3);
 }
 
 /**
@@ -228,7 +238,9 @@ async function createAppointment(
     }),
   });
   if (!res.ok) {
-    throw new Error(`GHL appointment create failed: ${res.status} ${await safeText(res)}`);
+    const details = await safeText(res);
+    if (res.status === 409) throw new BookingConflictError();
+    throw new Error(`GHL appointment create failed: ${res.status} ${details}`);
   }
   const data = (await res.json()) as {
     id?: string;
@@ -245,22 +257,34 @@ async function createAppointment(
 // ── Stub data ─────────────────────────────────────────────────────────────────
 
 /**
- * Deterministic mock availability: weekdays only, hourly 9am–4pm with lunch at
- * 1pm removed, and a couple of slots dropped per day so it reads as
+ * Deterministic mock availability: Monday–Saturday, 45-minute starts from
+ * 9am–8pm, and a few slots dropped per day so it reads as
  * partially-booked. No randomness, so the demo is stable across renders.
  */
 function buildStubSlots(start: Date, end: Date): Date[] {
   const out: Date[] = [];
-  const HOURS = [9, 10, 11, 12, 14, 15, 16]; // 13:00 lunch omitted
+  const STARTS = Array.from({ length: 14 }, (_, index) => {
+    const totalMinutes = 9 * 60 + index * CONSULT_MINUTES;
+    return { hour: Math.floor(totalMinutes / 60), minute: totalMinutes % 60 };
+  });
   const cursor = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
 
   for (let day = 0; cursor <= end && day < WINDOW_DAYS + 2; day++) {
     const dow = cursor.getUTCDay();
-    if (dow !== 0 && dow !== 6) {
-      HOURS.forEach((h, i) => {
-        // Drop ~2 slots per day in a fixed pattern to look booked.
-        if ((day + i) % 4 === 0) return;
-        const instant = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth(), cursor.getUTCDate(), h, 0));
+    if (dow !== 0) {
+      STARTS.forEach(({ hour, minute }) => {
+        const instant = londonWallTime(
+          cursor.getUTCFullYear(),
+          cursor.getUTCMonth() + 1,
+          cursor.getUTCDate(),
+          hour,
+          minute,
+        );
+        // Match the approved prototype's stable 40%-open demo density.
+        const demoDate = new Date(
+          Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth(), cursor.getUTCDate()),
+        ).toDateString();
+        if (stableHash(`${demoDate}|${hour * 60 + minute}`) % 10 >= 4) return;
         if (instant.getTime() >= start.getTime() && instant.getTime() <= end.getTime()) {
           out.push(instant);
         }
@@ -271,11 +295,50 @@ function buildStubSlots(start: Date, end: Date): Date[] {
   return out;
 }
 
+function stableHash(value: string): number {
+  let hash = 2166136261;
+  for (const char of value) {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 2246822507);
+  hash ^= hash >>> 13;
+  return hash >>> 0;
+}
+
+/** Convert a London wall-clock time into its UTC instant, including BST. */
+function londonWallTime(year: number, month: number, day: number, hour: number, minute: number): Date {
+  const guess = Date.UTC(year, month - 1, day, hour, minute);
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: CLINIC_TZ,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(new Date(guess));
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((part) => part.type === type)?.value ?? 0);
+  const renderedAsUtc = Date.UTC(
+    value('year'),
+    value('month') - 1,
+    value('day'),
+    value('hour'),
+    value('minute'),
+  );
+  return new Date(guess - (renderedAsUtc - guess));
+}
+
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 function groupByDay(instants: Date[]): AvailabilityDay[] {
   const byDay = new Map<string, SlotTime[]>();
   for (const d of instants) {
+    if (weekdayFmt.format(d) === 'Sun') continue;
+    const minutes = clinicMinutes(d);
+    if (minutes < 9 * 60 || minutes + CONSULT_MINUTES > 20 * 60) continue;
     const key = dateKey(d);
     const list = byDay.get(key) ?? [];
     list.push({ startISO: d.toISOString(), label: timeLabel(d) });
@@ -292,6 +355,18 @@ function groupByDay(instants: Date[]): AvailabilityDay[] {
         times: times.sort((a, b) => a.startISO.localeCompare(b.startISO)),
       };
     });
+}
+
+function clinicMinutes(date: Date): number {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: CLINIC_TZ,
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(date);
+  const value = (type: 'hour' | 'minute') =>
+    Number(parts.find((part) => part.type === type)?.value ?? 0);
+  return value('hour') * 60 + value('minute');
 }
 
 function normalisePhone(phone: string): string {

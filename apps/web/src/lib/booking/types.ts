@@ -60,6 +60,8 @@ export const bookingDetailsSchema = z.object({
     .min(15, 'You must be at least 15 to book')
     .max(120, 'Please enter a valid age'),
   referralCode: z.string().trim().max(60).optional().or(z.literal('')),
+  note: z.string().trim().max(500, 'Please keep your note under 500 characters').optional().or(z.literal('')),
+  concern: z.string().trim().max(80).optional().or(z.literal('')),
 });
 export type BookingDetails = z.infer<typeof bookingDetailsSchema>;
 
@@ -76,7 +78,7 @@ export type BookingSubmit = z.infer<typeof bookingSubmitSchema>;
 export interface SlotTime {
   /** ISO 8601 instant with offset, e.g. 2026-08-12T09:00:00+01:00 */
   startISO: string;
-  /** Display label in clinic tz, e.g. "9:00 am" */
+  /** Display label in clinic tz, e.g. "09:00" */
   label: string;
 }
 
@@ -96,7 +98,7 @@ export interface AvailabilityDay {
 export interface BookingConfirmation {
   appointmentId: string;
   startISO: string;
-  /** Pre-formatted human label, e.g. "Wednesday 12 August at 9:00 am" */
+  /** Pre-formatted human label, e.g. "Wednesday 12 August at 09:00" */
   when: string;
   meetingUrl: string | null;
   /** True when no GHL credentials are configured (mock data). */

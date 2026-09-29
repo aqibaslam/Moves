@@ -87,3 +87,11 @@ The current application already owns availability, GHL submission, consultation 
 | Smile photos | Not implemented | Blocked pending secure health-data storage and consent |
 | Analytics | Not implemented | Add named funnel events when analytics provider is confirmed |
 
+## Implemented locally
+
+- The paid lander now uses the approved Update 2.0 source and passes the selected concern into `/book`.
+- `/book` now matches the approved availability → details → confirmation sequence and responsive layout.
+- Availability, validation, GHL booking, consultation persistence and SMS remain connected through server routes.
+- The provider rules now enforce three open days, Monday–Saturday, 45-minute calls, 09:00–20:00 and 90 minutes’ notice.
+- Google Calendar and ICS use the confirmed appointment; slot conflicts return the visitor to refreshed availability.
+- Wallet buttons and smile-photo preparation remain visibly honest until signed pass services and secure health-data storage are configured.

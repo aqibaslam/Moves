@@ -2,7 +2,7 @@
 
 import config from '@payload-config';
 import { getPayload } from 'payload';
-import { createBooking, getFreeSlots, isLive } from '@/lib/booking/ghl';
+import { createBooking, getFreeSlots, isBookingConflict, isLive } from '@/lib/booking/ghl';
 import { sendBookingSms } from '@/lib/booking/sms';
 import {
   bookingSubmitSchema,
@@ -28,7 +28,7 @@ export async function fetchSlotsAction(): Promise<FetchSlotsResult> {
 
 export type CreateBookingResult =
   | { ok: true; confirmation: BookingConfirmation }
-  | { ok: false; error: string; fieldErrors?: Record<string, string> };
+  | { ok: false; error: string; code?: 'slot_taken'; fieldErrors?: Record<string, string> };
 
 
 /**
@@ -57,6 +57,8 @@ async function recordConsultation(
         source: 'Website',
         notes: [
           `Age: ${data.age}`,
+          data.concern ? `Primary concern: ${data.concern}` : null,
+          data.note ? `Note from patient: ${data.note}` : null,
           data.referralCode ? `Referral: ${data.referralCode}` : null,
           `GHL appointment: ${confirmation.appointmentId}`,
           confirmation.meetingUrl ? `Meeting: ${confirmation.meetingUrl}` : null,
@@ -98,6 +100,13 @@ export async function createBookingAction(input: unknown): Promise<CreateBooking
     return { ok: true, confirmation };
   } catch (err) {
     console.error('[booking] createBooking failed', err);
+    if (isBookingConflict(err)) {
+      return {
+        ok: false,
+        code: 'slot_taken',
+        error: 'That time has just been booked. Please choose another.',
+      };
+    }
     return { ok: false, error: 'Something went wrong booking your slot. Please try again.' };
   }
 }
