@@ -640,7 +640,11 @@ h1{font-size:clamp(48px,min(1.6rem + 3.4vw,9.6svh),84px)}
 .lede b{font-weight:500;color:var(--mv-milk)}
 .pic img,.is-in .pic img{transform:none;transition:none}
 /* ── R1c: header — sizes restored; tap target kept ── */
-@media (max-width:760px){.head .btn-sm{position:relative}.head .btn-sm::after{content:"";position:absolute;inset:-4px 0}}
+@media (max-width:760px){
+  .head .btn-sm{position:relative;height:36px;padding:0 12px}
+  .head .btn-sm .t{font-size:9px;letter-spacing:.1em}
+  .head .btn-sm::after{content:"";position:absolute;inset:-4px 0}
+}
 /* ── R1d: headline back to presence at 100% zoom ── */
 @media (min-width:761px){h1{font-size:clamp(56px,min(2rem + 4.4vw,11.5svh),104px)}}
 .mcard .top img.m,.fin .top img{filter:brightness(0) invert(1);opacity:.85}
