@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default function ClearAlignersResultsAPage() {
   return (
     <>
-      <link rel="stylesheet" href="/results-a/styles.css?v=8" />
+      <link rel="stylesheet" href="/results-a/styles.css?v=20" />
       <div
         className="results-a-page"
         // This is a reviewed, local snapshot of the approved reference markup.
         dangerouslySetInnerHTML={{ __html: markup }}
       />
-      <Script src="/results-a/interactions.js?v=4" strategy="afterInteractive" />
+      <Script src="/results-a/interactions.js?v=20" strategy="afterInteractive" />
     </>
   );
 }

@@ -1,9 +1,11 @@
-
 (() => {
   const head = document.getElementById('head');
   const onScroll = () => head.classList.toggle('is-scrolled', window.scrollY > 8);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('hero').classList.add('is-in')));
+  setTimeout(() => document.getElementById('hero').classList.add('is-in'), 400);
+  const reveal = () => document.querySelectorAll('#book-final,#first,#why,#prices').forEach(s => { if (!s.classList.contains('is-in') && s.getBoundingClientRect().top < innerHeight * .8) s.classList.add('is-in'); });
+  addEventListener('scroll', reveal, { passive: true }); addEventListener('load', reveal);
   const dock = document.getElementById('dock');
   new IntersectionObserver(([e]) => {
     const on = !e.isIntersecting && e.boundingClientRect.top < 0;
@@ -13,56 +15,48 @@
   const fin = document.getElementById('book-final'); if (fin) new IntersectionObserver(([e]) => document.body.classList.toggle('at-final', e.isIntersecting), { threshold: .15 }).observe(fin);
 })();
 (() => {
-  const cases = [["9","10","Daniel K.","The check-ins kept me motivated, and my smile changed exactly as the plan showed. I’m really pleased with the result.","Dr Amelia Hart","GDC 251837"],["11","12","Sophie L.","I wanted straighter teeth without making treatment a big part of my life. The aligners fitted easily around everything.","Dr Hamzah","GDC 277550"],["13","14","Adam J.","My front teeth had bothered me for years. Now I smile naturally without thinking about how my teeth look.","Dr Amelia Hart","GDC 251837"],["15","16","Claire B.","I thought I had left it too late to straighten my teeth. The process was comfortable, supportive and easier than expected.","Dr Hamzah","GDC 277550"],["17","18","James T.","The treatment plan gave me a clear timeline from the beginning. Everything stayed on track, with support whenever I needed it.","Dr Amelia Hart","GDC 251837"],["19","20","Hannah W.","My teeth were something I always noticed in photos. Now my smile is the first thing I actually like about them.","Dr Hamzah","GDC 277550"],["21","22","Emily R.","I could see a difference within the first few trays. The whole process felt simple, clear and completely manageable.","Dr Amelia Hart","GDC 251837"]];
-  const $ = id => document.getElementById(id);
-  const caseSrc = n => document.querySelectorAll('#strip img')[n - 9]?.src || '';
-  const file = $('file'), print = $('print'); if (!file || !print) return;
-  let cur = 0, busy = false;
-  const show = i => {
-    if (busy) return; const n = (i + cases.length) % cases.length; if (n === cur) return;
-    busy = true; cur = n; const c = cases[cur];
-    file.classList.add('is-swap'); print.classList.add('is-swap');
+  const box = document.getElementById('fxOpts'); if (!box) return;
+  const T = [['c1',15.3,13,17,24,1],['l1',29.8,12,18.5,21.5,0],['i1',43.3,16,16,26,0],['i2',60.8,16,16,26,0],['l2',78.3,12,18.5,21.5,0],['c2',91.8,13,17,24,1]];
+  const LOW = [38.5,49.5,60.5,71.5];
+  const C = { drift:{l2:[4,1.5,9,1],c2:[2,0,0]}, gaps:{c1:[-3,0,0],l1:[-2.2,0,0],i1:[-1.6,0,0,1],i2:[1.6,0,0,1],l2:[2.2,0,0],c2:[3,0,0]}, crowd:{l1:[2.5,1,-10,1],i1:[0,0,-3],i2:[-1.5,1.5,7,1]}, bite:{i1:[0,0,-3],l2:[-1,0,5],low:[-5,-3,0,1]}, unsure:{} };
+  const f = n => Math.round(n * 10) / 10;
+  const up = (x,m,w,hh,can) => { const y0 = m - 8, y1 = m + hh, t = .6, r = 3;
+    return can ? 'M'+f(x)+' '+f(y0)+'H'+f(x+w)+'L'+f(x+w-t)+' '+f(y1-6)+'Q'+f(x+w-1)+' '+f(y1-2)+' '+f(x+w/2+1)+' '+f(y1)+'Q'+f(x+w/2)+' '+f(y1+.6)+' '+f(x+w/2-1)+' '+f(y1)+'Q'+f(x+1)+' '+f(y1-2)+' '+f(x+t)+' '+f(y1-6)+'Z'
+      : 'M'+f(x)+' '+f(y0)+'H'+f(x+w)+'L'+f(x+w-t)+' '+f(y1-r)+'Q'+f(x+w-t)+' '+f(y1)+' '+f(x+w-t-r)+' '+f(y1)+'H'+f(x+t+r)+'Q'+f(x+t)+' '+f(y1)+' '+f(x+t)+' '+f(y1-r)+'Z'; };
+  const lo = x => { const y = 36, w = 10, r = 3; return 'M'+x+' 60V'+(y+r)+'Q'+x+' '+y+' '+(x+r)+' '+y+'H'+(x+w-r)+'Q'+(x+w)+' '+y+' '+(x+w)+' '+(y+r)+'V60Z'; };
+  const gumLine = 'M15.3 20.5' + T.map(t => 'L'+f(t[1])+' '+f(t[3]+3.5)+'Q'+f(t[1]+t[2]/2)+' '+f(t[3]-4.5)+' '+f(t[1]+t[2])+' '+f(t[3]+3.5)).join('');
+  const svg = c => { const m = C[c] || {}, bite = c === 'bite'; const st = v => (v && v[3] ? ' data-hl' : '') + (v ? ' style="--x:'+v[0]+';--y:'+v[1]+';--r:'+v[2]+'"' : '');
+    let s = '<svg viewBox="8 4 104 52" preserveAspectRatio="xMaxYMid meet" class="teeth'+(c === 'unsure' ? ' is-scan' : '')+'" aria-hidden="true" focusable="false">';
+    if (bite) s += '<g class="tt"'+st(m.low)+'>'+LOW.map(x => '<path d="'+lo(x)+'"/>').join('')+'</g><path class="gum" d="M0 70V49Q60 58 120 49V70Z"/><path class="gl" d="M30 51.5Q60 56 90 51.5"/>';
+    s += T.map(t => '<g class="tt"'+st(m[t[0]])+'><path d="'+up(t[1],t[3],t[2],t[4],t[5])+'"/></g>').join('');
+    s += '<path class="gum" d="M0 22L'+gumLine.slice(1)+'L120 22V0H0Z"/><path class="gl" d="'+gumLine+'"/>';
+    if (c === 'unsure') s += '<line class="scan" x1="0" y1="12" x2="0" y2="46"/>';
+    return s + '</svg>'; };
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { box.classList.add('is-idle'); const wake = () => box.classList.remove('is-idle'); ['pointerenter','focusin','change'].forEach(ev => box.addEventListener(ev, wake, { once: true })); }
+  box.querySelectorAll('.opt').forEach(o => { const t = document.createElement('span'); t.className = 'tv'; t.setAttribute('aria-hidden', 'true'); t.innerHTML = svg(o.querySelector('input').value); o.appendChild(t); });
+  const M = { one:['ONE',1,'£63','a month · or £1,895','For one or two teeth that have drifted, often after braces.'], core:['CORE',2,'£78','a month · or £2,350','For small gaps, mild crowding or a few teeth out of line.'], complete:['COMPLETE',3,'£107','a month · or £3,200','For noticeable crowding, with a bite that needs correcting.'] };
+  const map = { drift:'one', gaps:'core', crowd:'core', bite:'complete' };
+  const res = document.getElementById('fxRes'), $ = id => document.getElementById(id);
+  box.addEventListener('change', e => {
+    const v = e.target.value, unsure = v === 'unsure', m = M[map[v] || 'one']; try { localStorage.setItem('mv-fx', v); } catch (err) {} document.querySelectorAll('a[href^="/book"]').forEach(a => { const u = new URL(a.href, location.href); u.searchParams.set('fx', v); a.href = u.pathname + u.search; });
+    res.classList.add('is-swap');
     setTimeout(() => {
-      $('imgB').src = caseSrc(c[0]); $('imgA').src = caseSrc(c[1]);
-      $('imgB').alt = c[2] + ' before treatment'; $('imgA').alt = c[2] + ' after treatment';
-      $('quote').textContent = c[3]; $('who').firstChild.textContent = c[2] + ' '; $('dr').textContent = c[4]; $('gdc').textContent = c[5];
-      $('cur').textContent = String(cur + 1).padStart(2, '0');
-      document.querySelectorAll('#strip button').forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
-      file.classList.remove('is-swap'); print.classList.remove('is-swap'); busy = false;
-    }, 440);
-  };
-  const mc = document.getElementById('mCases'); if (mc) mc.innerHTML = cases.map(c => '<article class="mc"><div class="pair"><figure><img src="' + caseSrc(c[0]) + '" alt=""><figcaption>Before</figcaption></figure><figure><img src="' + caseSrc(c[1]) + '" alt=""><figcaption>After</figcaption></figure></div><q>' + c[3] + '</q><p class="who"><b>' + c[2] + '</b><span><b>Signed by</b>' + c[4] + ' · ' + c[5] + '</span></p></article>').join('');
-  $('prev').addEventListener('click', () => show(cur - 1));
-  $('next').addEventListener('click', () => show(cur + 1));
-  document.querySelectorAll('#strip button').forEach(b => b.addEventListener('click', () => show(+b.dataset.i)));
+      $('fxK').textContent = unsure ? 'Where you could start' : 'Your likely Move';
+      $('fxName').innerHTML = unsure ? 'From <span>ONE</span>' : 'MOVES <span>' + m[0] + '</span>';
+      $('fxBars').querySelectorAll('i').forEach((b, k) => b.classList.toggle('on', k < (unsure ? 1 : m[1])));
+      $('fxP').textContent = m[2]; $('fxS').textContent = m[3];
+      $('fxWhy').textContent = unsure ? 'That’s what the free video consultation is for. We’ll tell you honestly.' : m[4] + ' Confirmed on your free video consultation.';
+      res.classList.remove('is-swap');
+      document.querySelectorAll('.tier[data-m]').forEach(t => t.classList.toggle('is-pick', !unsure && t.dataset.m === map[v]));
+    }, 200);
+  });
 })();
-
-(() => {
-  // Variants: ?results=a|b in the URL, or press V for the switcher
-  const q = new URLSearchParams(location.search);
-  const set = (key, v) => {
-    document.querySelectorAll('[data-v^="' + key + ':"]').forEach(el => el.classList.toggle('is-on', el.dataset.v === key + ':' + v));
-    document.querySelectorAll('#vsw button[data-set^="' + key + ':"]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === key + ':' + v)));
-    q.set(key, v); history.replaceState(null, '', '?' + q.toString());
-  };
-  set('results', q.get('results') === 'b' ? 'b' : 'a');
-  document.querySelectorAll('#vsw button').forEach(b => b.addEventListener('click', () => { const [k, v] = b.dataset.set.split(':'); set(k, v); }));
-  addEventListener('keydown', e => { if (e.key.toLowerCase() === 'v' && !/input|textarea/i.test(e.target.tagName)) document.getElementById('vsw').classList.toggle('is-open'); });
-  const rail = document.getElementById('rail'); if (!rail) return;
-  const step = () => rail.querySelector('.rc').getBoundingClientRect().width + 16;
-  document.getElementById('railPrev').addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
-  document.getElementById('railNext').addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
-  const prog = document.getElementById('prog');
-  const upd = () => { const max = rail.scrollWidth - rail.clientWidth; const w = Math.max(rail.clientWidth / rail.scrollWidth, .12); prog.style.width = (w * 100) + '%'; prog.style.transform = 'translateX(' + (max ? (rail.scrollLeft / max) * (1 / w - 1) * 100 : 0) + '%)'; };
-  rail.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
-})();
-
 (() => {
   const steps = [...document.querySelectorAll('#steps .step')]; if (!steps.length) return;
-  steps.forEach((s, i) => { const src = document.querySelector('#frame img[data-k="' + s.dataset.img + '"]'); if (!src) return; const w = document.createElement('div'); w.className = 'm-img'; w.innerHTML = '<img src="' + src.getAttribute('src') + '" alt="" class="' + (src.className.replace('is-on', '').trim()) + '"><span class="n num">0' + (i + 1) + '</span>'; s.insertBefore(w, s.firstChild); });
+  steps.forEach((s, i) => { const src = document.querySelector('#frame img[data-k="' + s.dataset.img + '"]'); if (!src) return; const w = document.createElement('div'); w.className = 'm-img'; w.innerHTML = '<img src="' + src.getAttribute('src') + '" alt="" loading="lazy" class="' + (src.className.replace('is-on', '').trim()) + '"><span class="n num">0' + (i + 1) + '</span>'; s.insertBefore(w, s.firstChild); });
   const list = document.getElementById('steps'), big = document.getElementById('bigN'), imgs = [...document.querySelectorAll('#frame img')];
   let cur = 0;
-  const setOn = i => { if (i === cur) return; cur = i; steps.forEach((s, k) => s.classList.toggle('is-on', k === i)); big.textContent = '0' + (i + 1); const tag = document.getElementById('stageTag'); if (tag) tag.textContent = steps[i].querySelector('.stage-label').textContent; const k = steps[i].dataset.img; imgs.forEach(im => im.classList.toggle('is-on', im.dataset.k === k)); };
+  const setOn = i => { if (i === cur) return; cur = i; steps.forEach((s, k) => s.classList.toggle('is-on', k === i)); big.textContent = '0' + (i + 1); const tag = document.getElementById('stageTag'); if (tag) tag.textContent = steps[i].querySelector('.stage-label').textContent; const k = steps[i].dataset.img; imgs.forEach(im => im.classList.toggle('is-on', im.dataset.k === k)); document.querySelectorAll('#prog6 i').forEach((b, n) => b.classList.toggle('on', n <= i)); };
   const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { list.classList.add('has-on'); setOn(+e.target.dataset.i); } }); }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
   steps.forEach(s => io.observe(s));
 })();
@@ -77,20 +71,10 @@
     setTimeout(() => { pr.querySelectorAll('.amt b[data-mo]').forEach(b => b.textContent = b.dataset[m]); pr.querySelectorAll('.amt .unit').forEach(u => u.textContent = m === 'mo' ? 'per month' : 'upfront'); pr.querySelectorAll('.amt .altw').forEach(u => u.textContent = m === 'mo' ? 'upfront' : 'at 0% APR'); pr.querySelectorAll('.amt .altp').forEach(u => u.textContent = m === 'mo' ? 'or ' : 'or from '); pr.classList.remove('is-swap'); }, 220); };
   mo.addEventListener('click', () => set('mo')); up.addEventListener('click', () => set('up')); place(); addEventListener('resize', place); if (document.fonts) document.fonts.ready.then(place);
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { pr.classList.add('is-in'); io.disconnect(); } }), { threshold: 0, rootMargin: '0px 0px -20% 0px' }); io.observe(pr.querySelector('.pr-head'));
+  const fm = document.getElementById('first'); if (fm) { const fio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fm.classList.add('is-in'); fio.disconnect(); } }), { threshold: 0, rootMargin: '0px 0px -20% 0px' }); fio.observe(fm.querySelector('.fmx')); }
   const why = document.getElementById('why'); if (why) { const wio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { why.classList.add('is-in'); wio.disconnect(); } }), { threshold: 0, rootMargin: '0px 0px -20% 0px' }); wio.observe(why.querySelector('.why-head')); }
 })();
 (() => {
   document.querySelectorAll('.q').forEach(d => { const a = d.querySelector('.a'); const sync = () => { a.style.maxHeight = d.open ? a.scrollHeight + 'px' : '0px'; }; d.addEventListener('toggle', sync); sync(); addEventListener('resize', sync); });
-  const fin = document.getElementById('book-final'); if (fin) { const fo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fin.classList.add('is-in'); fo.disconnect(); } }), { threshold: 0, rootMargin: '0px 0px -20% 0px' }); fo.observe(fin.querySelector('.in')); }
-})();
-(() => {
-  document.querySelectorAll('.reel').forEach(r => {
-    const v = r.querySelector('video');
-    const go = () => { if (r.classList.contains('is-playing')) return; const src = r.dataset.video; if (!src) { r.classList.add('is-soon'); setTimeout(() => r.classList.remove('is-soon'), 2200); return; }
-      document.querySelectorAll('.reel.is-playing').forEach(o => { o.classList.remove('is-playing'); o.querySelector('video').pause(); });
-      v.src = src; r.classList.add('is-playing'); v.play(); };
-    r.addEventListener('click', e => { if (e.target === v) return; go(); });
-    r.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
-    v.addEventListener('ended', () => r.classList.remove('is-playing'));
-  });
+  const fin = document.getElementById('book-final'); if (fin) { const fo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fin.classList.add('is-in'); fo.disconnect(); } }), { threshold: 0, rootMargin: '0px 0px -20% 0px' }); fo.observe(fin); }
 })();

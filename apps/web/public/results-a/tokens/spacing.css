@@ -1,0 +1,45 @@
+/* MOVES layout, spacing, radii, elevation, motion. */
+:root{
+  /* spacing — 4pt grid (design-tokens) */
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-7:28px;--space-8:32px;--space-10:40px;--space-12:48px;--space-15:60px;--space-16:64px;--space-20:80px;--space-24:96px;
+  --mv-gap-tile:4px;             /* the signature 4px gutter between cards/tiles */
+  --mv-gutter:60px;              /* desktop side padding */
+  --mv-gutter-mobile:16px;
+  --mv-section-y:80px;           /* desktop section padding top/bottom */
+  --mv-section-y-mobile:50px;
+  --mv-container:1320px;
+  --mv-frame:1440px;             /* design grid */
+  --mv-prose:620px;
+
+  /* radii */
+  --mv-radius:4px;               /* photographs (guidelines) */
+  --mv-radius-card:8px;
+  --mv-radius-img:12px;          /* before/after photos */
+  --mv-radius-tile:16px;         /* hero, dark sections, alone cards, FAQ rows */
+  --mv-radius-section:24px;      /* pricing cards, review cards, plan panel */
+  --mv-radius-panel:30px;        /* dentist card, footer top */
+  --mv-radius-pill:100px;        /* buttons & pills (Figma 90–100px) */
+  --mv-radius-avatar:60px;
+
+  /* elevation — MOVES is almost shadowless; depth comes from colour blocks */
+  --mv-shadow-lift:0 24px 48px -24px rgb(9 22 32 / 0.45);
+  --mv-shadow-nav:0 10px 30px -12px rgb(9 22 32 / 0.28),0 0 0 1px rgb(9 22 32 / 0.06);
+  --mv-blur-glass:6px;
+  --mv-blur-panel:74px;
+
+  /* motion */
+  --mv-ease-standard:cubic-bezier(0.2,0,0,1); /* @kind other */
+  --mv-ease-out:cubic-bezier(0.16,1,0.3,1); /* @kind other */
+  --mv-dur-press:140ms; /* @kind other */
+  --mv-dur-hover:160ms; /* @kind other */
+  --mv-dur-base:220ms; /* @kind other */
+  --mv-dur-dot:300ms; /* @kind other */
+  --mv-dur-reveal:720ms; /* @kind other */
+  --mv-reveal-shift:24px; /* @kind other */
+  --mv-marquee-dur:38s; /* @kind other */
+
+  --mv-touch:44px;
+  --mv-btn-h:56px;
+  --mv-btn-h-mobile:46px;
+  --mv-z-sticky:20; /* @kind other */
+}

@@ -1,0 +1,5 @@
+/* MOVES webfonts.
+   Display: Glacial Indifference (self-hosted, free for commercial use) — every heading.
+   Body/UI: Public Sans (Google Fonts) — descriptions, buttons, labels, forms. */
+@font-face{font-family:'Glacial Indifference';src:url('../fonts/GlacialIndifference-Regular.woff') format('woff'),url('../fonts/GlacialIndifference-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Glacial Indifference';src:url('../fonts/GlacialIndifference-Bold.woff') format('woff'),url('../fonts/GlacialIndifference-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}

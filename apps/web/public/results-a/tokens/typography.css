@@ -1,0 +1,65 @@
+/* MOVES type. Headings: Glacial Indifference 400, tight negative tracking.
+   Body: Public Sans 400/500, 17px brand body size, -0.02em tracking. */
+:root{
+  --mv-font-display:var(--font-moves-display),'Glacial Indifference',ui-sans-serif,system-ui,sans-serif;
+  --mv-font-body:var(--font-moves-body),'Public Sans',-apple-system,system-ui,sans-serif;
+
+  /* ── Brand Guidelines v1.3 · Typography · Web (p17) — source of truth ── */
+  --mv-web-h1:64px;            /* sentence case, leading 1.1 */
+  --mv-web-h1-leading:1.1;
+  --mv-web-h2:40px;            /* sentence case, leading 1.2 */
+  --mv-web-h2-leading:1.2;
+  --mv-web-body:17px;          /* leading 1.7, max 68ch, left aligned */
+  --mv-web-body-leading:1.7;
+  --mv-web-measure:68ch;
+  --mv-web-label:13px;         /* Public Sans uppercase, +24 tracking */
+  --mv-label-tracking:0.14em;  /* rendering of "+24" used by the brand site */
+  --mv-numerals:tabular-nums; /* @kind other */  /* prices + stage numbers always tabular */
+
+  /* ── Guidelines · Typography · Deck (p16) ── */
+  --mv-deck-display:160px;     /* Glacial Regular, sentence or uppercase, 1.0, +8 */
+  --mv-deck-headline:64px;     /* Glacial Regular, 1.2 */
+  --mv-deck-body:30px;         /* Public Sans Regular, 1.6 */
+  --mv-deck-label:20px;        /* Public Sans Medium, uppercase, +24 */
+
+  /* ── Guidelines · Typography · Socials (p18) ── */
+  --mv-social-statement-leading:1.3; /* Glacial Regular · one thought · 3 lines max */
+
+  /* shipped landing-2026 sizes (px from Figma 413:9263) — the live site diverges slightly from the guide */
+  --mv-size-hero:64px;         /* hero h1, lh 1, -0.025em */
+  --mv-size-h2:48px;           /* all section headings, lh 48px, -2px */
+  --mv-size-h3:32px;           /* card titles, lh 32px, -2px */
+  --mv-size-h4:26px;           /* dentist name */
+  --mv-size-list-active:40px;  /* problem list active item */
+  --mv-size-list:32px;
+  --mv-size-price:46px;        /* Public Sans 500, -0.04em */
+  --mv-size-quote:20px;
+  --mv-size-body:17px;         /* lh 23.8px, -0.34px */
+  --mv-size-small:15px;
+  --mv-size-caption:14px;
+  --mv-size-label:12px;
+  --mv-size-micro:10px;
+
+  /* fluid scale (guidelines) */
+  --mv-size-fluid-hero:clamp(2.5rem,1.7rem + 4.2vw,5.5rem); /* @kind spacing */
+  --mv-size-fluid-h2:clamp(2.25rem,1.7rem + 2.75vw,4rem); /* @kind spacing */
+  --mv-size-fluid-h3:clamp(1.5rem,1.34rem + 0.8vw,2rem); /* @kind spacing */
+  --mv-size-fluid-lede:clamp(1.125rem,1.07rem + 0.3vw,1.3125rem); /* @kind spacing */
+
+  --mv-leading-display:1;
+  --mv-leading-heading:1.08;
+  --mv-leading-body:1.4;
+  --mv-leading-relaxed:1.6;
+  --mv-tracking-hero:-0.025em;
+  --mv-tracking-h2:-2px;
+  --mv-tracking-body:-0.02em;
+  --mv-tracking-label:0.14em;
+  --mv-tracking-marquee:0.1269em;
+
+  /* semantic */
+  --font-heading:var(--mv-font-display);
+  --font-body:var(--mv-font-body);
+  --text-heading-weight:400;
+  --text-body-weight:400;
+  --text-ui-weight:500;
+}

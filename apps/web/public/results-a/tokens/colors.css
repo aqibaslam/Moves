@@ -1,0 +1,67 @@
+/* MOVES colour — Brand Guidelines v1.3 p14–15 (source of truth) + shipped landing-2026 values.
+   Primary: Milk #FFFFFF + Ink #091620 (~90% of any application).
+   Accent:  Pulse #ED3B44 (sparingly: a CTA, headline word, detail or brand moment) · Blush #FFE8E9 (softer warmth).
+   Support: Stone #EDEAE6 (photo backdrops, softer panels, monochrome photography).
+   Avoid:   large areas of Pulse or Blush, coloured body copy, multiple accents at once.
+   Print refs: Ink Pantone 5395 C · Pulse Red 032 C · Blush 705 C · Stone Warm Gray 1C.
+   --mv-grey and --mv-dusk are web-only values from the shipped site, not in the guide. */
+:root{
+  /* ── Base palette ── */
+  --mv-ink:#091620;            /* navy — dark grounds, all text on light */
+  --mv-ink-raised:#122230;     /* panels sitting on Ink */
+  --mv-ink-line:#24323d;       /* hairlines on Ink */
+  --mv-milk:#ffffff;
+  --mv-grey:#f5f5f5;           /* light section / card fill on the 2026 site */
+  --mv-stone:#edeae6;          /* warm supporting neutral (guidelines) */
+  --mv-stone-line:#dad5ce;
+  --mv-milk-line:#e6e3df;
+  --mv-pulse:#ed3b44;          /* coral accent — CTAs, accent words, dots */
+  --mv-pulse-strong:#d3303a;   /* AA-safe fill for white text (4.94:1) */
+  --mv-pulse-hover:#bc2831;
+  --mv-pulse-knob:rgb(252 81 87 / 0.6);
+  --mv-blush:#ffe8e9;          /* soft coral tint */
+  --mv-dusk:#6174a5;           /* blue end of the Ink→Dusk card gradient + dome glow */
+  --mv-text-muted:#56606a;     /* on Milk 6.4:1 */
+  --mv-on-ink-muted:#b3bac0;   /* on Ink 9.3:1 */
+  --mv-on-ink-faint:#8a949c;   /* on Ink 5.9:1 — captions only */
+  --mv-ink-60:rgb(9 22 32 / 0.6);
+  --mv-ink-70:rgb(9 22 32 / 0.7);
+  --mv-ink-40:rgb(9 22 32 / 0.4);
+  --mv-ink-20:rgb(9 22 32 / 0.2);
+  --mv-ink-10:rgb(9 22 32 / 0.1);
+  --mv-milk-80:rgb(255 255 255 / 0.8);
+  --mv-milk-75:rgb(255 255 255 / 0.75);
+  --mv-milk-40:rgb(255 255 255 / 0.4);
+  --mv-milk-16:rgb(255 255 255 / 0.16);
+  --mv-milk-10:rgb(255 255 255 / 0.1);
+  --mv-scrim:rgb(9 22 32 / 0.72);
+  --mv-scrim-soft:rgb(9 22 32 / 0);
+  --mv-glass:rgb(0 0 0 / 0.21);        /* benefit-pill fill */
+  --mv-tag:rgb(0 0 0 / 0.25);          /* Before/After photo badge */
+  --mv-success:#219653;                /* Trustpilot green */
+
+  /* ── Semantic aliases ── */
+  --surface-page:var(--mv-milk);
+  --surface-section:var(--mv-grey);
+  --surface-support:var(--mv-stone);   /* guide's supporting neutral */
+  --surface-warm:var(--mv-blush);
+  --surface-card:var(--mv-grey);
+  --surface-dark:var(--mv-ink);
+  --surface-dark-raised:var(--mv-ink-raised);
+  --text-primary:var(--mv-ink);
+  --text-secondary:var(--mv-ink-70);
+  --text-tertiary:var(--mv-ink-40);
+  --text-on-dark:var(--mv-milk);
+  --text-on-dark-muted:var(--mv-milk-75);
+  --text-accent:var(--mv-pulse);
+  --border-light:var(--mv-ink-10);
+  --border-dark:var(--mv-milk-16);
+  --border-glass:var(--mv-milk-40);
+  --action-primary:var(--mv-pulse);
+  --action-primary-text:var(--mv-milk);
+  --action-secondary:var(--mv-ink);
+  --focus-ring:var(--mv-pulse);
+  --gradient-dusk:linear-gradient(180deg,#091620 0%,#091620 61%,#6174a5 118%); /* @kind other */
+  --gradient-photo-scrim:linear-gradient(180deg,rgb(0 0 0 / 0) 25.9%,rgb(0 0 0 / 0.5) 100%); /* @kind other */
+  --gradient-top-scrim:linear-gradient(180deg,rgb(9 22 32 / 0.75) 0%,rgb(9 22 32 / 0) 100%); /* @kind other */
+}

@@ -1,0 +1,13 @@
+/* Minimal element defaults so any consumer page starts on-brand. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-body);font-size:var(--mv-size-body);line-height:var(--mv-leading-body);letter-spacing:var(--mv-tracking-body);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4{font-family:var(--font-heading);font-weight:400;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+img{display:block;max-width:100%}
+a{color:var(--text-primary);text-decoration:none;transition:color var(--mv-dur-hover) ease}
+a:hover{color:var(--mv-pulse)}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;border-radius:4px}
+.mv-accent{color:var(--mv-pulse)}
+@keyframes mv-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mv-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
