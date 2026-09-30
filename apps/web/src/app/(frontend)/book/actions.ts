@@ -4,6 +4,8 @@ import config from '@payload-config';
 import { getPayload } from 'payload';
 import { createBooking, getFreeSlots, isBookingConflict, isLive } from '@/lib/booking/ghl';
 import { sendBookingSms } from '@/lib/booking/sms';
+import { walletAvailability } from '@/lib/wallet/config';
+import { createWalletToken, walletTokenConfigured } from '@/lib/wallet/token';
 import {
   bookingSubmitSchema,
   type AvailabilityDay,
@@ -27,7 +29,11 @@ export async function fetchSlotsAction(): Promise<FetchSlotsResult> {
 }
 
 export type CreateBookingResult =
-  | { ok: true; confirmation: BookingConfirmation }
+  | {
+      ok: true;
+      confirmation: BookingConfirmation;
+      wallet: { appleUrl: string | null; googleUrl: string | null };
+    }
   | { ok: false; error: string; code?: 'slot_taken'; fieldErrors?: Record<string, string> };
 
 
@@ -97,7 +103,25 @@ export async function createBookingAction(input: unknown): Promise<CreateBooking
       recordConsultation(parsed.data, confirmation),
       sendBookingSms(parsed.data, confirmation),
     ]);
-    return { ok: true, confirmation };
+    const availability = walletAvailability();
+    let wallet = { appleUrl: null, googleUrl: null } as {
+      appleUrl: string | null;
+      googleUrl: string | null;
+    };
+    if (walletTokenConfigured() && (availability.apple || availability.google)) {
+      const token = await createWalletToken({
+        appointmentId: confirmation.appointmentId,
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
+        startISO: confirmation.startISO,
+        meetingUrl: confirmation.meetingUrl,
+      });
+      wallet = {
+        appleUrl: availability.apple ? `/api/wallet/apple/${token}` : null,
+        googleUrl: availability.google ? `/api/wallet/google/${token}` : null,
+      };
+    }
+    return { ok: true, confirmation, wallet };
   } catch (err) {
     console.error('[booking] createBooking failed', err);
     if (isBookingConflict(err)) {

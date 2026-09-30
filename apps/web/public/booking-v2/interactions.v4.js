@@ -75,6 +75,8 @@
       $('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + z(st) + '/' + z(en) + '&details=' + encodeURIComponent(det);
       $('gcal').addEventListener('click', () => track('calendar_added', { provider:'google' }), { once:true });
       $('ics').onclick = () => { track('calendar_added', { provider:'ics' }); const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MOVES//Booking//EN','BEGIN:VEVENT','UID:' + data.confirmation.appointmentId + '@moves','DTSTAMP:' + z(new Date()),'DTSTART:' + z(st),'DTEND:' + z(en),'SUMMARY:' + title,'DESCRIPTION:' + det,'END:VEVENT','END:VCALENDAR'].join('\\r\\n'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'moves-consultation.ics'; a.click(); URL.revokeObjectURL(a.href); };
+      $('aw').dataset.href = data.wallet && data.wallet.appleUrl || '';
+      $('gw').dataset.href = data.wallet && data.wallet.googleUrl || '';
       try { sessionStorage.removeItem('mv-bk'); } catch (err) {}
       track('booking_confirmed', { appointment_id:data.confirmation.appointmentId, slot_start:data.confirmation.startISO, stub:!!data.confirmation.stub });
       $('mc').dataset.t = st.getTime(); tick(); step(3);
@@ -93,8 +95,14 @@
   $('wsw').addEventListener('click', () => wSet(wPref === 'a' ? 'g' : 'a'));
   $('calT').addEventListener('click', () => { const o = $('calM').hidden; $('calM').hidden = !o; $('calT').setAttribute('aria-expanded', String(o)); });
   const wn = t => { $('wnote').hidden = false; $('wnote').textContent = t; };
-  $('aw').addEventListener('click', () => wn('Wallet passes are coming soon. Add your call to your calendar for now.'));
-  $('gw').addEventListener('click', () => wn('Wallet passes are coming soon. Add your call to your calendar for now.'));
+  const openWallet = (button, provider) => {
+    const href = button.dataset.href;
+    if (!href) { wn(provider + ' Wallet is being connected. Add your call to your calendar for now.'); return; }
+    track('wallet_add_started', { provider:provider.toLowerCase() });
+    location.href = href;
+  };
+  $('aw').addEventListener('click', () => openWallet($('aw'), 'Apple'));
+  $('gw').addEventListener('click', () => openWallet($('gw'), 'Google'));
   const upd = () => { const n = document.querySelectorAll('.dshot.has').length; $('upN').textContent = n === 3 ? 'All 3 added' : n + ' of 3 added'; $('upB').hidden = n < 3; $('upN').classList.toggle('ok', n === 3); };
   document.querySelectorAll('.dshot input').forEach(inp => inp.addEventListener('change', () => { const f = inp.files && inp.files[0], lb = inp.closest('.dshot'); if (!f) return; lb.style.setProperty('--img', 'url(' + URL.createObjectURL(f) + ')'); lb.classList.add('has'); upd(); }));
   $('upB').addEventListener('click', () => { track('photos_prepared'); $('upP').hidden = true; $('upD').hidden = false; });
