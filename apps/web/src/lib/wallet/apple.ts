@@ -2,7 +2,7 @@ import 'server-only';
 
 import { PKPass } from 'passkit-generator';
 
-import { ICON, ICON_2X, LOGO, LOGO_2X } from './assets';
+import { ICON, ICON_2X, LOGO, LOGO_2X, STRIP, STRIP_2X, STRIP_3X } from './assets';
 import { appleWalletConfigured, decodeBase64Env } from './config';
 import type { WalletPayload } from './token';
 
@@ -20,6 +20,9 @@ async function passImages(): Promise<Record<string, Buffer>> {
     'icon@2x.png': Buffer.from(ICON_2X, 'base64'),
     'logo.png': Buffer.from(LOGO, 'base64'),
     'logo@2x.png': Buffer.from(LOGO_2X, 'base64'),
+    'strip.png': Buffer.from(STRIP, 'base64'),
+    'strip@2x.png': Buffer.from(STRIP_2X, 'base64'),
+    'strip@3x.png': Buffer.from(STRIP_3X, 'base64'),
   };
 }
 
@@ -39,7 +42,6 @@ export async function buildApplePass(payload: WalletPayload): Promise<Buffer> {
     teamIdentifier,
     organizationName: 'MOVES',
     description: 'MOVES consultation',
-    logoText: 'MOVES',
     foregroundColor: PASS_FOREGROUND,
     backgroundColor: PASS_BACKGROUND,
     labelColor: PASS_LABEL,
@@ -55,10 +57,29 @@ export async function buildApplePass(payload: WalletPayload): Promise<Buffer> {
       auxiliaryFields: [{ key: 'mover', label: 'MOVER', value: fullName }],
       backFields: [
         { key: 'appointment', label: 'Booking reference', value: payload.appointmentId },
-        { key: 'format', label: 'Where', value: 'Google Meet — your joining link is in your confirmation email.' },
+        payload.meetingUrl
+          ? {
+              key: 'join',
+              label: 'Join your consultation',
+              value: 'Open Google Meet',
+              attributedValue: `<a href="${payload.meetingUrl}">Open Google Meet</a>`,
+            }
+          : { key: 'format', label: 'Where', value: 'Google Meet — your joining link is in your confirmation email.' },
         { key: 'support', label: 'MOVES', value: 'Need another time? Use the reschedule link in your confirmation email.' },
       ],
     },
+    ...(payload.meetingUrl
+      ? {
+          barcodes: [
+            {
+              format: 'PKBarcodeFormatQR',
+              message: payload.meetingUrl,
+              messageEncoding: 'iso-8859-1',
+              altText: 'Join consultation',
+            },
+          ],
+        }
+      : {}),
   };
 
   const pass = new PKPass(
