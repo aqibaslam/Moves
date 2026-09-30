@@ -38,7 +38,6 @@ export async function createGoogleSaveUrl(payload: WalletPayload): Promise<strin
   const end = new Date(start.getTime() + 45 * 60_000);
   const origin = (process.env.NEXT_PUBLIC_SITE_URL || 'https://movesuk.com').replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-  const genericClass = { id: classId };
   const genericObject = {
     id: objectId,
     classId,
@@ -48,6 +47,10 @@ export async function createGoogleSaveUrl(payload: WalletPayload): Promise<strin
     cardTitle: localised('MOVES'),
     header: localised('Free video consultation'),
     subheader: localised(`${payload.firstName} ${payload.lastName}`.trim()),
+    logo: {
+      sourceUri: { uri: 'https://movesuk.com/images/moves-logo-2026.png' },
+      contentDescription: localised('MOVES'),
+    },
     validTimeInterval: { start: { date: start.toISOString() }, end: { date: end.toISOString() } },
     notifications: { upcomingNotification: { enableNotification: true } },
     textModulesData: [
@@ -69,7 +72,9 @@ export async function createGoogleSaveUrl(payload: WalletPayload): Promise<strin
   const token = await new SignJWT({
     origins: [origin],
     typ: 'savetowallet',
-    payload: { genericClasses: [genericClass], genericObjects: [genericObject] },
+    // The class is created once in Google Wallet Console. Issuing links only
+    // include the appointment object so an existing class is never recreated.
+    payload: { genericObjects: [genericObject] },
   })
     .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
     .setIssuer(account.client_email)
