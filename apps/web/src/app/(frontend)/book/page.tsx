@@ -20,13 +20,13 @@ export default function BookingPage() {
   return (
     <>
       <BookingBodyClass />
-      <link rel="stylesheet" href="/booking-v2/styles.v3.css" />
+      <link rel="stylesheet" href="/booking-v2/styles.v4.css" />
       <main
         id="main"
         className="is-light booking-root"
         dangerouslySetInnerHTML={{ __html: bookingMarkup }}
       />
-      <Script src="/booking-v2/interactions.v4.js" strategy="afterInteractive" />
+      <Script src="/booking-v2/interactions.v5.js" strategy="afterInteractive" />
     </>
   );
 }

@@ -68,18 +68,6 @@ export async function buildApplePass(payload: WalletPayload): Promise<Buffer> {
         { key: 'support', label: 'MOVES', value: 'Need another time? Use the reschedule link in your confirmation email.' },
       ],
     },
-    ...(payload.meetingUrl
-      ? {
-          barcodes: [
-            {
-              format: 'PKBarcodeFormatQR',
-              message: payload.meetingUrl,
-              messageEncoding: 'iso-8859-1',
-              altText: 'Join consultation',
-            },
-          ],
-        }
-      : {}),
   };
 
   const pass = new PKPass(

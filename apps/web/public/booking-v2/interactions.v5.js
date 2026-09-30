@@ -77,6 +77,9 @@
       $('ics').onclick = () => { track('calendar_added', { provider:'ics' }); const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MOVES//Booking//EN','BEGIN:VEVENT','UID:' + data.confirmation.appointmentId + '@moves','DTSTAMP:' + z(new Date()),'DTSTART:' + z(st),'DTEND:' + z(en),'SUMMARY:' + title,'DESCRIPTION:' + det,'END:VEVENT','END:VCALENDAR'].join('\\r\\n'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'moves-consultation.ics'; a.click(); URL.revokeObjectURL(a.href); };
       $('aw').dataset.href = data.wallet && data.wallet.appleUrl || '';
       $('gw').dataset.href = data.wallet && data.wallet.googleUrl || '';
+      const joinUrl = data.confirmation && data.confirmation.meetingUrl || '';
+      $('joinC').hidden = !joinUrl; $('joinC').href = joinUrl || '#';
+      if (joinUrl) $('joinC').addEventListener('click', () => track('consultation_joined', { source:'booking_confirmation' }), { once:true });
       try { sessionStorage.removeItem('mv-bk'); } catch (err) {}
       track('booking_confirmed', { appointment_id:data.confirmation.appointmentId, slot_start:data.confirmation.startISO, stub:!!data.confirmation.stub });
       $('mc').dataset.t = st.getTime(); tick(); step(3);

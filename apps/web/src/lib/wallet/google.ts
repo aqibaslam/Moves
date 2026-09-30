@@ -52,8 +52,8 @@ export async function createGoogleSaveUrl(payload: WalletPayload): Promise<strin
       contentDescription: localised('MOVES'),
     },
     heroImage: {
-      sourceUri: { uri: 'https://movesuk.com/images/wallet/consultation-hero.png' },
-      contentDescription: localised('A MOVES smile'),
+      sourceUri: { uri: 'https://movesuk.com/images/wallet/consultation-case-green.png' },
+      contentDescription: localised('The MOVES aligner case against green leaves'),
     },
     validTimeInterval: { start: { date: start.toISOString() }, end: { date: end.toISOString() } },
     notifications: { upcomingNotification: { enableNotification: true } },
@@ -65,9 +65,6 @@ export async function createGoogleSaveUrl(payload: WalletPayload): Promise<strin
     linksModuleData: {
       uris: payload.meetingUrl ? [{ id: 'meeting', uri: payload.meetingUrl, description: 'Join Google Meet' }] : [],
     },
-    ...(payload.meetingUrl
-      ? { barcode: { type: 'QR_CODE', value: payload.meetingUrl, alternateText: 'Join consultation' } }
-      : {}),
   };
 
   // Google currently exports PKCS#8 keys, but normalising through Node also

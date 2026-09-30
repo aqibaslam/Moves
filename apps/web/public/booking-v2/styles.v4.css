@@ -501,6 +501,10 @@ form{margin-top:40px}
 .s3 .kick{margin-bottom:18px}
 .sub3{margin:16px 0 0;font-size:15px;line-height:1.55;color:var(--mv-ink-70)}
 .sub3 b{color:var(--ink);font-weight:500;word-break:break-all}
+.joinC{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;width:fit-content;min-width:238px;margin-top:22px;padding:15px 18px;background:var(--mv-ink);color:var(--mv-milk);font:500 11px/1 var(--mv-font-body);letter-spacing:.14em;text-transform:uppercase;transition:background 200ms ease,color 200ms ease}
+.joinC:hover{background:var(--mv-pulse);color:var(--mv-milk)}
+.joinC span{font-size:17px;line-height:.7;font-weight:400}
+.joinC[hidden]{display:none}
 .s3 .mc{margin-top:32px}
 .save{margin-top:20px;max-width:392px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .save .wal{display:flex;margin:0;max-width:none}
@@ -525,6 +529,7 @@ form{margin-top:40px}
 .usend .btn[hidden]{display:none}
 .thx{margin-top:48px}
 @media (max-width:760px){
+  .joinC{width:100%;min-height:50px}
   .save{max-width:none}
   .calM{max-width:none}
   .up2{margin-top:40px;padding-top:28px}
