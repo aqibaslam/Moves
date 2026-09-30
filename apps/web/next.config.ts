@@ -22,9 +22,6 @@ const nextConfig: NextConfig = {
   // even though the build passes and `next start` works locally. Point tracing
   // at the monorepo root, the same as turbopack.root.
   outputFileTracingRoot: path.join(dirname, '../..'),
-  outputFileTracingIncludes: {
-    '/api/wallet/apple/*': ['./src/lib/wallet/assets/*.png'],
-  },
 
   // Workspace packages ship raw TS — Next must compile them.
   transpilePackages: ['@moves/ui', '@moves/design-tokens', '@moves/supabase-client'],

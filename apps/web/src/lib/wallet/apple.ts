@@ -1,9 +1,8 @@
 import 'server-only';
 
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import { PKPass } from 'passkit-generator';
 
+import { ICON, ICON_2X, LOGO, LOGO_2X } from './assets';
 import { appleWalletConfigured, decodeBase64Env } from './config';
 import type { WalletPayload } from './token';
 
@@ -16,15 +15,12 @@ function serialNumber(appointmentId: string): string {
 }
 
 async function passImages(): Promise<Record<string, Buffer>> {
-  const asset = (name: string) =>
-    fs.readFile(path.join(process.cwd(), 'src', 'lib', 'wallet', 'assets', name));
-  const [icon, icon2x, logo, logo2x] = await Promise.all([
-    asset('icon.png'),
-    asset('icon@2x.png'),
-    asset('logo.png'),
-    asset('logo@2x.png'),
-  ]);
-  return { 'icon.png': icon, 'icon@2x.png': icon2x, 'logo.png': logo, 'logo@2x.png': logo2x };
+  return {
+    'icon.png': Buffer.from(ICON, 'base64'),
+    'icon@2x.png': Buffer.from(ICON_2X, 'base64'),
+    'logo.png': Buffer.from(LOGO, 'base64'),
+    'logo@2x.png': Buffer.from(LOGO_2X, 'base64'),
+  };
 }
 
 export async function buildApplePass(payload: WalletPayload): Promise<Buffer> {
