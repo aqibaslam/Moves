@@ -2,7 +2,6 @@ import 'server-only';
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import sharp from 'sharp';
 import { PKPass } from 'passkit-generator';
 
 import { appleWalletConfigured, decodeBase64Env } from './config';
@@ -17,21 +16,13 @@ function serialNumber(appointmentId: string): string {
 }
 
 async function passImages(): Promise<Record<string, Buffer>> {
-  const iconSvg = Buffer.from(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-      <rect width="180" height="180" rx="38" fill="#051922"/>
-      <path d="M36 124V56h16l22 43 22-43h16v68H96V85l-17 33H69L52 85v39H36Z" fill="#F7F4EF"/>
-      <circle cx="137" cy="58" r="8" fill="#F43D49"/>
-    </svg>`);
-  const officialWordmark = await fs.readFile(
-    path.join(process.cwd(), 'public', 'images', 'f26-foot-logo.png'),
-  );
-
+  const asset = (name: string) =>
+    fs.readFile(path.join(process.cwd(), 'src', 'lib', 'wallet', 'assets', name));
   const [icon, icon2x, logo, logo2x] = await Promise.all([
-    sharp(iconSvg).resize(29, 29).png().toBuffer(),
-    sharp(iconSvg).resize(58, 58).png().toBuffer(),
-    sharp(officialWordmark).resize(160, 50, { fit: 'contain' }).png().toBuffer(),
-    sharp(officialWordmark).resize(320, 100, { fit: 'contain' }).png().toBuffer(),
+    asset('icon.png'),
+    asset('icon@2x.png'),
+    asset('logo.png'),
+    asset('logo@2x.png'),
   ]);
   return { 'icon.png': icon, 'icon@2x.png': icon2x, 'logo.png': logo, 'logo@2x.png': logo2x };
 }

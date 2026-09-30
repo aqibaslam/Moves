@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
   // at the monorepo root, the same as turbopack.root.
   outputFileTracingRoot: path.join(dirname, '../..'),
   outputFileTracingIncludes: {
-    '/api/wallet/apple/*': ['./public/images/f26-foot-logo.png'],
+    '/api/wallet/apple/*': ['./src/lib/wallet/assets/*.png'],
   },
 
   // Workspace packages ship raw TS — Next must compile them.
