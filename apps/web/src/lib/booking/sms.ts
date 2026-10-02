@@ -38,7 +38,10 @@ function toE164(phone: string): string {
 function bookingMessage(input: BookingSubmit, confirmation: BookingConfirmation): string {
   const name = input.firstName?.trim();
   const hi = name ? `Hi ${name}, ` : 'Hi, ';
-  return `${hi}your MOVES consultation is booked for ${confirmation.when}. We’ll be in touch with the details. Reply STOP to opt out.`;
+  const join = confirmation.meetingUrl
+    ? ` Join: ${confirmation.meetingUrl}.`
+    : ' Your joining link will follow by SMS.';
+  return `${hi}your MOVES consultation is booked for ${confirmation.when}.${join} Reply STOP to opt out.`;
 }
 
 /**
