@@ -37,11 +37,11 @@ function toE164(phone: string): string {
 
 function bookingMessage(input: BookingSubmit, confirmation: BookingConfirmation): string {
   const name = input.firstName?.trim();
-  const hi = name ? `Hi ${name}, ` : 'Hi, ';
+  const hi = name ? `Hi ${name}. ` : '';
   const join = confirmation.meetingUrl
-    ? ` Join: ${confirmation.meetingUrl}.`
-    : ' Your joining link will follow by SMS.';
-  return `${hi}your MOVES consultation is booked for ${confirmation.when}.${join} Reply STOP to opt out.`;
+    ? ` Your video consultation is here: ${confirmation.meetingUrl}.`
+    : ' We’ll send your joining link before the call.';
+  return `${hi}Your first Move is booked for ${confirmation.when}.${join} We’ll remind you before it starts. Reply STOP to opt out.`;
 }
 
 /**
