@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { subscribe } from './actions';
 
 function MailIcon() {
@@ -89,7 +90,8 @@ export function SignupModal() {
       </div>
 
       <p className="su__terms">
-        Occasional MOVES updates. Unsubscribe anytime.
+        Occasional MOVES updates. Unsubscribe anytime.{' '}
+        <Link href="/privacy-policy">Privacy</Link> · <Link href="/terms">Terms</Link>
       </p>
     </div>
   );

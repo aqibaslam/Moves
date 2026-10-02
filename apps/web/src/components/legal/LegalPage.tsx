@@ -87,7 +87,7 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
           <span aria-hidden="true">·</span>
           <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
         </nav>
-        <p className="legal__copy">© Copyright 2026, Move. All rights reserved.</p>
+        <p className="legal__copy">© 2026 MOVES HOLDING LTD · Company no. 17428208</p>
       </footer>
     </div>
   );

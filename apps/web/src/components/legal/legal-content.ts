@@ -74,6 +74,14 @@ export const PRIVACY_POLICY: LegalDoc = {
         { type: 'p', text: 'We may share information with trusted partners, including:' },
         { type: 'ul', items: ['Dental professionals', 'Payment providers', 'Technology providers', 'Service partners'] },
         { type: 'p', text: 'We ensure your information is handled securely.' },
+        { type: 'p', text: 'We do not share, sell, or provide your mobile phone number or messaging consent data to third parties or affiliates for marketing or promotional purposes.' },
+      ],
+    },
+    {
+      heading: 'Appointment Messages',
+      blocks: [
+        { type: 'p', text: 'If you separately consent to receive text messages, MOVES may send consultation confirmations, appointment reminders, rescheduling information, and service updates. Message frequency varies according to your appointments and treatment journey. Message and data rates may apply.' },
+        { type: 'p', text: 'Reply STOP to opt out of text messages or HELP for assistance. You can also contact support@movesuk.com. Opting out of text messages does not affect your treatment or other services.' },
       ],
     },
     {
@@ -106,7 +114,7 @@ export const PRIVACY_POLICY: LegalDoc = {
     {
       heading: 'Contact Us',
       blocks: [
-        { type: 'p', text: 'If you have questions about this Privacy Policy or how your information is used, please contact MOVES.' },
+        { type: 'p', text: 'If you have questions about this Privacy Policy or how your information is used, contact MOVES at support@movesuk.com.' },
       ],
     },
   ],
@@ -131,6 +139,7 @@ export const TERMS_OF_SERVICE: LegalDoc = {
       heading: 'About MOVES',
       blocks: [
         { type: 'p', text: 'MOVES provides personalised clear aligner treatment designed around your smile goals. All treatment plans are reviewed by qualified dental professionals to ensure they are suitable for your needs.' },
+        { type: 'p', text: 'MOVES is operated by MOVES HOLDING LTD, company number 17428208, registered at 16 Powys Avenue, Leicester, England, LE2 2DP.' },
       ],
     },
     {
@@ -189,6 +198,13 @@ export const TERMS_OF_SERVICE: LegalDoc = {
       ],
     },
     {
+      heading: 'Text Messages',
+      blocks: [
+        { type: 'p', text: 'Where you separately opt in, MOVES may send consultation confirmations, appointment reminders, rescheduling information, and service updates by text message. Message frequency varies. Message and data rates may apply.' },
+        { type: 'p', text: 'Reply STOP to opt out or HELP for assistance. You may also contact support@movesuk.com. Mobile information and messaging consent are not shared with third parties or affiliates for marketing or promotional purposes.' },
+      ],
+    },
+    {
       heading: 'Website Use',
       blocks: [
         { type: 'p', text: 'You agree not to misuse the MOVES website or copy any content, branding, images, or materials without permission.' },
@@ -202,7 +218,7 @@ export const TERMS_OF_SERVICE: LegalDoc = {
     },
     {
       heading: 'Contact Us',
-      blocks: [{ type: 'p', text: 'If you have any questions about these Terms, please contact MOVES.' }],
+      blocks: [{ type: 'p', text: 'If you have any questions about these Terms, contact MOVES at support@movesuk.com.' }],
     },
   ],
 };

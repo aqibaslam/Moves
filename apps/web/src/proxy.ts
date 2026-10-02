@@ -29,6 +29,11 @@ function isGateExempt(pathname: string): boolean {
     pathname.startsWith('/password/') ||
     pathname === '/signup' ||
     pathname.startsWith('/signup/') ||
+    pathname === '/terms' ||
+    pathname === '/privacy' ||
+    pathname === '/privacy-policy' ||
+    pathname === '/contact' ||
+    pathname === '/contact-us' ||
     pathname === '/lock' ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/cms') ||
@@ -41,6 +46,12 @@ function isGateExempt(pathname: string): boolean {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === '/privacy' || pathname === '/contact') {
+    const to = request.nextUrl.clone();
+    to.pathname = pathname === '/privacy' ? '/privacy-policy' : '/contact-us';
+    return NextResponse.redirect(to);
+  }
 
   /*
    * The public home entry sends visitors straight to /signup before the
