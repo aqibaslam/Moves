@@ -1,4 +1,38 @@
 (() => {
+  const ATTR_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  const ATTR_STORE = 'mv-attribution';
+  const sendMeta = (method, event, params = {}, options) => {
+    if (typeof window.fbq === 'function') {
+      if (options) window.fbq(method, event, params, options);
+      else window.fbq(method, event, params);
+      return;
+    }
+    window.__movesMetaQueue = window.__movesMetaQueue || [];
+    window.__movesMetaQueue.push([method, event, params, options]);
+  };
+  const currentParams = new URLSearchParams(location.search);
+  const pageVariant = document.querySelector('.results-a-page')?.dataset.landingPageVariant || 'results-a';
+  let attribution = {};
+  try { attribution = JSON.parse(localStorage.getItem(ATTR_STORE) || '{}'); } catch (err) {}
+  ATTR_KEYS.forEach(key => { const value = currentParams.get(key); if (value) attribution[key] = value.slice(0, key === 'fbclid' ? 500 : 200); });
+  attribution.landing_page_variant = currentParams.get('results') || pageVariant;
+  try { localStorage.setItem(ATTR_STORE, JSON.stringify(attribution)); } catch (err) {}
+  document.querySelectorAll('a[href^="/book"]').forEach((a, index) => {
+    const url = new URL(a.href, location.href);
+    ATTR_KEYS.forEach(key => { if (attribution[key]) url.searchParams.set(key, attribution[key]); });
+    url.searchParams.set('lp', attribution.landing_page_variant);
+    url.searchParams.set('from', location.pathname);
+    a.href = url.pathname + url.search;
+    a.addEventListener('click', () => sendMeta('trackCustom', 'ConsultationCTA', {
+      landing_page_variant: attribution.landing_page_variant,
+      cta_position: a.id || `cta-${index + 1}`
+    }), { once:true });
+  });
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event:'lander_view', landing_page_variant:attribution.landing_page_variant, utm_source:attribution.utm_source || '', utm_campaign:attribution.utm_campaign || '' });
+  window.dispatchEvent(new CustomEvent('moves:lander', { detail:{ event:'lander_view', landing_page_variant:attribution.landing_page_variant } }));
+  sendMeta('track', 'ViewContent', { content_name:'Clear aligners paid landing', content_category:'Clear aligners' });
+  sendMeta('trackCustom', 'LandingPageView', { landing_page_variant:attribution.landing_page_variant });
   const head = document.getElementById('head');
   const onScroll = () => head.classList.toggle('is-scrolled', window.scrollY > 8);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();

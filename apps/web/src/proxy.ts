@@ -29,6 +29,17 @@ function isGateExempt(pathname: string): boolean {
     pathname.startsWith('/password/') ||
     pathname === '/signup' ||
     pathname.startsWith('/signup/') ||
+    pathname === '/pages/clear-aligners' ||
+    // Styles and interaction bundles used by the two public acquisition
+    // routes. Without these exemptions a fresh ad visitor receives the HTML
+    // but the password page in place of the CSS/JS responses.
+    pathname.startsWith('/results-a/') ||
+    pathname.startsWith('/booking-v2/') ||
+    // The paid lander's conversion path must remain reachable without the
+    // review password. Its server actions are covered by the /api exemption.
+    pathname === '/book' ||
+    // Keep the compliance destinations linked in the paid lander's footer
+    // available to visitors and ad-platform reviewers.
     pathname === '/terms' ||
     pathname === '/privacy' ||
     pathname === '/privacy-policy' ||
@@ -54,21 +65,15 @@ export function proxy(request: NextRequest) {
   }
 
   /*
-   * The public home entry sends visitors straight to /signup before the
-   * password gate runs. This keeps both the bare domain and campaign query
-   * strings public while every other storefront route remains protected.
-   *
-   * The single pass-through is the post-signup landing: the magic link and
-   * Google callback both set `moves_customer` and redirect to `/?welcome=1`.
-   * Bouncing that request back to /signup would look like the login failed,
-   * so it is allowed through only when the flag AND the cookie are present.
-   * The bare URL (movesuk.com/) always goes to the public signup page.
+   * The public home entry remains the signup experience. Preserve campaign
+   * query parameters when redirecting so acquisition attribution is not lost.
+   * After signup, the customer cookie allows the intended welcome return.
    */
   if (pathname === '/') {
     const justSignedUp = request.nextUrl.searchParams.get('welcome') === '1' && Boolean(request.cookies.get(CUSTOMER_COOKIE));
     if (!justSignedUp) {
       const to = request.nextUrl.clone();
-      to.pathname = '/signup'; // query string (e.g. utm_*) is kept
+      to.pathname = '/signup';
       return NextResponse.redirect(to);
     }
   }
@@ -92,7 +97,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(to);
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  // Paid acquisition pages should never enter a search index. Metadata adds a
+  // robots meta tag; this response header also protects non-HTML fetches and
+  // remains effective if the page markup changes later.
+  if (pathname === '/pages/clear-aligners' || pathname === '/book') {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+  }
+
+  return response;
 }
 
 export const config = {

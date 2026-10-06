@@ -62,6 +62,16 @@ export const bookingDetailsSchema = z.object({
   referralCode: z.string().trim().max(60).optional().or(z.literal('')),
   note: z.string().trim().max(500, 'Please keep your note under 500 characters').optional().or(z.literal('')),
   concern: z.string().trim().max(80).optional().or(z.literal('')),
+  utmSource: z.string().trim().max(200).optional().or(z.literal('')),
+  utmMedium: z.string().trim().max(200).optional().or(z.literal('')),
+  utmCampaign: z.string().trim().max(200).optional().or(z.literal('')),
+  utmContent: z.string().trim().max(200).optional().or(z.literal('')),
+  utmTerm: z.string().trim().max(200).optional().or(z.literal('')),
+  fbclid: z.string().trim().max(500).optional().or(z.literal('')),
+  fbc: z.string().trim().max(500).optional().or(z.literal('')),
+  fbp: z.string().trim().max(500).optional().or(z.literal('')),
+  eventSourceUrl: z.string().url().max(2_000).optional().or(z.literal('')),
+  landingPageVariant: z.string().trim().max(80).optional().or(z.literal('')),
 });
 export type BookingDetails = z.infer<typeof bookingDetailsSchema>;
 
@@ -70,6 +80,7 @@ export const bookingSubmitSchema = bookingDetailsSchema.extend({
   slotStart: z.string().datetime({ offset: true, message: 'Please choose a time slot' }),
   timezone: z.string().min(1).default('Europe/London'),
   consent: z.boolean().refine((v) => v === true, 'Please accept the terms to continue'),
+  trackingConsent: z.boolean().optional().default(false),
 });
 export type BookingSubmit = z.infer<typeof bookingSubmitSchema>;
 
@@ -97,6 +108,8 @@ export interface AvailabilityDay {
  *  (Google Meet / Zoom) attaches one, or when running in stub mode. */
 export interface BookingConfirmation {
   appointmentId: string;
+  /** GHL contact id, retained server-side for lifecycle reconciliation. */
+  contactId?: string;
   startISO: string;
   /** Pre-formatted human label, e.g. "Wednesday 12 August at 09:00" */
   when: string;

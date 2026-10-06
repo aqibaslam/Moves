@@ -2,10 +2,12 @@
 
 import config from '@payload-config';
 import { getPayload } from 'payload';
+import { headers } from 'next/headers';
 import { createBooking, getFreeSlots, isBookingConflict, isLive } from '@/lib/booking/ghl';
-import { sendBookingSms } from '@/lib/booking/sms';
+import { sendMetaSchedule } from '@/lib/analytics/meta';
 import { walletAvailability } from '@/lib/wallet/config';
-import { createWalletToken, walletTokenConfigured } from '@/lib/wallet/token';
+import { recordWalletBooking, walletStorageConfigured } from '@/lib/wallet/storage';
+import { createWalletToken, walletSerialNumber, walletTokenConfigured } from '@/lib/wallet/token';
 import {
   bookingSubmitSchema,
   type AvailabilityDay,
@@ -49,6 +51,12 @@ async function recordConsultation(
   data: BookingSubmit,
   confirmation: BookingConfirmation,
 ): Promise<void> {
+  // GHL is the production system of record. Payload falls back to a local
+  // SQLite file for development, which cannot be opened inside Vercel's
+  // read-only function bundle. Skip that optional mirror until DATABASE_URL
+  // is deliberately configured instead of logging an error for every lead.
+  if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) return;
+
   try {
     const payload = await getPayload({ config });
     await payload.create({
@@ -97,29 +105,70 @@ export async function createBookingAction(input: unknown): Promise<CreateBooking
 
   try {
     const confirmation = await createBooking(parsed.data);
-    // Both best-effort: the slot is already booked, so a DB or SMS hiccup must
-    // never tell the patient their booking failed. Each logs and swallows.
-    await Promise.allSettled([
+    const requestHeaders = await headers();
+    // GHL owns all customer communication so one workflow controls consent,
+    // sender identity, reminders and the meeting link without duplicate SMS.
+    // These post-booking writes remain best-effort, but are awaited so a
+    // serverless invocation cannot terminate before attribution is delivered.
+    const postBooking = await Promise.allSettled([
       recordConsultation(parsed.data, confirmation),
-      sendBookingSms(parsed.data, confirmation),
+      sendMetaSchedule({
+        confirmation,
+        booking: parsed.data,
+        clientIp: requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
+        clientUserAgent: requestHeaders.get('user-agent'),
+      }),
     ]);
+    if (postBooking[1].status === 'rejected') {
+      console.error('[booking] Meta CAPI Schedule failed', postBooking[1].reason);
+    } else if (postBooking[1].value) {
+      console.info('[booking] Meta CAPI Schedule accepted', {
+        appointmentId: confirmation.appointmentId,
+        eventsReceived: postBooking[1].value.eventsReceived,
+        traceId: postBooking[1].value.traceId,
+      });
+    }
     const availability = walletAvailability();
     let wallet = { appleUrl: null, googleUrl: null } as {
       appleUrl: string | null;
       googleUrl: string | null;
     };
-    if (walletTokenConfigured() && (availability.apple || availability.google)) {
-      const token = await createWalletToken({
-        appointmentId: confirmation.appointmentId,
-        firstName: parsed.data.firstName,
-        lastName: parsed.data.lastName,
-        startISO: confirmation.startISO,
-        meetingUrl: confirmation.meetingUrl,
-      });
-      wallet = {
-        appleUrl: availability.apple ? `/api/wallet/apple/${token}` : null,
-        googleUrl: availability.google ? `/api/wallet/google/${token}` : null,
-      };
+    if (
+      walletTokenConfigured() &&
+      walletStorageConfigured() &&
+      (availability.apple || availability.google)
+    ) {
+      try {
+        const endISO = new Date(
+          new Date(confirmation.startISO).getTime() + 45 * 60_000,
+        ).toISOString();
+        await recordWalletBooking({
+          appointmentId: confirmation.appointmentId,
+          serial: walletSerialNumber(confirmation.appointmentId),
+          contactId: confirmation.contactId,
+          firstName: parsed.data.firstName,
+          lastName: parsed.data.lastName,
+          startISO: confirmation.startISO,
+          endISO,
+          timezone: parsed.data.timezone,
+          meetingUrl: confirmation.meetingUrl,
+        });
+        const token = await createWalletToken({
+          appointmentId: confirmation.appointmentId,
+          firstName: parsed.data.firstName,
+          lastName: parsed.data.lastName,
+          startISO: confirmation.startISO,
+          meetingUrl: confirmation.meetingUrl,
+        });
+        wallet = {
+          appleUrl: availability.apple ? `/api/wallet/apple/${token}` : null,
+          googleUrl: availability.google ? `/api/wallet/google/${token}` : null,
+        };
+      } catch (walletError) {
+        // The calendar booking is already confirmed. Never make the patient
+        // retry and create a duplicate appointment because Wallet storage failed.
+        console.error('[booking] Wallet setup failed after booking', walletError);
+      }
     }
     return { ok: true, confirmation, wallet };
   } catch (err) {

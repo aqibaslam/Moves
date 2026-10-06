@@ -1,0 +1,15 @@
+.git
+.next
+**/.next
+node_modules
+**/node_modules
+**/.turbo
+**/*.tsbuildinfo
+
+# Local reference libraries and design source files are not runtime assets.
+moves_brand_systems_imaages
+Update 2.0
+design
+
+# Local CMS development data must never be uploaded to production.
+apps/web/moves-cms-dev.db

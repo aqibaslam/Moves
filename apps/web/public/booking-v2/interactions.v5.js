@@ -1,10 +1,48 @@
 (() => {
   document.documentElement.dataset.bookingVersion = '3';
   const $ = id => document.getElementById(id);
+  const ATTR_STORE = 'mv-attribution';
+  const sendMeta = (method, event, params = {}, options) => {
+    if (typeof window.fbq === 'function') {
+      if (options) window.fbq(method, event, params, options);
+      else window.fbq(method, event, params);
+      return;
+    }
+    window.__movesMetaQueue = window.__movesMetaQueue || [];
+    window.__movesMetaQueue.push([method, event, params, options]);
+  };
+  const cookie = name => document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=').slice(1).join('=') || '';
+  const readAttribution = () => {
+    const query = new URLSearchParams(location.search), saved = (() => { try { return JSON.parse(localStorage.getItem(ATTR_STORE) || '{}'); } catch (err) { return {}; } })();
+    const take = (queryKey, savedKey = queryKey, max = 200) => (query.get(queryKey) || saved[savedKey] || '').slice(0, max);
+    const value = {
+      utmSource: take('utm_source'), utmMedium: take('utm_medium'), utmCampaign: take('utm_campaign'),
+      utmContent: take('utm_content'), utmTerm: take('utm_term'), fbclid: take('fbclid', 'fbclid', 500),
+      fbc: cookie('_fbc').slice(0, 500), fbp: cookie('_fbp').slice(0, 500), eventSourceUrl: location.href.slice(0, 2000),
+      landingPageVariant: take('lp', 'landing_page_variant', 80) || 'results-a'
+    };
+    if (!value.fbc && value.fbclid) value.fbc = 'fb.1.' + Date.now() + '.' + value.fbclid;
+    try { localStorage.setItem(ATTR_STORE, JSON.stringify({ utm_source:value.utmSource, utm_medium:value.utmMedium, utm_campaign:value.utmCampaign, utm_content:value.utmContent, utm_term:value.utmTerm, fbclid:value.fbclid, landing_page_variant:value.landingPageVariant })); } catch (err) {}
+    return value;
+  };
+  const attribution = readAttribution();
+  const returnPath = new URLSearchParams(location.search).get('from');
+  if (returnPath && returnPath.startsWith('/') && !returnPath.startsWith('//')) $('backA').href = returnPath;
   const track = (event, detail = {}) => {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...detail });
     window.dispatchEvent(new CustomEvent('moves:booking', { detail: { event, ...detail } }));
+    const metaEvents = {
+      book_view: ['BookingView', { landing_page_variant: detail.landing_page_variant || attribution.landingPageVariant }],
+      slot_selected: ['BookingSlotSelected', {}],
+      details_submitted: ['BookingDetailsSubmitted', {}],
+      calendar_added: ['ConsultationCalendarAdded', { provider: detail.provider || '' }],
+      consultation_joined: ['ConsultationJoined', { source: detail.source || '' }],
+      wallet_add_started: ['WalletAddStarted', { provider: detail.provider || '' }],
+      photos_prepared: ['ConsultationPhotosPrepared', {}]
+    };
+    const mapped = metaEvents[event];
+    if (mapped) sendMeta('trackCustom', mapped[0], mapped[1]);
   };
   const DW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], DL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   let D = [];
@@ -64,7 +102,7 @@
     if (!S.m) { step(1); return; }
     const submit = $('go2').querySelector('.btn'), original = submit.textContent; submit.disabled = true; submit.textContent = 'Booking…';
     try {
-      const payload = { firstName:$('fn').value.trim(), lastName:$('ln').value.trim(), email:$('em').value.trim(), phone:$('ph').value.trim(), age:$('ag').value, referralCode:$('rc').value.trim(), note:$('nt').value.trim(), concern:fx || '', slotStart:S.m.startISO, timezone:'Europe/London', consent:true };
+      const payload = { firstName:$('fn').value.trim(), lastName:$('ln').value.trim(), email:$('em').value.trim(), phone:$('ph').value.trim(), age:$('ag').value, referralCode:$('rc').value.trim(), note:$('nt').value.trim(), concern:fx || '', ...attribution, slotStart:S.m.startISO, timezone:'Europe/London', consent:true, trackingConsent:cookie('moves_consent_v1') === 'allowed' };
       track('details_submitted', { slot_start:payload.slotStart, concern:payload.concern });
       const res = await fetch('/api/booking', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
       const data = await res.json();
@@ -81,7 +119,8 @@
       $('joinC').hidden = !joinUrl; $('joinC').href = joinUrl || '#';
       if (joinUrl) $('joinC').addEventListener('click', () => track('consultation_joined', { source:'booking_confirmation' }), { once:true });
       try { sessionStorage.removeItem('mv-bk'); } catch (err) {}
-      track('booking_confirmed', { appointment_id:data.confirmation.appointmentId, slot_start:data.confirmation.startISO, stub:!!data.confirmation.stub });
+      track('booking_confirmed', { appointment_id:data.confirmation.appointmentId, slot_start:data.confirmation.startISO, stub:!!data.confirmation.stub, utm_source:attribution.utmSource, utm_campaign:attribution.utmCampaign, landing_page_variant:attribution.landingPageVariant });
+      sendMeta('track', 'Schedule', { content_name:'Free video consultation' }, { eventID:data.confirmation.appointmentId });
       $('mc').dataset.t = st.getTime(); tick(); step(3);
     } catch (err) { let m = $('form').querySelector('.submit-error'); if (!m) { m = document.createElement('p'); m.className = 'msg submit-error'; m.setAttribute('role','alert'); $('go2').before(m); } m.textContent = err.message || 'Something went wrong booking your call. Please try again.'; }
     finally { submit.disabled = false; submit.textContent = original; }
@@ -113,6 +152,6 @@
   // keep typed details if the page is refreshed
   try { const sv = JSON.parse(sessionStorage.getItem('mv-bk') || '{}'); ['fn','ln','em','ph','ag'].forEach(id => { if (sv[id]) $(id).value = sv[id]; }); } catch (err) {}
   $('form').addEventListener('input', () => { try { const o = {}; ['fn','ln','em','ph','ag'].forEach(id => o[id] = $(id).value); sessionStorage.setItem('mv-bk', JSON.stringify(o)); } catch (err) {} });
-  track('book_view');
+  track('book_view', { utm_source:attribution.utmSource, utm_campaign:attribution.utmCampaign, landing_page_variant:attribution.landingPageVariant });
   loadAvailability();
 })();

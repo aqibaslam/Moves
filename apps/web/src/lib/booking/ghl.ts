@@ -28,6 +28,22 @@ const CLINIC_TZ = 'Europe/London';
 const WINDOW_DAYS = 21;
 const MIN_NOTICE_MINUTES = 90;
 
+// HighLevel requires the custom-field id in contact writes. These ids belong
+// to the MOVES location and deliberately keep paid-click attribution on the
+// contact record, where the CRM and reporting workflows can use it.
+const CONTACT_FIELDS = {
+  age: 'VYxeTGV3eF44hoa5RhW3',
+  concern: '2Fz3hkmcnfOSXPBAqjka',
+  referralCode: '6hF8nEQmt1iF52WRPZVV',
+  landingPageVariant: 'x0zJThFPdbLAgf4yvWym',
+  utmSource: 'XxBJvQy4MctoR418cTI3',
+  utmMedium: 'RT21TVHaBBers7PzJYQi',
+  utmCampaign: 'EK10nCzAMHJ2eMHkh6T2',
+  utmContent: 'wAQyQShzU40wjkRxIwTG',
+  utmTerm: 'cJxwx2hkW7fOih2Gz8oy',
+  fbclid: 'MIKFJGvvpy2AeYWMHuaV',
+} as const;
+
 interface GhlConfig {
   token?: string;
   calendarId?: string;
@@ -131,11 +147,75 @@ export async function createBooking(input: BookingSubmit): Promise<BookingConfir
 
   return {
     appointmentId: appointment.id,
+    contactId,
     startISO,
     when,
     meetingUrl: appointment.meetingUrl ?? null,
     stub: false,
   };
+}
+
+export interface LiveAppointment {
+  id: string;
+  contactId: string | null;
+  startISO: string;
+  endISO: string | null;
+  meetingUrl: string | null;
+  status: string;
+}
+
+/** Read the current GHL event before a Wallet update so moved/cancelled calls never get stale reminders. */
+export async function getLiveAppointment(appointmentId: string): Promise<LiveAppointment | null> {
+  if (!config().live) return null;
+  const res = await fetch(`${BASE}/calendars/events/appointments/${encodeURIComponent(appointmentId)}`, {
+    headers: headers(),
+    cache: 'no-store',
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`GHL appointment read failed: ${res.status} ${await safeText(res)}`);
+  const data = (await res.json()) as {
+    id?: string;
+    event?: Record<string, unknown>;
+    appointment?: Record<string, unknown>;
+  } & Record<string, unknown>;
+  const value = (data.appointment ?? data.event ?? data) as Record<string, unknown>;
+  const start = value.startTime;
+  if (typeof start !== 'string') return null;
+  const end = value.endTime;
+  const address = value.address;
+  return {
+    id: typeof value.id === 'string' ? value.id : appointmentId,
+    contactId: typeof value.contactId === 'string' ? value.contactId : null,
+    startISO: new Date(start).toISOString(),
+    endISO: typeof end === 'string' ? new Date(end).toISOString() : null,
+    meetingUrl: typeof address === 'string' && isUrl(address) ? address : null,
+    status: String(value.appointmentStatus ?? value.status ?? 'confirmed').toLowerCase(),
+  };
+}
+
+export type WalletContactEvent = 'clicked' | 'added' | 'removed';
+
+/** Make Wallet engagement visible on the GHL contact without exposing CRM credentials to the browser. */
+export async function syncWalletContact(
+  contactId: string | null,
+  platform: 'apple' | 'google',
+  event: WalletContactEvent,
+): Promise<void> {
+  if (!contactId || !config().live) return;
+  const tags = [
+    'wallet-engaged',
+    `wallet-${platform}-${event}`,
+    ...(event === 'added' ? ['wallet-added'] : []),
+  ];
+  const response = await fetch(`${BASE}/contacts/${encodeURIComponent(contactId)}/tags`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ tags }),
+  });
+  if (!response.ok) {
+    throw new Error(`GHL Wallet tag sync failed: ${response.status} ${await safeText(response)}`);
+  }
 }
 
 // ── Live GHL calls ──────────────────────────────────────────────────────────
@@ -189,6 +269,18 @@ function parseFreeSlots(data: unknown): Date[] {
 
 async function upsertContact(input: BookingSubmit): Promise<string> {
   const { locationId } = config();
+  const customFields = [
+    { id: CONTACT_FIELDS.age, field_value: String(input.age) },
+    field(CONTACT_FIELDS.concern, input.concern),
+    field(CONTACT_FIELDS.referralCode, input.referralCode),
+    field(CONTACT_FIELDS.landingPageVariant, input.landingPageVariant),
+    field(CONTACT_FIELDS.utmSource, input.utmSource),
+    field(CONTACT_FIELDS.utmMedium, input.utmMedium),
+    field(CONTACT_FIELDS.utmCampaign, input.utmCampaign),
+    field(CONTACT_FIELDS.utmContent, input.utmContent),
+    field(CONTACT_FIELDS.utmTerm, input.utmTerm),
+    field(CONTACT_FIELDS.fbclid, input.fbclid),
+  ].filter((value): value is { id: string; field_value: string } => Boolean(value));
   const res = await fetch(`${BASE}/contacts/upsert`, {
     method: 'POST',
     headers: headers(),
@@ -199,11 +291,13 @@ async function upsertContact(input: BookingSubmit): Promise<string> {
       lastName: input.lastName,
       email: input.email,
       phone: normalisePhone(input.phone),
-      source: 'Moves consultation booking',
-      customFields: [
-        { key: 'age', field_value: String(input.age) },
-        ...(input.referralCode ? [{ key: 'referral_code', field_value: input.referralCode }] : []),
+      source: input.utmSource ? `MOVES paid landing · ${input.utmSource}` : 'MOVES website consultation',
+      tags: [
+        'consultation-lead',
+        input.utmSource ? 'paid-landing' : 'website',
+        ...(input.trackingConsent ? ['meta-consented'] : []),
       ],
+      customFields,
     }),
   });
   if (!res.ok) {
@@ -213,6 +307,11 @@ async function upsertContact(input: BookingSubmit): Promise<string> {
   const id = data.contact?.id ?? data.id;
   if (!id) throw new Error('GHL contact upsert returned no id');
   return id;
+}
+
+function field(id: string, value?: string): { id: string; field_value: string } | null {
+  const clean = value?.trim();
+  return clean ? { id, field_value: clean } : null;
 }
 
 async function createAppointment(

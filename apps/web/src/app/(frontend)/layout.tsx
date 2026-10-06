@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next';
+import '@moves/design-tokens/css';
 import { aeonik, caveat, dmSans, glacialIndifference, inter, jost, publicSans, silka } from './fonts';
 import './globals.css';
 import './moves.css';
+import { MetaPixel } from '@/components/analytics/MetaPixel';
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +39,7 @@ export default function RootLayout({
       className={`${jost.variable} ${silka.variable} ${caveat.variable} ${aeonik.variable} ${inter.variable} ${dmSans.variable} ${publicSans.variable} ${glacialIndifference.variable}`}
     >
       <body>
+        <MetaPixel />
         <a href="#main" className="sr-only">
           Skip to content
         </a>

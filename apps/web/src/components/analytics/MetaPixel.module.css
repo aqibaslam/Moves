@@ -1,0 +1,72 @@
+.banner {
+  position: fixed;
+  inset-inline: var(--mv-gutter);
+  inset-block-end: var(--mv-gutter);
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mv-gap-l);
+  max-width: var(--mv-container);
+  margin-inline: auto;
+  padding: var(--mv-gap-m);
+  color: var(--mv-milk);
+  background: var(--mv-ink);
+  border: var(--mv-hairline) solid var(--mv-ink-line);
+  border-radius: var(--mv-radius-card);
+  box-shadow: var(--mv-shadow-lift);
+  font-family: var(--mv-font-body);
+}
+
+.copy {
+  display: grid;
+  gap: var(--mv-gap-xs);
+  max-width: var(--mv-prose);
+  font-size: var(--mv-text-small);
+  line-height: var(--mv-leading-body);
+}
+
+.copy strong {
+  color: var(--mv-milk);
+  font-family: var(--mv-font-display);
+  font-size: var(--mv-text-lede);
+  font-weight: var(--weight-regular);
+  line-height: var(--mv-leading-heading);
+}
+
+.copy span { color: var(--mv-on-ink-muted); }
+.copy a { color: var(--mv-milk); text-decoration: underline; text-underline-offset: var(--space-1); }
+
+.actions {
+  display: flex;
+  flex: none;
+  gap: var(--mv-gap-xs);
+}
+
+.actions button {
+  min-height: var(--mv-touch);
+  padding-inline: var(--mv-gap-m);
+  border: var(--mv-hairline) solid var(--mv-veil-strong);
+  border-radius: var(--mv-radius);
+  font: inherit;
+  font-size: var(--mv-text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--mv-tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--mv-dur-hover) var(--mv-ease-out), border-color var(--mv-dur-hover) var(--mv-ease-out);
+}
+
+.secondary { color: var(--mv-milk); background: transparent; }
+.secondary:hover { background: var(--mv-veil); }
+.primary { color: var(--mv-milk); background: var(--mv-pulse); border-color: var(--mv-pulse); }
+.primary:hover { background: var(--mv-pulse-hover); border-color: var(--mv-pulse-hover); }
+
+@media (max-width: 48rem) {
+  .banner { align-items: stretch; flex-direction: column; gap: var(--mv-gap-m); }
+  .actions { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actions button { transition: none; }
+}

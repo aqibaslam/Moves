@@ -1,9 +1,5 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-const markup = readFileSync(join(process.cwd(), 'public', 'results-a', 'markup.html'), 'utf8');
+import { ResultsALander } from '@/components/campaign/ResultsALander';
 
 export const metadata: Metadata = {
   title: 'MOVES Clear Aligners — Make your Move.',
@@ -12,15 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ClearAlignersResultsAPage() {
-  return (
-    <>
-      <link rel="stylesheet" href="/results-a/styles.css?v=20" />
-      <div
-        className="results-a-page"
-        // This is a reviewed, local snapshot of the approved reference markup.
-        dangerouslySetInnerHTML={{ __html: markup }}
-      />
-      <Script src="/results-a/interactions.js?v=20" strategy="afterInteractive" />
-    </>
-  );
+  return <ResultsALander trackingVariant="results-a" />;
 }

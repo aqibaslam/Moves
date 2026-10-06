@@ -14,6 +14,10 @@ const walletPayloadSchema = z.object({
 
 export type WalletPayload = z.infer<typeof walletPayloadSchema>;
 
+export function walletSerialNumber(appointmentId: string): string {
+  return appointmentId.replace(/[^A-Za-z0-9]/g, '').slice(-32) || 'moves-consultation';
+}
+
 function encryptionKey(): Uint8Array {
   const source = process.env.WALLET_LINK_SECRET || process.env.PAYLOAD_SECRET;
   if (!source) throw new Error('WALLET_LINK_SECRET is not configured');
