@@ -177,7 +177,9 @@ export async function sendMetaLifecycleEvent({
     event_name: eventName,
     event_time: eventTime(occurredAt),
     event_id: eventId,
-    action_source: 'system_generated',
+    // These outcomes belong to a consented website lead journey and retain the
+    // original paid landing URL, even when the CRM reports the later outcome.
+    action_source: 'website',
     event_source_url: sourceUrl || 'https://movesuk.com/pages/clear-aligners',
     user_data: userData,
     custom_data: customData,
