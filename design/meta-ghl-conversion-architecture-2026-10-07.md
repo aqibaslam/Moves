@@ -4,7 +4,11 @@ Audit date: 7 October 2026
 
 ## Current launch verdict
 
-**Tracking implementation is in progress; Meta campaign publishing is currently blocked by billing.** Meta reports that ad account `1724420638840884` has a balance that must be paid before ads can publish. The live dataset currently shows browser `PageView` and `ViewContent`, but no server activity and no custom conversions. Do not start spend until the controlled tests below are green.
+**The website and server-side conversion bridge are deployed and accepting events, but the account is not ready to spend yet.** Meta reports that ad account `1724420638840884` has a balance that must be paid before ads can publish. The live dataset has browser `PageView` and `ViewContent`; Meta has also accepted controlled server events for `Schedule`, `ConsultationAttended`, `QualifiedLead` and `Purchase`.
+
+On 7 October 2026, all seven MOVES custom journey events were reviewed and confirmed as belonging to the business. Fresh production `ConsultationAttended` and `QualifiedLead` events were then accepted with one event received per request. Meta's custom-conversion picker still showed only historical `ViewContent` and URL traffic immediately afterwards, so the two custom conversions must be created after Meta finishes propagating the newly confirmed events. Do not substitute a URL rule, because that would measure the wrong action.
+
+The three GHL outcome workflows are not yet wired to the restricted endpoint. The connected GHL MCP has no workflow-write capability, and the available browser session is signed into a different agency. Open the MOVES location `PCVyNCHXETs3i3OLrwdJ` in the connected browser before completing those workflow actions.
 
 ## Measurement strategy
 
@@ -53,6 +57,24 @@ Browser Meta tracking and the server event path use the same recorded marketing-
 
 Every lifecycle webhook must use the shared authentication secret and retry on a non-2xx response. The endpoint returns an accepted event count and Meta trace id without logging customer data.
 
+Use `POST https://movesuk.com/api/integrations/ghl/meta-lifecycle` with content type `application/json` and the production workflow secret in the `x-moves-workflow-secret` header. Each workflow must pass the contact's recorded `meta-consented` state as `trackingConsent`; the endpoint skips the event when that value is false.
+
+The minimum payloads are:
+
+```json
+{ "event": "ConsultationAttended", "contactId": "<contact id>", "appointmentId": "<appointment id>", "trackingConsent": true, "occurredAt": "<ISO timestamp>" }
+```
+
+```json
+{ "event": "QualifiedLead", "contactId": "<contact id>", "opportunityId": "<opportunity id>", "trackingConsent": true, "occurredAt": "<ISO timestamp>" }
+```
+
+```json
+{ "event": "Purchase", "contactId": "<contact id>", "opportunityId": "<opportunity id>", "trackingConsent": true, "value": 2350, "currency": "GBP", "occurredAt": "<ISO timestamp>" }
+```
+
+For strongest matching, the workflow should also send email, phone, first name, surname, `fbclid`, contact creation time, `_fbc`, `_fbp` and original source URL when those values exist. It must never include concern, age, diagnosis, treatment notes or other health information.
+
 ## Meta configuration
 
 Create two custom conversions on dataset `1777643969948852`:
@@ -76,14 +98,14 @@ Native GHL source attribution is not authoritative for API-created contacts. Rep
 ## Launch verification gates
 
 1. Clear the Meta ad-account balance and confirm the account can publish.
-2. Deploy the restricted lifecycle endpoint and production environment variables.
+2. ~~Deploy the restricted lifecycle endpoint and production environment variables.~~ Completed on production deployment `dpl_6KCraVS7r6WKwrFmTjdxv7CEyjmk`.
 3. Create GHL `_fbc`, `_fbp` and original-source-URL fields and retain them on booking.
 4. Wire and publish the three outcome webhooks in GHL.
 5. Submit one consented test booking and confirm one deduplicated `Schedule` across browser and server.
 6. Move that test record through Attended, Suitable and Paid; confirm each event appears once in Meta Test Events with the expected stable id.
 7. Confirm the two custom conversions fire and `Purchase` carries the correct GBP value.
 8. Confirm a non-consented contact is skipped and a cancelled/no-show contact sends no positive conversion.
-9. Remove the Meta test-event code, repeat once in production diagnostics, and retain the event receipts.
+9. ~~Remove the Meta test-event code, repeat once in production diagnostics, and retain the event receipts.~~ Test mode is disabled. Production QA receipts retained: `ConsultationAttended` trace `AIWP1xLwIQ-Eubr_O00H9Pc`; `QualifiedLead` trace `AygRTaKGH5T0QTv3QadV75K`.
 10. Launch only after the GHL dashboard agrees with the controlled journey end to end.
 
 ## Implemented in the application
