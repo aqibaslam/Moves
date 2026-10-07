@@ -44,6 +44,12 @@ const CONTACT_FIELDS = {
   fbclid: 'MIKFJGvvpy2AeYWMHuaV',
 } as const;
 
+const OPTIONAL_META_FIELDS = {
+  fbc: () => process.env.GHL_META_FBC_FIELD_ID,
+  fbp: () => process.env.GHL_META_FBP_FIELD_ID,
+  sourceUrl: () => process.env.GHL_META_SOURCE_URL_FIELD_ID,
+} as const;
+
 interface GhlConfig {
   token?: string;
   calendarId?: string;
@@ -164,6 +170,59 @@ export interface LiveAppointment {
   status: string;
 }
 
+export interface LifecycleContact {
+  id: string;
+  email: string | null;
+  phone: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  trackingConsent: boolean;
+  fbc: string | null;
+  fbp: string | null;
+  sourceUrl: string | null;
+}
+
+/** Read the minimum consent and match data required for CRM-to-Meta outcomes. */
+export async function getLifecycleContact(contactId: string): Promise<LifecycleContact | null> {
+  if (!config().live) return null;
+  const response = await fetch(`${BASE}/contacts/${encodeURIComponent(contactId)}`, {
+    headers: headers(),
+    cache: 'no-store',
+  });
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`GHL contact read failed: ${response.status} ${await safeText(response)}`);
+  }
+  const payload = (await response.json()) as { contact?: Record<string, unknown> };
+  const contact = payload.contact;
+  if (!contact) return null;
+  const customFields = Array.isArray(contact.customFields)
+    ? (contact.customFields as Array<{ id?: string; value?: unknown }>)
+    : [];
+  const customValue = (id?: string): string | null => {
+    if (!id) return null;
+    const value = customFields.find((entry) => entry.id === id)?.value;
+    return typeof value === 'string' && value.trim() ? value.trim() : null;
+  };
+  const fbclid = customValue(CONTACT_FIELDS.fbclid);
+  const addedAt = typeof contact.dateAdded === 'string' ? new Date(contact.dateAdded).getTime() : NaN;
+  const reconstructedFbc =
+    fbclid && Number.isFinite(addedAt) ? `fb.1.${Math.floor(addedAt)}.${fbclid}` : null;
+
+  return {
+    id: contactId,
+    email: typeof contact.email === 'string' ? contact.email : null,
+    phone: typeof contact.phone === 'string' ? contact.phone : null,
+    firstName: typeof contact.firstName === 'string' ? contact.firstName : null,
+    lastName: typeof contact.lastName === 'string' ? contact.lastName : null,
+    trackingConsent:
+      Array.isArray(contact.tags) && (contact.tags as unknown[]).includes('meta-consented'),
+    fbc: customValue(OPTIONAL_META_FIELDS.fbc()) ?? reconstructedFbc,
+    fbp: customValue(OPTIONAL_META_FIELDS.fbp()),
+    sourceUrl: customValue(OPTIONAL_META_FIELDS.sourceUrl()),
+  };
+}
+
 /** Read the current GHL event before a Wallet update so moved/cancelled calls never get stale reminders. */
 export async function getLiveAppointment(appointmentId: string): Promise<LiveAppointment | null> {
   if (!config().live) return null;
@@ -280,6 +339,9 @@ async function upsertContact(input: BookingSubmit): Promise<string> {
     field(CONTACT_FIELDS.utmContent, input.utmContent),
     field(CONTACT_FIELDS.utmTerm, input.utmTerm),
     field(CONTACT_FIELDS.fbclid, input.fbclid),
+    optionalField(OPTIONAL_META_FIELDS.fbc(), input.fbc),
+    optionalField(OPTIONAL_META_FIELDS.fbp(), input.fbp),
+    optionalField(OPTIONAL_META_FIELDS.sourceUrl(), input.eventSourceUrl),
   ].filter((value): value is { id: string; field_value: string } => Boolean(value));
   const res = await fetch(`${BASE}/contacts/upsert`, {
     method: 'POST',
@@ -307,6 +369,13 @@ async function upsertContact(input: BookingSubmit): Promise<string> {
   const id = data.contact?.id ?? data.id;
   if (!id) throw new Error('GHL contact upsert returned no id');
   return id;
+}
+
+function optionalField(
+  id: string | undefined,
+  value?: string,
+): { id: string; field_value: string } | null {
+  return id ? field(id, value) : null;
 }
 
 function field(id: string, value?: string): { id: string; field_value: string } | null {
