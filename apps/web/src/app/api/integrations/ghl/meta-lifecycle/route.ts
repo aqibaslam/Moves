@@ -18,6 +18,21 @@ const requestSchema = z
     occurredAt: z.string().datetime({ offset: true }).optional(),
     value: z.coerce.number().positive().optional(),
     currency: z.string().trim().length(3).default('GBP'),
+    trackingConsent: z
+      .union([z.boolean(), z.enum(['true', 'false', 'yes', 'no', '1', '0'])])
+      .optional()
+      .transform((value) =>
+        typeof value === 'boolean' ? value : ['true', 'yes', '1'].includes(value ?? ''),
+      ),
+    email: z.string().trim().email().optional(),
+    phone: z.string().trim().min(6).max(32).optional(),
+    firstName: z.string().trim().max(100).optional(),
+    lastName: z.string().trim().max(100).optional(),
+    fbc: z.string().trim().max(500).optional(),
+    fbp: z.string().trim().max(500).optional(),
+    fbclid: z.string().trim().max(500).optional(),
+    contactCreatedAt: z.string().datetime({ offset: true }).optional(),
+    sourceUrl: z.string().trim().url().max(2_000).optional(),
   })
   .superRefine((value, context) => {
     if (!value.eventId && !value.appointmentId && !value.opportunityId) {
@@ -48,6 +63,12 @@ function stableEventId(input: z.infer<typeof requestSchema>): string {
   return `moves:${input.event}:${base}`.slice(0, 160);
 }
 
+function reconstructedFbc(fbclid?: string, contactCreatedAt?: string): string | null {
+  if (!fbclid || !contactCreatedAt) return null;
+  const timestamp = new Date(contactCreatedAt).getTime();
+  return Number.isFinite(timestamp) ? `fb.1.${Math.floor(timestamp)}.${fbclid}` : null;
+}
+
 export async function POST(request: Request) {
   if (!authorised(request)) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
@@ -61,7 +82,28 @@ export async function POST(request: Request) {
     );
   }
 
-  const contact = await getLifecycleContact(parsed.data.contactId);
+  let contact = null;
+  try {
+    contact = await getLifecycleContact(parsed.data.contactId);
+  } catch (error) {
+    // Some least-privilege booking tokens can write contacts but not read them.
+    // Authenticated workflows may supply the same minimal fields in the request.
+    console.warn('[meta-lifecycle] GHL contact lookup unavailable; using signed workflow data', {
+      event: parsed.data.event,
+      error: error instanceof Error ? error.message.split('{')[0].trim() : 'unknown',
+    });
+  }
+  contact ??= {
+    id: parsed.data.contactId,
+    email: parsed.data.email ?? null,
+    phone: parsed.data.phone ?? null,
+    firstName: parsed.data.firstName ?? null,
+    lastName: parsed.data.lastName ?? null,
+    trackingConsent: parsed.data.trackingConsent,
+    fbc: parsed.data.fbc ?? reconstructedFbc(parsed.data.fbclid, parsed.data.contactCreatedAt),
+    fbp: parsed.data.fbp ?? null,
+    sourceUrl: parsed.data.sourceUrl ?? null,
+  };
   if (!contact) {
     return NextResponse.json({ ok: false, error: 'Contact not found' }, { status: 404 });
   }
