@@ -16,8 +16,8 @@ export default function SignupPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="su__photo"
-          src="/images/about-hero-lady.png"
-          alt="Smiling woman with a bright, confident smile"
+          src="/images/ca-hero-portrait.png"
+          alt="Smiling woman holding her clear MOVES aligner"
         />
         <div className="su__scrim" aria-hidden="true" />
 

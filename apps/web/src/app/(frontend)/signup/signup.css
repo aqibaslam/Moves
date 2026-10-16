@@ -38,7 +38,7 @@
 
 .su__photo {
   object-fit: cover;
-  object-position: 49% 44%;
+  object-position: 50% 40%;
   transform: scale(1.002);
 }
 
@@ -337,7 +337,7 @@
 
   /* about-hero-lady.png: the smile sits ~42% down the portrait, so centre the
      short mobile band lower than the old photo needed to keep eyes + smile in frame. */
-  .su__photo { object-position: 49% 40%; }
+  .su__photo { object-position: 50% 32%; }
 
   .su__scrim {
     background: linear-gradient(180deg, rgb(9 22 32 / 0.46) 0%, rgb(9 22 32 / 0) 45%);
