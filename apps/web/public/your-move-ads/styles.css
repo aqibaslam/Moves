@@ -1,0 +1,204 @@
+/* ============================================================
+   MOVES — "Your Move" ads landing page.
+   Built section-by-section against the Figma file "Move Ads - Landing
+   Page" (node 1:2078). Class names (mp-*) mirror the Figma layer names
+   1:1 so each block here maps straight back to its source frame.
+
+   Brand tokens: navy #091620, coral #ed3b44 — same values already used
+   site-wide (signup, booking). Fonts: Public Sans (body/UI, already
+   used across the site) + Questrial (display headings, new to this
+   page — loaded via Google Fonts link in page.tsx).
+   ============================================================ */
+
+:root {
+  --mv-navy: #091620;
+  --mv-coral: #ed3b44;
+}
+
+.mp-ads-page {
+  font-family: var(--font-moves-body), 'Public Sans', system-ui, sans-serif;
+  color: var(--mv-navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+.mp-ads-page img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- shared button ---------- */
+.mp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mv-coral);
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 140ms;
+}
+.mp-btn:hover {
+  background: #e0313a;
+}
+
+/* ---------- header ---------- */
+.mp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 60px;
+  background: var(--mv-navy);
+}
+.mp-head-logo {
+  display: flex;
+  align-items: center;
+}
+.mp-btn--head {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  letter-spacing: -0.07px;
+}
+
+/* ---------- hero ---------- */
+.mp-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 836px;
+  overflow: hidden;
+  background: var(--mv-navy);
+}
+.mp-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% 30%;
+}
+.mp-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(9, 22, 32, 0.62) 0%,
+    rgba(9, 22, 32, 0.38) 34%,
+    rgba(9, 22, 32, 0.08) 58%,
+    rgba(9, 22, 32, 0) 70%
+  );
+}
+
+.mp-h3-c {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 660px;
+  padding: 0 60px;
+}
+
+.mp-chip {
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.mp-hero-title {
+  margin: 23px 0 0;
+  font-family: var(--font-mp-questrial), Questrial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(42px, 5.6vw, 74.56px);
+  line-height: 0.9;
+  letter-spacing: -2.6px;
+  color: #fff;
+}
+
+.mp-hero-sub {
+  margin: 20px 0 0;
+  max-width: 420px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+}
+
+.mp-h3-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mp-h3-meta li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.mp-h3-meta li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fff;
+}
+.mp-h3-meta li:first-child::before {
+  display: none;
+}
+
+.mp-h3-cta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin: 26px 0 0;
+}
+.mp-btn--hero {
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 26px;
+  font-size: 16px;
+  letter-spacing: -0.08px;
+}
+.mp-hero-microcopy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: -0.34px;
+  color: #fff;
+}
+
+/* ---------- mobile (Figma mobile frame is 390px) ---------- */
+@media (max-width: 760px) {
+  .mp-head {
+    padding: 0 20px;
+  }
+  .mp-hero {
+    min-height: auto;
+    padding: 96px 0 48px;
+  }
+  .mp-h3-c {
+    padding: 0 20px;
+    max-width: none;
+  }
+  .mp-hero-sub {
+    max-width: none;
+  }
+}
