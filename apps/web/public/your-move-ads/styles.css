@@ -1108,12 +1108,27 @@ header.mp-head {
     padding: 96px 0 56px;
   }
   .mp-hero-bg {
-    /* This box is height-constrained (narrow+short), so cover crops ~50%
-       of the photo's width — unlike desktop, where it's width-constrained
-       and barely crops horizontally at all. A LOW x% here shows the LEFT
-       half of the source (the face), pushing the aligner case (further
-       right in the source) out of frame instead of under the text. */
-    object-position: 18% 20%;
+    /* This box is height-constrained (narrow+short), so cover crops a
+       large chunk of the photo's width — unlike desktop, where it's
+       width-constrained and barely crops horizontally. Exactly how much
+       (and which half) shifts with viewport width across this whole
+       breakpoint range, so don't chase an exact crop point — bias toward
+       the face and let the fuller scrim below (not just a left-to-right
+       fade) carry legibility regardless of what lands under the text. */
+    object-position: 30% 20%;
+  }
+  .mp-hero-scrim,
+  .mp-fin-scrim {
+    /* Desktop's left-to-right fade assumes text sits in a left column
+       next to a clear right side. On mobile the text spans the full
+       width, so a full, fairly uniform wash instead — legible no matter
+       which part of the photo ends up underneath. */
+    background: linear-gradient(
+      180deg,
+      rgba(9, 22, 32, 0.55) 0%,
+      rgba(9, 22, 32, 0.68) 45%,
+      rgba(9, 22, 32, 0.8) 100%
+    );
   }
   .mp-h3-c {
     padding: 0 20px;
@@ -1127,7 +1142,7 @@ header.mp-head {
     min-height: auto;
   }
   .mp-fin-pic {
-    object-position: 80% 15%;
+    object-position: 35% 20%;
   }
 
   .mp-fmx {
