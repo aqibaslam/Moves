@@ -6,73 +6,142 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- scroll-reveal ---------- */
+  /* ---------- scroll reveal (hero excluded: first paint must be immediate) ---------- */
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    // Deliberately excludes the hero (header's own section): it's the
-    // first thing a visitor sees with no scroll required, so it must
-    // render immediately — never start hidden and wait on a transition.
-    var revealSelectors = [
-      '.mp-head .mp-chip',
-      '.mp-head .mp-h2',
-      '.mp-fx',
+    var groups = [
+      '.mp-sec .mp-head > *',
       '.mp-fm-shot',
+      '.mp-fx',
       '.mp-vgrid > li',
       '.mp-tl-row',
-      '.mp-vs3-c',
+      '.mp-vs-c',
+      '.mp-center-cta',
+      '.mp-tabs',
       '.mp-p3',
+      '.mp-p3-cta',
       '.mp-faq-l',
       '.mp-q',
       '.mp-fin-in > *',
-      '.mp-ft2-cta',
+      '.mp-ft-cta',
     ];
-    var targets = root.querySelectorAll(revealSelectors.join(','));
-    if (targets.length) {
-      targets.forEach(function (el, i) {
-        el.setAttribute('data-reveal', '');
-        // Small stagger within a row/grid so groups don't pop in as one block.
-        el.style.transitionDelay = Math.min(i % 6, 5) * 70 + 'ms';
-      });
-      root.classList.add('mp-reveal-ready');
+    var targets = root.querySelectorAll(groups.join(','));
+    targets.forEach(function (el) {
+      el.setAttribute('data-reveal', '');
+      var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.transitionDelay = Math.min(sibs, 4) * 80 + 'ms';
+    });
+    root.classList.add('mp-reveal-ready');
 
-      var io = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('mp-revealed');
-              io.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
-      );
-      targets.forEach(function (el) {
-        io.observe(el);
-      });
-    }
-  }
-
-  /* ---------- "Find your Move" quiz: picking an option updates the result copy ---------- */
-  var quiz = root.querySelector('#mp-quiz');
-  if (quiz) {
-    var headline = quiz.querySelector('#mp-fr-headline');
-    var labels = {
-      drifted: 'A tooth or two? That’s a MOVES ONE.',
-      gaps: 'Small gaps close fast with MOVES CORE.',
-      'out-of-line': 'A few teeth out of line? MOVES CORE.',
-      crowding: 'Crowding and bite — that’s MOVES COMPLETE.',
-      unsure: 'Not sure yet? The free call will tell you.',
-    };
-    quiz.addEventListener('change', function (e) {
-      var input = e.target;
-      if (!input || input.name !== 'concern') return;
-      if (headline && labels[input.value]) {
-        headline.textContent = labels[input.value];
-      }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('mp-revealed');
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    );
+    targets.forEach(function (el) {
+      io.observe(el);
     });
   }
 
-  /* ---------- video testimonial cards: no video source yet, keep inert ---------- */
-  // Intentionally no click handler — these play buttons are a visual
-  // affordance only until real video URLs are supplied for Carla / Jade /
-  // Darcy / Chuko. Wire a lightbox here once they exist.
+  /* ---------- price tabs (mobile/tablet) ---------- */
+  var tabs = root.querySelectorAll('.mp-tab');
+  var cards = root.querySelectorAll('.mp-p3');
+  function setTier(tier) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-tier') === tier;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    cards.forEach(function (c) {
+      c.classList.toggle('is-active', c.getAttribute('data-tier') === tier);
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () {
+      setTier(t.getAttribute('data-tier'));
+    });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus();
+      setTier(next.getAttribute('data-tier'));
+    });
+  });
+
+  /* ---------- "Find your Move" quiz ---------- */
+  var quiz = root.querySelector('#mp-quiz');
+  if (!quiz) return;
+
+  var TIERS = {
+    one: {
+      name: 'ONE',
+      level: 1,
+      amt: '£63',
+      up: '£1,895',
+      copy: 'For the one or two teeth that wandered off after braces. The shortest Move.',
+    },
+    core: {
+      name: 'CORE',
+      level: 2,
+      amt: '£78',
+      up: '£2,350',
+      copy: 'For the gap, the crowding or the tooth you’ve noticed in photos for years.',
+    },
+    complete: {
+      name: 'COMPLETE',
+      level: 3,
+      amt: '£107',
+      up: '£3,200',
+      copy: 'Been told you’d need braces? Crowding and bite, corrected without them.',
+    },
+  };
+  var MAP = { one: 'one', core: 'core', 'core-line': 'core', complete: 'complete' };
+  var CONFIRM = ' Your MOVES expert confirms yours on a free video call.';
+
+  var box = quiz.querySelector('.mp-fr');
+  var h = quiz.querySelector('#mp-fr-h');
+  var bars = quiz.querySelector('#mp-fr-bars');
+  var copy = quiz.querySelector('#mp-fr-copy');
+  var amt = quiz.querySelector('#mp-fr-amt');
+  var sub = quiz.querySelector('#mp-fr-sub');
+  var cta = quiz.querySelector('#mp-fr-cta');
+  var chosen = null;
+
+  quiz.addEventListener('change', function (e) {
+    var input = e.target;
+    if (!input || input.name !== 'concern') return;
+    chosen = MAP[input.value] || null;
+    var t = chosen && TIERS[chosen];
+
+    if (t) {
+      h.innerHTML = 'MOVES <span>' + t.name + '</span>';
+      bars.setAttribute('data-level', String(t.level));
+      copy.textContent = t.copy + CONFIRM;
+      amt.textContent = t.amt;
+      sub.textContent = 'a month, or ' + t.up + ' upfront';
+    } else {
+      h.innerHTML = 'Your expert <span>will confirm</span>';
+      bars.setAttribute('data-level', '0');
+      copy.textContent = 'Three Moves, three published prices.' + CONFIRM;
+      amt.textContent = '£63';
+      sub.textContent = 'a month, to start';
+    }
+
+    if (box && !reduceMotion) {
+      box.classList.remove('is-updated');
+      void box.offsetWidth;
+      box.classList.add('is-updated');
+    }
+  });
+
+  if (cta) {
+    cta.addEventListener('click', function () {
+      if (chosen) setTier(chosen);
+    });
+  }
 })();

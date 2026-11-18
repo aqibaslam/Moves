@@ -1,468 +1,382 @@
-<header class="mp-head">
-  <a class="mp-head-logo" href="/your-move" aria-label="MOVES — home">
+<!-- Inline SVG sprite: icons + teeth illustrations used across the page -->
+<svg class="mp-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3.5l1.7 5 5 1.7-5 1.7-1.7 5-1.7-5-5-1.7 5-1.7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M18.5 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10h18M6.5 14.5H10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-sign" viewBox="0 0 24 24"><path d="M3 15.5c2.1-4.3 3.8-6.6 5-6.6 1.6 0 .3 5.9 1.9 5.9 1.3 0 2.1-3.4 3.3-3.4 1 0 1.1 2.3 2.3 2.3.9 0 1.7-1 2.6-1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19.5h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12.5" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 10.4l5-2.7v8.6l-5-2.7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 9V6.2C4 5 5 4 6.2 4H9M15 4h2.8C19 4 20 5 20 6.2V9M20 15v2.8c0 1.2-1 2.2-2.2 2.2H15M9 20H6.2C5 20 4 19 4 17.8V15M7.5 12h9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></symbol>
+
+  <!-- Teeth illustrations (viewBox 96x44). .t = tooth, .h = highlighted tooth -->
+  <symbol id="t-drift" viewBox="0 0 96 44">
+    <rect class="mpt" x="5" y="8" width="12" height="26" rx="5.5"/><rect class="mpt" x="18" y="6" width="13" height="29" rx="6"/><rect class="mpt" x="32" y="4" width="15" height="33" rx="7"/><rect class="mpt" x="48" y="4" width="15" height="33" rx="7"/>
+    <rect class="mpt mph" x="64" y="6" width="13" height="29" rx="6" transform="rotate(14 70.5 20.5) translate(2 5)"/><rect class="mpt" x="79" y="8" width="12" height="26" rx="5.5"/>
+  </symbol>
+  <symbol id="t-gaps" viewBox="0 0 96 44">
+    <rect class="mpt" x="2" y="8" width="11" height="26" rx="5"/><rect class="mpt" x="15" y="6" width="12" height="29" rx="5.5"/><rect class="mpt mph" x="31" y="4" width="14" height="33" rx="6.5"/><rect class="mpt mph" x="49" y="4" width="14" height="33" rx="6.5"/>
+    <rect class="mpt" x="67" y="6" width="12" height="29" rx="5.5"/><rect class="mpt" x="81" y="8" width="11" height="26" rx="5"/>
+  </symbol>
+  <symbol id="t-line" viewBox="0 0 96 44">
+    <rect class="mpt" x="5" y="8" width="12" height="26" rx="5.5"/><rect class="mpt" x="18" y="6" width="13" height="29" rx="6" transform="rotate(-8 24.5 20.5)"/><rect class="mpt" x="32" y="2" width="15" height="33" rx="7"/>
+    <rect class="mpt mph" x="48" y="7" width="15" height="34" rx="7" transform="rotate(6 55.5 24)"/><rect class="mpt" x="64" y="6" width="13" height="29" rx="6"/><rect class="mpt" x="78" y="8" width="12" height="26" rx="5.5"/>
+  </symbol>
+  <symbol id="t-bite" viewBox="0 0 96 44">
+    <rect class="mpt mph" x="24" y="24" width="9" height="15" rx="4"/><rect class="mpt mph" x="33" y="25" width="10" height="15" rx="4.5"/><rect class="mpt mph" x="43" y="25" width="10" height="15" rx="4.5"/><rect class="mpt mph" x="53" y="25" width="10" height="15" rx="4.5"/><rect class="mpt mph" x="63" y="24" width="9" height="15" rx="4"/>
+    <rect class="mpt" x="5" y="6" width="12" height="26" rx="5.5"/><rect class="mpt" x="17" y="4" width="13" height="29" rx="6"/><rect class="mpt" x="28" y="2" width="15" height="31" rx="7" transform="rotate(-5 35.5 17.5)"/>
+    <rect class="mpt" x="41" y="2" width="15" height="31" rx="7" transform="rotate(5 48.5 17.5)"/><rect class="mpt" x="56" y="4" width="13" height="29" rx="6"/><rect class="mpt" x="70" y="6" width="12" height="26" rx="5.5"/>
+    <path class="mptl" d="M20 41.5h56"/>
+  </symbol>
+  <symbol id="t-unsure" viewBox="0 0 96 44">
+    <g class="mptd"><rect x="5" y="8" width="12" height="26" rx="5.5"/><rect x="18" y="6" width="13" height="29" rx="6"/><rect x="32" y="4" width="15" height="33" rx="7"/><rect x="48" y="4" width="15" height="33" rx="7"/><rect x="64" y="6" width="13" height="29" rx="6"/><rect x="78" y="8" width="12" height="26" rx="5.5"/></g>
+  </symbol>
+</svg>
+
+<header class="mp-top">
+  <a class="mp-top-logo" href="/your-move" aria-label="MOVES home">
     <img src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="108" height="24" />
   </a>
-  <a class="mp-btn mp-btn--head" href="/book">Book a free consultation</a>
+  <a class="mp-btn mp-btn--sm" href="/book">
+    <span class="mp-only-desk">Book a free consultation</span><span class="mp-only-mob">Free consultation</span>
+  </a>
 </header>
 
+<!-- ===== 01 Hero ===== -->
 <section class="mp-hero" aria-labelledby="mp-hero-title">
-  <img
-    class="mp-hero-bg"
-    src="/your-move-ads/assets/hero-bg.jpg"
-    alt="A woman in sunglasses opening her MOVES clear aligner case"
-  />
-  <div class="mp-hero-scrim" aria-hidden="true"></div>
-
-  <div class="mp-h3-c">
-    <p class="mp-chip">MOVES Clear Aligners</p>
-
+  <div class="mp-hero-media">
+    <img
+      src="/your-move-ads/assets/hero-bg.jpg"
+      alt="A woman in sunglasses opening her MOVES clear aligner case"
+      width="2200" height="1667" fetchpriority="high"
+    />
+  </div>
+  <div class="mp-hero-in">
+    <p class="mp-eyebrow mp-eyebrow--light">MOVES Clear Aligners</p>
     <h1 id="mp-hero-title" class="mp-hero-title">Make your<br />Move.</h1>
-
     <p class="mp-hero-sub">
-      London&rsquo;s newest aligner brand. Every plan signed by a
-      dentist. First Movers in treatment now.
+      London&rsquo;s newest aligner brand. <strong>Every plan signed by a dentist.</strong>
+      First Movers in treatment now.
     </p>
-
-    <ul class="mp-h3-meta">
+    <ul class="mp-hero-meta">
       <li>GDC-registered</li>
       <li>Free video call</li>
       <li>From &pound;63/mo</li>
       <li>0% APR</li>
     </ul>
-
-    <div class="mp-h3-cta">
-      <a class="mp-btn mp-btn--hero" href="/book">Book free consultation</a>
-      <p class="mp-hero-microcopy">Free &middot; Takes 2 minutes<br />No obligation</p>
+    <div class="mp-hero-cta">
+      <a class="mp-btn" href="/book">Book free consultation</a>
+      <p class="mp-hero-micro">Free &middot; Takes 2 minutes<br class="mp-only-desk" /><span class="mp-only-mob"> &middot; </span>No obligation</p>
     </div>
   </div>
 </section>
 
 <!-- ===== Marquee ===== -->
-<div class="mp-mq" aria-hidden="true">
-  <div class="mp-mq-t">
+<div class="mp-mq" aria-label="What's included">
+  <div class="mp-mq-track">
     <ul class="mp-mq-list">
-      <li><strong>Whitening and retainers</strong> included</li>
-      <li>0% APR finance available</li>
-      <li>Scanned, fitted and finished in person</li>
-      <li><strong>Signed</strong> by your own GDC-registered dentist</li>
+      <li><svg class="mp-ico"><use href="#i-sparkle"/></svg><strong>Whitening and retainers</strong> included</li>
+      <li><svg class="mp-ico"><use href="#i-card"/></svg>0% APR finance available</li>
+      <li><svg class="mp-ico"><use href="#i-pin"/></svg>Scanned, fitted and finished in person</li>
+      <li><svg class="mp-ico"><use href="#i-sign"/></svg><span class="mp-mq-tag">Signed</span>By your own GDC-registered dentist</li>
     </ul>
-    <ul class="mp-mq-list">
-      <li><strong>Whitening and retainers</strong> included</li>
-      <li>0% APR finance available</li>
-      <li>Scanned, fitted and finished in person</li>
-      <li><strong>Signed</strong> by your own GDC-registered dentist</li>
+    <ul class="mp-mq-list" aria-hidden="true">
+      <li><svg class="mp-ico"><use href="#i-sparkle"/></svg><strong>Whitening and retainers</strong> included</li>
+      <li><svg class="mp-ico"><use href="#i-card"/></svg>0% APR finance available</li>
+      <li><svg class="mp-ico"><use href="#i-pin"/></svg>Scanned, fitted and finished in person</li>
+      <li><svg class="mp-ico"><use href="#i-sign"/></svg><span class="mp-mq-tag">Signed</span>By your own GDC-registered dentist</li>
     </ul>
   </div>
 </div>
 
-<!-- ===== First Movers (teeth-change quiz) ===== -->
-<section class="mp-fm" aria-labelledby="mp-fm-title">
+<!-- ===== 02 First Movers ===== -->
+<section class="mp-sec mp-fm" aria-labelledby="mp-fm-title">
   <div class="mp-head">
-    <p class="mp-chip mp-chip--dark">First Movers &middot; In treatment now</p>
-    <h2 id="mp-fm-title" class="mp-h2">Someone moves first.<br />Why not you.</h2>
+    <p class="mp-eyebrow">First Movers &middot; In treatment now</p>
+    <h2 id="mp-fm-title" class="mp-h2">Someone moves first.<br /><span class="mp-accent">Why not you.</span></h2>
   </div>
 
-  <div class="mp-fmx">
-    <form class="mp-fx" id="mp-quiz">
-      <p class="mp-fx-hint">Find your Move &middot; <span>Choose one</span></p>
-      <h3 class="mp-fx-q">What would you like to change?</h3>
+  <div class="mp-wrap mp-fmx">
+    <figure class="mp-fm-shot">
+      <img src="/your-move-ads/assets/first-movers.jpg" alt="A woman smiling, holding up her open MOVES aligner case" width="900" height="1125" loading="lazy" />
+    </figure>
 
-      <fieldset class="mp-fx-opts">
-        <legend class="sr-only">What would you like to change?</legend>
-        <label class="mp-opt">
-          <input type="radio" name="concern" value="drifted" />
-          <span>A tooth or two has drifted</span>
-        </label>
-        <label class="mp-opt">
-          <input type="radio" name="concern" value="gaps" />
-          <span>Small gaps</span>
-        </label>
-        <label class="mp-opt">
-          <input type="radio" name="concern" value="out-of-line" />
-          <span>A few teeth out of line</span>
-        </label>
-        <label class="mp-opt">
-          <input type="radio" name="concern" value="crowding" />
-          <span>Crowding, and my bite</span>
-        </label>
-        <label class="mp-opt">
-          <input type="radio" name="concern" value="unsure" />
-          <span>I&rsquo;m not sure yet</span>
-        </label>
+    <form class="mp-fx" id="mp-quiz" onsubmit="return false">
+      <div class="mp-fx-top">
+        <p class="mp-kick">Find your Move</p>
+        <p class="mp-fx-choose">Choose one</p>
+      </div>
+      <h3 class="mp-fx-q" id="mp-fx-q">What would you like to change?</h3>
+
+      <fieldset class="mp-fx-opts" aria-labelledby="mp-fx-q">
+        <label class="mp-opt"><input class="sr-only" type="radio" name="concern" value="one" /><span>A tooth or two has drifted</span><svg class="mp-teeth" viewBox="0 0 96 44"><use href="#t-drift"/></svg></label>
+        <label class="mp-opt"><input class="sr-only" type="radio" name="concern" value="core" /><span>Small gaps</span><svg class="mp-teeth" viewBox="0 0 96 44"><use href="#t-gaps"/></svg></label>
+        <label class="mp-opt"><input class="sr-only" type="radio" name="concern" value="core-line" /><span>A few teeth out of line</span><svg class="mp-teeth" viewBox="0 0 96 44"><use href="#t-line"/></svg></label>
+        <label class="mp-opt"><input class="sr-only" type="radio" name="concern" value="complete" /><span>Crowding, and my bite</span><svg class="mp-teeth" viewBox="0 0 96 44"><use href="#t-bite"/></svg></label>
+        <label class="mp-opt"><input class="sr-only" type="radio" name="concern" value="unsure" /><span>I&rsquo;m not sure yet</span><svg class="mp-teeth" viewBox="0 0 96 44"><use href="#t-unsure"/></svg></label>
       </fieldset>
 
-      <div class="mp-fr">
-        <p class="mp-fr-kick">Your Move</p>
-        <p class="mp-fr-headline" id="mp-fr-headline">Pick one above</p>
-        <div class="mp-fr-bars" aria-hidden="true"><i></i><i></i><i></i></div>
-        <p class="mp-fr-copy">
-          Three Moves, three published prices. Your MOVES expert confirms
-          yours on a free video call.
-        </p>
-        <div class="mp-fr-price">
-          <p class="mp-fr-amt">&pound;63<span>/mo</span></p>
-          <p class="mp-fr-sub">a month, to start</p>
-          <a class="mp-btn mp-btn--block" href="/book">See what&rsquo;s included</a>
+      <div class="mp-fr" aria-live="polite">
+        <div class="mp-fr-l">
+          <p class="mp-kick">Your Move</p>
+          <p class="mp-fr-h" id="mp-fr-h">Pick one <span>above</span></p>
+          <div class="mp-bars" id="mp-fr-bars" data-level="0" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="mp-fr-copy" id="mp-fr-copy">Three Moves, three published prices. Your MOVES expert confirms yours on a free video call.</p>
+        </div>
+        <div class="mp-fr-r">
+          <p class="mp-fr-amt" id="mp-fr-amt">&pound;63</p>
+          <p class="mp-fr-sub" id="mp-fr-sub">a month, to start</p>
+          <a class="mp-btn mp-btn--sm" href="#mp-prices" id="mp-fr-cta">See what&rsquo;s included</a>
         </div>
       </div>
     </form>
-
-    <figure class="mp-fm-shot">
-      <img
-        src="/your-move-ads/assets/first-movers.jpg"
-        alt="A woman smiling, holding up her open MOVES aligner case"
-      />
-    </figure>
   </div>
 </section>
 
-<!-- ===== Video reviews ===== -->
-<section class="mp-vr" aria-labelledby="mp-vr-title">
+<!-- ===== 03 Video reviews ===== -->
+<section class="mp-sec mp-vr" aria-labelledby="mp-vr-title">
   <div class="mp-head">
-    <p class="mp-chip mp-chip--dark">Teeth move. You move. Life moves.</p>
-    <h2 id="mp-vr-title" class="mp-h2">Made to move<br />with you.</h2>
+    <p class="mp-eyebrow">Teeth move. You move. Life moves.</p>
+    <h2 id="mp-vr-title" class="mp-h2">Made to move<br /><span class="mp-accent">with you.</span></h2>
   </div>
 
-  <ul class="mp-vgrid">
-    <li>
-      <button class="mp-vt" type="button" data-name="Carla">
-        <img src="/your-move-ads/assets/video-carla.jpg" alt="Carla, a MOVES First Mover" />
-        <span class="mp-vt-scrim" aria-hidden="true"></span>
-        <span class="mp-vt-play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5v14l11-7z" fill="#091620" /></svg>
-        </span>
-        <span class="mp-vt-b">
-          <strong>Carla</strong>
-          <span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span>
-        </span>
-      </button>
-    </li>
-    <li>
-      <button class="mp-vt" type="button" data-name="Jade">
-        <img src="/your-move-ads/assets/video-jade.jpg" alt="Jade, a MOVES First Mover" />
-        <span class="mp-vt-scrim" aria-hidden="true"></span>
-        <span class="mp-vt-play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5v14l11-7z" fill="#091620" /></svg>
-        </span>
-        <span class="mp-vt-b">
-          <strong>Jade</strong>
-          <span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span>
-        </span>
-      </button>
-    </li>
-    <li>
-      <button class="mp-vt" type="button" data-name="Darcy">
-        <img src="/your-move-ads/assets/video-darcy.jpg" alt="Darcy, a MOVES First Mover" />
-        <span class="mp-vt-scrim" aria-hidden="true"></span>
-        <span class="mp-vt-play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5v14l11-7z" fill="#091620" /></svg>
-        </span>
-        <span class="mp-vt-b">
-          <strong>Darcy</strong>
-          <span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span>
-        </span>
-      </button>
-    </li>
-    <li>
-      <button class="mp-vt" type="button" data-name="Chuko">
-        <img src="/your-move-ads/assets/video-chuko.jpg" alt="Chuko, a MOVES First Mover" />
-        <span class="mp-vt-scrim" aria-hidden="true"></span>
-        <span class="mp-vt-play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5v14l11-7z" fill="#091620" /></svg>
-        </span>
-        <span class="mp-vt-b">
-          <strong>Chuko</strong>
-          <span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span>
-        </span>
-      </button>
-    </li>
+  <ul class="mp-wrap mp-vgrid">
+    <li><div class="mp-vt"><img src="/your-move-ads/assets/video-carla.jpg" alt="Carla, a MOVES First Mover" width="760" height="1182" loading="lazy" /><span class="mp-vt-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span><div class="mp-vt-b"><strong>Carla</strong><span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span></div></div></li>
+    <li><div class="mp-vt"><img src="/your-move-ads/assets/video-jade.jpg" alt="Jade, a MOVES First Mover" width="760" height="1182" loading="lazy" /><span class="mp-vt-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span><div class="mp-vt-b"><strong>Jade</strong><span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span></div></div></li>
+    <li><div class="mp-vt"><img src="/your-move-ads/assets/video-darcy.jpg" alt="Darcy, a MOVES First Mover" width="760" height="1182" loading="lazy" /><span class="mp-vt-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span><div class="mp-vt-b"><strong>Darcy</strong><span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span></div></div></li>
+    <li><div class="mp-vt"><img src="/your-move-ads/assets/video-chuko.jpg" alt="Chuko, a MOVES First Mover" width="700" height="875" loading="lazy" /><span class="mp-vt-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span><div class="mp-vt-b"><strong>Chuko</strong><span class="mp-vt-tags"><span>First Mover</span><span>In treatment now</span></span></div></div></li>
   </ul>
 </section>
 
-<!-- ===== How it works ===== -->
-<section class="mp-hiw" aria-labelledby="mp-hiw-title">
+<!-- ===== 04 How it works ===== -->
+<section class="mp-sec mp-hiw" aria-labelledby="mp-hiw-title">
   <div class="mp-head">
-    <p class="mp-chip mp-chip--dark">How it works &middot; Six moves</p>
-    <h2 id="mp-hiw-title" class="mp-h2">Six moves.<br />One signature.</h2>
+    <p class="mp-eyebrow">How it works &middot; Six moves</p>
+    <h2 id="mp-hiw-title" class="mp-h2">Six moves.<br /><span class="mp-accent">One signature.</span></h2>
   </div>
 
-  <ol class="mp-tl-list">
-    <li class="mp-tl-row">
-      <div class="mp-tl-rail"><span class="mp-tl-n">1</span></div>
-      <div class="mp-tl-c">
-        <h3 class="mp-tl-h">Book &middot; Consult</h3>
-        <p class="mp-tl-p">
-          Two minutes online to book a free video consultation. A MOVES
-          expert reviews your smile with you on video, recommends your Move
-          and talks you through the price.
-        </p>
-        <ul class="mp-ticks">
-          <li>Free</li>
-          <li>Video call</li>
-          <li>Monthly or upfront</li>
-        </ul>
-      </div>
+  <ol class="mp-wrap mp-tl">
+    <li class="mp-tl-row is-first">
       <figure class="mp-tl-fig">
-        <img src="/your-move-ads/assets/step-1-consult.jpg" alt="A woman on a video call from her laptop" />
-        <span class="mp-tl-scrim" aria-hidden="true"></span>
-        <div class="mp-tl-glass">
-          <div class="mp-gcard">
-            <strong>Free video consultation</strong>
-            <span>2 minutes</span>
-          </div>
+        <img src="/your-move-ads/assets/step-1-consult.jpg" alt="A woman on a video call from her laptop" width="1100" height="825" loading="lazy" />
+        <div class="mp-glass">
+          <div class="mp-gcard"><span class="mp-gi"><svg><use href="#i-video"/></svg></span><span><strong>Free video consultation</strong><small>2 minutes</small></span></div>
           <div class="mp-gchips"><span>Free</span><span>Online</span></div>
         </div>
       </figure>
-    </li>
-
-    <li class="mp-tl-row mp-tl-row--rev">
-      <div class="mp-tl-rail mp-tl-rail--light"><span class="mp-tl-n mp-tl-n--light">2</span></div>
+      <div class="mp-tl-rail" aria-hidden="true"><span class="mp-tl-n">1</span></div>
       <div class="mp-tl-c">
-        <h3 class="mp-tl-h">Scan &middot; Move</h3>
-        <p class="mp-tl-p">
-          We connect you with a partner dentist near you for a 3D scan.
-          Your dentist maps every movement and signs your plan. Made to your
-          plan, fitted in person.
-        </p>
-        <ul class="mp-ticks">
-          <li>Partner dentist</li>
-          <li>3D scan</li>
-          <li>Signed plan</li>
-        </ul>
+        <h3 class="mp-tl-h">Book &middot; Consult</h3>
+        <p class="mp-tl-p">Two minutes online to book a free video consultation. A MOVES expert reviews your smile with you on video, recommends your Move and talks you through the price.</p>
+        <ul class="mp-ticks"><li><svg><use href="#i-check"/></svg>Free</li><li><svg><use href="#i-check"/></svg>Video call</li><li><svg><use href="#i-check"/></svg>Monthly or upfront</li></ul>
       </div>
+    </li>
+    <li class="mp-tl-row">
       <figure class="mp-tl-fig">
-        <img src="/your-move-ads/assets/step-2-dentist.jpg" alt="A MOVES partner dentist smiling" />
-        <span class="mp-tl-scrim" aria-hidden="true"></span>
-        <div class="mp-tl-glass">
-          <div class="mp-gcard">
-            <strong>3D scan</strong>
-            <span>Partner dentist</span>
-          </div>
+        <img src="/your-move-ads/assets/step-2-dentist.jpg" alt="A MOVES partner dentist smiling" width="1100" height="825" loading="lazy" />
+        <div class="mp-glass">
+          <div class="mp-gcard"><span class="mp-gi"><svg><use href="#i-scan"/></svg></span><span><strong>3D scan</strong><small>Partner dentist</small></span></div>
           <div class="mp-gchips"><span>Fitted in person</span><span>Signed plan</span></div>
         </div>
       </figure>
-    </li>
-
-    <li class="mp-tl-row">
-      <div class="mp-tl-rail mp-tl-rail--light"><span class="mp-tl-n mp-tl-n--light">3</span></div>
+      <div class="mp-tl-rail" aria-hidden="true"><span class="mp-tl-n">2</span></div>
       <div class="mp-tl-c">
-        <h3 class="mp-tl-h">Check &middot; Keep</h3>
-        <p class="mp-tl-p">
-          We check in at every tray and adjust if your teeth ask for it.
-          Retainers and whitening are included, so the smile you finish with
-          is the one you keep.
-        </p>
-        <ul class="mp-ticks">
-          <li>Every tray</li>
-          <li>Retainers included</li>
-          <li>Whitening included</li>
-        </ul>
+        <h3 class="mp-tl-h">Scan &middot; Move</h3>
+        <p class="mp-tl-p">We connect you with a partner dentist near you for a 3D scan. Your dentist maps every movement and signs your plan. Made to your plan, fitted in person.</p>
+        <ul class="mp-ticks"><li><svg><use href="#i-check"/></svg>Partner dentist</li><li><svg><use href="#i-check"/></svg>3D scan</li><li><svg><use href="#i-check"/></svg>Signed plan</li></ul>
       </div>
+    </li>
+    <li class="mp-tl-row is-last">
       <figure class="mp-tl-fig">
-        <img src="/your-move-ads/assets/step-3-keep.jpg" alt="A woman laughing, holding her clear aligner" />
-        <span class="mp-tl-scrim" aria-hidden="true"></span>
-        <div class="mp-tl-glass">
-          <div class="mp-gcard">
-            <strong>Every tray</strong>
-            <span>We contact you</span>
-          </div>
+        <img src="/your-move-ads/assets/step-3-keep.jpg" alt="A woman laughing, holding her clear aligner" width="1100" height="825" loading="lazy" />
+        <div class="mp-glass">
+          <div class="mp-gcard"><span class="mp-gi"><svg><use href="#i-sparkle"/></svg></span><span><strong>Every tray</strong><small>We contact you</small></span></div>
           <div class="mp-gchips"><span>Adjusted if needed</span><span>Yours to keep</span></div>
         </div>
       </figure>
+      <div class="mp-tl-rail" aria-hidden="true"><span class="mp-tl-n">3</span></div>
+      <div class="mp-tl-c">
+        <h3 class="mp-tl-h">Check &middot; Keep</h3>
+        <p class="mp-tl-p">We check in at every tray and adjust if your teeth ask for it. Retainers and whitening are included, so the smile you finish with is the one you keep.</p>
+        <ul class="mp-ticks"><li><svg><use href="#i-check"/></svg>Every tray</li><li><svg><use href="#i-check"/></svg>Retainers included</li><li><svg><use href="#i-check"/></svg>Whitening included</li></ul>
+      </div>
     </li>
   </ol>
 </section>
 
-<!-- ===== Comparison ===== -->
-<section class="mp-cmp" aria-labelledby="mp-cmp-title">
+<!-- ===== 05 Comparison ===== -->
+<section class="mp-sec mp-cmp" aria-labelledby="mp-cmp-title">
   <div class="mp-head">
-    <p class="mp-chip mp-chip--dark">Aftercare &middot; The difference</p>
-    <h2 id="mp-cmp-title" class="mp-h2">Others post.<br />We stay.</h2>
+    <p class="mp-eyebrow">Aftercare &middot; The difference</p>
+    <h2 id="mp-cmp-title" class="mp-h2">Others post.<br /><span class="mp-accent">We stay.</span></h2>
   </div>
 
-  <div class="mp-vs3-grid">
-    <div class="mp-vs3-c mp-vs3-c--moves">
-      <img class="mp-vs3-logo" src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="116" height="26" />
+  <div class="mp-wrap mp-vs">
+    <div class="mp-vs-c mp-vs-c--us">
+      <div class="mp-vs-top"><img src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="116" height="26" /></div>
       <ul>
-        <li><span class="mp-vs3-kick">When a tray feels off</span><p>Message us. A real person replies the same day.</p><span class="mp-yes" aria-hidden="true">&#10003;</span></li>
-        <li><span class="mp-vs3-kick">At every tray</span><p>A check-in from your MOVES team.</p><span class="mp-yes" aria-hidden="true">&#10003;</span></li>
-        <li><span class="mp-vs3-kick">If you fall behind</span><p>Your dentist adjusts your plan.</p><span class="mp-yes" aria-hidden="true">&#10003;</span></li>
-        <li><span class="mp-vs3-kick">After the reveal</span><p>We keep checking in. You&rsquo;re still a Mover.</p><span class="mp-yes" aria-hidden="true">&#10003;</span></li>
+        <li><span class="mp-vs-k">When a tray feels off</span><p><b>Message us.</b> A real person replies the same day.</p><span class="mp-vs-i mp-vs-i--yes"><svg><use href="#i-check"/></svg><span class="sr-only">Yes</span></span></li>
+        <li><span class="mp-vs-k">At every tray</span><p><b>A check-in</b> from your MOVES team.</p><span class="mp-vs-i mp-vs-i--yes"><svg><use href="#i-check"/></svg><span class="sr-only">Yes</span></span></li>
+        <li><span class="mp-vs-k">If you fall behind</span><p><b>Your dentist</b> adjusts your plan.</p><span class="mp-vs-i mp-vs-i--yes"><svg><use href="#i-check"/></svg><span class="sr-only">Yes</span></span></li>
+        <li><span class="mp-vs-k">After the reveal</span><p><b>We keep checking in.</b> You&rsquo;re still a Mover.</p><span class="mp-vs-i mp-vs-i--yes"><svg><use href="#i-check"/></svg><span class="sr-only">Yes</span></span></li>
       </ul>
     </div>
-    <div class="mp-vs3-c mp-vs3-c--others">
-      <h3>Most at-home brands</h3>
+    <div class="mp-vs-c mp-vs-c--them">
+      <div class="mp-vs-top"><h3>Most at-home brands</h3></div>
       <ul>
-        <li><span class="mp-vs3-kick">When a tray feels off</span><p>Raise a ticket. Wait.</p><span class="mp-no" aria-hidden="true">&#10005;</span></li>
-        <li><span class="mp-vs3-kick">At every tray</span><p>An automated reminder.</p><span class="mp-no" aria-hidden="true">&#10005;</span></li>
-        <li><span class="mp-vs3-kick">If you fall behind</span><p>Work it out yourself.</p><span class="mp-no" aria-hidden="true">&#10005;</span></li>
-        <li><span class="mp-vs3-kick">After the reveal</span><p>Order complete.</p><span class="mp-no" aria-hidden="true">&#10005;</span></li>
+        <li><span class="mp-vs-k">When a tray feels off</span><p><b>Raise a ticket.</b> Wait.</p><span class="mp-vs-i mp-vs-i--no"><svg><use href="#i-x"/></svg><span class="sr-only">No</span></span></li>
+        <li><span class="mp-vs-k">At every tray</span><p><b>An automated</b> reminder.</p><span class="mp-vs-i mp-vs-i--no"><svg><use href="#i-x"/></svg><span class="sr-only">No</span></span></li>
+        <li><span class="mp-vs-k">If you fall behind</span><p><b>Work it out</b> yourself.</p><span class="mp-vs-i mp-vs-i--no"><svg><use href="#i-x"/></svg><span class="sr-only">No</span></span></li>
+        <li><span class="mp-vs-k">After the reveal</span><p><b>Order</b> complete.</p><span class="mp-vs-i mp-vs-i--no"><svg><use href="#i-x"/></svg><span class="sr-only">No</span></span></li>
       </ul>
     </div>
   </div>
 
-  <a class="mp-btn mp-btn--hero mp-cmp-cta" href="/book">Book free consultation</a>
+  <div class="mp-center-cta"><a class="mp-btn" href="/book">Book free consultation</a></div>
 </section>
 
-<!-- ===== Prices ===== -->
-<section class="mp-pr" aria-labelledby="mp-pr-title">
+<!-- ===== 06 Prices ===== -->
+<section class="mp-sec mp-pr" id="mp-prices" aria-labelledby="mp-pr-title">
   <div class="mp-head">
-    <p class="mp-chip">Prices &middot; Three Moves</p>
+    <p class="mp-eyebrow">Prices &middot; Three Moves</p>
     <h2 id="mp-pr-title" class="mp-h2">Every price.<br /><span class="mp-accent">Published.</span></h2>
   </div>
 
-  <div class="mp-p3s">
-    <article class="mp-p3">
-      <h3>MOVES ONE</h3>
-      <p>For the one or two teeth that wandered off after braces. The shortest Move.</p>
-      <div class="mp-p3-pr">
-        <p class="mp-p3-amt">&pound;63<span>/mo</span></p>
-        <p class="mp-p3-upfront">or &pound;1,895 upfront</p>
-      </div>
-    </article>
+  <div class="mp-wrap">
+    <div class="mp-tabs" role="tablist" aria-label="Choose a Move">
+      <button class="mp-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="mp-p3-one" data-tier="one">One</button>
+      <button class="mp-tab" type="button" role="tab" aria-selected="false" aria-controls="mp-p3-core" data-tier="core">Core</button>
+      <button class="mp-tab" type="button" role="tab" aria-selected="false" aria-controls="mp-p3-complete" data-tier="complete">Complete</button>
+    </div>
 
-    <article class="mp-p3 mp-p3--signature">
-      <span class="mp-p3-tag">The signature Move</span>
-      <h3>MOVES CORE</h3>
-      <p>For the gap, the crowding or the tooth you&rsquo;ve noticed in photos for years.</p>
-      <div class="mp-p3-pr">
-        <p class="mp-p3-amt">&pound;78<span>/mo</span></p>
-        <p class="mp-p3-upfront">or &pound;2,350 upfront</p>
-      </div>
-    </article>
+    <div class="mp-p3s">
+      <article class="mp-p3 is-active" id="mp-p3-one" data-tier="one">
+        <svg class="mp-teeth mp-teeth--lg" viewBox="0 0 96 44" aria-hidden="true"><use href="#t-drift"/></svg>
+        <h3 class="mp-p3-n">MOVES <span>ONE</span></h3>
+        <p class="mp-p3-d">For the one or two teeth that <b>wandered off after braces</b>. The shortest Move.</p>
+        <div class="mp-p3-pr">
+          <p class="mp-p3-amt">&pound;63<span>/mo</span></p>
+          <p class="mp-p3-up">or &pound;1,895 upfront</p>
+        </div>
+      </article>
+      <article class="mp-p3" id="mp-p3-core" data-tier="core">
+        <span class="mp-p3-tag">The signature Move</span>
+        <svg class="mp-teeth mp-teeth--lg" viewBox="0 0 96 44" aria-hidden="true"><use href="#t-line"/></svg>
+        <h3 class="mp-p3-n">MOVES <span>CORE</span></h3>
+        <p class="mp-p3-d">For the gap, the crowding or <b>the tooth you&rsquo;ve noticed in photos for years</b>.</p>
+        <div class="mp-p3-pr">
+          <p class="mp-p3-amt">&pound;78<span>/mo</span></p>
+          <p class="mp-p3-up">or &pound;2,350 upfront</p>
+        </div>
+      </article>
+      <article class="mp-p3" id="mp-p3-complete" data-tier="complete">
+        <svg class="mp-teeth mp-teeth--lg" viewBox="0 0 96 44" aria-hidden="true"><use href="#t-bite"/></svg>
+        <h3 class="mp-p3-n">MOVES <span>COMPLETE</span></h3>
+        <p class="mp-p3-d">Been told you&rsquo;d need braces? <b>Crowding and bite, corrected</b> without them.</p>
+        <div class="mp-p3-pr">
+          <p class="mp-p3-amt">&pound;107<span>/mo</span></p>
+          <p class="mp-p3-up">or &pound;3,200 upfront</p>
+        </div>
+      </article>
+    </div>
 
-    <article class="mp-p3">
-      <h3>MOVES COMPLETE</h3>
-      <p>Been told you&rsquo;d need braces? Crowding and bite, corrected without them.</p>
-      <div class="mp-p3-pr">
-        <p class="mp-p3-amt">&pound;107<span>/mo</span></p>
-        <p class="mp-p3-upfront">or &pound;3,200 upfront</p>
-      </div>
-    </article>
-  </div>
-
-  <div class="mp-p3-cta">
-    <p>
-      Free &middot; Takes 2 minutes &middot; No obligation<br />
-      0% APR over up to 30 months &middot; Representative, subject to status
-    </p>
-    <a class="mp-btn mp-btn--hero" href="/book">Book free consultation</a>
-  </div>
-</section>
-
-<!-- ===== FAQ ===== -->
-<section class="mp-faq" aria-labelledby="mp-faq-title">
-  <div class="mp-faq-l">
-    <h2 id="mp-faq-title" class="mp-h2">Ask us anything.</h2>
-    <p>
-      Anything we haven&rsquo;t covered, ask on your video call. It&rsquo;s
-      free, and there&rsquo;s no such thing as a silly question about your
-      own teeth.
-    </p>
-  </div>
-
-  <div class="mp-faq-r">
-    <details class="mp-q" name="mp-faq" open>
-      <summary>You&rsquo;re new. Why should I trust you?</summary>
-      <p>
-        Fair question. Every plan is signed by a GDC-registered dentist,
-        every price is published, and the consultation is free. If aligners
-        can&rsquo;t do it, we&rsquo;ll tell you before you pay a thing.
-      </p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>How do I know if aligners are right for me?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>How long does treatment take?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>Do I need to see a dentist in person?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>Do they hurt?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>What do I actually have to do?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>Is whitening really included?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
-    <details class="mp-q" name="mp-faq">
-      <summary>How do I start?</summary>
-      <p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p>
-    </details>
+    <div class="mp-p3-cta">
+      <a class="mp-btn mp-btn--wide" href="/book">Book free consultation</a>
+      <p>Free &middot; Takes 2 minutes &middot; No obligation<br />0% APR over up to 30 months &middot; Representative, subject to status</p>
+    </div>
   </div>
 </section>
 
-<!-- ===== Final CTA ===== -->
+<!-- ===== 09 FAQ ===== -->
+<section class="mp-sec mp-faq" aria-labelledby="mp-faq-title">
+  <div class="mp-wrap mp-faq-in">
+    <div class="mp-faq-l">
+      <h2 id="mp-faq-title" class="mp-h2">Ask us anything.</h2>
+      <p>Anything we haven&rsquo;t covered, ask on your video call. It&rsquo;s free, and there&rsquo;s no such thing as a silly question about your own teeth.</p>
+    </div>
+    <div class="mp-faq-r">
+      <details class="mp-q" name="mp-faq" open>
+        <summary>You&rsquo;re new. Why should I trust you?<svg><use href="#i-chev"/></svg></summary>
+        <p>Fair question. Every plan is signed by a GDC-registered dentist, every price is published, and the consultation is free. If aligners can&rsquo;t do it, we&rsquo;ll tell you before you pay a thing.</p>
+      </details>
+      <details class="mp-q" name="mp-faq"><summary>How do I know if aligners are right for me?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>How long does treatment take?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>Do I need to see a dentist in person?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>Do they hurt?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>What do I actually have to do?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>Is whitening really included?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+      <details class="mp-q" name="mp-faq"><summary>How do I start?<svg><use href="#i-chev"/></svg></summary><p class="mp-q-tbc">Answer to come &mdash; ask on your free video call for now.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 Final CTA ===== -->
 <section class="mp-fin" aria-labelledby="mp-fin-title">
-  <img class="mp-fin-pic" src="/your-move-ads/assets/final-cta.jpg" alt="A woman in a white suit smiling as she puts in her MOVES aligner" />
-  <div class="mp-fin-scrim" aria-hidden="true"></div>
-
+  <div class="mp-fin-media">
+    <img src="/your-move-ads/assets/final-cta.jpg" alt="A woman in a white suit putting in her MOVES aligner" width="780" height="811" loading="lazy" />
+  </div>
   <div class="mp-fin-in">
-    <p class="mp-chip">First Movers &middot; Now booking</p>
-    <h2 id="mp-fin-title" class="mp-hero-title mp-fin-title">Your Move.</h2>
+    <p class="mp-eyebrow mp-eyebrow--light">First Movers &middot; Now booking</p>
+    <h2 id="mp-fin-title" class="mp-fin-title">Your Move.</h2>
 
     <div class="mp-fin-panel">
       <ul class="mp-fin-stats">
-        <li><span>From</span><strong>&pound;63/mo</strong></li>
-        <li><span>0% APR</span><strong>30 months</strong></li>
-        <li><span>Takes</span><strong>2 minutes</strong></li>
+        <li><span>From</span><strong>&pound;63<small>/mo</small></strong></li>
+        <li><span>0% APR</span><strong><em>30</em> <small>months</small></strong></li>
+        <li><span>Takes</span><strong><em>2</em> <small>minutes</small></strong></li>
       </ul>
       <div class="mp-fin-ring">
-        <p>Free video call</p>
-        <span>GDC-registered dentist</span>
+        <svg class="mp-ring" viewBox="0 0 180 180" aria-hidden="true">
+          <circle class="mp-ring-base" cx="90" cy="90" r="80" />
+          <circle class="mp-ring-grey" cx="90" cy="90" r="80" />
+          <circle class="mp-ring-coral" cx="90" cy="90" r="80" />
+        </svg>
+        <div class="mp-ring-t"><p>Free video call</p><span>GDC-registered dentist</span></div>
       </div>
     </div>
 
-    <p class="mp-fin-copy">
-      The consultation is free. The call shows what&rsquo;s possible. The
-      plan comes with its price. The only thing we can&rsquo;t do is book it
-      for you.
-    </p>
-    <p class="mp-hero-microcopy">Free &middot; Two minutes &middot; No obligation</p>
-    <a class="mp-btn mp-btn--hero" href="/book">Book free consultation</a>
+    <p class="mp-fin-copy">The consultation is free. The call shows what&rsquo;s possible. The plan comes with its price. <strong>The only thing we can&rsquo;t do is book it for you.</strong></p>
+    <a class="mp-btn" href="/book">Book free consultation</a>
+    <p class="mp-fin-micro">Free &middot; Two minutes &middot; No obligation</p>
   </div>
 </section>
 
 <!-- ===== Footer ===== -->
-<footer class="mp-ft2">
-  <div class="mp-ft2-top">
-    <div class="mp-ft2-logo">
-      <img src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="134" height="30" />
-      <span>Make your Move.</span>
+<footer class="mp-ft">
+  <div class="mp-wrap">
+    <div class="mp-ft-top">
+      <div class="mp-ft-brand">
+        <img src="/images/brand/moves-logo-milk.svg" alt="MOVES" width="134" height="30" />
+        <span>Make your Move.</span>
+      </div>
+      <nav class="mp-ft-nav" aria-label="Footer">
+        <a href="/terms">Terms</a>
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/privacy-policy">Refund policy</a>
+        <a href="/contact-us">Contact</a>
+      </nav>
     </div>
-    <nav class="mp-ft2-nav" aria-label="Footer">
-      <a href="/terms">Terms</a>
-      <a href="/privacy-policy">Privacy</a>
-      <a href="/privacy-policy">Refund policy</a>
-      <a href="/contact-us">Contact</a>
-    </nav>
-    <p class="mp-ft2-copy">&copy; 2026 MOVES</p>
-  </div>
 
-  <div class="mp-ft2-mid">
-    <div class="mp-ft2-legal">
-      <p>Free video consultation &middot; Every plan signed by a GDC-registered dentist</p>
-      <p>0% APR finance &middot; Whitening and retainers included</p>
-      <p>0% APR over up to 30 months &middot; Representative, subject to status</p>
+    <p class="mp-ft-copy">&copy; 2026 MOVES</p>
+
+    <div class="mp-ft-mid">
+      <div class="mp-ft-legal">
+        <p>Free video consultation &middot; Every plan signed by a GDC-registered dentist</p>
+        <p>0% APR finance &middot; Whitening and retainers included</p>
+        <p>0% APR over up to 30 months &middot; Representative, subject to status</p>
+      </div>
+      <ul class="mp-ft-marks">
+        <li><svg class="mp-ico"><use href="#i-sign"/></svg><span>GDC-registered</span></li>
+        <li><svg class="mp-ico"><use href="#i-pin"/></svg><span>Scanned, fitted and<br />finished in person</span></li>
+        <li><svg class="mp-ico"><use href="#i-card"/></svg><span>0% APR finance<br />available</span></li>
+      </ul>
     </div>
-    <ul class="mp-ft2-marks">
-      <li>GDC-registered</li>
-      <li>Scanned, fitted and<br />finished in person</li>
-      <li>0% APR finance<br />available</li>
-    </ul>
-  </div>
 
-  <div class="mp-ft2-cta">
-    <p>Straight teeth are the outcome.<br />The confidence to move is the point.</p>
-    <a class="mp-btn mp-btn--block mp-ft2-btn" href="/book">Book free consultation</a>
+    <div class="mp-ft-cta">
+      <p>Straight teeth are the outcome.<br />The confidence to move is the point.</p>
+      <a class="mp-btn mp-btn--xl" href="/book">Book free consultation</a>
+    </div>
   </div>
 </footer>

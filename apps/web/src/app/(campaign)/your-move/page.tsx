@@ -23,19 +23,14 @@ export const metadata: Metadata = {
  * interactions.js}. Static markup (not a component tree) to match the
  * house pattern already used for the other ad-traffic page, /book.
  *
- * All 11 sections from the Figma are built: header, hero, marquee,
- * First Movers (interactive quiz), video reviews, how it works,
- * comparison, prices, FAQ, final CTA, footer. Known gap: FAQ items 2-8
- * have no answer copy in the source Figma (only Q1 was written out) —
- * they render a clearly-marked placeholder rather than invented
- * treatment/medical claims.
+ * FAQ items 2-8 have no answer copy in the source Figma, so they render
+ * a marked placeholder rather than invented treatment claims.
  */
-const markup = fs.readFileSync(
-  path.join(process.cwd(), 'public', 'your-move-ads', 'markup.html'),
-  'utf8',
-);
-
 export default function YourMovePage() {
+  const markup = fs.readFileSync(
+    path.join(process.cwd(), 'public', 'your-move-ads', 'markup.html'),
+    'utf8',
+  );
   return (
     <>
       <link rel="stylesheet" href="/your-move-ads/styles.css" />
