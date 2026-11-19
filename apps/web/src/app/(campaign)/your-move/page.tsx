@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: 'Your Move — MOVES Clear Aligners',
   description:
     "London's newest aligner brand. Every plan signed by a dentist. Book a free online consultation with MOVES.",
+  robots: { index: false, follow: false, nocache: true },
 };
 
 /**
