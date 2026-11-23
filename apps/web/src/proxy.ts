@@ -41,6 +41,7 @@ function isGateExempt(pathname: string): boolean {
     // Public ad landing page (updated design) and its static bundle.
     pathname === '/landing-page' ||
     pathname.startsWith('/landing-ads/') ||
+    pathname.startsWith('/landing-bf/') ||
     // Keep the compliance destinations linked in the paid lander's footer
     // available to visitors and ad-platform reviewers.
     pathname === '/terms' ||

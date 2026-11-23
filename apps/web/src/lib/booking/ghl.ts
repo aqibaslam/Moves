@@ -161,6 +161,77 @@ export async function createBooking(input: BookingSubmit): Promise<BookingConfir
   };
 }
 
+/** GHL tags for a campaign/offer id: lowercase slug only, so a hostile value
+ *  can never inject arbitrary tags. */
+function offerTags(offer?: string): string[] {
+  const slug = (offer ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 60);
+  return slug ? [slug] : [];
+}
+
+export interface LeadInput {
+  email: string;
+  /** Campaign/offer id, e.g. "black-friday-2026". */
+  offer?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  fbclid?: string;
+  fbc?: string;
+  fbp?: string;
+  eventSourceUrl?: string;
+  landingPageVariant?: string;
+  trackingConsent?: boolean;
+}
+
+/**
+ * Email-only lead capture (e.g. the Black Friday popup). Upserts the contact
+ * by email in GoHighLevel and tags it so a workflow can send the offer email.
+ * In stub mode (no GHL_* env vars) it succeeds without touching the network.
+ */
+export async function createLead(input: LeadInput): Promise<{ stub: boolean; contactId?: string }> {
+  const { locationId, live } = config();
+  if (!live) return { stub: true };
+
+  const customFields = [
+    field(CONTACT_FIELDS.landingPageVariant, input.landingPageVariant),
+    field(CONTACT_FIELDS.utmSource, input.utmSource),
+    field(CONTACT_FIELDS.utmMedium, input.utmMedium),
+    field(CONTACT_FIELDS.utmCampaign, input.utmCampaign),
+    field(CONTACT_FIELDS.utmContent, input.utmContent),
+    field(CONTACT_FIELDS.utmTerm, input.utmTerm),
+    field(CONTACT_FIELDS.fbclid, input.fbclid),
+    optionalField(OPTIONAL_META_FIELDS.fbc(), input.fbc),
+    optionalField(OPTIONAL_META_FIELDS.fbp(), input.fbp),
+    optionalField(OPTIONAL_META_FIELDS.sourceUrl(), input.eventSourceUrl),
+  ].filter((value): value is { id: string; field_value: string } => Boolean(value));
+
+  const res = await fetch(`${BASE}/contacts/upsert`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({
+      locationId,
+      email: input.email,
+      source: input.utmSource ? `MOVES paid landing · ${input.utmSource}` : 'MOVES website email capture',
+      tags: [
+        'email-lead',
+        'marketing-email-consent',
+        input.utmSource ? 'paid-landing' : 'website',
+        ...(input.trackingConsent ? ['meta-consented'] : []),
+        ...offerTags(input.offer),
+      ],
+      customFields,
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`GHL lead upsert failed: ${res.status} ${await safeText(res)}`);
+  }
+  const data = (await res.json()) as { contact?: { id?: string }; id?: string };
+  return { stub: false, contactId: data.contact?.id ?? data.id };
+}
+
 export interface LiveAppointment {
   id: string;
   contactId: string | null;
@@ -358,6 +429,7 @@ async function upsertContact(input: BookingSubmit): Promise<string> {
         'consultation-lead',
         input.utmSource ? 'paid-landing' : 'website',
         ...(input.trackingConsent ? ['meta-consented'] : []),
+        ...offerTags(input.offer),
       ],
       customFields,
     }),

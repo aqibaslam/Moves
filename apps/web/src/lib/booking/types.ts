@@ -72,6 +72,8 @@ export const bookingDetailsSchema = z.object({
   fbp: z.string().trim().max(500).optional().or(z.literal('')),
   eventSourceUrl: z.string().url().max(2_000).optional().or(z.literal('')),
   landingPageVariant: z.string().trim().max(80).optional().or(z.literal('')),
+  /** Campaign/offer id (e.g. "black-friday-2026"); becomes a GHL tag. */
+  offer: z.string().trim().max(60).optional().or(z.literal('')),
 });
 export type BookingDetails = z.infer<typeof bookingDetailsSchema>;
 
