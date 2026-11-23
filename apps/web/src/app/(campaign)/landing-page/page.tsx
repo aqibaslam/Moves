@@ -11,26 +11,24 @@ export const metadata: Metadata = {
 };
 
 /**
- * Ads landing page, Black Friday version (V4): built from the approved
- * "MOVES-Ads-Landing-Black-Friday" file, split into
- * public/landing-bf/{bf-markup.html,bf.css,bf.js}. Static markup (not a
- * component tree) to match the house pattern used by /book and /your-move.
- * The booking modal posts to /api/booking (GoHighLevel calendar) and the
- * email popup to /api/lead (GoHighLevel contact + tags).
+ * Ads landing page, built against Figma "Move Ads - Landing Page 2.0"
+ * (node 26:1066, desktop 1440 + mobile 390). Static markup (not a component
+ * tree) to match the house pattern used by /book and /your-move — see
+ * public/landing-ads/{markup.html,styles.css,interactions.js}.
  *
  * Publicly reachable without the review password: see isGateExempt in
  * src/proxy.ts. Display + body fonts come from the (campaign) layout.
  */
 export default function LandingPage() {
   const markup = fs.readFileSync(
-    path.join(process.cwd(), 'public', 'landing-bf', 'bf-markup.html'),
+    path.join(process.cwd(), 'public', 'landing-ads', 'markup.html'),
     'utf8',
   );
   return (
     <>
-      <link rel="stylesheet" href="/landing-bf/bf.css" />
-      <div id="main" className="bf-root" dangerouslySetInnerHTML={{ __html: markup }} />
-      <Script src="/landing-bf/bf.js" strategy="afterInteractive" />
+      <link rel="stylesheet" href="/landing-ads/styles.css" />
+      <main id="main" className="lp" dangerouslySetInnerHTML={{ __html: markup }} />
+      <Script src="/landing-ads/interactions.js" strategy="afterInteractive" />
     </>
   );
 }
