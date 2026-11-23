@@ -38,6 +38,9 @@ function isGateExempt(pathname: string): boolean {
     // The paid lander's conversion path must remain reachable without the
     // review password. Its server actions are covered by the /api exemption.
     pathname === '/book' ||
+    // Public ad landing page (updated design) and its static bundle.
+    pathname === '/landing-page' ||
+    pathname.startsWith('/landing-ads/') ||
     // Keep the compliance destinations linked in the paid lander's footer
     // available to visitors and ad-platform reviewers.
     pathname === '/terms' ||
