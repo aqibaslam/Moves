@@ -110,7 +110,7 @@ $$('[data-bfclose]',p).forEach(b=>b.addEventListener('click',close));const nf=$(
  nlBtn.disabled=true;const lab=nlBtn.textContent;nlBtn.textContent='Unlocking…';
  try{const r=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:i.value.trim(),website:$('#nl-hp').value,consent:true,...attribution(),trackingConsent:cookie('moves_consent_v1')==='allowed'})});const j=await r.json().catch(()=>({}));
   if(!r.ok||!j.ok){nlErr.textContent=j.error||'We couldn’t save that just now. Please try again.';nlErr.hidden=false;return}
-  track('lead_captured',{offer:OFFER,source:'black_friday_popup'});sendMeta('track','Lead',{content_name:'Black Friday email'});p.querySelector('.nl').classList.add('done')}
+  track('lead_captured',{offer:OFFER,source:'black_friday_popup',emailed:!!j.emailed});if(j.emailed){const s=p.querySelector('.nld .nls');if(s)s.textContent='We’ve emailed you the details. Your £100 off is saved until 30 Nov. Book your free video call to use it.'}sendMeta('track','Lead',{content_name:'Black Friday email'});p.querySelector('.nl').classList.add('done')}
  catch(err){nlErr.textContent='We couldn’t reach us. Please check your connection and try again.';nlErr.hidden=false}
  finally{nlBtn.disabled=false;nlBtn.textContent=lab}});$('#nl-e').addEventListener('input',e=>e.target.classList.remove('err'));p.addEventListener('click',e=>{if(e.target===p)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 if(!seen&&Date.now()<END)setTimeout(open,6000)})();

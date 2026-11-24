@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { createLead } from '@/lib/booking/ghl';
+import {
+  BLACK_FRIDAY_OFFER,
+  BLACK_FRIDAY_SUBJECT,
+  blackFridayWelcomeHtml,
+  blackFridayWelcomeText,
+} from '@/lib/email/black-friday-welcome';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -65,8 +71,12 @@ export async function POST(request: Request) {
 
   try {
     const { website: _website, consent: _consent, ...lead } = parsed.data;
-    const result = await createLead(lead);
-    return NextResponse.json({ ok: true, stub: result.stub });
+    const welcome =
+      lead.offer === BLACK_FRIDAY_OFFER
+        ? { subject: BLACK_FRIDAY_SUBJECT, html: blackFridayWelcomeHtml(), text: blackFridayWelcomeText() }
+        : undefined;
+    const result = await createLead({ ...lead, welcome });
+    return NextResponse.json({ ok: true, stub: result.stub, emailed: Boolean(result.emailed) });
   } catch (err) {
     console.error('[lead] GHL upsert failed', err);
     return NextResponse.json(

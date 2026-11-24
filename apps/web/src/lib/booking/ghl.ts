@@ -183,6 +183,8 @@ export interface LeadInput {
   eventSourceUrl?: string;
   landingPageVariant?: string;
   trackingConsent?: boolean;
+  /** Welcome email to send (once per contact) after the lead is saved. */
+  welcome?: ContactEmail;
 }
 
 /**
@@ -190,7 +192,9 @@ export interface LeadInput {
  * by email in GoHighLevel and tags it so a workflow can send the offer email.
  * In stub mode (no GHL_* env vars) it succeeds without touching the network.
  */
-export async function createLead(input: LeadInput): Promise<{ stub: boolean; contactId?: string }> {
+export async function createLead(
+  input: LeadInput,
+): Promise<{ stub: boolean; contactId?: string; emailed?: boolean }> {
   const { locationId, live } = config();
   if (!live) return { stub: true };
 
@@ -228,8 +232,69 @@ export async function createLead(input: LeadInput): Promise<{ stub: boolean; con
   if (!res.ok) {
     throw new Error(`GHL lead upsert failed: ${res.status} ${await safeText(res)}`);
   }
-  const data = (await res.json()) as { contact?: { id?: string }; id?: string };
-  return { stub: false, contactId: data.contact?.id ?? data.id };
+  const data = (await res.json()) as { contact?: { id?: string; tags?: string[] }; id?: string };
+  const contactId = data.contact?.id ?? data.id;
+
+  let emailed = false;
+  if (input.welcome && contactId && !(data.contact?.tags ?? []).includes(WELCOME_SENT_TAG)) {
+    // Best-effort: the lead is already saved, so a mail problem must not fail
+    // the signup. The outcome is tagged on the contact so it is visible in GHL.
+    try {
+      await sendContactEmail(contactId, input.welcome);
+      emailed = true;
+      await addContactTags(contactId, [WELCOME_SENT_TAG]);
+    } catch (err) {
+      console.error('[lead] welcome email failed', err);
+      await addContactTags(contactId, [WELCOME_FAILED_TAG]).catch(() => undefined);
+    }
+  }
+  return { stub: false, contactId, emailed };
+}
+
+const WELCOME_SENT_TAG = 'welcome-email-sent';
+const WELCOME_FAILED_TAG = 'welcome-email-failed';
+
+export interface ContactEmail {
+  subject: string;
+  html: string;
+  text: string;
+}
+
+/**
+ * Send an email to a contact through GoHighLevel (Conversations API), so it
+ * lands in the contact's conversation history and uses the sub-account's own
+ * sending domain. Needs the conversations/message.write scope on the token.
+ */
+async function sendContactEmail(contactId: string, email: ContactEmail): Promise<void> {
+  const from = process.env.GHL_EMAIL_FROM?.trim();
+  const res = await fetch(`${BASE}/conversations/messages`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({
+      type: 'Email',
+      contactId,
+      subject: email.subject,
+      html: email.html,
+      message: email.text,
+      ...(from ? { emailFrom: from } : {}),
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`GHL send email failed: ${res.status} ${await safeText(res)}`);
+  }
+}
+
+async function addContactTags(contactId: string, tags: string[]): Promise<void> {
+  const res = await fetch(`${BASE}/contacts/${encodeURIComponent(contactId)}/tags`, {
+    method: 'POST',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ tags }),
+  });
+  if (!res.ok) {
+    throw new Error(`GHL tag write failed: ${res.status} ${await safeText(res)}`);
+  }
 }
 
 export interface LiveAppointment {
