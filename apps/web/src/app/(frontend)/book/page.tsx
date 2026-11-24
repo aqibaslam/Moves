@@ -38,7 +38,7 @@ export default function BookingPage() {
         className="is-light booking-root"
         dangerouslySetInnerHTML={{ __html: bookingMarkup }}
       />
-      <Script src="/booking-v2/interactions.v5.js?v=2" strategy="afterInteractive" />
+      <Script src="/booking-v2/interactions.v5.js?v=3" strategy="afterInteractive" />
     </>
   );
 }

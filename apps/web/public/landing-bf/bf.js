@@ -44,7 +44,16 @@ const attribution=()=>{const q=new URLSearchParams(location.search);let saved={}
  try{localStorage.setItem('mv-attribution',JSON.stringify({utm_source:v.utmSource,utm_medium:v.utmMedium,utm_campaign:v.utmCampaign,utm_content:v.utmContent,utm_term:v.utmTerm,fbclid:v.fbclid,landing_page_variant:VARIANT}))}catch(e){}
  return v};
 
-// ===== booking modal: live GHL calendar via /api/booking/slots + /api/booking =====
+// ===== booking: every "book" button lands on /book, the live GoHighLevel booking wizard =====
+// (capture phase, so it wins over the older in-page booking window below, which is now unused)
+let fx='';try{fx=localStorage.getItem('mv-fx')||''}catch(e){}
+document.addEventListener('change',e=>{const t=e.target;if(t&&t.closest&&t.closest('#fxOpts')&&t.value){fx=t.value;try{localStorage.setItem('mv-fx',fx)}catch(x){}}});
+const bookUrl=()=>{const a=attribution(),q=new URLSearchParams();
+ [['utm_source',a.utmSource],['utm_medium',a.utmMedium],['utm_campaign',a.utmCampaign],['utm_content',a.utmContent],['utm_term',a.utmTerm],['fbclid',a.fbclid]].forEach(([k,v])=>{if(v)q.set(k,v)});
+ q.set('lp','black-friday-2026');q.set('offer',OFFER);q.set('from','/black-friday');if(fx)q.set('fx',fx);return '/book?'+q.toString()};
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-book]');if(!b)return;e.preventDefault();e.stopPropagation();track('book_click',{offer:OFFER,fx});location.href=bookUrl()},true);
+
+// ===== (unused) in-page booking window: live GHL calendar via /api/booking/slots + /api/booking =====
 const md=$('#modal'),sh=$('#sheet'),fm=$('#bk'),daysEl=$('#bk-days'),timesEl=$('#bk-times'),errEl=$('#bk-err'),goBtn=$('#bk-go');let last=null,D=[],S={di:0,slot:null},loadedAt=0;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function showErr(msg){errEl.textContent=msg||'';errEl.hidden=!msg}

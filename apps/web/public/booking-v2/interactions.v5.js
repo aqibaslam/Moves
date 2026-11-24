@@ -19,7 +19,8 @@
       utmSource: take('utm_source'), utmMedium: take('utm_medium'), utmCampaign: take('utm_campaign'),
       utmContent: take('utm_content'), utmTerm: take('utm_term'), fbclid: take('fbclid', 'fbclid', 500),
       fbc: cookie('_fbc').slice(0, 500), fbp: cookie('_fbp').slice(0, 500), eventSourceUrl: location.href.slice(0, 2000),
-      landingPageVariant: take('lp', 'landing_page_variant', 80) || 'results-a'
+      landingPageVariant: take('lp', 'landing_page_variant', 80) || 'results-a',
+      offer: (query.get('offer') || '').replace(/[^a-z0-9-]/gi, '').slice(0, 60)
     };
     if (!value.fbc && value.fbclid) value.fbc = 'fb.1.' + Date.now() + '.' + value.fbclid;
     try { localStorage.setItem(ATTR_STORE, JSON.stringify({ utm_source:value.utmSource, utm_medium:value.utmMedium, utm_campaign:value.utmCampaign, utm_content:value.utmContent, utm_term:value.utmTerm, fbclid:value.fbclid, landing_page_variant:value.landingPageVariant })); } catch (err) {}
