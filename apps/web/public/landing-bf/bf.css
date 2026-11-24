@@ -778,3 +778,27 @@ a{color:inherit;text-decoration:none}
 /* FAQ intro stays in view while the questions scroll (desktop/tablet) */
 .faq-l{position:sticky;top:140px;align-self:start}
 @media (max-width:760px){.faq-l{position:static}}
+
+/* ---------- V4.1 Figma (24 Nov): group cut-out hero + video tag ---------- */
+.vchip{position:absolute;left:14px;top:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#fff;color:var(--ink);font:500 10.5px/14px var(--body);letter-spacing:1.1px;text-transform:uppercase}
+.vchip i{width:6px;height:6px;border-radius:50%;background:var(--pulse)}
+.hv{right:0}
+.hv .cut{filter:none}
+@media (max-width:760px){
+ .hv{width:calc(100% - 20px);height:auto;margin:38px 10px 0 0;justify-self:end}
+ .hv .cut{width:100%;height:auto}
+}
+.nlv img{right:0;left:auto;top:auto;bottom:0;height:auto;width:94%}
+@media (max-width:760px){.nlv img{width:66%;right:0;top:auto;bottom:0;height:auto}}
+.hero-price{max-width:none;white-space:nowrap}
+.nlbtn{text-transform:none;letter-spacing:0;font-weight:700}
+@media (max-width:760px){.hero-price{white-space:normal}}
+/* mobile hero copy is left-aligned in the V4.1 Figma */
+@media (max-width:760px){
+ .hero.bf .in{text-align:left;align-items:flex-start}
+ .hero.bf .hero-copy{align-items:flex-start;width:100%}
+ .hero.bf .hero-copy>.bfb.gl{align-self:flex-start;margin:0}
+ .hero.bf hr{width:300px;margin:0}
+ .hero.bf .cta{align-items:flex-start}
+ .hero.bf .cta .btn{width:auto;height:48px;padding:0 28px}
+}
