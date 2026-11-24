@@ -27,8 +27,10 @@ export default function LandingPage() {
   return (
     <>
       <link rel="stylesheet" href="/landing-ads/styles.css" />
+      <link rel="stylesheet" href="/video-slider/video-slider.css" />
       <main id="main" className="lp" dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/landing-ads/interactions.js" strategy="afterInteractive" />
+      <Script src="/video-slider/video-slider.js" strategy="afterInteractive" />
     </>
   );
 }

@@ -29,8 +29,10 @@ export default function BlackFridayPage() {
   return (
     <>
       <link rel="stylesheet" href="/landing-bf/bf.css" />
+      <link rel="stylesheet" href="/video-slider/video-slider.css" />
       <div id="main" className="bf-root" dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/landing-bf/bf.js" strategy="afterInteractive" />
+      <Script src="/video-slider/video-slider.js" strategy="afterInteractive" />
     </>
   );
 }

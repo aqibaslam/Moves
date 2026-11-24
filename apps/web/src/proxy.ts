@@ -43,6 +43,7 @@ function isGateExempt(pathname: string): boolean {
     pathname === '/black-friday' ||
     pathname.startsWith('/landing-ads/') ||
     pathname.startsWith('/landing-bf/') ||
+    pathname.startsWith('/video-slider/') ||
     // Keep the compliance destinations linked in the paid lander's footer
     // available to visitors and ad-platform reviewers.
     pathname === '/terms' ||
