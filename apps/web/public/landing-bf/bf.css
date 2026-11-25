@@ -982,3 +982,37 @@ a{color:inherit;text-decoration:none}
 @media (min-width:1441px){
  .hwrap{max-width:1440px;margin-inline:auto;--gut:0px}
 }
+
+/* ---------- hero v5 · Figma "Hero - Variation B" (25 Nov): sunglasses cut-out ----------
+   Geometry from the Figma frame (1440 wide, hero 1420 x 680): portrait box 495 x 680, 40px from the
+   right edge; the outlined lettering sits ~181px left of the portrait. Everything scales from --H. */
+.hero.bf::before{display:none}
+.hero.bf .hv::before{display:none}
+.hero.bf .hv{position:absolute;top:0;bottom:auto;right:40px;height:100%;width:auto;aspect-ratio:495/680;margin:0;
+ z-index:1;pointer-events:none;-webkit-mask-image:none;mask-image:none;filter:none}
+/* the exported layer carries its soft shadow, so it is a little larger than the 495 x 680 box */
+.hero.bf .hv .cut{position:absolute;left:-12.12%;top:-2.94%;width:116.16%;height:111.76%;max-width:none;
+ -webkit-mask-image:none;mask-image:none;filter:none}
+.hero.bf .ot{font-size:calc(var(--H) * .1735);top:calc(var(--H) * .0912);-webkit-text-stroke-color:rgb(255 255 255 / .34);
+ left:calc(100% - 40px - var(--H) * .994)}
+@media (min-width:901px){
+ .hero.bf{--H:clamp(560px,calc(100vh - 214px),680px);height:var(--H)}
+ .hero.bf .hero-copy{max-width:600px}
+ .hero.bf .hero-copy>.cta{margin-top:6px}
+}
+@media (min-width:901px) and (max-width:1100px){
+ .hero.bf .ot{left:calc(100% - 40px - var(--H) * .8)}
+}
+@media (max-width:900px){
+ .hero.bf{--Hm:clamp(300px,90vw,440px);display:grid;grid-template-columns:100%;grid-template-areas:"v" "c";height:auto}
+ .hero.bf .shade{display:none}
+ .hero.bf .ot{grid-area:v;position:relative;left:auto;top:auto;align-self:start;margin:calc(var(--Hm) * .075) 0 0 20px;
+  font-size:clamp(52px,17vw,72px)}
+ .hero.bf .hv{grid-area:v;position:relative;right:auto;top:auto;justify-self:end;align-self:start;
+  height:var(--Hm);margin:0 8px 0 0;z-index:1}
+ .hero.bf .in{grid-area:c;position:relative;z-index:2;margin-top:18px;padding:0 20px 36px;text-align:center;align-items:center}
+ .hero.bf .hero-copy{align-items:center;width:100%}
+ .hero.bf .hero-copy>.bfb.gl{display:flex;flex-direction:column;align-items:center;align-self:center;width:max-content;margin:0 auto}
+ .hero.bf hr{width:min(300px,86%);margin:0 auto}
+ .hero.bf .cta{align-items:center}
+}
