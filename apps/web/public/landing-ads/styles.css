@@ -2312,3 +2312,17 @@
     gap: 6px;
   }
 }
+
+/* footer links */
+.lp-ft a.lp-ft-home,
+.lp-ft-brand a {
+  color: inherit;
+  text-decoration: none;
+}
+.lp-ft a.lp-ft-home:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lp-ft-brand a {
+  display: inline-flex;
+}

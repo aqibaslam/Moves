@@ -20,7 +20,10 @@ const res=$('#fxRes');box.addEventListener('change',e=>{const v=e.target.value;r
 // prices tabs (mobile)
 $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.pc').forEach(c=>c.classList.toggle('on',c.dataset.p===b.dataset.t))}));
 // faq
-$$('.q button').forEach(b=>b.addEventListener('click',()=>{const q=b.closest('.q'),o=q.classList.toggle('open');b.setAttribute('aria-expanded',o)}));
+// FAQ accordion: one open at a time, the rest close smoothly
+$$('.q button').forEach(b=>b.addEventListener('click',()=>{const q=b.closest('.q'),willOpen=!q.classList.contains('open');
+ $$('.q.open').forEach(o=>{if(o!==q){o.classList.remove('open');o.querySelector('button').setAttribute('aria-expanded','false')}});
+ q.classList.toggle('open',willOpen);b.setAttribute('aria-expanded',String(willOpen))}));
 // scroll dots
 $$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(!d)return;const dots=$$('i',d);sc.addEventListener('scroll',()=>{const kids=[...sc.children];let best=0,bd=1e9;kids.forEach((k,i)=>{const dd=Math.abs(k.offsetLeft-sc.scrollLeft-parseFloat(getComputedStyle(sc).paddingLeft));if(dd<bd){bd=dd;best=i}});dots.forEach((x,i)=>x.classList.toggle('on',i===best))},{passive:true});
  dots.forEach((x,i)=>{x.style.cursor='pointer';x.addEventListener('click',()=>{const k=sc.children[i];sc.scrollTo({left:k.offsetLeft-parseFloat(getComputedStyle(sc).paddingLeft),behavior:'smooth'})})})});

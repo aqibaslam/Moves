@@ -38,6 +38,7 @@ export default function AlignerLanderPage() {
       <div id="main" className="bf-root" dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/landing-bf/bf.js" strategy="afterInteractive" />
       <Script src="/video-slider/video-slider.js" strategy="afterInteractive" />
+      <Script src="/zoom/zoom.js" strategy="afterInteractive" />
     </>
   );
 }

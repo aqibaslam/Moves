@@ -888,3 +888,43 @@ a{color:inherit;text-decoration:none}
   -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent 100%);-webkit-mask-composite:source-over;
   mask-image:linear-gradient(180deg,#000 80%,transparent 100%);mask-composite:add}
 }
+
+/* ---------- QA fixes ---------- */
+/* hero: a little larger on desktop, breathing room underneath on mobile */
+.hero.bf{height:clamp(560px,calc(100vh - 214px),700px)}
+@media (max-width:760px){
+ .hero.bf{height:auto}
+ .hero.bf .in{padding-bottom:36px}
+ .hv .cut{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%),linear-gradient(180deg,#000 80%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%),linear-gradient(180deg,#000 80%,transparent 100%);
+  mask-composite:intersect}
+}
+/* FAQ: chevron icon (as in Figma), smooth open/close */
+.q button svg{width:18px;height:18px}
+.q.open button svg{transform:rotate(180deg)}
+.q button{transition:padding .35s var(--ease)}
+/* price cards: price and saving together */
+.amtr{flex-wrap:wrap;row-gap:8px}
+.save{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;background:var(--pulse);color:#fff;font:600 11px/14px var(--body);letter-spacing:1.1px;text-transform:uppercase;align-self:center}
+/* footer links */
+.ft a.ft-home,.ft .brand a{color:inherit;text-decoration:none}
+.ft a.ft-home:hover{text-decoration:underline;text-underline-offset:3px}
+.ft .brand a{display:inline-flex}
+
+/* ---------- laptops / tablets: the photo never covers the copy ---------- */
+@media (min-width:761px) and (max-width:1280px){
+ .hero.bf .hero-copy{max-width:470px}
+ .hero.bf .h1,.hero.bf .h1 b{font-size:46px;line-height:52px;letter-spacing:-1.2px}
+ .hero.bf .sub{font-size:19px;line-height:28px}
+ .hero.bf .cta{flex-wrap:wrap;row-gap:12px}
+ .hero-price{white-space:normal;flex-basis:100%}
+ .hero.bf hr{width:380px}
+ .hv{right:0;height:min(100%,calc((100vw - 20px - 500px) * 1.1))}
+ .hero.bf::before{background:linear-gradient(90deg,rgba(9,22,32,.96) 0,rgba(9,22,32,.88) 40%,rgba(9,22,32,.4) 62%,rgba(9,22,32,0) 78%)}
+}
+/* fixed bottom bar must never hide the footer text */
+@media (max-width:760px){
+ .ft .in{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+}

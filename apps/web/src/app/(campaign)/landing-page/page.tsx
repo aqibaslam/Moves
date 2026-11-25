@@ -32,6 +32,7 @@ export default function LandingPage() {
       <main id="main" className="lp" dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/landing-ads/interactions.js" strategy="afterInteractive" />
       <Script src="/video-slider/video-slider.js" strategy="afterInteractive" />
+      <Script src="/zoom/zoom.js" strategy="afterInteractive" />
     </>
   );
 }
