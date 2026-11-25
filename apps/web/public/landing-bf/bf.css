@@ -977,3 +977,8 @@ a{color:inherit;text-decoration:none}
  .hv{right:max(0px,calc(var(--gut) * .25))}
  .ot{left:calc(100% - max(0px,calc(var(--gut) * .25)) - var(--heroH) * .925 - 70px)}
 }
+
+/* very wide screens: the banner (marquee, hero and trust strip) sits inside the same page width as the sections */
+@media (min-width:1441px){
+ .hwrap{max-width:1440px;margin-inline:auto;--gut:0px}
+}
