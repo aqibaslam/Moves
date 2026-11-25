@@ -5,19 +5,13 @@
      with the link). Posters are small stills in /video-slider/posters. */
   var DRIVE = 'https://drive.google.com/file/d/';
   var VIDEOS = [
-    { id: '1BuYxjdrcBfwAYxDeIRgJS7uoFW31eiSU', name: 'Carla', slug: 'carla-testimonial', tag: 'Testimonial' },
-    { id: '1loIP2t7vziPUnALhZJqdcx6-XBlfA9yZ', name: 'Jade', slug: 'jade-testimonial', tag: 'Testimonial' },
-    { id: '1waSoq5M21wQLJc-R1CuzpdKeAHasL-ye', name: 'Chuko', slug: 'chuko-testimonial', tag: 'Testimonial' },
-    { id: '1jdUAaSyVYZ0Vmq-Z6Q5ajn_BxlvhcB4i', name: 'Darcy', slug: 'darcy-testimonial', tag: 'Testimonial' },
-    { id: '1wgEhUM8XIlhc8TRF-Z6469vBYWONzqLC', name: 'Darcy 1', slug: 'darcy-1' },
-    { id: '1q98o2PNfnkfPyoQQTKgbGvE-uzt4xLx_', name: 'Darcy 2', slug: 'darcy-2' },
-    { id: '1GWad9K5alASm1UD9oBGzuNWpMDlJM7jw', name: 'Jade 1', slug: 'jade-1' },
-    { id: '1gUc-0ZEesDHCE540XaUzldwJmPjrwDqT', name: 'Jade clip', slug: 'jade-clip' },
-    { id: '1ayQ0FA0qlopdC86HF-K_oGT7-mjo4syf', name: 'Chuko 1', slug: 'chuko-1' },
-    { id: '1yUfSh12kojpFnPRTaZZQc6pp2W9brwYE', name: 'Girls', slug: 'girls' },
-    { id: '1V-y8HP602xdsDvRe3MzjkbwqMKzLmjJN', name: 'Girls 2', slug: 'girls-2' },
-    { id: '1862_8Zy8V1k-vBi5xQ2nfKxUqBhRoeD0', name: 'Launch', slug: 'launch' },
-    { id: '1n-_oysqrIc0VkBwsoLcPwiMY37ExzOw5', name: 'Launch 2', slug: 'launch-2' },
+    // One clip per person/subject (repeat clips were removed as duplicates).
+    // No names or tags are shown on the tiles; `name` is only for analytics.
+    { id: '1BuYxjdrcBfwAYxDeIRgJS7uoFW31eiSU', name: 'video-1', slug: 'video-1' },
+    { id: '1loIP2t7vziPUnALhZJqdcx6-XBlfA9yZ', name: 'video-2', slug: 'video-2' },
+    { id: '1jdUAaSyVYZ0Vmq-Z6Q5ajn_BxlvhcB4i', name: 'video-3', slug: 'video-3' },
+    { id: '1V-y8HP602xdsDvRe3MzjkbwqMKzLmjJN', name: 'video-4', slug: 'video-4' },
+    { id: '1862_8Zy8V1k-vBi5xQ2nfKxUqBhRoeD0', name: 'video-5', slug: 'video-5' },
   ];
 
   var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg>';
@@ -57,7 +51,7 @@
     if (old) old.remove();
     var f = document.createElement('iframe');
     f.src = DRIVE + v.id + '/preview';
-    f.title = v.name + ' video';
+    f.title = 'MOVES video';
     f.allow = 'autoplay; fullscreen; encrypted-media';
     f.setAttribute('allowfullscreen', '');
     frame.appendChild(f);
@@ -86,11 +80,9 @@
       '<ul class="vsl-track" role="list" aria-label="Customer videos">' +
       VIDEOS.map(function (v, i) {
         return (
-          '<li class="vsl-item"><button type="button" class="vsl-card" data-i="' + i + '" aria-label="Play ' + esc(v.name) + '">' +
+          '<li class="vsl-item"><button type="button" class="vsl-card" data-i="' + i + '" aria-label="Play video ' + (i + 1) + '">' +
           '<img src="/video-slider/posters/' + v.slug + '.jpg" alt="" width="640" height="1138" loading="lazy" decoding="async">' +
-          (v.tag ? '<span class="vsl-tag"><i></i>' + esc(v.tag) + '</span>' : '') +
-          '<span class="vsl-play" aria-hidden="true">' + PLAY + '</span>' +
-          '<span class="vsl-name">' + esc(v.name) + '</span></button></li>'
+          '<span class="vsl-play" aria-hidden="true">' + PLAY + '</span></button></li>'
         );
       }).join('') +
       '</ul>' +
