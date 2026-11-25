@@ -71,8 +71,11 @@ export async function POST(request: Request) {
 
   try {
     const { website: _website, consent: _consent, ...lead } = parsed.data;
+    // The welcome email is sent by the GoHighLevel workflow "MOVES | Black Friday | Popup email
+    // capture" (trigger: tag email-lead). Only send it from here too when explicitly enabled,
+    // otherwise subscribers would get two copies.
     const welcome =
-      lead.offer === BLACK_FRIDAY_OFFER
+      process.env.LEAD_WELCOME_VIA_API === '1' && lead.offer === BLACK_FRIDAY_OFFER
         ? { subject: BLACK_FRIDAY_SUBJECT, html: blackFridayWelcomeHtml(), text: blackFridayWelcomeText() }
         : undefined;
     const result = await createLead({ ...lead, welcome });
