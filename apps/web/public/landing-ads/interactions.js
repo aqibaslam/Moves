@@ -184,7 +184,7 @@
     var finalSeen = false;
     var link = sticky.querySelector('a');
     function render() {
-      var show = mobileMq.matches && heroGone && !finalSeen;
+      var show = mobileMq.matches && heroGone && !finalSeen && !footerSeen;
       sticky.classList.toggle('is-on', show);
       sticky.setAttribute('aria-hidden', show ? 'false' : 'true');
       if (link) link.tabIndex = show ? 0 : -1;
@@ -198,6 +198,9 @@
       },
       { threshold: 0 },
     ).observe(heroCta);
+    // hidden over the final CTA and the footer so it never covers text
+    var footerSeen = false;
+    var footer = root.querySelector('.lp-ft');
     if (finalCta) {
       new IntersectionObserver(
         function (entries) {
@@ -206,6 +209,15 @@
         },
         { threshold: 0 },
       ).observe(finalCta);
+    }
+    if (footer) {
+      new IntersectionObserver(
+        function (entries) {
+          footerSeen = entries[0].isIntersecting;
+          render();
+        },
+        { threshold: 0 },
+      ).observe(footer);
     }
     mobileMq.addEventListener('change', render);
   }

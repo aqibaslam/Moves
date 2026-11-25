@@ -924,7 +924,26 @@ a{color:inherit;text-decoration:none}
  .hv{right:0;height:min(100%,calc((100vw - 20px - 500px) * 1.1))}
  .hero.bf::before{background:linear-gradient(90deg,rgba(9,22,32,.96) 0,rgba(9,22,32,.88) 40%,rgba(9,22,32,.4) 62%,rgba(9,22,32,0) 78%)}
 }
-/* fixed bottom bar must never hide the footer text */
+/* the fixed bottom bar hides itself over the footer (see bf.js), so the
+   footer needs no extra empty space under the button */
 @media (max-width:760px){
- .ft .in{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+ .ft .in{padding-bottom:0}
+ .ft{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+}
+
+/* ---------- page width: top bar, header, hero copy and photo share the sections' 1440 container ---------- */
+:root{--gut:max(0px,calc((100vw - 1440px) / 2))}
+@media (min-width:761px){
+ .ann .in,.hdr .in{max-width:1440px;margin-inline:auto}
+ .hero.bf .in{max-width:1440px;margin-inline:auto}
+ .ot{left:calc(var(--gut) + min(49%,696px))}
+}
+@media (min-width:1281px){
+ .hv{right:max(24px,calc(var(--gut) + 14px))}
+}
+/* headings: room for descenders, even rhythm */
+.h2{padding-bottom:.08em}
+/* mobile top bar: the countdown message fills the width, so its link is dropped (the header button is right below) */
+@media (max-width:760px){
+ .ann-s:has(.ann-e) a{display:none}
 }

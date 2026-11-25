@@ -2100,7 +2100,7 @@
 
   /* footer */
   .lp-ft-in {
-    padding: 40px var(--pad) 120px;
+    padding: 40px var(--pad) calc(36px + env(safe-area-inset-bottom));
   }
   .lp-ft-top {
     flex-direction: column;
@@ -2325,4 +2325,9 @@
 }
 .lp-ft-brand a {
   display: inline-flex;
+}
+
+/* page width: header aligns with the sections' container on wide screens */
+.lp-top {
+  padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2 + var(--pad)));
 }

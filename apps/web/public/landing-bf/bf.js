@@ -33,8 +33,9 @@ $$('.rv').forEach(x=>io.observe(x));io.observe($('#ring'));
 // how it works: active step on scroll
 const steps=$$('.step');const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=steps.indexOf(e.target);steps.forEach((s,j)=>{s.classList.toggle('act',j===i);s.classList.toggle('done',j<i)})}}),{rootMargin:'-45% 0px -45% 0px'});steps.forEach(s=>so.observe(s));
 // sticky mobile CTA
-const hero=$('.hero'),fin=$('#book'),st=$('#sticky');const vis={hero:true,fin:false};
-const ho=new IntersectionObserver(es=>{es.forEach(e=>vis[e.target===hero?'hero':'fin']=e.isIntersecting);st.classList.toggle('on',!vis.hero&&!vis.fin)});ho.observe(hero);ho.observe(fin);
+// hidden over the hero, the final CTA and the footer, so it never covers text
+const hero=$('.hero'),fin=$('#book'),ftr=$('.ft'),st=$('#sticky');const vis={hero:true,fin:false,ft:false};
+const ho=new IntersectionObserver(es=>{es.forEach(e=>vis[e.target===hero?'hero':e.target===ftr?'ft':'fin']=e.isIntersecting);st.classList.toggle('on',!vis.hero&&!vis.fin&&!vis.ft)});ho.observe(hero);ho.observe(fin);if(ftr)ho.observe(ftr);
 // ===== shared: attribution + Meta helper (same keys as the /book wizard) =====
 const cookie=n=>document.cookie.split('; ').find(r=>r.startsWith(n+'='))?.split('=').slice(1).join('=')||'';
 const sendMeta=(method,event,params={},opts)=>{if(typeof window.fbq==='function'){opts?window.fbq(method,event,params,opts):window.fbq(method,event,params);return}window.__movesMetaQueue=window.__movesMetaQueue||[];window.__movesMetaQueue.push([method,event,params,opts])};
@@ -103,8 +104,21 @@ const END=Date.parse('2026-11-30T23:59:59Z');const pad=n=>String(n).padStart(2,'
 function tick(){let s=Math.max(0,Math.floor((END-Date.now())/1000));const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};$$('[data-cd]').forEach(c=>$$('[data-u]',c).forEach(b=>b.textContent=pad(v[b.dataset.u])))}
 tick();setInterval(tick,1000);
 // ===== announcement carousel =====
-(()=>{const tr=$('.ann-tr');if(!tr)return;const n=tr.children.length;let i=0,t;const go=k=>{i=(k+n)%n;tr.style.transform='translateX('+(-100*i)+'%)'};const auto=()=>{clearInterval(t);t=setInterval(()=>go(i+1),3500)};
-$$('.ann-a').forEach(a=>a.addEventListener('click',()=>{go(i+ +a.dataset.dir);auto()}));$('#ann').addEventListener('mouseenter',()=>clearInterval(t));$('#ann').addEventListener('mouseleave',auto);auto()})();
+// seamless infinite loop: a clone of the last slide sits before the first and a
+// clone of the first after the last; after sliding onto a clone we jump (without
+// animation) to the real slide, so it never rewinds backwards.
+(()=>{const tr=$('.ann-tr');if(!tr)return;const real=[...tr.children],n=real.length;if(n<2)return;
+const cl=el=>{const c=el.cloneNode(true);c.setAttribute('aria-hidden','true');c.querySelectorAll('a,button').forEach(x=>x.tabIndex=-1);return c};
+tr.insertBefore(cl(real[n-1]),real[0]);tr.appendChild(cl(real[0]));
+let i=0,t,busy=false;const pos=()=>'translateX('+(-100*(i+1))+'%)';
+tr.style.transition='none';tr.style.transform=pos();
+const settle=()=>{if(!busy)return;if(i>=n)i=0;else if(i<0)i=n-1;tr.style.transition='none';tr.style.transform=pos();void tr.offsetWidth;tr.style.transition='';busy=false};
+const move=d=>{if(busy)return;busy=true;i+=d;tr.style.transition='';tr.style.transform=pos();setTimeout(settle,650)};
+tr.addEventListener('transitionend',e=>{if(e.target===tr)settle()});
+const auto=()=>{clearInterval(t);t=setInterval(()=>move(1),3500)};
+$$('.ann-a').forEach(a=>a.addEventListener('click',()=>{move(+a.dataset.dir);auto()}));
+const ann=$('#ann');ann.addEventListener('mouseenter',()=>clearInterval(t));ann.addEventListener('mouseleave',auto);
+document.addEventListener('visibilitychange',()=>{document.hidden?clearInterval(t):auto()});auto()})();
 // ===== Black Friday popup: once per visit, 6s after load =====
 (()=>{const p=$('#bfpop');if(!p)return;let seen=false;try{seen=sessionStorage.getItem('bfpop')==='1'}catch(e){}
 const open=()=>{if($('#modal').classList.contains('open'))return;p.classList.add('open');p.setAttribute('aria-hidden','false');try{sessionStorage.setItem('bfpop','1')}catch(e){}};
