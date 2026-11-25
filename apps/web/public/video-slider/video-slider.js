@@ -76,7 +76,6 @@
   function mount(root) {
     root.classList.add('vsl');
     root.innerHTML =
-      '<button type="button" class="vsl-nav vsl-nav--prev" aria-label="Previous videos">' + CHEV_L + '</button>' +
       '<ul class="vsl-track" role="list" aria-label="Customer videos">' +
       VIDEOS.map(function (v, i) {
         return (
@@ -86,8 +85,11 @@
         );
       }).join('') +
       '</ul>' +
+      '<div class="vsl-ctrl">' +
+      '<button type="button" class="vsl-nav vsl-nav--prev" aria-label="Previous videos">' + CHEV_L + '</button>' +
+      '<div class="vsl-bar" aria-hidden="true"><i></i></div>' +
       '<button type="button" class="vsl-nav vsl-nav--next" aria-label="Next videos">' + CHEV_R + '</button>' +
-      '<div class="vsl-bar" aria-hidden="true"><i></i></div>';
+      '</div>';
 
     var track = root.querySelector('.vsl-track');
     var prev = root.querySelector('.vsl-nav--prev');
@@ -97,6 +99,7 @@
     function update() {
       var max = track.scrollWidth - track.clientWidth;
       var pos = track.scrollLeft;
+      root.classList.toggle('is-static', max <= 2); // everything fits: hide the controls
       prev.disabled = pos <= 2;
       next.disabled = pos >= max - 2;
       var ratio = track.clientWidth / track.scrollWidth;

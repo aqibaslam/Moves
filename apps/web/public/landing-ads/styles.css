@@ -2272,3 +2272,43 @@
     font-size: 36px;
   }
 }
+
+/* quiz: the selected category's teeth are filled in */
+.lp-opt:has(input:checked) .lp-teeth {
+  --tf: #091620;
+  --ts: #091620;
+  --th: #7c8790;
+}
+
+/* "How it works": tighter on mobile so it doesn't take a long scroll */
+@media (max-width: 1023px) {
+  .lp-hiw.lp-sec {
+    padding: 44px 0;
+  }
+  .lp-hiw .lp-head {
+    margin-bottom: 24px;
+  }
+  .lp-step {
+    padding-bottom: 24px;
+  }
+  .lp-step:not(:last-child) .lp-step-rail::after {
+    bottom: -24px;
+  }
+  .lp-step-img {
+    margin-top: 14px;
+    aspect-ratio: 304 / 220;
+  }
+  .lp-step-txt h3 {
+    margin-bottom: 8px;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .lp-step-txt p {
+    font-size: 15px;
+    line-height: 23px;
+  }
+  .lp-ticks {
+    margin-top: 12px;
+    gap: 6px;
+  }
+}

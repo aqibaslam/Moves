@@ -16,7 +16,7 @@
       var v = q.get(k);
       if (v) out.set(k, v.slice(0, 500));
     });
-    out.set('lp', 'landing-page');
+    out.set('lp', 'aligner-lander');
     out.set('from', location.pathname);
     var qs = out.toString();
     document.querySelectorAll('a[href="/book"]').forEach(function (a) {

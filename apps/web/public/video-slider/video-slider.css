@@ -17,15 +17,15 @@
 .vsl-card:focus-visible,.vsl-nav:focus-visible,.vsl-x:focus-visible{outline:2px solid #ed3b44;outline-offset:3px}
 
 /* left / right navigation */
-.vsl-nav{position:absolute;top:calc(50% - 24px);z-index:4;display:grid;place-items:center;width:48px;height:48px;padding:0;border:0;border-radius:50%;background:#fff;color:var(--vsl-ink);box-shadow:0 6px 20px rgba(9,22,32,.2);cursor:pointer;transition:background .2s,color .2s,opacity .25s,transform .2s}
+.vsl-nav{position:static;flex:none;display:grid;place-items:center;width:48px;height:48px;padding:0;border:0;border-radius:50%;background:#fff;color:var(--vsl-ink);box-shadow:0 6px 20px rgba(9,22,32,.2);cursor:pointer;transition:background .2s,color .2s,opacity .25s,transform .2s}
 .vsl-nav svg{width:20px;height:20px}
 .vsl-nav:hover{background:var(--vsl-ink);color:#fff;transform:scale(1.06)}
-.vsl-nav--prev{left:-24px}
-.vsl-nav--next{right:-24px}
-.vsl-nav[disabled]{opacity:0;pointer-events:none}
+.vsl-nav[disabled]{opacity:.35;pointer-events:none}
+.vsl-ctrl{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px}
+.vsl.is-static .vsl-ctrl{display:none}
 
 /* progress */
-.vsl-bar{position:relative;width:160px;height:3px;margin:24px auto 0;border-radius:2px;background:#dad5ce;overflow:hidden}
+.vsl-bar{position:relative;width:160px;height:3px;margin:0;border-radius:2px;background:#dad5ce;overflow:hidden}
 .vsl-bar i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:2px;background:var(--vsl-ink);transition:left .15s linear,width .15s linear}
 
 /* lightbox */
@@ -40,17 +40,15 @@
 
 @media (max-width:1180px){
   .vsl-item{flex-basis:calc((100% - 2 * var(--vsl-gap)) / 3)}
-  .vsl-nav--prev{left:-8px}
-  .vsl-nav--next{right:-8px}
 }
 @media (max-width:760px){
   .vsl{--vsl-gap:12px}
   .vsl-item{flex-basis:min(236px,64vw)}
   .vsl-card{aspect-ratio:236/392;border-radius:20px}
-  .vsl-nav{width:40px;height:40px;top:calc(50% - 20px)}
+  .vsl-nav{width:44px;height:44px}
+  .vsl-ctrl{gap:16px;margin-top:20px}
+  .vsl-bar{width:120px}
   .vsl-nav svg{width:18px;height:18px}
-  .vsl-nav--prev{left:6px}
-  .vsl-nav--next{right:6px}
   .vsl-x{top:12px;right:12px}
 }
 @media (prefers-reduced-motion:reduce){

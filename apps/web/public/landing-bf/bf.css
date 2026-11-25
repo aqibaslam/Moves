@@ -806,3 +806,20 @@ a{color:inherit;text-decoration:none}
 /* V4.1 Figma update (24 Nov 08:15): new quiz photo */
 .qz-photo img{object-position:50% 50%}
 @media (max-width:760px){.qz-photo{height:auto;aspect-ratio:350/420}.qz-photo img{object-position:50% 0}}
+
+/* quiz: the selected category's teeth are filled in */
+.opt:has(input:checked) .teeth .tt path{fill:var(--ink);transition:fill .3s ease}
+.fx .opt:has(input:checked) .tt[data-hl] path{fill:#7C8790}
+
+/* "How it works": tighter on mobile so it doesn't take a long scroll */
+@media (max-width:760px){
+ .how{padding-top:44px;padding-bottom:44px}
+ .how .head{margin-bottom:28px}
+ .steps{gap:24px}
+ .rail:after,.rail .fill{bottom:-24px}
+ .st-copy{gap:8px}
+ .st-copy h3{font-size:22px;line-height:28px}
+ .st-copy p{font-size:15px;line-height:23px}
+ .st-copy .ticks{gap:6px;margin-top:2px}
+ .st-photo{height:210px;margin-top:12px}
+}

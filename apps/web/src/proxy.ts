@@ -40,6 +40,7 @@ function isGateExempt(pathname: string): boolean {
     pathname === '/book' ||
     // Public ad landing page (updated design) and its static bundle.
     pathname === '/landing-page' ||
+    pathname === '/aligner-lander' ||
     pathname === '/black-friday' ||
     pathname.startsWith('/landing-ads/') ||
     pathname.startsWith('/landing-bf/') ||
