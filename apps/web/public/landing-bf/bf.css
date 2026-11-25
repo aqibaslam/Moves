@@ -1028,3 +1028,6 @@ a{color:inherit;text-decoration:none}
 /* "The Signature Move" tag on the dark CORE card (the original ink tag would vanish on ink) */
 .pc.dk .sig{background:var(--pulse);z-index:2}
 .hero.bf .hero-copy .h1{text-shadow:none}
+/* no grain anywhere: popup, booking box and CORE card use the flat brand ink */
+.pc.dk,.bfc,.nlv{background:var(--ink)}
+.nlv .ot{display:none}
