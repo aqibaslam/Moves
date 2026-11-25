@@ -242,6 +242,8 @@ export async function createLead(
   if (contactId && data.new === false) {
     try {
       await removeContactTags(contactId, [LEAD_TRIGGER_TAG]);
+      // GHL ignores a tag that is removed and re-added within the same instant, so give it a moment.
+      await new Promise((r) => setTimeout(r, 2500));
       await addContactTags(contactId, [LEAD_TRIGGER_TAG]);
     } catch (err) {
       console.error('[lead] could not re-trigger the welcome workflow', err);
