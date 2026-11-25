@@ -550,3 +550,5 @@ body.is-light,html:has(body.is-light){background:var(--mv-stone)}
 .is-light .btn:hover{background:var(--mv-ink);color:var(--mv-milk)}
 .is-light .day[aria-selected="true"] .left{color:var(--mv-ink-70)}
 @media (max-width:760px){.is-light .go{background:var(--mv-stone);box-shadow:0 -24px 32px -8px var(--mv-stone)}}
+/* QA 25 Nov: a chosen time stays dark when hovered or tapped (was white text on light grey) */
+.is-light .t[aria-pressed="true"]:hover{background:var(--mv-ink);color:var(--mv-milk)}
