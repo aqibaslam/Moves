@@ -1,6 +1,6 @@
 /**
  * Black Friday welcome email — sent when someone enters their email in the
- * /black-friday popup. Branded to match the landing page: MOVES wordmark on
+ * /aligner-lander popup. Branded to match the landing page: MOVES wordmark on
  * ink, milk page background, coral pill button, Jost-first type (the site's
  * Glacial Indifference can't be loaded by email clients).
  *
@@ -26,9 +26,9 @@ const PRICES = [
 
 export function blackFridayBookUrl(): string {
   const q = new URLSearchParams({
-    lp: BLACK_FRIDAY_OFFER,
+    lp: 'aligner-lander',
     offer: BLACK_FRIDAY_OFFER,
-    from: '/black-friday',
+    from: '/aligner-lander',
     utm_source: 'email',
     utm_medium: 'email',
     utm_campaign: 'bf-welcome',

@@ -50,7 +50,7 @@ let fx='';try{fx=localStorage.getItem('mv-fx')||''}catch(e){}
 document.addEventListener('change',e=>{const t=e.target;if(t&&t.closest&&t.closest('#fxOpts')&&t.value){fx=t.value;try{localStorage.setItem('mv-fx',fx)}catch(x){}}});
 const bookUrl=()=>{const a=attribution(),q=new URLSearchParams();
  [['utm_source',a.utmSource],['utm_medium',a.utmMedium],['utm_campaign',a.utmCampaign],['utm_content',a.utmContent],['utm_term',a.utmTerm],['fbclid',a.fbclid]].forEach(([k,v])=>{if(v)q.set(k,v)});
- q.set('lp','black-friday-2026');q.set('offer',OFFER);q.set('from','/black-friday');if(fx)q.set('fx',fx);return '/book?'+q.toString()};
+ q.set('lp','aligner-lander');q.set('offer',OFFER);q.set('from','/aligner-lander');if(fx)q.set('fx',fx);return '/book?'+q.toString()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-book]');if(!b)return;e.preventDefault();e.stopPropagation();track('book_click',{offer:OFFER,fx});location.href=bookUrl()},true);
 
 // ===== (unused) in-page booking window: live GHL calendar via /api/booking/slots + /api/booking =====
