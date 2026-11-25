@@ -63,8 +63,20 @@ function isGateExempt(pathname: string): boolean {
   );
 }
 
+/**
+ * The Black Friday offer ends at 23:59:59 UK time on 30 Nov 2026 (UK is on GMT in November, so that is
+ * 23:59:59 UTC). From then on the campaign URLs show the standard full-price landing page.
+ */
+const BLACK_FRIDAY_ENDS_AT = Date.parse('2026-11-30T23:59:59Z');
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if ((pathname === '/aligner-lander' || pathname === '/black-friday') && Date.now() > BLACK_FRIDAY_ENDS_AT) {
+    const to = request.nextUrl.clone();
+    to.pathname = '/landing-page';
+    return NextResponse.redirect(to);
+  }
 
   if (pathname === '/privacy' || pathname === '/contact') {
     const to = request.nextUrl.clone();

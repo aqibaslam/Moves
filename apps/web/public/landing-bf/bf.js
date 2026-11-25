@@ -101,7 +101,7 @@ $$('#bk input').forEach(i=>i.addEventListener('input',()=>{i.classList.remove('e
 
 // ===== V4: countdown (ends Cyber Monday 30 Nov 2026, 23:59 London) =====
 const END=Date.parse('2026-11-30T23:59:59Z');const pad=n=>String(n).padStart(2,'0');
-function tick(){let s=Math.max(0,Math.floor((END-Date.now())/1000));const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};$$('[data-cd]').forEach(c=>$$('[data-u]',c).forEach(b=>b.textContent=pad(v[b.dataset.u])))}
+function tick(){if(Date.now()>END){location.replace('/landing-page'+location.search);return}let s=Math.max(0,Math.floor((END-Date.now())/1000));const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};$$('[data-cd]').forEach(c=>$$('[data-u]',c).forEach(b=>b.textContent=pad(v[b.dataset.u])))}
 tick();setInterval(tick,1000);
 // ===== announcement carousel =====
 // seamless infinite loop: a clone of the last slide sits before the first and a
