@@ -954,3 +954,51 @@ a{color:inherit;text-decoration:none}
 .pc.dk svg.teeth path.mt{fill:rgb(255 255 255 / .42)}
 .pc.dk svg.teeth path[fill="#fff"]:not([stroke]){display:none}
 .pc.dk svg.teeth path[fill="none"][stroke]{fill:none}
+
+/* ---------- hero v4: portrait upper-centre, big offer lettering below it ---------- */
+:root{--hvR:24px}
+@media (min-width:761px) and (max-width:1280px){:root{--hvR:0px}}
+@media (min-width:1281px){:root{--hvR:max(24px,calc(var(--gut) + 14px))}}
+@media (min-width:761px){
+ .hero.bf{container-type:size;--hvH:78cqh;--zone:52cqw;--otF:calc(var(--hvH) * .17)}
+ .hv{top:0;bottom:auto;right:calc(var(--hvR) + (var(--zone) - var(--hvH) * .925) / 2);height:var(--hvH)}
+ .hv .cut{-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%);-webkit-mask-composite:source-over;
+  mask-image:linear-gradient(180deg,#000 62%,transparent 100%);mask-composite:add}
+ /* two rows (UNLOCK £100 OFF / EVERY MOVE), centred under the portrait */
+ .ot{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:0 .3em;
+  width:9.3em;left:auto;top:auto;bottom:3%;right:calc(var(--hvR) + var(--zone) / 2);transform:translateX(50%);
+  text-align:center;font-size:clamp(34px,min(var(--otF),calc(var(--zone) / 9.7)),112px);line-height:.92;letter-spacing:-2px;
+  -webkit-text-stroke:1.8px rgb(255 255 255 / .55);z-index:2}
+ .ot span{animation:none;color:rgb(255 255 255 / .06)}
+ .hero.bf::before{background:linear-gradient(90deg,rgba(9,22,32,.96) 0%,rgba(9,22,32,.86) 28%,rgba(9,22,32,.2) 46%,rgba(9,22,32,0) 58%)}
+}
+@media (min-width:761px) and (max-width:1280px){
+ .hero.bf{--zone:min(52cqw,calc(100cqw - 540px));--hvH:min(78cqh,calc(var(--zone) * 1.05));--otF:calc(var(--hvH) * .125)}
+}
+/* mobile: portrait centred on top, lettering stacked underneath, then the copy */
+@media (max-width:760px){
+ .hero.bf{container-type:normal;grid-template-areas:"v" "o" "c"}
+ .hv{grid-area:v;justify-self:center;align-self:start;margin:28px 0 0;height:clamp(230px,34vh,290px)}
+ .ot{grid-area:o;position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;
+  display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:0 .3em;
+  width:6.5em;max-width:100%;margin:-30px auto 0;text-align:center;
+  font-size:min(15.2vw,66px);line-height:.92;letter-spacing:-1.5px;-webkit-text-stroke:1.4px rgb(255 255 255 / .55);z-index:2}
+ .ot span{animation:none;color:rgb(255 255 255 / .06)}
+ .hero.bf .in{margin-top:12px}
+}
+
+/* price-card teeth icons: one family (same line weight and tone) */
+.pc svg.teeth path[stroke]{stroke-width:1;stroke-opacity:.7}
+.pc.dk svg.teeth path[stroke]{stroke-opacity:1}
+.pc svg.teeth path.mt{transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0));transform-box:fill-box;transform-origin:50% 100%}
+
+/* wide screens: the final-section photo lines up with the page container (not the screen edge) */
+@media (min-width:1441px){
+ .fin-img{right:var(--gut);width:min(55%,860px)}
+ .fin-img{border-radius:0 0 0 0}
+ /* the section's own backdrop fades the photo's outer edge into the page */
+ .fin-img:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(270deg,var(--milk) 0%,rgb(237 234 230 / 0) 14%)}
+}
+/* dark card: keep the gum-line mask (so tooth roots are hidden like on the white cards), tinted to the card */
+.pc.dk svg.teeth path[fill="#fff"]:not([stroke]){display:inline;fill:#0b1823}
