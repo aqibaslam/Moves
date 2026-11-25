@@ -40,6 +40,7 @@ function isGateExempt(pathname: string): boolean {
     pathname === '/book' ||
     // Public ad landing page (updated design) and its static bundle.
     pathname === '/landing-page' ||
+    pathname === '/bf-sale-pdp' ||
     pathname === '/aligner-lander' ||
     pathname === '/black-friday' ||
     pathname.startsWith('/landing-ads/') ||
@@ -72,7 +73,7 @@ const BLACK_FRIDAY_ENDS_AT = Date.parse('2026-11-30T23:59:59Z');
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if ((pathname === '/aligner-lander' || pathname === '/black-friday') && Date.now() > BLACK_FRIDAY_ENDS_AT) {
+  if ((pathname === '/bf-sale-pdp' || pathname === '/aligner-lander' || pathname === '/black-friday') && Date.now() > BLACK_FRIDAY_ENDS_AT) {
     const to = request.nextUrl.clone();
     to.pathname = '/landing-page';
     return NextResponse.redirect(to);
