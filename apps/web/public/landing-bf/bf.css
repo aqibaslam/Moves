@@ -867,3 +867,24 @@ a{color:inherit;text-decoration:none}
   mask-image:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%),linear-gradient(180deg,#000 80%,transparent 100%);
   mask-composite:intersect}
 }
+
+/* ---------- hero v3: brand lighting (navy + coral), clearer copy ---------- */
+.hero.bf::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:linear-gradient(90deg,rgba(9,22,32,.95) 0%,rgba(9,22,32,.82) 32%,rgba(9,22,32,.3) 58%,rgba(9,22,32,0) 74%)}
+.hero.bf .in{position:relative;z-index:2}
+.hv::before{background:radial-gradient(ellipse 50% 56% at 54% 50%,rgba(237,59,68,.5) 0%,rgba(237,59,68,.2) 40%,rgba(9,22,32,0) 72%)}
+.hv .cut{
+ -webkit-mask-image:linear-gradient(180deg,#000 86%,transparent 100%);-webkit-mask-composite:source-over;
+ mask-image:linear-gradient(180deg,#000 86%,transparent 100%);mask-composite:add;
+ filter:contrast(1.08) saturate(1.08) brightness(.96) drop-shadow(0 0 36px rgba(237,59,68,.26))}
+.ot{-webkit-text-stroke-color:rgb(255 255 255 / .26)}
+.hero.bf .hero-copy .sub{opacity:1}
+.hero.bf .hero-copy .h1{text-shadow:0 2px 24px rgba(9,22,32,.55)}
+.hero.bf .hero-price{opacity:.95}
+@media (max-width:760px){
+ .hero.bf::before{background:linear-gradient(180deg,rgba(9,22,32,0) 30%,rgba(9,22,32,.65) 62%,rgba(9,22,32,.9) 100%)}
+ .hv::before{left:-35%;right:-35%;top:-6%;bottom:0}
+ .hv .cut{
+  -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent 100%);-webkit-mask-composite:source-over;
+  mask-image:linear-gradient(180deg,#000 80%,transparent 100%);mask-composite:add}
+}
