@@ -947,3 +947,10 @@ a{color:inherit;text-decoration:none}
 @media (max-width:760px){
  .ann-s:has(.ann-e) a{display:none}
 }
+
+/* dark CORE card: the teeth icon is drawn as light outlines, like the white cards' dark ones */
+.pc.dk svg.teeth path[stroke]{stroke:rgb(255 255 255 / .82);stroke-opacity:1}
+.pc.dk svg.teeth path[fill="#fff"][stroke]{fill:rgb(255 255 255 / .1)}
+.pc.dk svg.teeth path.mt{fill:rgb(255 255 255 / .42)}
+.pc.dk svg.teeth path[fill="#fff"]:not([stroke]){display:none}
+.pc.dk svg.teeth path[fill="none"][stroke]{fill:none}
