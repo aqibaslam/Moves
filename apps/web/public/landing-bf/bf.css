@@ -970,3 +970,10 @@ a{color:inherit;text-decoration:none}
 }
 /* dark card: keep the gum-line mask (so tooth roots are hidden like on the white cards), tinted to the card */
 .pc.dk svg.teeth path[fill="#fff"]:not([stroke]){display:inline;fill:#0b1823}
+
+/* desktop: portrait sits further to the right (nearly flush with the banner edge); lettering follows it */
+@media (min-width:1281px){
+ .hero.bf{--heroH:clamp(560px,calc(100vh - 214px),700px)}
+ .hv{right:max(0px,calc(var(--gut) * .25))}
+ .ot{left:calc(100% - max(0px,calc(var(--gut) * .25)) - var(--heroH) * .925 - 70px)}
+}
