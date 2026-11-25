@@ -826,3 +826,11 @@ a{color:inherit;text-decoration:none}
 
 /* performance: the popup's background image is only requested once the popup opens */
 #bfpop:not(.open) .nlv{background-image:none}
+
+/* hero: portrait cut-out of a woman holding her aligner */
+.hv{right:40px}
+.hv .cut{height:100%;width:auto}
+@media (max-width:760px){
+ .hv{right:auto;width:calc(100% - 40px);margin:30px 20px 0 20px;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)}
+ .hv .cut{width:100%;height:auto}
+}
