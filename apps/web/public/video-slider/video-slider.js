@@ -34,7 +34,7 @@
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
     modal.setAttribute('aria-hidden', 'true');
-    modal.innerHTML = '<div class="vsl-frame"><button type="button" class="vsl-x" aria-label="Close video">' + CLOSE + '</button></div>';
+    modal.innerHTML = '<div class="vsl-frame"><span class="vsl-spin" aria-hidden="true"></span><button type="button" class="vsl-x" aria-label="Close video">' + CLOSE + '</button></div>';
     document.body.appendChild(modal);
     frame = modal.querySelector('.vsl-frame');
     modal.addEventListener('click', function (e) {
@@ -50,6 +50,10 @@
     var old = frame.querySelector('iframe');
     if (old) old.remove();
     var f = document.createElement('iframe');
+    // Show the poster + a spinner right away; Drive's player takes a moment.
+    frame.style.backgroundImage = 'url(/video-slider/posters/' + v.slug + '.webp)';
+    frame.classList.add('is-loading');
+    f.addEventListener('load', function () { frame.classList.remove('is-loading'); });
     f.src = DRIVE + v.id + '/preview';
     f.title = 'MOVES video';
     f.allow = 'autoplay; fullscreen; encrypted-media';
@@ -69,18 +73,44 @@
     document.body.style.overflow = '';
     var f = frame.querySelector('iframe');
     if (f) f.remove(); // stops playback
+    frame.classList.remove('is-loading');
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  /* ---------- warm up the connection to Google Drive ----------
+     Nothing from Drive is requested until a video is opened, so it costs the
+     page nothing. We only open the connections shortly before it is needed
+     (slider near the viewport, or a tile is hovered/touched). */
+  var warmed = false;
+  function warm() {
+    if (warmed) return;
+    warmed = true;
+    ['https://drive.google.com', 'https://ssl.gstatic.com', 'https://www.gstatic.com'].forEach(function (href) {
+      var l = document.createElement('link');
+      l.rel = 'preconnect';
+      l.href = href;
+      l.crossOrigin = '';
+      document.head.appendChild(l);
+    });
   }
 
   /* ---------- slider ---------- */
   function mount(root) {
     root.classList.add('vsl');
+    if ('IntersectionObserver' in window) {
+      var wio = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { warm(); wio.disconnect(); }
+      }, { rootMargin: '400px 0px' });
+      wio.observe(root);
+    }
+    root.addEventListener('pointerenter', warm, { once: true });
+    root.addEventListener('touchstart', warm, { once: true, passive: true });
     root.innerHTML =
       '<ul class="vsl-track" role="list" aria-label="Customer videos">' +
       VIDEOS.map(function (v, i) {
         return (
           '<li class="vsl-item"><button type="button" class="vsl-card" data-i="' + i + '" aria-label="Play video ' + (i + 1) + '">' +
-          '<img src="/video-slider/posters/' + v.slug + '.jpg" alt="" width="640" height="1138" loading="lazy" decoding="async">' +
+          '<img src="/video-slider/posters/' + v.slug + '.webp" alt="" width="480" height="853" loading="lazy" decoding="async">' +
           '<span class="vsl-play" aria-hidden="true">' + PLAY + '</span></button></li>'
         );
       }).join('') +
