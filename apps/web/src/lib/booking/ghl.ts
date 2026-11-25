@@ -211,7 +211,8 @@ export async function createLead(
     optionalField(OPTIONAL_META_FIELDS.sourceUrl(), input.eventSourceUrl),
   ].filter((value): value is { id: string; field_value: string } => Boolean(value));
 
-  const res = await fetch(`${BASE}/contacts/upsert`, {
+  // Retried (network errors, 429, 5xx) so a brief GHL hiccup doesn't lose a signup.
+  const res = await fetchWithRetry(`${BASE}/contacts/upsert`, {
     method: 'POST',
     headers: headers(),
     cache: 'no-store',
@@ -249,6 +250,24 @@ export async function createLead(
     }
   }
   return { stub: false, contactId, emailed };
+}
+
+/** fetch with up to 3 attempts on network errors, 429 and 5xx (short backoff). */
+async function fetchWithRetry(url: string, init: RequestInit, attempts = 3): Promise<Response> {
+  let lastError: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const res = await fetch(url, init);
+      if (res.status !== 429 && res.status < 500) return res;
+      lastError = new Error(`HTTP ${res.status}`);
+      if (i === attempts - 1) return res;
+    } catch (err) {
+      lastError = err;
+      if (i === attempts - 1) throw err;
+    }
+    await new Promise((r) => setTimeout(r, 400 * (i + 1)));
+  }
+  throw lastError;
 }
 
 const WELCOME_SENT_TAG = 'welcome-email-sent';
