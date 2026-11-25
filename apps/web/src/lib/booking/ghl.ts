@@ -233,8 +233,20 @@ export async function createLead(
   if (!res.ok) {
     throw new Error(`GHL lead upsert failed: ${res.status} ${await safeText(res)}`);
   }
-  const data = (await res.json()) as { contact?: { id?: string; tags?: string[] }; id?: string };
+  const data = (await res.json()) as { contact?: { id?: string; tags?: string[] }; id?: string; new?: boolean };
   const contactId = data.contact?.id ?? data.id;
+
+  // The GHL welcome-email workflow starts when the tag `email-lead` is *added*. For someone who already
+  // has the tag (a repeat signup, or a contact that was created before the workflow existed) nothing
+  // would fire, so take the tag off and put it back on to start the workflow again.
+  if (contactId && data.new === false) {
+    try {
+      await removeContactTags(contactId, [LEAD_TRIGGER_TAG]);
+      await addContactTags(contactId, [LEAD_TRIGGER_TAG]);
+    } catch (err) {
+      console.error('[lead] could not re-trigger the welcome workflow', err);
+    }
+  }
 
   let emailed = false;
   if (input.welcome && contactId && !(data.contact?.tags ?? []).includes(WELCOME_SENT_TAG)) {
@@ -270,6 +282,7 @@ async function fetchWithRetry(url: string, init: RequestInit, attempts = 3): Pro
   throw lastError;
 }
 
+const LEAD_TRIGGER_TAG = 'email-lead';
 const WELCOME_SENT_TAG = 'welcome-email-sent';
 const WELCOME_FAILED_TAG = 'welcome-email-failed';
 
@@ -313,6 +326,18 @@ async function addContactTags(contactId: string, tags: string[]): Promise<void> 
   });
   if (!res.ok) {
     throw new Error(`GHL tag write failed: ${res.status} ${await safeText(res)}`);
+  }
+}
+
+async function removeContactTags(contactId: string, tags: string[]): Promise<void> {
+  const res = await fetch(`${BASE}/contacts/${encodeURIComponent(contactId)}/tags`, {
+    method: 'DELETE',
+    headers: headers(),
+    cache: 'no-store',
+    body: JSON.stringify({ tags }),
+  });
+  if (!res.ok) {
+    throw new Error(`GHL tag remove failed: ${res.status} ${await safeText(res)}`);
   }
 }
 
