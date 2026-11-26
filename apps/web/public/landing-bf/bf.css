@@ -1066,3 +1066,5 @@ a{color:inherit;text-decoration:none}
 .pc.dk svg.teeth path[fill="none"][stroke]{stroke:var(--ink);stroke-opacity:1}
 /* the generic ".mt" (mobile-only text) rule must not hide the moved-tooth shapes in the price-card icons */
 svg path.mt{display:inline}
+/* CORE card: no gum-line arc, as in Figma */
+.pc.dk svg.teeth path[stroke]:not([fill]){display:none}
