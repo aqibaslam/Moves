@@ -1068,3 +1068,43 @@ a{color:inherit;text-decoration:none}
 svg path.mt{display:inline}
 /* CORE card: no gum-line arc, as in Figma */
 .pc.dk svg.teeth path[stroke]:not([fill]){display:none}
+
+/* ===== round: one vertical rhythm for every section (60px desktop · 40px mobile) ===== */
+:root{--secY:60px}
+@media (max-width:760px){:root{--secY:40px}}
+section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-block:var(--secY)!important}
+@media (max-width:1024px){section.fin,#book{padding-top:0!important}}
+.ft{padding-top:var(--secY)!important;padding-bottom:calc(var(--secY) + env(safe-area-inset-bottom))!important}
+.note{text-wrap:balance}
+
+@media (max-width:760px){
+ /* top bar: the message wraps instead of being cut off; the header button right below is the CTA */
+ :root{--hdrH:100px}
+ .ann .in{height:auto;min-height:44px;padding:0 10px}
+ .ann-vp,.ann-tr{height:auto;min-height:44px}
+ .ann-tr{align-items:stretch}
+ .ann-s,.ann-s:first-child{flex-wrap:wrap;justify-content:center;align-content:center;gap:0 8px;min-height:44px;padding:6px 0;white-space:normal;text-align:center;font-size:13px;line-height:18px;text-wrap:balance}
+ .ann-s a,.ann-s:first-child a{display:none!important}
+ .ann-e{white-space:nowrap}
+ .ann-s .mt{white-space:normal}
+
+ /* grey bands: content lines up with the rest of the page (10px band gap + 10px inner = 20px) */
+ .how>.in,.prices>.in{padding-inline:10px}
+
+ /* swipers: one full-width slide per swipe, 20px gutters, pagination dots */
+ .scroll{margin-inline:calc(var(--side)*-1);padding-inline:var(--side);gap:var(--side);scroll-padding-inline:var(--side)}
+ .qa{flex:0 0 calc(100vw - var(--side)*2);width:calc(100vw - var(--side)*2)}
+ #stories .vsl-track{margin-inline:calc(var(--side)*-1);padding-inline:var(--side);gap:var(--side);scroll-padding-inline:var(--side)}
+ #stories .vsl-item{flex:0 0 calc(100vw - var(--side)*2)}
+ #stories .vsl-card{aspect-ratio:335/440}
+ #stories .vsl-bar{display:none}
+ .vdots{display:flex;align-items:center;justify-content:center;gap:6px}
+ .vdots button{width:6px;height:6px;padding:0;border:0;border-radius:3px;background:var(--ink);opacity:.2;transition:width .3s,opacity .3s;position:relative}
+ .vdots button:before{content:"";position:absolute;inset:-12px -4px}
+ .vdots button.on{width:20px;opacity:1}
+ .vsl-ctrl{margin-top:20px}
+
+ /* CORE pill clear of the teeth icon */
+ .pc .sig{font-size:11px;letter-spacing:.8px;padding-inline:12px}
+}
+@media (min-width:761px){.vdots{display:none}}

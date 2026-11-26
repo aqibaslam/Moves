@@ -24,12 +24,18 @@ $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{$$('.tabs button')
 $$('.q button').forEach(b=>b.addEventListener('click',()=>{const q=b.closest('.q'),willOpen=!q.classList.contains('open');
  $$('.q.open').forEach(o=>{if(o!==q){o.classList.remove('open');o.querySelector('button').setAttribute('aria-expanded','false')}});
  q.classList.toggle('open',willOpen);b.setAttribute('aria-expanded',String(willOpen))}));
-// scroll dots
-$$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(!d)return;const dots=$$('i',d);sc.addEventListener('scroll',()=>{const kids=[...sc.children];let best=0,bd=1e9;kids.forEach((k,i)=>{const dd=Math.abs(k.offsetLeft-sc.scrollLeft-parseFloat(getComputedStyle(sc).paddingLeft));if(dd<bd){bd=dd;best=i}});dots.forEach((x,i)=>x.classList.toggle('on',i===best))},{passive:true});
- dots.forEach((x,i)=>{x.style.cursor='pointer';x.addEventListener('click',()=>{const k=sc.children[i];sc.scrollTo({left:k.offsetLeft-parseFloat(getComputedStyle(sc).paddingLeft),behavior:'smooth'})})})});
-// reveal + ring
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
-$$('.rv').forEach(x=>io.observe(x));io.observe($('#ring'));
+// scroll dots (phones: one full-width slide per swipe, dots show the position)
+const slideDots=(sc,dots)=>{const pad=()=>parseFloat(getComputedStyle(sc).paddingLeft)||0;
+ const cur=()=>{const l=sc.getBoundingClientRect().left+pad();let best=0,bd=1e9;[...sc.children].forEach((k,i)=>{const dd=Math.abs(k.getBoundingClientRect().left-l);if(dd<bd){bd=dd;best=i}});return best};
+ const sync=()=>{const c=cur();dots.forEach((x,i)=>{x.classList.toggle('on',i===c);x.setAttribute('aria-current',i===c?'true':'false')})};
+ sc.addEventListener('scroll',sync,{passive:true});
+ dots.forEach((x,i)=>{x.style.cursor='pointer';x.addEventListener('click',()=>{const k=sc.children[i];if(!k)return;sc.scrollTo({left:sc.scrollLeft+k.getBoundingClientRect().left-sc.getBoundingClientRect().left-pad(),behavior:'smooth'})})});
+ sync()};
+$$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(d)slideDots(sc,$$('i',d))});
+// video slider: pagination dots replace the progress bar on phones
+(()=>{const root=$('#stories [data-vslider]');if(!root)return;let n=0;const t=setInterval(()=>{const tr=$('.vsl-track',root),bar=$('.vsl-bar',root);if(++n>80)clearInterval(t);if(!tr||!bar)return;clearInterval(t);
+ const d=document.createElement('div');d.className='vdots';d.setAttribute('aria-label','Choose video');
+ d.innerHTML=[...tr.children].map((_,i)=>'<button type="button" aria-label="Video '+(i+1)+'"></button>').join('');bar.after(d);slideDots(tr,$$('button',d))},150)})();
 // how it works: active step on scroll
 const steps=$$('.step');const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=steps.indexOf(e.target);steps.forEach((s,j)=>{s.classList.toggle('act',j===i);s.classList.toggle('done',j<i)})}}),{rootMargin:'-45% 0px -45% 0px'});steps.forEach(s=>so.observe(s));
 // sticky mobile CTA
