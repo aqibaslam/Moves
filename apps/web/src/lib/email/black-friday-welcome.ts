@@ -1,8 +1,17 @@
 /**
  * Black Friday welcome email — sent when someone enters their email in the
  * /bf-sale-pdp popup. Branded to match the landing page: MOVES wordmark on
- * ink, milk page background, coral pill button, Jost-first type (the site's
- * Glacial Indifference can't be loaded by email clients).
+ * ink, milk page background, coral button, Public Sans body text.
+ *
+ * Email clients can't load the site's display face (Glacial Indifference), so
+ * the headline and the button are images rendered in it (public/images/
+ * email-bf-headline.png, email-book-button.png) with real alt text. Body text
+ * uses Public Sans where the client supports web fonts (Apple Mail, iOS) and
+ * Helvetica/Arial elsewhere; only 400/500 weights are used so nothing renders
+ * heavier than the site.
+ *
+ * Paste this into a GHL *code-editor* email template: GHL's "Quick compose"
+ * editor rewrites pasted HTML (forces Verdana, drops heading styles).
  *
  * Table-first with inline styles for broad client support; the logo is an
  * absolute-URL PNG because SVG is unreliable in Gmail/Outlook.
@@ -13,7 +22,7 @@
  */
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://movesuk.com').replace(/\/$/, '');
-const FONT = "'Jost','Century Gothic','Helvetica Neue',Helvetica,Arial,sans-serif";
+const FONT = "'Public Sans','Helvetica Neue',Helvetica,Arial,sans-serif";
 
 export const BLACK_FRIDAY_OFFER = 'black-friday-2026';
 export const BLACK_FRIDAY_SUBJECT = 'Your £100 off MOVES is unlocked';
@@ -38,17 +47,19 @@ export function blackFridayBookUrl(): string {
 
 export function blackFridayWelcomeHtml(): string {
   const logo = `${SITE_URL}/images/f26-foot-logo.png`;
+  const headline = `${SITE_URL}/images/email-bf-headline.png`;
+  const button = `${SITE_URL}/images/email-book-button.png`;
   const url = blackFridayBookUrl();
 
   const rows = PRICES.map(
     (p, i) => `
               <tr>
                 <td style="padding:16px 0;${i ? 'border-top:1px solid #dad5ce;' : ''}font-family:${FONT};">
-                  <div style="font-size:19px;line-height:24px;letter-spacing:-0.01em;color:#091620;">MOVES <span style="color:#6b7379;">${p.name}</span></div>
-                  ${p.note ? `<div style="margin-top:4px;font-size:11px;line-height:14px;letter-spacing:0.12em;text-transform:uppercase;color:#ed3b44;font-weight:600;">${p.note}</div>` : ''}
+                  <div style="font-size:18px;line-height:24px;font-weight:400;color:#091620;">MOVES <span style="color:#6b7379;">${p.name}</span></div>
+                  ${p.note ? `<div style="margin-top:6px;"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#ed3b44;color:#ffffff;font-size:10px;line-height:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;">${p.note}</span></div>` : ''}
                 </td>
                 <td align="right" style="padding:16px 0;${i ? 'border-top:1px solid #dad5ce;' : ''}font-family:${FONT};white-space:nowrap;">
-                  <div style="font-size:24px;line-height:28px;letter-spacing:-0.02em;color:#091620;font-weight:500;">${p.now}</div>
+                  <div style="font-size:24px;line-height:28px;letter-spacing:-0.02em;color:#091620;font-weight:400;">${p.now}</div>
                   <div style="margin-top:2px;font-size:13px;line-height:16px;color:#6b7379;text-decoration:line-through;">${p.was}</div>
                 </td>
               </tr>`,
@@ -63,12 +74,12 @@ export function blackFridayWelcomeHtml(): string {
   <meta name="supported-color-schemes" content="light only" />
   <title>${BLACK_FRIDAY_SUBJECT}</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap');
     body { margin: 0; padding: 0; width: 100% !important; background: #edeae6; }
     a { color: #ed3b44; }
     @media (max-width: 560px) {
       .bf-pad { padding-left: 24px !important; padding-right: 24px !important; }
-      .bf-h1 { font-size: 30px !important; line-height: 34px !important; }
+      .bf-h1 { width: 100% !important; height: auto !important; }
     }
   </style>
 </head>
@@ -88,8 +99,8 @@ export function blackFridayWelcomeHtml(): string {
           <tr>
             <td class="bf-pad" style="padding:40px 40px 8px;font-family:${FONT};">
               <div style="font-size:11px;line-height:15px;letter-spacing:0.15em;text-transform:uppercase;color:#091620;font-weight:500;">Black Friday sale</div>
-              <h1 class="bf-h1" style="margin:14px 0 0;font-family:${FONT};font-size:38px;line-height:42px;font-weight:500;letter-spacing:-0.03em;color:#091620;"><span style="font-weight:600;">£100 off</span> every Move.</h1>
-              <p style="margin:16px 0 0;font-family:${FONT};font-size:16px;line-height:25px;color:#56606a;">You&rsquo;re in. Your &pound;100 off is saved until 30 Nov. Book your free video call to use it.</p>
+              <h1 style="margin:16px 0 0;padding:0;font-size:0;line-height:0;"><img class="bf-h1" src="${headline}" width="480" height="55" alt="£100 off every Move." style="display:block;width:480px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;color:#091620;font-family:${FONT};font-size:34px;line-height:40px;font-weight:500;" /></h1>
+              <p style="margin:18px 0 0;font-family:${FONT};font-size:16px;line-height:25px;font-weight:400;color:#56606a;">You&rsquo;re in. Your &pound;100 off is saved until 30 Nov. Book your free video call to use it.</p>
             </td>
           </tr>
           <!-- prices -->
@@ -111,8 +122,8 @@ export function blackFridayWelcomeHtml(): string {
             <td class="bf-pad" align="left" style="padding:24px 40px 8px;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td align="center" bgcolor="#ed3b44" style="border-radius:26px;">
-                    <a href="${url}" target="_blank" style="display:inline-block;padding:16px 30px;font-family:${FONT};font-size:16px;line-height:20px;font-weight:500;color:#ffffff;text-decoration:none;border-radius:26px;">Book a free consultation</a>
+                  <td align="left">
+                    <a href="${url}" target="_blank" style="display:inline-block;text-decoration:none;border:0;"><img src="${button}" width="270" height="52" alt="Book a free consultation" style="display:block;width:270px;height:auto;border:0;outline:none;text-decoration:none;background:#ed3b44;border-radius:26px;color:#ffffff;font-family:${FONT};font-size:16px;line-height:52px;text-align:center;" /></a>
                   </td>
                 </tr>
               </table>
@@ -125,7 +136,7 @@ export function blackFridayWelcomeHtml(): string {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #e3e1de;">
                 <tr>
                   <td style="padding-top:20px;font-family:${FONT};font-size:14px;line-height:22px;color:#56606a;">
-                    Every plan is signed by <strong style="color:#091620;font-weight:600;">Dr Hamzah, GDC no. 277550</strong>. Free video consultation. Whitening and retainers included.
+                    Every plan is signed by <strong style="color:#091620;font-weight:500;">Dr Hamzah, GDC no. 277550</strong>. Free video consultation. Whitening and retainers included.
                   </td>
                 </tr>
               </table>
