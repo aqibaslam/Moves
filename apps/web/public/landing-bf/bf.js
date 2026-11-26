@@ -36,6 +36,8 @@ $$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(d)slideDots(sc,
 (()=>{const root=$('#stories [data-vslider]');if(!root)return;let n=0;const t=setInterval(()=>{const tr=$('.vsl-track',root),bar=$('.vsl-bar',root);if(++n>80)clearInterval(t);if(!tr||!bar)return;clearInterval(t);
  const d=document.createElement('div');d.className='vdots';d.setAttribute('aria-label','Choose video');
  d.innerHTML=[...tr.children].map((_,i)=>'<button type="button" aria-label="Video '+(i+1)+'"></button>').join('');bar.after(d);slideDots(tr,$$('button',d))},150)})();
+// smooth scrolling: looping animations (marquees, teeth, blinking dots) pause while their block is off-screen
+(()=>{if(!('IntersectionObserver' in window))return;const po=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('anim-off',!e.isIntersecting)),{rootMargin:'120px 0px'});$$('.mq,.strip,section,.ft').forEach(x=>po.observe(x))})();
 // reveal + ring
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
 $$('.rv').forEach(x=>io.observe(x));io.observe($('#ring'));

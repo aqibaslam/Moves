@@ -1109,3 +1109,15 @@ section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-bl
 }
 @media (min-width:761px){.vdots{display:none}}
 @media (max-width:760px){.scroll .rv{opacity:1;transform:none}}
+
+/* ===== smooth scrolling on phones and tablets =====
+   Blur behind glass panels is re-rendered on every scroll frame and drops frames on phones,
+   so touch screens get the same panels as solid tints. Photos are not kept on their own GPU
+   layer, and looping animations pause while their block is off-screen (bf.js adds .anim-off). */
+@media (max-width:1024px),(hover:none){
+ .g-card,.pills span{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgb(9 22 32 / .58)}
+ .sticky{-webkit-backdrop-filter:none;backdrop-filter:none;background:#fff}
+ .bfb.gl span,.nlb{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgb(9 22 32 / .4)}
+ img[data-zoom]{will-change:auto!important}
+}
+.anim-off,.anim-off *{animation-play-state:paused!important}
