@@ -36,6 +36,9 @@ $$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(d)slideDots(sc,
 (()=>{const root=$('#stories [data-vslider]');if(!root)return;let n=0;const t=setInterval(()=>{const tr=$('.vsl-track',root),bar=$('.vsl-bar',root);if(++n>80)clearInterval(t);if(!tr||!bar)return;clearInterval(t);
  const d=document.createElement('div');d.className='vdots';d.setAttribute('aria-label','Choose video');
  d.innerHTML=[...tr.children].map((_,i)=>'<button type="button" aria-label="Video '+(i+1)+'"></button>').join('');bar.after(d);slideDots(tr,$$('button',d))},150)})();
+// reveal + ring
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+$$('.rv').forEach(x=>io.observe(x));io.observe($('#ring'));
 // how it works: active step on scroll
 const steps=$$('.step');const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=steps.indexOf(e.target);steps.forEach((s,j)=>{s.classList.toggle('act',j===i);s.classList.toggle('done',j<i)})}}),{rootMargin:'-45% 0px -45% 0px'});steps.forEach(s=>so.observe(s));
 // sticky mobile CTA
