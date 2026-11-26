@@ -3,6 +3,7 @@
 import config from '@payload-config';
 import { getPayload } from 'payload';
 import { headers } from 'next/headers';
+import { after } from 'next/server';
 import { createBooking, getFreeSlots, isBookingConflict, isLive } from '@/lib/booking/ghl';
 import { sendMetaSchedule } from '@/lib/analytics/meta';
 import { walletAvailability } from '@/lib/wallet/config';
@@ -108,26 +109,27 @@ export async function createBookingAction(input: unknown): Promise<CreateBooking
     const requestHeaders = await headers();
     // GHL owns all customer communication so one workflow controls consent,
     // sender identity, reminders and the meeting link without duplicate SMS.
-    // These post-booking writes remain best-effort, but are awaited so a
-    // serverless invocation cannot terminate before attribution is delivered.
-    const postBooking = await Promise.allSettled([
-      recordConsultation(parsed.data, confirmation),
-      sendMetaSchedule({
-        confirmation,
-        booking: parsed.data,
-        clientIp: requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
-        clientUserAgent: requestHeaders.get('user-agent'),
-      }),
-    ]);
-    if (postBooking[1].status === 'rejected') {
-      console.error('[booking] Meta CAPI Schedule failed', postBooking[1].reason);
-    } else if (postBooking[1].value) {
-      console.info('[booking] Meta CAPI Schedule accepted', {
-        appointmentId: confirmation.appointmentId,
-        eventsReceived: postBooking[1].value.eventsReceived,
-        traceId: postBooking[1].value.traceId,
-      });
-    }
+    // These post-booking writes are best-effort and the confirmation screen does
+    // not need them, so they run in `after()`: the visitor gets the confirmation
+    // straight away, and the platform keeps the invocation alive (waitUntil)
+    // until the database mirror and Meta attribution have been delivered.
+    const clientIp = requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null;
+    const clientUserAgent = requestHeaders.get('user-agent');
+    after(async () => {
+      const postBooking = await Promise.allSettled([
+        recordConsultation(parsed.data, confirmation),
+        sendMetaSchedule({ confirmation, booking: parsed.data, clientIp, clientUserAgent }),
+      ]);
+      if (postBooking[1].status === 'rejected') {
+        console.error('[booking] Meta CAPI Schedule failed', postBooking[1].reason);
+      } else if (postBooking[1].value) {
+        console.info('[booking] Meta CAPI Schedule accepted', {
+          appointmentId: confirmation.appointmentId,
+          eventsReceived: postBooking[1].value.eventsReceived,
+          traceId: postBooking[1].value.traceId,
+        });
+      }
+    });
     const availability = walletAvailability();
     let wallet = { appleUrl: null, googleUrl: null } as {
       appleUrl: string | null;

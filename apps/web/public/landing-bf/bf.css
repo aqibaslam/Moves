@@ -1091,12 +1091,18 @@ section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-bl
  /* grey bands: content lines up with the rest of the page (10px band gap + 10px inner = 20px) */
  .how>.in,.prices>.in{padding-inline:10px}
 
- /* swipers: one full-width slide per swipe, 20px gutters, pagination dots */
- .scroll{margin-inline:calc(var(--side)*-1);padding-inline:var(--side);gap:var(--side);scroll-padding-inline:var(--side)}
- .qa{flex:0 0 calc(100vw - var(--side)*2);width:calc(100vw - var(--side)*2)}
- #stories .vsl-track{margin-inline:calc(var(--side)*-1);padding-inline:var(--side);gap:var(--side);scroll-padding-inline:var(--side)}
- #stories .vsl-item{flex:0 0 calc(100vw - var(--side)*2)}
- #stories .vsl-card{aspect-ratio:335/440}
+ /* swipers: 1.25 slides in view (a quarter of the next card peeks), one card per swipe, arrows + dots */
+ .scroll,#stories .vsl-track{--sw-gap:12px;margin-inline:calc(var(--side)*-1);padding-inline:var(--side);gap:var(--sw-gap);scroll-padding-inline:var(--side);scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ .scroll>*,#stories .vsl-item{scroll-snap-align:start;scroll-snap-stop:always}
+ .qa{flex:0 0 calc((100vw - var(--side)) / 1.25 - var(--sw-gap));width:calc((100vw - var(--side)) / 1.25 - var(--sw-gap))}
+ #stories .vsl-item{flex:0 0 calc((100vw - var(--side)) / 1.25 - var(--sw-gap))}
+ #stories .vsl-card{aspect-ratio:268/420}
+ .sw-ctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px}
+ .sw-ctrl .dots{margin:0}
+ .sw-nav{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);box-shadow:0 6px 20px rgb(9 22 32 / .2);transition:opacity .25s,background .2s,color .2s}
+ .sw-nav svg{width:18px;height:18px}
+ .sw-nav[disabled]{opacity:.35;pointer-events:none}
+ #stories .vsl-ctrl{gap:16px}
  #stories .vsl-bar{display:none}
  .vdots{display:flex;align-items:center;justify-content:center;gap:6px}
  .vdots button{width:6px;height:6px;padding:0;border:0;border-radius:3px;background:var(--ink);opacity:.2;transition:width .3s,opacity .3s;position:relative}
@@ -1107,7 +1113,7 @@ section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-bl
  /* CORE pill clear of the teeth icon */
  .pc .sig{font-size:11px;letter-spacing:.8px;padding-inline:12px}
 }
-@media (min-width:761px){.vdots{display:none}}
+@media (min-width:761px){.vdots,.sw-ctrl{display:none}}
 @media (max-width:760px){.scroll .rv{opacity:1;transform:none}}
 
 /* ===== smooth scrolling on phones and tablets =====

@@ -56,17 +56,29 @@
   const go = () => { const ok = !!S.m; $('go').classList.toggle('is-ready', ok); $('goB').disabled = !ok; $('goP').innerHTML = ok ? '<span>Your call · 45 min</span><b>' + dayName(D[S.di], S.di) + ', ' + S.m.label + '</b>' : '<span>Free · 45 min · Google Meet</span><b>Choose a time</b>'; };
   const localDate = date => new Date(date + 'T12:00:00');
   const dateKey = d => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(d);
-  async function loadAvailability() {
-    $('times').innerHTML = '<p class="none" style="color:var(--m60)">Loading available times…</p>';
+  // Render a slots payload. With keep=true (a quiet refresh) the chosen day and time stay selected while they are still free.
+  const applySlots = (data, keep) => {
+    const now = new Date(), today = dateKey(now), tomorrow = dateKey(new Date(now.getTime() + 86400000));
+    const next = data.days.filter(x => x.times?.length).slice(0, 3).map(x => ({ d: localDate(x.date), a: x.times, isToday: x.date === today, isTomorrow: x.date === tomorrow }));
+    if (!next.length) { D = []; $('days').innerHTML = ''; $('times').innerHTML = '<p class="none" style="color:var(--m60)">No times in the next few days. Check back tomorrow.</p>'; return; }
+    const sel = keep && S.m ? S.m.startISO : null; let di = keep ? Math.min(S.di, next.length - 1) : 0, m = null;
+    if (sel) next.forEach((x, i) => x.a.forEach(s => { if (s.startISO === sel) { m = s; di = i; } }));
+    D = next; S.di = di; S.m = m; days(); times(); go();
+  };
+  // The landing page warms the free times in the background (sessionStorage "mv-slots", 2 minutes), so they show
+  // instantly here; a fresh copy is always fetched straight after and swapped in quietly.
+  async function loadAvailability(fresh) {
+    let shown = false;
+    if (!fresh) try { const c = JSON.parse(sessionStorage.getItem('mv-slots') || 'null'); if (c && c.d && c.d.ok && Date.now() - c.t < 120000) { applySlots(c.d, false); shown = true; } } catch (e) {}
+    if (!shown) $('times').innerHTML = '<p class="none" style="color:var(--m60)">Loading available times…</p>';
     try {
       const res = await fetch('/api/booking/slots', { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Availability unavailable');
-      const now = new Date(), today = dateKey(now), tomorrow = dateKey(new Date(now.getTime() + 86400000));
-      D = data.days.filter(x => x.times?.length).slice(0, 3).map(x => ({ d: localDate(x.date), a: x.times, isToday: x.date === today, isTomorrow: x.date === tomorrow }));
-      if (!D.length) { $('days').innerHTML = ''; $('times').innerHTML = '<p class="none" style="color:var(--m60)">No times in the next few days. Check back tomorrow.</p>'; return; }
-      S.di = 0; S.m = null; days(); times(); go();
-    } catch (err) { $('days').innerHTML = ''; $('times').innerHTML = '<p class="none" style="color:var(--m60)">We couldn’t load available times. Please refresh and try again.</p>'; }
+      try { sessionStorage.setItem('mv-slots', JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
+      if (shown && $('s1').hidden) return; // already on the details step: keep what the visitor chose (a taken slot is caught on submit)
+      applySlots(data, shown);
+    } catch (err) { if (!shown) { $('days').innerHTML = ''; $('times').innerHTML = '<p class="none" style="color:var(--m60)">We couldn’t load available times. Please refresh and try again.</p>'; } }
   }
   $('days').addEventListener('click', e => { const b = e.target.closest('.day'); if (!b || +b.dataset.i === S.di) return; S.di = +b.dataset.i; S.m = null; days(); $('times').classList.add('is-swap'); setTimeout(() => { times(); $('times').classList.remove('is-swap'); }, 200); go(); });
   $('times').addEventListener('click', e => { const b = e.target.closest('.t'); if (!b || !D[S.di]) return; S.m = D[S.di].a[+b.dataset.i]; times(); go(); track('slot_selected', { slot_start:S.m.startISO }); try { navigator.vibrate && navigator.vibrate(8); } catch (err) {} });
@@ -107,7 +119,7 @@
       track('details_submitted', { slot_start:payload.slotStart, concern:payload.concern });
       const res = await fetch('/api/booking', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
       const data = await res.json();
-      if (!res.ok || !data.ok) { if (res.status === 409) { step(1); await loadAvailability(); $('times').insertAdjacentHTML('afterbegin','<p class="none" role="alert">That time’s just gone. Here’s the next one.</p>'); return; } throw new Error(data.error || 'Booking failed'); }
+      if (!res.ok || !data.ok) { if (res.status === 409) { step(1); await loadAvailability(true); $('times').insertAdjacentHTML('afterbegin','<p class="none" role="alert">That time’s just gone. Here’s the next one.</p>'); return; } throw new Error(data.error || 'Booking failed'); }
       const x = D[S.di], st = new Date(data.confirmation.startISO), en = new Date(st.getTime() + 45 * 60000);
       $('cDay').textContent = dayName(x, S.di); $('cHd').textContent = DW[x.d.getDay()] + ' ' + x.d.getDate() + ' ' + MN[x.d.getMonth()]; $('cT').textContent = S.m.label; $('cD').textContent = DL[x.d.getDay()] + ' ' + x.d.getDate() + ' ' + MN[x.d.getMonth()]; $('cE').textContent = payload.email; $('nx1').innerHTML = '<span class="label">Next</span> Your call, ' + dayName(x, S.di) + ' at ' + S.m.label + '. Then choose your Move and book your scan.'; $('cName').textContent = (payload.firstName + ' ' + payload.lastName).trim(); $('cRef').textContent = 'No. ' + data.confirmation.appointmentId.replace(/^stub-/, 'MV-').slice(-16).toUpperCase();
       const z = t => t.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''), title = 'MOVES free video consultation', det = 'Your 45-minute video call with a MOVES expert. Your Google Meet link is in your confirmation email.';
@@ -122,7 +134,7 @@
       try { sessionStorage.removeItem('mv-bk'); } catch (err) {}
       track('booking_confirmed', { appointment_id:data.confirmation.appointmentId, slot_start:data.confirmation.startISO, stub:!!data.confirmation.stub, utm_source:attribution.utmSource, utm_campaign:attribution.utmCampaign, landing_page_variant:attribution.landingPageVariant });
       sendMeta('track', 'Schedule', { content_name:'Free video consultation' }, { eventID:data.confirmation.appointmentId });
-      $('mc').dataset.t = st.getTime(); tick(); step(3);
+      $('mc').dataset.t = st.getTime(); tick(); try { sessionStorage.removeItem("mv-slots"); } catch (e) {} step(3);
     } catch (err) { let m = $('form').querySelector('.submit-error'); if (!m) { m = document.createElement('p'); m.className = 'msg submit-error'; m.setAttribute('role','alert'); $('go2').before(m); } m.textContent = err.message || 'Something went wrong booking your call. Please try again.'; }
     finally { submit.disabled = false; submit.textContent = original; }
   });

@@ -24,14 +24,17 @@ $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{$$('.tabs button')
 $$('.q button').forEach(b=>b.addEventListener('click',()=>{const q=b.closest('.q'),willOpen=!q.classList.contains('open');
  $$('.q.open').forEach(o=>{if(o!==q){o.classList.remove('open');o.querySelector('button').setAttribute('aria-expanded','false')}});
  q.classList.toggle('open',willOpen);b.setAttribute('aria-expanded',String(willOpen))}));
-// scroll dots (phones: one full-width slide per swipe, dots show the position)
-const slideDots=(sc,dots)=>{const pad=()=>parseFloat(getComputedStyle(sc).paddingLeft)||0;
+// swipers on phones: dots show the position; dots and ‹ › arrows move exactly one card, smoothly
+const slideDots=(sc,dots,prev,next)=>{const pad=()=>parseFloat(getComputedStyle(sc).paddingLeft)||0;let raf=0,c=0;
  const cur=()=>{const l=sc.getBoundingClientRect().left+pad();let best=0,bd=1e9;[...sc.children].forEach((k,i)=>{const dd=Math.abs(k.getBoundingClientRect().left-l);if(dd<bd){bd=dd;best=i}});return best};
- const sync=()=>{const c=cur();dots.forEach((x,i)=>{x.classList.toggle('on',i===c);x.setAttribute('aria-current',i===c?'true':'false')})};
- sc.addEventListener('scroll',sync,{passive:true});
- dots.forEach((x,i)=>{x.style.cursor='pointer';x.addEventListener('click',()=>{const k=sc.children[i];if(!k)return;sc.scrollTo({left:sc.scrollLeft+k.getBoundingClientRect().left-sc.getBoundingClientRect().left-pad(),behavior:'smooth'})})});
+ const sync=()=>{raf=0;c=cur();const max=sc.scrollWidth-sc.clientWidth;dots.forEach((x,i)=>{x.classList.toggle('on',i===c);x.setAttribute('aria-current',i===c?'true':'false')});
+  if(prev)prev.disabled=sc.scrollLeft<=2;if(next)next.disabled=sc.scrollLeft>=max-2};
+ const go=i=>{const k=sc.children[Math.max(0,Math.min(sc.children.length-1,i))];if(!k)return;sc.scrollTo({left:sc.scrollLeft+k.getBoundingClientRect().left-sc.getBoundingClientRect().left-pad(),behavior:'smooth'})};
+ sc.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(sync)},{passive:true});
+ dots.forEach((x,i)=>{x.style.cursor='pointer';x.addEventListener('click',()=>go(i))});
+ if(prev)prev.addEventListener('click',()=>go(c-1));if(next)next.addEventListener('click',()=>go(c+1));
  sync()};
-$$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(d)slideDots(sc,$$('i',d))});
+$$('[data-dots]').forEach(sc=>{const d=$('#'+sc.dataset.dots);if(!d)return;const w=d.closest('.sw-ctrl');slideDots(sc,$$('i',d),w&&$('[data-sw="-1"]',w),w&&$('[data-sw="1"]',w))});
 // video slider: pagination dots replace the progress bar on phones
 (()=>{const root=$('#stories [data-vslider]');if(!root)return;let n=0;const t=setInterval(()=>{const tr=$('.vsl-track',root),bar=$('.vsl-bar',root);if(++n>80)clearInterval(t);if(!tr||!bar)return;clearInterval(t);
  const d=document.createElement('div');d.className='vdots';d.setAttribute('aria-label','Choose video');
@@ -67,6 +70,14 @@ const bookUrl=()=>{const a=attribution(),q=new URLSearchParams();
  [['utm_source',a.utmSource],['utm_medium',a.utmMedium],['utm_campaign',a.utmCampaign],['utm_content',a.utmContent],['utm_term',a.utmTerm],['fbclid',a.fbclid]].forEach(([k,v])=>{if(v)q.set(k,v)});
  q.set('lp','bf-sale-pdp');q.set('offer',OFFER);q.set('from','/bf-sale-pdp');if(fx)q.set('fx',fx);return '/book?'+q.toString()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-book]');if(!b)return;e.preventDefault();e.stopPropagation();track('book_click',{offer:OFFER,fx});location.href=bookUrl()},true);
+// fast booking: once the page is idle, warm the booking step in the background, so /book opens with its times
+// already loaded (the free times are kept for 2 minutes in this tab; /book refreshes them quietly anyway)
+(()=>{let done=false;const warm=()=>{if(done)return;done=true;
+ ['/booking-v2/styles.v4.css','/booking-v2/interactions.v5.js?v=4'].forEach(h=>{const l=document.createElement('link');l.rel='prefetch';l.href=h;document.head.appendChild(l)});
+ fetch('/api/booking/slots',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d.ok)try{sessionStorage.setItem('mv-slots',JSON.stringify({t:Date.now(),d}))}catch(x){}}).catch(()=>{})};
+ const idle=window.requestIdleCallback||(f=>setTimeout(f,2500));
+ if(document.readyState==='complete')idle(warm,{timeout:4000});else addEventListener('load',()=>idle(warm,{timeout:4000}),{once:true});
+ document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('[data-book]'))warm()},{passive:true,capture:true})})();
 
 // ===== (unused) in-page booking window: live GHL calendar via /api/booking/slots + /api/booking =====
 const md=$('#modal'),sh=$('#sheet'),fm=$('#bk'),daysEl=$('#bk-days'),timesEl=$('#bk-times'),errEl=$('#bk-err'),goBtn=$('#bk-go');let last=null,D=[],S={di:0,slot:null},loadedAt=0;
