@@ -1108,3 +1108,4 @@ section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-bl
  .pc .sig{font-size:11px;letter-spacing:.8px;padding-inline:12px}
 }
 @media (min-width:761px){.vdots{display:none}}
+@media (max-width:760px){.scroll .rv{opacity:1;transform:none}}
