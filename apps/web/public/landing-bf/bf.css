@@ -1127,3 +1127,6 @@ section.sec,#answers,#quiz,#stories,#how,#included,#prices,#faq,#book{padding-bl
  img[data-zoom]{will-change:auto!important}
 }
 .anim-off,.anim-off *{animation-play-state:paused!important}
+
+/* popup: the text side is plain white (the dark photo panel keeps its own background) */
+.nl{background:#fff}
