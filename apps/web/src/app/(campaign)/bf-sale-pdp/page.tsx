@@ -31,9 +31,9 @@ export default function AlignerLanderPage() {
       <link rel="stylesheet" href="/landing-bf/bf.css" />
       {/* Hero images are the LCP: fetch them as early as possible. */}
       <link rel="preload" as="image" href="/landing-bf/img/9ee58dbc0c.webp" media="(min-width: 761px)" fetchPriority="high" />
-      <link rel="preload" as="image" href="/landing-bf/img/hero-jade.webp" media="(min-width: 761px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/landing-bf/img/hero-new.webp" media="(min-width: 761px)" fetchPriority="high" />
       <link rel="preload" as="image" href="/landing-bf/img/ae38864696.webp" media="(max-width: 760px)" fetchPriority="high" />
-      <link rel="preload" as="image" href="/landing-bf/img/hero-jade-m.webp" media="(max-width: 760px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/landing-bf/img/hero-new-m.webp" media="(max-width: 760px)" fetchPriority="high" />
       <link rel="stylesheet" href="/video-slider/video-slider.css" />
       <div id="main" className="bf-root" dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/landing-bf/bf.js" strategy="afterInteractive" />
